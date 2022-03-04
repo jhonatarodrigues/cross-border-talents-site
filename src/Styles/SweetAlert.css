@@ -1,0 +1,30 @@
+.sweet-alert .btn{
+    padding: 0.5rem 0.9375rem;
+    border-radius: 0.3125rem;
+    text-decoration: none;
+    position: relative;
+    transition: all .2s ease;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    outline: none;
+}
+.sweet-alert .btn:hover{
+    transition: all .2s ease;
+    opacity: .8;
+}
+.sweet-alert .btn-danger{
+    background: rgb(212, 63, 58);
+    color: #fff;
+}
+.sweet-alert .btn-success{
+    background: rgb(76, 174, 76);
+    color: #fff;
+}
+.sweet-alert .btn-warning{
+    background: rgb(238, 162, 54);
+    color: #fff;
+}
+.sweet-alert .btn-primary{
+    background: #222b51;
+    color: #fff;
+}
