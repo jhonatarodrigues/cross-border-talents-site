@@ -20,6 +20,7 @@ export const ContainerNav = styled.div<IMain>`
   display: flex;
   flex-direction: column;
   ${({ openMain }) => (openMain ? `width: 16vw;` : `width: 2.5rem`)}
+  min-width: 180px;
 `;
 
 export const ContentUser = styled.div<IMain>`
@@ -71,7 +72,7 @@ export const ContentInfoUser = styled.div`
 
 export const Name = styled.p`
   font-size: 18px;
-  color: #f0f;
+  color: ${Default.color.black};
   margin-bottom: 0.3125rem;
 `;
 
@@ -94,6 +95,7 @@ export const ItemNav = styled.div<IActive>`
   flex-direction: column;
   text-decoration: none;
   transition: all 0.2s ease;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 
   padding-left: ${props =>
     props.active && props.openMain ? '0.3125rem' : '0'};
@@ -105,7 +107,7 @@ export const ItemNav = styled.div<IActive>`
     if (props.white) {
       return Default.color.white;
     }
-    return '#f00';
+    return Default.color.blue;
   }};
 
   &:hover {
@@ -136,7 +138,7 @@ export const TextNav = styled.p<IActive>`
     if (props.white) {
       return Default.color.white;
     }
-    return '#f00';
+    return Default.color.black;
   }};
 `;
 export const ItemLine = styled.div`

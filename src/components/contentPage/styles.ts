@@ -43,22 +43,22 @@ export const Footer = styled.div`
   height: 2.4375rem;
   justify-content: center;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  background: #f00;
+  background: ${Default.color.blue};
 `;
 
 export const TextFooter = styled.p`
   font-size: 0.75rem;
-  color: #f0f;
+  color: ${Default.color.white};
   text-align: center;
 `;
 export const HeaderPage = styled.div`
   width: 100%;
-  background: #f0f;
+  background: ${Default.color.iceWhite};
   padding: 1.1875rem 0.9375rem;
 `;
 export const TitlePage = styled.h1`
   font-size: 20px;
-  color: #00f;
+  color: ${Default.color.black};
 `;
 export const PageHistory = styled.p`
   font-size: 0.75rem;
