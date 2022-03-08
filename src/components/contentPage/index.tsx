@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-// import languageSelected from '../../language/index';
+import React from 'react';
 
 import Header from '../header';
 import Nav from '../nav';
