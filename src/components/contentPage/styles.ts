@@ -62,8 +62,9 @@ export const TitlePage = styled.h1`
 `;
 export const PageHistory = styled.p`
   font-size: 0.75rem;
-  color: #ff0;
+  color: ${Default.color.black};
   margin-bottom: 0.625rem;
+  opacity: 0.5;
 `;
 
 export const ContentAction = styled.div`

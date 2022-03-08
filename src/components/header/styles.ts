@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Default from '../../default';
 
 // -- images
-// import ImageLogo from '../../assets/images/logoWhite.png';
+import ImageLogo from '../../assets/images/logo.png';
 
 interface IFirst {
   first?: boolean;
@@ -23,7 +23,7 @@ export const ContainerHeader = styled.div`
 export const Logo = styled.div`
   width: 6.25rem;
   height: 3.125rem;
-  border: 1px solid #f00;
+  background: url(${ImageLogo}) center no-repeat;
   background-size: contain;
 `;
 

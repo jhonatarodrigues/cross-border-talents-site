@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 
 import Header from '../header';
 import Nav from '../nav';
+import Language from '../../language';
 import Button from '../button';
 import {
   Container,
@@ -37,41 +38,30 @@ export default function ContentPage({
   buttonNewLabel = '',
   buttonNewClick = () => null,
 }: IProps): JSX.Element {
-  const [pathHistory, setPathHistory] = useState<JSX.Element>();
-
   return (
     <Container>
       <Header />
       <ContainerPages>
-        <Nav
-        // createRoutePath={val => {
-        //   setPathHistory(val);
-        // }}
-        />
+        <Nav />
         <ContentChildren>
           <GridPage>
             <HeaderPage>
-              <PageHistory>{pathHistory}</PageHistory>
+              <PageHistory>teste {'>'} aaaa</PageHistory>
               <TitlePage>{title}</TitlePage>
             </HeaderPage>
             {buttonNewLabel && (
               <ContentAction>
-                {/* {buttonNewLabel && (
-                  <Button
-                    label={buttonNewLabel}
-                    loading={false}
-                    onClick={() => buttonNewClick()}
-                  />
-                )} */}
+                {buttonNewLabel && (
+                  <Button onClick={() => buttonNewClick()}>
+                    {buttonNewLabel}
+                  </Button>
+                )}
               </ContentAction>
             )}
             <StylePage>{children}</StylePage>
           </GridPage>
           <Footer>
-            <TextFooter>
-              {/* {languageSelected.TextFooter.allRightsReserved} */}
-              aaaa
-            </TextFooter>
+            <TextFooter>{Language.copright}</TextFooter>
           </Footer>
         </ContentChildren>
       </ContainerPages>

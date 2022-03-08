@@ -1,27 +1,14 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import {
   faUser,
   IconDefinition,
-  faTruck,
   faUserTimes,
-  faBuilding,
-  faArrowRight,
-  faBox,
-  faListAlt,
-  faEnvelope,
-  faImages,
-  faPlaneDeparture,
 } from '@fortawesome/free-solid-svg-icons';
-// import SweetAlert from 'react-bootstrap-sweetalert';
-// import { useDispatch, useSelector } from 'react-redux';
+
 import { Link, useLocation } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Default from '../../default';
 
 // import languageSelected from '../../language/index';
-// import Default from '../../default';
-// import { AuthTypes } from '../../store/ducks/auth/types';
-// import { ApplicationState } from '../../store';
 import {
   ContainerNav,
   ContentUser,
@@ -50,9 +37,14 @@ export default function Nav(): JSX.Element {
 
   const navItens: INavItens[] = [
     {
-      title: `teste`,
-      icon: faImages,
-      route: '/banners',
+      title: `User`,
+      icon: faUser,
+      route: '/admin/user',
+    },
+    {
+      title: `teste--`,
+      icon: faUser,
+      route: '/admin/teste',
     },
   ];
 
@@ -86,7 +78,15 @@ export default function Nav(): JSX.Element {
             >
               <ContainerTitle openMain>
                 {index === 0 && <ItemLine />}
-                <ItemIcon openMain icon={nav.icon} color={Default.color.blue} />
+                <ItemIcon
+                  openMain
+                  icon={nav.icon}
+                  color={
+                    nav.route === activeRoute
+                      ? Default.color.white
+                      : Default.color.blue
+                  }
+                />
                 <TextNav active={nav.route === activeRoute} openMain>
                   {nav.title}
                 </TextNav>
@@ -101,7 +101,7 @@ export default function Nav(): JSX.Element {
             <ItemIcon openMain icon={faUserTimes} color={Default.color.white} />
 
             <TextNav openMain white>
-              Sair
+              Exit
             </TextNav>
           </ContainerTitle>
         </ItemNav>

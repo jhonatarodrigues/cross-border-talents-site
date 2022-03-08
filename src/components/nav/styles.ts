@@ -21,6 +21,9 @@ export const ContainerNav = styled.div<IMain>`
   flex-direction: column;
   ${({ openMain }) => (openMain ? `width: 16vw;` : `width: 2.5rem`)}
   min-width: 180px;
+
+  -webkit-box-shadow: inset -3px 0px 5px -5px #000000;
+  box-shadow: inset -3px 0px 5px -5px #000000;
 `;
 
 export const ContentUser = styled.div<IMain>`
@@ -89,7 +92,7 @@ export const ContentFooter = styled.div`
 
 export const ItemNav = styled.div<IActive>`
   width: 100%;
-  background: ${props => (props.active ? 'rgba(0,0,0,0.16)' : '')};
+  background: ${props => (props.active ? Default.color.blue : '')};
   display: flex;
   position: relative;
   flex-direction: column;
@@ -102,7 +105,7 @@ export const ItemNav = styled.div<IActive>`
 
   color: ${props => {
     if (props.active) {
-      return Default.color.blue;
+      return Default.color.white;
     }
     if (props.white) {
       return Default.color.white;
@@ -133,7 +136,7 @@ export const TextNav = styled.p<IActive>`
   font-weight: ${props => (props.active ? 600 : 500)};
   color: ${props => {
     if (props.active) {
-      return Default.color.blue;
+      return Default.color.white;
     }
     if (props.white) {
       return Default.color.white;
