@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { useSelector, useDispatch } from 'react-redux';
 
+import { ApplicationState } from '../../../store';
+import { AuthTypes } from '../../../store/ducks/auth/types';
 import Input from '../../../components/input';
 import Button from '../../../components/button';
 
@@ -14,6 +17,18 @@ import {
 } from './style';
 
 export default function Login(): JSX.Element {
+  const dispatch = useDispatch();
+  const { auth } = useSelector((state: ApplicationState) => state);
+
+  const handleLogin = useCallback(() => {
+    console.log('Login');
+    dispatch({
+      type: AuthTypes.LOAD_REQUEST,
+      username: 'aaaa',
+      password: '123456',
+    });
+  }, []);
+
   return (
     <LoginPageContainer>
       <ContentLogin>
@@ -25,7 +40,7 @@ export default function Login(): JSX.Element {
         <Input label="User" />
         <Input label="Password" />
 
-        <Button>Sign In</Button>
+        <Button onClick={() => handleLogin()}>Sign In</Button>
         <Space />
         <Button variant="text">Forgot password?</Button>
       </ContentLogin>
