@@ -30,7 +30,7 @@ export default function Header(): JSX.Element {
           <Logo />
         </Content>
         <ButtonUser>
-          <FontAwesomeIcon icon={faUser} color={Default.color.blue} />
+          <FontAwesomeIcon icon={faUser} />
         </ButtonUser>
       </ContainerHeader>
     </ContainerHeaderFull>

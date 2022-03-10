@@ -18,6 +18,9 @@ export const ContainerHeader = styled.div`
   justify-content: space-between;
   display: flex;
   align-items: center;
+
+  box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%),
+    0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
 `;
 
 export const Logo = styled.div`
@@ -30,10 +33,20 @@ export const Logo = styled.div`
 export const ButtonUser = styled.button`
   width: 2.1875rem;
   height: 2.1875rem;
-  background: ${Default.color.white};
+  font-size: 1.25rem;
+  background: transparent;
   border-radius: 100%;
-  border: 0;
-  font-size: 0.9375rem;
+  border: none;
+
+  color: ${Default.color.white};
+  opacity: 0.5;
+  transition: all 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    transition: all 0.2s ease;
+    background: rgba(0, 0, 0, 0.2);
+  }
 `;
 export const Content = styled.div`
   display: flex;

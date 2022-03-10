@@ -25,6 +25,7 @@ export const ContentChildren = styled.div`
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  background: #e7e7e9;
 `;
 
 export const GridPage = styled.div`
@@ -42,23 +43,21 @@ export const Footer = styled.div`
   align-items: center;
   height: 2.4375rem;
   justify-content: center;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  background: ${Default.color.blue};
 `;
 
 export const TextFooter = styled.p`
   font-size: 0.75rem;
-  color: ${Default.color.white};
+  color: ${Default.color.gray};
   text-align: center;
 `;
 export const HeaderPage = styled.div`
   width: 100%;
-  background: ${Default.color.iceWhite};
-  padding: 1.1875rem 0.9375rem;
+
+  padding: 1.875rem;
 `;
 export const TitlePage = styled.h1`
-  font-size: 20px;
-  color: ${Default.color.black};
+  font-size: 1.875rem;
+  color: ${Default.color.grayLight};
 `;
 export const PageHistory = styled.p`
   font-size: 0.75rem;
@@ -68,5 +67,5 @@ export const PageHistory = styled.p`
 `;
 
 export const ContentAction = styled.div`
-  padding: 1.875rem 1.875rem 0;
+  padding: 0 1.875rem 0;
 `;

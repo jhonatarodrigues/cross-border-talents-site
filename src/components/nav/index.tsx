@@ -21,7 +21,6 @@ import {
   ItemNav,
   TextNav,
   ItemIcon,
-  ItemLine,
   ContainerTitle,
 } from './styles';
 
@@ -77,14 +76,13 @@ export default function Nav(): JSX.Element {
               openMain
             >
               <ContainerTitle openMain>
-                {index === 0 && <ItemLine />}
                 <ItemIcon
                   openMain
                   icon={nav.icon}
                   color={
                     nav.route === activeRoute
-                      ? Default.color.white
-                      : Default.color.blue
+                      ? Default.color.blue
+                      : Default.color.gray
                   }
                 />
                 <TextNav active={nav.route === activeRoute} openMain>
@@ -95,7 +93,7 @@ export default function Nav(): JSX.Element {
           </Link>
         ))}
       </ContentNav>
-      <ContentFooter>
+      {/* <ContentFooter>
         <ItemNav onClick={() => openModalLogout()} openMain>
           <ContainerTitle openMain>
             <ItemIcon openMain icon={faUserTimes} color={Default.color.white} />
@@ -105,7 +103,7 @@ export default function Nav(): JSX.Element {
             </TextNav>
           </ContainerTitle>
         </ItemNav>
-      </ContentFooter>
+      </ContentFooter> */}
     </ContainerNav>
   );
 }

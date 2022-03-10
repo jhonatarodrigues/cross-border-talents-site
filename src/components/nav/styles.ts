@@ -20,16 +20,15 @@ export const ContainerNav = styled.div<IMain>`
   display: flex;
   flex-direction: column;
   ${({ openMain }) => (openMain ? `width: 16vw;` : `width: 2.5rem`)}
-  min-width: 180px;
-
-  -webkit-box-shadow: inset -3px 0px 5px -5px #000000;
-  box-shadow: inset -3px 0px 5px -5px #000000;
+  min-width: 15rem;
+  z-index: 1;
+  box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2),
+    0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12);
 `;
 
 export const ContentUser = styled.div<IMain>`
   width: 100%;
   height: 6.25rem;
-  background: rgba(0, 0, 0, 0.1);
   align-items: center;
   display: flex;
   padding: ${({ openMain }) => (openMain ? `0 0.9375rem` : `0.3125rem`)};
@@ -37,7 +36,7 @@ export const ContentUser = styled.div<IMain>`
 
 export const ContentImage = styled.div<IMain>`
   border-radius: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 2px solid rgba(0, 0, 0, 0.2);
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -92,31 +91,17 @@ export const ContentFooter = styled.div`
 
 export const ItemNav = styled.div<IActive>`
   width: 100%;
-  background: ${props => (props.active ? Default.color.blue : '')};
+  background: ${props =>
+    props.active ? Default.color.white2 : Default.color.white};
   display: flex;
   position: relative;
   flex-direction: column;
   text-decoration: none;
   transition: all 0.2s ease;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-
-  padding-left: ${props =>
-    props.active && props.openMain ? '0.3125rem' : '0'};
-
-  color: ${props => {
-    if (props.active) {
-      return Default.color.white;
-    }
-    if (props.white) {
-      return Default.color.white;
-    }
-    return Default.color.blue;
-  }};
 
   &:hover {
     transition: all 0.2s ease;
     background: rgba(0, 0, 0, 0.16);
-    padding-left: ${props => (props.openMain ? '0.3125rem' : '0')};
 
     ${props =>
       !props.openMain &&
@@ -128,30 +113,15 @@ export const ItemNav = styled.div<IActive>`
 `;
 
 export const ItemIcon = styled(FontAwesomeIcon)<IMain>`
-  margin-right: ${props => (props.openMain ? '0.625rem' : '0')};
+  margin-right: ${props => (props.openMain ? '.9375rem' : '0')};
 `;
 export const TextNav = styled.p<IActive>`
   font-size: 0.9375rem;
   text-decoration: none;
-  font-weight: ${props => (props.active ? 600 : 500)};
-  color: ${props => {
-    if (props.active) {
-      return Default.color.white;
-    }
-    if (props.white) {
-      return Default.color.white;
-    }
-    return Default.color.black;
-  }};
-`;
-export const ItemLine = styled.div`
-  position: absolute;
-  width: 90%;
-  background: rgba(0, 0, 0, 0.2);
-  top: 0;
-  height: 1px;
-  left: 50%;
-  transform: translateX(-50%);
+  font-weight: 400;
+  color: ${props =>
+    props.active ? Default.color.graySemiDark : Default.color.gray};
+  };
 `;
 
 export const ContainerTitle = styled.div<IMain>`
@@ -159,8 +129,7 @@ export const ContainerTitle = styled.div<IMain>`
   display: flex;
   flex-direction: row;
   position: relative;
-  padding: ${({ openMain }) =>
-    openMain ? '0.75rem 0.9375rem' : '0.625rem 0.625rem'};
+  padding: 15px 1.875rem;
   ${({ openMain }) =>
     !openMain &&
     `
