@@ -6,13 +6,13 @@ export const Content = styled.div`
   flex-direction: row;
   padding-top: 0.3125rem;
 
-  .MuiTextField-root {
+  .contentField {
     margin: 0 0.4688rem;
   }
-  .MuiTextField-root:first-child {
+  .contentField:first-child {
     margin-left: 0;
   }
-  .MuiTextField-root:last-child {
+  .contentField:last-child {
     margin-right: 0;
   }
 `;

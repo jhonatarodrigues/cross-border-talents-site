@@ -7,4 +7,5 @@ export const color = {
   grayLight: '#B9B9B9',
   gray: '#6E6E6ECC',
   graySemiDark: '#4A4A4A',
+  red: '#f00',
 };

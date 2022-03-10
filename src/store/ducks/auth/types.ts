@@ -9,11 +9,18 @@ export enum AuthTypes {
 }
 
 // -- Data Types
+interface IUser {
+  email: string;
+  name: string;
+}
 export interface IAuth {
-  id_token: string;
-  user: any;
+  token: string;
+  refreshToken: string;
+  user: IUser;
 }
 // -- State Type
 export interface IAuthState extends IAuth {
   loading: boolean;
+  error?: boolean;
+  message?: string;
 }

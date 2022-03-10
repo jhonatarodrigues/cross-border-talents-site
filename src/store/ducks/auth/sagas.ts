@@ -1,8 +1,8 @@
 /* eslint-disable no-underscore-dangle */
 import { call, put } from 'redux-saga/effects';
 import { AnyAction } from 'redux';
-import { useQuery } from 'react-query';
 
+import { AxiosResponse } from 'axios';
 import api from '../../../services/api';
 import { loadSuccess, loadFailure } from './actions';
 import { IAuth } from './types';
@@ -12,55 +12,43 @@ interface IParams extends AnyAction {
   password: string;
 }
 
-const QueryLogin = `
-mutation {
-  login(email:"teste@teste.com", password: "123456"){
-    user{
-      name
-      email
-    }
-    token
-    refreshToken
-  }
-}`;
+interface IReturn {
+  data?: {
+    login: IAuth;
+  };
+  errors?: {
+    message: string;
+  }[];
+}
 
 export function* load({ username, password }: IParams) {
-  console.log('username', username, password);
+  const QueryLogin = `
+    mutation {
+      login(email:"${username}", password: "${password}") {
+        user{
+          name
+          email
+        }
+        token
+        refreshToken
+      }
+    }`;
   try {
-    const response: IAuth = yield call(api.post, '/', {
+    const response: AxiosResponse<IReturn> = yield call(api.post, '/', {
       query: QueryLogin,
     });
 
-    console.log('response ---', response);
-
-    // .post('/', {
-    //   data: {
-    //     query: '',
-    //   },
-    // })
-    // .then(response => response.data.data);
-
-    // const response: IAuth = yield call(
-    //   api.post,
-    //   '/api/v1/authentications/backoffice',
-    //   {
-    //     username,
-    //     password,
-    //   },
-    // );
-
-    console.log('aaaa ---');
-
-    // yield put(loadSuccess(res));
-
-    // yield put(loadFailure({ error: true }));
-  } catch (err: any) {
-    console.log('error --', err);
-    let json = {};
-    if (err && err.response) {
-      json = JSON.parse(err.response.request.response);
+    if (response.data.data?.login) {
+      yield put(loadSuccess(response.data.data.login));
+    } else {
+      yield put(
+        loadFailure({
+          error: true,
+          message: response.data.errors?.[0].message,
+        }),
+      );
     }
-
-    yield put(loadFailure({ error: true, json }));
+  } catch (err: any) {
+    yield put(loadFailure({ error: true, err }));
   }
 }

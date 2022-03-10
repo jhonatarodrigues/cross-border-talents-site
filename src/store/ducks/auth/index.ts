@@ -2,8 +2,9 @@ import { Reducer } from 'redux';
 import { IAuthState, AuthTypes } from './types';
 
 const INITIAL_STATE: IAuthState = {
-  id_token: '',
-  user: null,
+  token: '',
+  refreshToken: '',
+  user: { email: '', name: '' },
   loading: false,
 };
 
