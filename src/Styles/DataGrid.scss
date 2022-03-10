@@ -1,11 +1,10 @@
 .css-jgzxgq-MuiDataGrid-root{
     background: #fff;
     box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-
+    border-radius: 10px!important;
 
     .css-1jbbcbn-MuiDataGrid-columnHeaderTitle{
-        text-transform: uppercase;
-        color: #4A4A4A;
+        color: $blue;
         font-size: 0.95rem;
         font-weight: 500;
         line-height: 1.5rem;

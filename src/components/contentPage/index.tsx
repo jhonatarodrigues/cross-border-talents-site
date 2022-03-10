@@ -16,6 +16,8 @@ import {
   StylePage,
   PageHistory,
   ContentAction,
+  ContentHeaderPage,
+  ContentActionButtons,
 } from './styles';
 
 interface IProps {
@@ -45,18 +47,23 @@ export default function ContentPage({
         <ContentChildren>
           <GridPage>
             <HeaderPage>
-              <PageHistory>teste {'>'} aaaa</PageHistory>
-              <TitlePage>{title}</TitlePage>
-            </HeaderPage>
-            {buttonNewLabel && (
-              <ContentAction>
+              <ContentHeaderPage>
+                <PageHistory>teste {'>'} aaaa</PageHistory>
+                <TitlePage>{title}</TitlePage>
+              </ContentHeaderPage>
+              <ContentActionButtons>
                 {buttonNewLabel && (
-                  <Button onClick={() => buttonNewClick()}>
-                    {buttonNewLabel}
-                  </Button>
+                  <ContentAction>
+                    {buttonNewLabel && (
+                      <Button onClick={() => buttonNewClick()}>
+                        {buttonNewLabel}
+                      </Button>
+                    )}
+                  </ContentAction>
                 )}
-              </ContentAction>
-            )}
+              </ContentActionButtons>
+            </HeaderPage>
+
             <StylePage>{children}</StylePage>
           </GridPage>
           <Footer>

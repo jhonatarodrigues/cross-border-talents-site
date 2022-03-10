@@ -22,71 +22,10 @@ export const ContainerNav = styled.div<IMain>`
   ${({ openMain }) => (openMain ? `width: 16vw;` : `width: 2.5rem`)}
   min-width: 15rem;
   z-index: 1;
-  box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2),
-    0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12);
-`;
-
-export const ContentUser = styled.div<IMain>`
-  width: 100%;
-  height: 6.25rem;
-  align-items: center;
-  display: flex;
-  padding: ${({ openMain }) => (openMain ? `0 0.9375rem` : `0.3125rem`)};
-`;
-
-export const ContentImage = styled.div<IMain>`
-  border-radius: 100%;
-  border: 2px solid rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-  ${({ openMain }) =>
-    openMain
-      ? ` width: 3.125rem;
-      height: 3.125rem;`
-      : ` width: 1.875rem;
-      height: 1.875rem;`}
-`;
-
-export const ImageName = styled.div<IMain>`
-  width: 3.125rem;
-  height: 3.125rem;
-  background: ${Default.color.white};
-  font-size: 1.25rem;
-  letter-spacing: -0.0437rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: ${Default.color.blue};
-  font-weight: 700;
-  transition: all 0.2s ease;
-  ${({ openMain }) =>
-    openMain ? `font-size: 1.25rem;` : `font-size: 0.8125rem;`}
-`;
-
-export const ContentInfoUser = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding-left: 10px;
-`;
-
-export const Name = styled.p`
-  font-size: 18px;
-  color: ${Default.color.black};
-  margin-bottom: 0.3125rem;
 `;
 
 export const ContentNav = styled.div`
   height: 100%;
-`;
-
-export const ContentFooter = styled.div`
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
-  background: ${Default.color.blue};
-  height: 2.8125rem;
-  overflow: hidden;
 `;
 
 export const ItemNav = styled.div<IActive>`
@@ -136,4 +75,15 @@ export const ContainerTitle = styled.div<IMain>`
     justify-content: center;
     align-items: center;
   `}
+`;
+
+export const ContentLogo = styled.div`
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+  padding: 0.9375rem 0;
+`;
+export const LogoImage = styled.img`
+  width: 9.375rem;
 `;

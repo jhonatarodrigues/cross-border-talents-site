@@ -1,27 +1,18 @@
-import React, { useCallback } from 'react';
-import {
-  faUser,
-  IconDefinition,
-  faUserTimes,
-} from '@fortawesome/free-solid-svg-icons';
-
+import React from 'react';
+import { faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Link, useLocation } from 'react-router-dom';
-import Default from '../../default';
 
-// import languageSelected from '../../language/index';
+import Default from '../../default';
+import Logo from '../../assets/images/logo.png';
 import {
   ContainerNav,
-  ContentUser,
-  ContentImage,
-  ImageName,
-  ContentInfoUser,
-  Name,
   ContentNav,
-  ContentFooter,
   ItemNav,
   TextNav,
   ItemIcon,
   ContainerTitle,
+  ContentLogo,
+  LogoImage,
 } from './styles';
 
 interface INavItens {
@@ -47,21 +38,11 @@ export default function Nav(): JSX.Element {
     },
   ];
 
-  const openModalLogout = useCallback(() => {
-    // setModalLogout(true);
-  }, []);
-
   return (
     <ContainerNav openMain>
-      <ContentUser openMain>
-        <ContentImage openMain>
-          <ImageName openMain>JR</ImageName>
-        </ContentImage>
-
-        <ContentInfoUser>
-          <Name>Roberto nunes</Name>
-        </ContentInfoUser>
-      </ContentUser>
+      <ContentLogo>
+        <LogoImage src={Logo} />
+      </ContentLogo>
       <ContentNav>
         {navItens.map((nav, index) => (
           <Link
@@ -93,17 +74,6 @@ export default function Nav(): JSX.Element {
           </Link>
         ))}
       </ContentNav>
-      {/* <ContentFooter>
-        <ItemNav onClick={() => openModalLogout()} openMain>
-          <ContainerTitle openMain>
-            <ItemIcon openMain icon={faUserTimes} color={Default.color.white} />
-
-            <TextNav openMain white>
-              Exit
-            </TextNav>
-          </ContainerTitle>
-        </ItemNav>
-      </ContentFooter> */}
     </ContainerNav>
   );
 }

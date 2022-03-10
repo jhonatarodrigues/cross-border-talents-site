@@ -35,7 +35,10 @@ export const GridPage = styled.div`
 `;
 
 export const StylePage = styled.div`
-  padding: 1.875rem 1.875rem;
+  margin: 1.875rem 1.875rem;
+  background: #fff;
+  padding: 1.875rem;
+  border-radius: 0.625rem;
 `;
 
 export const Footer = styled.div`
@@ -54,6 +57,9 @@ export const HeaderPage = styled.div`
   width: 100%;
 
   padding: 1.875rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 export const TitlePage = styled.h1`
   font-size: 1.875rem;
@@ -67,5 +73,7 @@ export const PageHistory = styled.p`
 `;
 
 export const ContentAction = styled.div`
-  padding: 0 1.875rem 0;
+  padding-left: 1.875rem;
 `;
+export const ContentHeaderPage = styled.div``;
+export const ContentActionButtons = styled.div``;

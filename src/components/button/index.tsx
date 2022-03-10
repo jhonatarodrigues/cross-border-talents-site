@@ -1,5 +1,7 @@
 import * as React from 'react';
-import Button, { ButtonProps } from '@mui/material/Button';
+import { ButtonProps } from '@mui/material/Button';
+
+import { ButtonMui } from './style';
 
 interface IProps extends ButtonProps {
   children: React.ReactNode;
@@ -10,8 +12,8 @@ export default function DefaultButton({
   ...rest
 }: IProps): JSX.Element {
   return (
-    <Button variant="contained" {...rest}>
+    <ButtonMui variant="contained" {...rest}>
       {children}
-    </Button>
+    </ButtonMui>
   );
 }

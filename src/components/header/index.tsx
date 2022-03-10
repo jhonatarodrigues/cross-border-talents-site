@@ -11,6 +11,9 @@ import {
   SanduichLine,
   Content,
   ContainerHeaderFull,
+  ContentButton,
+  NameUser,
+  NameBusiness,
 } from './styles';
 
 export default function Header(): JSX.Element {
@@ -27,11 +30,14 @@ export default function Header(): JSX.Element {
             <SanduichLine openMain />
             <SanduichLine openMain />
           </ContainerSanduich>
-          <Logo />
+          <NameBusiness>Cross Border Talents</NameBusiness>
         </Content>
-        <ButtonUser>
-          <FontAwesomeIcon icon={faUser} />
-        </ButtonUser>
+        <ContentButton>
+          <NameUser>Hello, Jhon Due</NameUser>
+          <ButtonUser>
+            <FontAwesomeIcon icon={faUser} />
+          </ButtonUser>
+        </ContentButton>
       </ContainerHeader>
     </ContainerHeaderFull>
   );

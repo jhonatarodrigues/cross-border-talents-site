@@ -18,9 +18,6 @@ export const ContainerHeader = styled.div`
   justify-content: space-between;
   display: flex;
   align-items: center;
-
-  box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%),
-    0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
 `;
 
 export const Logo = styled.div`
@@ -34,11 +31,11 @@ export const ButtonUser = styled.button`
   width: 2.1875rem;
   height: 2.1875rem;
   font-size: 1.25rem;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.6);
   border-radius: 100%;
   border: none;
 
-  color: ${Default.color.white};
+  color: ${Default.color.blue};
   opacity: 0.5;
   transition: all 0.2s ease;
   cursor: pointer;
@@ -101,4 +98,21 @@ export const ContainerHeaderFull = styled.div`
   width: 100%;
   position: relative;
   z-index: 50;
+`;
+export const ContentButton = styled.div`
+  display: flex;
+  align-items: center;
+`;
+export const NameUser = styled.p`
+  margin: 0;
+  padding: 0;
+  margin-right: 0.625rem;
+  font-size: 0.9375rem;
+  color: #fff;
+  opacity: 0.5;
+`;
+export const NameBusiness = styled.p`
+  font-size: 18px;
+  color: #fff;
+  opacity: 0.5;
 `;
