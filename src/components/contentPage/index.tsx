@@ -14,7 +14,6 @@ import {
   HeaderPage,
   TitlePage,
   StylePage,
-  PageHistory,
   ContentAction,
   ContentHeaderPage,
   ContentActionButtons,
@@ -48,7 +47,6 @@ export default function ContentPage({
           <GridPage>
             <HeaderPage>
               <ContentHeaderPage>
-                <PageHistory>teste {'>'} aaaa</PageHistory>
                 <TitlePage>{title}</TitlePage>
               </ContentHeaderPage>
               <ContentActionButtons>

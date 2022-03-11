@@ -25,11 +25,11 @@ export default function Header(): JSX.Element {
     <ContainerHeaderFull>
       <ContainerHeader>
         <Content>
-          <ContainerSanduich onClick={() => toogleNav()}>
+          {/* <ContainerSanduich onClick={() => toogleNav()}>
             <SanduichLine first openMain />
             <SanduichLine openMain />
             <SanduichLine openMain />
-          </ContainerSanduich>
+          </ContainerSanduich> */}
           <NameBusiness>Cross Border Talents</NameBusiness>
         </Content>
         <ContentButton>

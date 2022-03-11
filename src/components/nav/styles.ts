@@ -26,6 +26,7 @@ export const ContainerNav = styled.div<IMain>`
 
 export const ContentNav = styled.div`
   height: 100%;
+  border-top: 1px solid #efefef;
 `;
 
 export const ItemNav = styled.div<IActive>`
@@ -55,12 +56,10 @@ export const ItemIcon = styled(FontAwesomeIcon)<IMain>`
   margin-right: ${props => (props.openMain ? '.9375rem' : '0')};
 `;
 export const TextNav = styled.p<IActive>`
-  font-size: 0.9375rem;
+  font-size: 1rem;
   text-decoration: none;
-  font-weight: 400;
-  color: ${props =>
-    props.active ? Default.color.graySemiDark : Default.color.gray};
-  };
+  font-weight: 600;
+  color: ${props => (props.active ? Default.color.blue : Default.color.gray)};
 `;
 
 export const ContainerTitle = styled.div<IMain>`
@@ -85,5 +84,18 @@ export const ContentLogo = styled.div`
   padding: 0.9375rem 0;
 `;
 export const LogoImage = styled.img`
-  width: 9.375rem;
+  width: 7.375rem;
+  height: 2.3125rem;
+`;
+
+export const ContentItemText = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+export const LineActive = styled.div`
+  width: 2rem;
+  height: 1px;
+  background: ${Default.color.blueLight};
+  margin-right: 1rem;
 `;

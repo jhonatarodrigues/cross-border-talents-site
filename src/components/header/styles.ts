@@ -31,7 +31,7 @@ export const ButtonUser = styled.button`
   width: 2.1875rem;
   height: 2.1875rem;
   font-size: 1.25rem;
-  background: rgba(255, 255, 255, 0.6);
+  background: ${Default.color.blueLight};
   border-radius: 100%;
   border: none;
 
@@ -108,11 +108,9 @@ export const NameUser = styled.p`
   padding: 0;
   margin-right: 0.625rem;
   font-size: 0.9375rem;
-  color: #fff;
-  opacity: 0.5;
+  color: ${Default.color.blueLight};
 `;
 export const NameBusiness = styled.p`
   font-size: 18px;
-  color: #fff;
-  opacity: 0.5;
+  color: ${Default.color.blueLight};
 `;

@@ -13,6 +13,8 @@ import {
   ContainerTitle,
   ContentLogo,
   LogoImage,
+  ContentItemText,
+  LineActive,
 } from './styles';
 
 interface INavItens {
@@ -56,20 +58,19 @@ export default function Nav(): JSX.Element {
               active={nav.route === activeRoute}
               openMain
             >
-              <ContainerTitle openMain>
-                <ItemIcon
-                  openMain
-                  icon={nav.icon}
-                  color={
-                    nav.route === activeRoute
-                      ? Default.color.blue
-                      : Default.color.gray
-                  }
-                />
-                <TextNav active={nav.route === activeRoute} openMain>
-                  {nav.title}
-                </TextNav>
-              </ContainerTitle>
+              <ContentItemText>
+                <ContainerTitle openMain>
+                  <ItemIcon
+                    openMain
+                    icon={nav.icon}
+                    color={Default.color.blueLight}
+                  />
+                  <TextNav active={nav.route === activeRoute} openMain>
+                    {nav.title}
+                  </TextNav>
+                </ContainerTitle>
+                {nav.route === activeRoute && <LineActive />}
+              </ContentItemText>
             </ItemNav>
           </Link>
         ))}
