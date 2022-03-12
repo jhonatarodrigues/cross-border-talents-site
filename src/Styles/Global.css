@@ -1,11 +1,94 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
 
+@font-face {
+    font-family: 'Gill Sans';
+    src: url('../assets/fonts/GillSans.woff2') format('woff2'),
+        url('../assets/fonts/GillSans.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Gill Sans';
+    src: url('../assets/fonts/GillSans-BoldItalic.woff2') format('woff2'),
+        url('../assets/fonts/GillSans-BoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Gill Sans';
+    src: url('../assets/fonts/GillSans-Italic.woff2') format('woff2'),
+        url('../assets/fonts/GillSans-Italic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Gill Sans';
+    src: url('../assets/fonts/GillSans-Bold.woff2') format('woff2'),
+        url('../assets/fonts/GillSans-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Gill Sans';
+    src: url('../assets/fonts/GillSans-SemiBoldItalic.woff2') format('woff2'),
+        url('../assets/fonts/GillSans-SemiBoldItalic.woff') format('woff');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Gill Sans';
+    src: url('../assets/fonts/GillSans-LightItalic.woff2') format('woff2'),
+        url('../assets/fonts/GillSans-LightItalic.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Gill Sans';
+    src: url('../assets/fonts/GillSans-SemiBold.woff2') format('woff2'),
+        url('../assets/fonts/GillSans-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Gill Sans';
+    src: url('../assets/fonts/GillSans-Light.woff2') format('woff2'),
+        url('../assets/fonts/GillSans-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Gill Sans';
+    src: url('../assets/fonts/GillSans-UltraBold.woff2') format('woff2'),
+        url('../assets/fonts/GillSans-UltraBold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+
 body {
-    font-family: Roboto, sans-serif;
+    font-family: Gill Sans;
     font-size: 16px;
     height: 100%;
     display: flex;
-    font-weight: 400;
+    font-weight: 600;
 }
 
 html{
