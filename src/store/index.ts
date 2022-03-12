@@ -15,7 +15,7 @@ export interface ApplicationState {
 
 const sagaMiddleware = createSagaMiddleware();
 const persistConfig = {
-  key: 'root',
+  key: 'ctb',
   whitelist: ['auth'],
   storage,
 };

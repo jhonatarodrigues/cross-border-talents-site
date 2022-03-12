@@ -17,15 +17,15 @@ const api = axios.create({
 //   },
 // );
 
-// api.interceptors.request.use(config => {
-//   const newConfig = config;
-//   const { auth } = store.getState();
+api.interceptors.request.use(config => {
+  const newConfig = config;
+  const { auth } = store.getState();
 
-//   if (auth && auth.id_token) {
-//     newConfig.headers.Authorization = `Bearer ${auth.id_token}`;
-//   }
+  if (auth && auth.token && newConfig && newConfig.headers) {
+    newConfig.headers.Authorization = `Bearer ${auth.token}`;
+  }
 
-//   return newConfig;
-// });
+  return newConfig;
+});
 
 export default api;
