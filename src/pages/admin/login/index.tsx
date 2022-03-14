@@ -45,8 +45,6 @@ export default function Login(): JSX.Element {
   }, []);
 
   useEffect(() => {
-    console.log('auth', auth);
-
     if (auth.error && auth.message) {
       handleOpenModal(auth.message);
       dispatch({
