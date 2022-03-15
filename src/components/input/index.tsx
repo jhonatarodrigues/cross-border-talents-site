@@ -1,16 +1,31 @@
-import React, { useEffect, useRef, useState, InputHTMLAttributes } from 'react';
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  InputHTMLAttributes,
+  useCallback,
+} from 'react';
 import { TextFieldProps } from '@mui/material/TextField';
 import { useField } from '@unform/core';
 
+import {
+  formatCNPJ,
+  formatCPF,
+  formatCurrency,
+  formatPhone,
+  formatNumeric,
+  formatCPFCNPJ,
+} from '../../util/format';
 import { InputField, ContentFiled, TextError } from './style';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
+  mask?: 'cpf' | 'phone' | 'cnpj' | 'currency' | 'numeric' | 'cpfCnpj';
 }
 
 type IProps = TextFieldProps & InputProps;
 
-export default function Input({ name, ...rest }: IProps) {
+export default function Input({ name, mask, ...rest }: IProps) {
   const inputRef = useRef(null);
   const { fieldName, defaultValue = '', registerField, error } = useField(name);
   const [inputValue, setInputValue] = useState<string>('');
@@ -31,6 +46,28 @@ export default function Input({ name, ...rest }: IProps) {
     });
   }, [fieldName, registerField, inputValue]);
 
+  const handleMask = useCallback(
+    val => {
+      let responseVal = val;
+      if (mask === 'cpf') {
+        responseVal = formatCPF(responseVal);
+      } else if (mask === 'phone') {
+        responseVal = formatPhone(responseVal);
+      } else if (mask === 'cnpj') {
+        responseVal = formatCNPJ(responseVal);
+      } else if (mask === 'currency') {
+        responseVal = formatCurrency(responseVal);
+      } else if (mask === 'numeric') {
+        responseVal = formatNumeric(responseVal);
+      } else if (mask === 'cpfCnpj') {
+        responseVal = formatCPFCNPJ(responseVal);
+      }
+
+      setInputValue(responseVal);
+    },
+    [mask],
+  );
+
   return (
     <ContentFiled className="contentField">
       <InputField
@@ -39,9 +76,13 @@ export default function Input({ name, ...rest }: IProps) {
         {...rest}
         variant="outlined"
         value={inputValue || defaultValue}
-        onChange={e => setInputValue(e.target.value)}
+        onChange={e => handleMask(e.target.value)}
       />
       {error && <TextError>{error}</TextError>}
     </ContentFiled>
   );
 }
+
+Input.defaultProps = {
+  mask: '',
+};

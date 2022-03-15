@@ -69,10 +69,10 @@ export default function UserRegister(): JSX.Element {
         <Section label={Language.page.user.user}>
           <ContentInput>
             <Input name="name" label={Language.fields.fullName} />
-            <Input name="email" label={Language.fields.email} />
+            <Input name="email" label={Language.fields.email} type="email" />
           </ContentInput>
           <ContentInput>
-            <Input name="phone" label={Language.fields.phone} />
+            <Input name="phone" label={Language.fields.phone} mask="phone" />
             <InputSwitch
               label={Language.fields.status}
               name="status"
