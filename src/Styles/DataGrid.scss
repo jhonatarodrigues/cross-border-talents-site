@@ -34,3 +34,9 @@
     color: #808080!important;
     font-size: .875rem!important;
 }
+.css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked{
+    color: $white!important;
+}
+.css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track{
+    background-color: $blueBase!important;
+}

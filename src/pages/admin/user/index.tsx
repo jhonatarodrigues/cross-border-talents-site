@@ -1,11 +1,14 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
+import { useNavigate } from 'react-router-dom';
 
 import { GetUsers, IUser } from '../../../hooks/admin/useUser';
 import LabelDestached from '../../../components/labelDestached';
 import ContentPage from '../../../components/contentPage';
+import Language from '../../../language';
 
 export default function User(): JSX.Element {
+  const navigate = useNavigate();
   const [users, setUsers] = useState<IUser[]>([]);
   const rows: GridRowsProp = users.map((user: IUser) => ({
     id: user.id,
@@ -40,7 +43,11 @@ export default function User(): JSX.Element {
   }, [handleGetUser]);
 
   return (
-    <ContentPage title="User Lists" buttonNewLabel="New User">
+    <ContentPage
+      title={Language.page.user.listUser}
+      buttonNewLabel={Language.page.user.newUser}
+      buttonNewClick={() => navigate('/admin/user/register')}
+    >
       <DataGrid rows={rows} columns={columns} autoHeight />
     </ContentPage>
   );

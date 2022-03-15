@@ -18,12 +18,12 @@ const graphql = async (query: string) => {
       .catch(error => {
         Modal({ keyType: error.message, icon: 'error' });
 
-        return false;
+        throw new Error(error.message);
       });
   } catch (error: any) {
     Modal({ keyType: error.message, icon: 'error' });
 
-    return false;
+    throw new Error(error.message);
   }
 };
 
