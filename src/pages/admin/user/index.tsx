@@ -26,7 +26,10 @@ export default function User(): JSX.Element {
       field: 'status',
       headerName: 'Status',
       renderCell: ({ row }) => (
-        <LabelDestached text={row.status ? 'Active' : 'Inactive'} />
+        <LabelDestached
+          text={row.status ? 'Active' : 'Inactive'}
+          type={row.status ? 'default' : 'info'}
+        />
       ),
     },
   ];

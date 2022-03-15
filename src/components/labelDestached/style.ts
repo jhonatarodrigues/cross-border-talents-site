@@ -9,3 +9,10 @@ export const LabelDiv = styled.p`
   font-size: 0.75rem;
   color: ${Default.color.white};
 `;
+
+export const Content = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+`;
