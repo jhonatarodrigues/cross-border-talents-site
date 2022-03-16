@@ -12,6 +12,7 @@ export enum AuthTypes {
 interface IUser {
   email: string;
   name: string;
+  phone: string;
 }
 export interface IAuth {
   token: string;
