@@ -34,9 +34,9 @@ export default function Nav(): JSX.Element {
       route: '/admin/user',
     },
     {
-      title: `teste--`,
+      title: `Team Leader`,
       icon: faUser,
-      route: '/admin/teste',
+      route: '/admin/teamLeader',
     },
   ];
 

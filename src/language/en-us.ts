@@ -21,6 +21,11 @@ const enUs = {
       newUser: 'New user',
       user: 'User',
     },
+    teamLeader: {
+      listTeamLeader: 'List of team leaders',
+      newTeamLeader: 'New team leader',
+      teamLeader: 'Team leader',
+    },
   },
 };
 export default enUs;
