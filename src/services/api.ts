@@ -19,7 +19,7 @@ api.interceptors.response.use(
       response.data.errors.length > 0
     ) {
       const typeError = response.data.errors[0].message;
-      if (typeError === 'invalidToken') {
+      if (typeError === 'invalidToken' || typeError === 'tokenExpired') {
         const { refreshToken } = store.getState().auth;
 
         return new Promise((resolve, reject) => {
