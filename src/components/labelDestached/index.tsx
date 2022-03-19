@@ -15,7 +15,7 @@ export default function LabelDestached({
 }: IProps): JSX.Element {
   let backgroundStyle = background;
 
-  if (type === 'info' && background) {
+  if (type === 'info' && !background) {
     backgroundStyle = Default.color.grayLight;
   } else {
     backgroundStyle = Default.color.blue;

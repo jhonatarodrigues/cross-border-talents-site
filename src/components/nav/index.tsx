@@ -38,6 +38,11 @@ export default function Nav(): JSX.Element {
       icon: faUser,
       route: '/admin/teamLeader',
     },
+    {
+      title: `Recruiters`,
+      icon: faUser,
+      route: '/admin/recruiter',
+    },
   ];
 
   return (

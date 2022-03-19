@@ -26,6 +26,11 @@ const enUs = {
       newTeamLeader: 'New team leader',
       teamLeader: 'Team leader',
     },
+    recruiter: {
+      listRecruiter: 'List of recruiters',
+      newRecruiter: 'New recruiter',
+      recruiter: 'Recruiter',
+    },
   },
 };
 export default enUs;
