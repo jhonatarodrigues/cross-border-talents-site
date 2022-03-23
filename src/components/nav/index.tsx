@@ -43,6 +43,11 @@ export default function Nav(): JSX.Element {
       icon: faUser,
       route: '/admin/recruiter',
     },
+    {
+      title: `Companies`,
+      icon: faUser,
+      route: '/admin/companies',
+    },
   ];
 
   return (

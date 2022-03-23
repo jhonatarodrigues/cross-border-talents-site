@@ -12,6 +12,8 @@ import TeamLeader from './pages/admin/teamLeader';
 import TeamLeaderRegister from './pages/admin/teamLeaderRegister';
 import Recruiter from './pages/admin/recruiter';
 import RecruiterRegister from './pages/admin/recruiterRegister';
+import Companies from './pages/admin/companies';
+import CompaniesRegister from './pages/admin/companiesRegister';
 
 export default function Teste(): JSX.Element {
   return (
@@ -28,6 +30,9 @@ export default function Teste(): JSX.Element {
 
           <Route path="recruiter" element={<Recruiter />} />
           <Route path="recruiter/register" element={<RecruiterRegister />} />
+
+          <Route path="companies" element={<Companies />} />
+          <Route path="companies/register" element={<CompaniesRegister />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />

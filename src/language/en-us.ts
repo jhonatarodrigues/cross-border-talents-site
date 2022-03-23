@@ -13,6 +13,7 @@ const enUs = {
     email: 'Email',
     phone: 'Phone',
     status: 'Status',
+    country: 'Country',
   },
 
   page: {
@@ -30,6 +31,11 @@ const enUs = {
       listRecruiter: 'List of recruiters',
       newRecruiter: 'New recruiter',
       recruiter: 'Recruiter',
+    },
+    companies: {
+      listCompanies: 'List of companies',
+      newCompanies: 'New company',
+      companies: 'Company',
     },
   },
 };
