@@ -1,3 +1,4 @@
+import { string } from 'yup';
 import graphql from '../../services/graphql';
 
 export interface ICompany {
@@ -18,61 +19,68 @@ interface IResponseCompanies {
   companies: ICompany[];
 }
 
-export interface IRecruiterSend {
+export interface ICompanySend {
   name: string;
   email: string;
   status: boolean;
   phone: string;
   teamLeader: string;
+  companyName: string;
+  country: string;
 }
 
-interface IResponseRecruiterSend {
+interface IResponseCompanySend {
   user: {
     id: string;
     name: string;
     email: string;
+    phone: string;
   };
-  recruiter: {
+  companie: {
     id: string;
     idUser: string;
-    teamLeader: string;
+    country: string;
+    companyLogo: string;
   };
 }
 
-// export function AddRecruiter(
-//   data: IRecruiterSend,
-// ): Promise<IResponseRecruiterSend> {
-//   const query = `
-//     mutation {
-//       createRecruiter (
-//         name: "${data.name}",
-//         email: "${data.email}",
-//         phone: "${data.phone}",
-//         status: ${data.status},
-//         teamLeader: ${data.teamLeader},
-//       ) {
-//         user{
-//           id
-//           name
-//           email
-//         }
-//         recruiter{
-//           id
-//           idUser
-//           teamLeader
-//         }
-//       }
-//     }
-//   `;
+export function AddCompany(data: ICompanySend): Promise<IResponseCompanySend> {
+  const query = `
+    mutation {
+            createCompanie(
+            name: "${data.name}"
+            email: "${data.email}"
+            phone: "${data.phone}"
+            status: ${data.status}
+            country: "${data.country}"
+            companyName: "${data.companyName}"
+            teamLeader: "${data.teamLeader}"
+        ) {
+            user {
+                id
+                name
+                email
+                phone
+                accessLevel
+            }
+            companie {
+                id
+                idUser
+                country
+                companyLogo
+            }
+        }
+    }
+  `;
 
-//   return graphql(query)
-//     .then(response => {
-//       return response.data.createRecruiter as IResponseRecruiterSend;
-//     })
-//     .catch(() => {
-//       return {} as IResponseRecruiterSend;
-//     });
-// }
+  return graphql(query)
+    .then(response => {
+      return response.data.createCompanie as IResponseCompanySend;
+    })
+    .catch(() => {
+      return {} as IResponseCompanySend;
+    });
+}
 
 export function GetCompanies(): Promise<IResponseCompanies> {
   const query = `

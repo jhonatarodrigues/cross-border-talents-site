@@ -10,6 +10,7 @@ const enUs = {
 
   fields: {
     fullName: 'Full Name',
+    companyName: 'Company Name',
     email: 'Email',
     phone: 'Phone',
     status: 'Status',

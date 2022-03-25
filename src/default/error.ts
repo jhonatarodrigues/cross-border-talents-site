@@ -3,6 +3,7 @@ const error: { [key: string]: string } = {
   notAuthorized: 'Not authorized: You are not authorized to access this page.',
   userExists: 'User already exists.',
   getTeamLeaders: 'Failed to get team leaders.',
+  getCountries: 'Failed to get countries.',
 };
 
 export default function errorString(key: string): string {

@@ -6,10 +6,8 @@ import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import Modal from '../../../components/modal';
 import { GetTeamLeaders } from '../../../hooks/admin/useTeamLeader';
-import {
-  IRecruiterSend,
-  AddRecruiter,
-} from '../../../hooks/admin/useRecruiters';
+import { GetCountries } from '../../../hooks/admin/useCountry';
+import { AddCompany, ICompanySend } from '../../../hooks/admin/useCompanies';
 import Input from '../../../components/input';
 import InputDropDown, {
   IOptionsDropdown,
@@ -24,9 +22,15 @@ import Language from '../../../language';
 export default function CompaniesRegister(): JSX.Element {
   const navigate = useNavigate();
   const formRef = useRef<FormHandles>(null);
+  const [optionsTeamLeader, setOptionsTeamLeader] = useState<
+    IOptionsDropdown[]
+  >([] as IOptionsDropdown[]);
+  const [optionsCountry, setOptionsCountry] = useState<IOptionsDropdown[]>(
+    [] as IOptionsDropdown[],
+  );
 
-  const handleSubmit: SubmitHandler<IRecruiterSend> = useCallback(
-    async (data: IRecruiterSend) => {
+  const handleSubmit: SubmitHandler<ICompanySend> = useCallback(
+    async (data: ICompanySend) => {
       try {
         const schema = Yup.object().shape({
           name: Yup.string().required(),
@@ -39,17 +43,15 @@ export default function CompaniesRegister(): JSX.Element {
           abortEarly: false,
         });
 
-        console.log('data --', data);
-
-        // AddRecruiter(data).then(response => {
-        //   if (response.recruiter.id) {
-        //     Modal({
-        //       icon: 'success',
-        //       keyType: 'createdRecruiter',
-        //       onClick: () => navigate('/admin/recruiter'),
-        //     });
-        //   }
-        // });
+        AddCompany(data).then(response => {
+          if (response.companie.id) {
+            Modal({
+              icon: 'success',
+              keyType: 'createdCompany',
+              onClick: () => navigate('/admin/companies'),
+            });
+          }
+        });
       } catch (err) {
         const validationErrors: Record<string, string> = {};
 
@@ -64,8 +66,45 @@ export default function CompaniesRegister(): JSX.Element {
         }
       }
     },
-    [],
+    [navigate],
   );
+
+  const getTeamLeaders = useCallback(async () => {
+    const { teamLeaders } = await GetTeamLeaders();
+    if (teamLeaders) {
+      const options: IOptionsDropdown[] = teamLeaders.map(teamLeader => {
+        return {
+          value: teamLeader.id,
+          label: teamLeader.name,
+        };
+      });
+      setOptionsTeamLeader(options);
+    } else {
+      Modal({ keyType: 'getTeamLeaders', icon: 'error' });
+    }
+  }, []);
+
+  const getCountries = useCallback(async () => {
+    const { countries } = await GetCountries();
+    if (countries) {
+      const options: IOptionsDropdown[] = countries.map(country => {
+        return {
+          value: country.code,
+          label: country.name,
+        };
+      });
+      setOptionsCountry(options);
+    } else {
+      Modal({ keyType: 'getCountries', icon: 'error' });
+    }
+  }, []);
+
+  useEffect(() => {
+    getCountries();
+  }, [getCountries]);
+  useEffect(() => {
+    getTeamLeaders();
+  }, [getTeamLeaders]);
 
   return (
     <ContentPage
@@ -79,12 +118,21 @@ export default function CompaniesRegister(): JSX.Element {
         <Section label={Language.page.companies.companies}>
           <ContentInput>
             <Input name="name" label={Language.fields.fullName} />
+            <Input name="companyName" label={Language.fields.companyName} />
             <Input name="email" label={Language.fields.email} type="email" />
           </ContentInput>
           <ContentInput>
+            <InputDropDown
+              name="teamLeader"
+              label="Team Leader"
+              options={optionsTeamLeader}
+            />
+            <InputDropDown
+              name="country"
+              label={Language.fields.country}
+              options={optionsCountry}
+            />
             <Input name="phone" label={Language.fields.phone} mask="phone" />
-            <Input name="country" label={Language.fields.country} />
-
             <InputSwitch
               label={Language.fields.status}
               name="status"
