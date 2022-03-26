@@ -37,6 +37,7 @@ const enUs = {
       listCompanies: 'List of companies',
       newCompanies: 'New company',
       companies: 'Company',
+      sendLogo: 'Send logo',
     },
   },
 };

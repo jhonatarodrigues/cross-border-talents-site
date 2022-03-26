@@ -127,7 +127,9 @@ export default function CompaniesRegister(): JSX.Element {
       >
         <Section label={Language.page.companies.companies}>
           <ContentInput>
-            <ButtonUpload name="upload">teste upload</ButtonUpload>
+            <ButtonUpload name="upload">
+              {Language.page.companies.sendLogo}
+            </ButtonUpload>
 
             <Input name="name" label={Language.fields.fullName} />
             <Input name="companyName" label={Language.fields.companyName} />
