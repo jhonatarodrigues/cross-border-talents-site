@@ -1,13 +1,23 @@
+import { AxiosRequestHeaders } from 'axios';
 import api from './api';
 
 import Modal from '../components/modal';
 
-const graphql = async (query: string) => {
+const graphql = async (
+  query: string,
+  variables?: string,
+  headers?: AxiosRequestHeaders,
+) => {
   try {
     return api
-      .post('/', {
-        query,
-      })
+      .post(
+        '/',
+        {
+          query,
+          variables,
+        },
+        { headers },
+      )
       .then(response => {
         if (response.data.errors) {
           throw new Error(response.data.errors[0].message);

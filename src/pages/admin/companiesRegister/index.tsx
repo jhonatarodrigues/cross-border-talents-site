@@ -15,9 +15,11 @@ import InputDropDown, {
 import InputSwitch from '../../../components/inputSwitch';
 import ContentPage from '../../../components/contentPage';
 import ContentInput from '../../../components/contentInput';
+import { SimpleFileUpload } from '../../../hooks/admin/useUpload';
 import Button from '../../../components/button';
 import Section from '../../../components/section';
 import Language from '../../../language';
+import ButtonUpload from '../../../components/buttonUpload';
 
 export default function CompaniesRegister(): JSX.Element {
   const navigate = useNavigate();
@@ -31,6 +33,7 @@ export default function CompaniesRegister(): JSX.Element {
 
   const handleSubmit: SubmitHandler<ICompanySend> = useCallback(
     async (data: ICompanySend) => {
+      const infoData = data;
       try {
         const schema = Yup.object().shape({
           name: Yup.string().required(),
@@ -39,11 +42,18 @@ export default function CompaniesRegister(): JSX.Element {
           teamLeader: Yup.string().required(),
         });
 
-        await schema.validate(data, {
+        await schema.validate(infoData, {
           abortEarly: false,
         });
 
-        AddCompany(data).then(response => {
+        if (infoData.upload) {
+          const upload = await SimpleFileUpload(infoData.upload);
+          if (upload) {
+            infoData.companyLogo = upload;
+          }
+        }
+
+        AddCompany(infoData).then(response => {
           if (response.companie.id) {
             Modal({
               icon: 'success',
@@ -117,6 +127,8 @@ export default function CompaniesRegister(): JSX.Element {
       >
         <Section label={Language.page.companies.companies}>
           <ContentInput>
+            <ButtonUpload name="upload">teste upload</ButtonUpload>
+
             <Input name="name" label={Language.fields.fullName} />
             <Input name="companyName" label={Language.fields.companyName} />
             <Input name="email" label={Language.fields.email} type="email" />
