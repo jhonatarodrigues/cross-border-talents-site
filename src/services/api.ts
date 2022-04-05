@@ -1,7 +1,7 @@
 import axios from 'axios';
 import store from '../store';
 
-import { loadSuccess } from '../store/ducks/auth/actions';
+import { loadSuccess, loadLogout } from '../store/ducks/auth/actions';
 
 const baseURL = 'http://localhost:4000';
 const api = axios.create({
@@ -48,11 +48,19 @@ api.interceptors.response.use(
                 resolve(axios(originalRequest));
               }
             })
-            .catch(err => {
+            .catch(error => {
               // processQueue(err, null);
-              reject(err);
+              if (error.message.indexOf('refreshToken') > -1) {
+                store.dispatch(loadLogout());
+                return;
+              }
+
+              reject(error);
             });
         });
+      }
+      if (typeError === 'refreshTokenExpired') {
+        console.log('refresh token expired');
       }
     }
 
