@@ -15,6 +15,14 @@ const enUs = {
     phone: 'Phone',
     status: 'Status',
     country: 'Country',
+    socialMedia: 'Social Media',
+    birthDate: 'Birth Date',
+    gender: 'Gender',
+    nativeLanguage: 'Native Language',
+    allowTalentPool: 'Allow Talent Pool',
+    privacityPolicy: 'Privacity Policy',
+    allowContactMe: 'Allow Contact Me',
+    englishLevel: 'English Level',
   },
 
   page: {
@@ -38,6 +46,13 @@ const enUs = {
       newCompanies: 'New company',
       companies: 'Company',
       sendLogo: 'Send logo',
+    },
+    candidates: {
+      listCandidates: 'List of candidates',
+      newCandidates: 'New candidate',
+      candidates: 'Candidate',
+      sendPicture: 'Send picture',
+      cvUpload: 'Upload CV',
     },
   },
 };

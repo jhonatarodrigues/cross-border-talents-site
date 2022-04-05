@@ -14,6 +14,8 @@ import Recruiter from './pages/admin/recruiter';
 import RecruiterRegister from './pages/admin/recruiterRegister';
 import Companies from './pages/admin/companies';
 import CompaniesRegister from './pages/admin/companiesRegister';
+import Candidates from './pages/admin/candidates';
+import CandidatesRegister from './pages/admin/candidatesRegister';
 
 export default function Teste(): JSX.Element {
   return (
@@ -33,6 +35,9 @@ export default function Teste(): JSX.Element {
 
           <Route path="companies" element={<Companies />} />
           <Route path="companies/register" element={<CompaniesRegister />} />
+
+          <Route path="candidates" element={<Candidates />} />
+          <Route path="candidates/register" element={<CandidatesRegister />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />

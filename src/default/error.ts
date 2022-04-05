@@ -4,6 +4,7 @@ const error: { [key: string]: string } = {
   userExists: 'User already exists.',
   getTeamLeaders: 'Failed to get team leaders.',
   getCountries: 'Failed to get countries.',
+  getRecruiter: 'Failed to get recruiter.',
 };
 
 export default function errorString(key: string): string {
