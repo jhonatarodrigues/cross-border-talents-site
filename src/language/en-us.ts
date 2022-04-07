@@ -9,6 +9,7 @@ const enUs = {
   },
 
   fields: {
+    name: 'Name',
     fullName: 'Full Name',
     companyName: 'Company Name',
     email: 'Email',
@@ -53,6 +54,11 @@ const enUs = {
       candidates: 'Candidate',
       sendPicture: 'Send picture',
       cvUpload: 'Upload CV',
+    },
+    interestSkills: {
+      listInterestSkills: 'List of interest skills',
+      newInterestSkills: 'New interest skill',
+      interestSkills: 'Interest skill',
     },
   },
 };
