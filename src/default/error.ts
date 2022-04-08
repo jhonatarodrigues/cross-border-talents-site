@@ -5,6 +5,7 @@ const error: { [key: string]: string } = {
   getTeamLeaders: 'Failed to get team leaders.',
   getCountries: 'Failed to get countries.',
   getRecruiter: 'Failed to get recruiter.',
+  getInterestSkills: 'Failed to get interest skills.',
 };
 
 export default function errorString(key: string): string {

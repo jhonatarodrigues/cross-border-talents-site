@@ -24,6 +24,9 @@ const enUs = {
     privacityPolicy: 'Privacity Policy',
     allowContactMe: 'Allow Contact Me',
     englishLevel: 'English Level',
+    title: 'Title',
+    level: 'Level',
+    description: 'Description',
   },
 
   page: {

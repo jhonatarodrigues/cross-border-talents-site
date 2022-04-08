@@ -67,7 +67,9 @@ export default function InputDropdown({ name, label, ...rest }: IProps) {
           {...rest}
         >
           {rest.options.map(option => (
-            <MenuItem value={option.value}>{option.label}</MenuItem>
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
           ))}
         </SelectField>
       </FormControl>

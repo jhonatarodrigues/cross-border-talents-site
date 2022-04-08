@@ -19,6 +19,7 @@ import CandidatesRegister from './pages/admin/candidatesRegister';
 import InterestSkills from './pages/admin/interestSkills';
 import InterestSkillsRegister from './pages/admin/interestSkillsRegister';
 import Jobs from './pages/admin/jobs';
+import JobsRegister from './pages/admin/jobsRegister';
 
 export default function Teste(): JSX.Element {
   return (
@@ -49,6 +50,7 @@ export default function Teste(): JSX.Element {
           />
 
           <Route path="jobs" element={<Jobs />} />
+          <Route path="jobs/register" element={<JobsRegister />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />

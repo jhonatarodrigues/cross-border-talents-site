@@ -17,34 +17,43 @@ interface IResponseJobs {
   jobs: IJobs[];
 }
 
-// export interface IUserSend {
-//   name: string;
-//   email: string;
-//   status: boolean;
-//   phone: string;
-// }
+export interface IJobsSend {
+  interestSkills: string;
+  jobTitle: string;
+  level: string;
+  country: string;
+  description: string;
+}
 
-// export function AddUser(data: IUserSend): Promise<IUser> {
-//   const query = `
-//     mutation {
-//       createUser(name: "${data.name}", email: "${data.email}", status: ${data.status}, phone: "${data.phone}") {
-//         id
-//         name
-//         email
-//         phone
-//         status
-//       }
-//     }
-//   `;
+export function AddJobs(data: IJobsSend): Promise<IJobs> {
+  const query = `
+    mutation {
+        createJobs(
+            idInterestSkills: "${data.interestSkills}",
+            jobTitle: "${data.jobTitle}",
+            level: "${data.level}",
+            country: "${data.country}",
+            description: "${data.description}",
+        ){
+            id
+            idInterestSkills
+            jobTitle
+            level
+            country
+            description
+        }
+    }
+  
+  `;
 
-//   return graphql(query)
-//     .then(response => {
-//       return response.data.createUser as IUser;
-//     })
-//     .catch(() => {
-//       return {} as IUser;
-//     });
-// }
+  return graphql(query)
+    .then(response => {
+      return response.data.createJobs as IJobs;
+    })
+    .catch(() => {
+      return {} as IJobs;
+    });
+}
 
 export function GetJobs(): Promise<IResponseJobs> {
   const query = `
