@@ -60,6 +60,11 @@ const enUs = {
       newInterestSkills: 'New interest skill',
       interestSkills: 'Interest skill',
     },
+    jobs: {
+      listJobs: 'List of jobs',
+      newJobs: 'New job',
+      jobs: 'Job',
+    },
   },
 };
 export default enUs;
