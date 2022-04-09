@@ -68,6 +68,11 @@ const enUs = {
       newJobs: 'New job',
       jobs: 'Job',
     },
+    testimonials: {
+      listTestimonials: 'List of testimonials',
+      newTestimonials: 'New testimonial',
+      testimonials: 'Testimonial',
+    },
   },
 };
 export default enUs;
