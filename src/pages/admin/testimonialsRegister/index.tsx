@@ -5,14 +5,17 @@ import * as Yup from 'yup';
 
 import { useNavigate } from 'react-router-dom';
 import Modal from '../../../components/modal';
-import { GetTeamLeaders } from '../../../hooks/admin/useTeamLeader';
 import { GetCountries } from '../../../hooks/admin/useCountry';
-import { AddCompany, ICompanySend } from '../../../hooks/admin/useCompanies';
+import {
+  AddTestimonial,
+  ITestimonialSend,
+} from '../../../hooks/admin/useTestimonials';
 import Input from '../../../components/input';
 import InputDropDown, {
   IOptionsDropdown,
 } from '../../../components/inputDropdown';
-import InputSwitch from '../../../components/inputSwitch';
+import InputDatePicker from '../../../components/inputDatePicker';
+import Editor from '../../../components/editor';
 import ContentPage from '../../../components/contentPage';
 import ContentInput from '../../../components/contentInput';
 import { SimpleFileUpload } from '../../../hooks/admin/useUpload';
@@ -21,25 +24,22 @@ import Section from '../../../components/section';
 import Language from '../../../language';
 import ButtonUpload from '../../../components/buttonUpload';
 
-export default function CompaniesRegister(): JSX.Element {
+export default function TestimonialsRegister(): JSX.Element {
   const navigate = useNavigate();
   const formRef = useRef<FormHandles>(null);
-  const [optionsTeamLeader, setOptionsTeamLeader] = useState<
-    IOptionsDropdown[]
-  >([] as IOptionsDropdown[]);
   const [optionsCountry, setOptionsCountry] = useState<IOptionsDropdown[]>(
     [] as IOptionsDropdown[],
   );
 
-  const handleSubmit: SubmitHandler<ICompanySend> = useCallback(
-    async (data: ICompanySend) => {
+  const handleSubmit: SubmitHandler<ITestimonialSend> = useCallback(
+    async (data: ITestimonialSend) => {
       const infoData = data;
       try {
         const schema = Yup.object().shape({
           name: Yup.string().required(),
-          email: Yup.string().required(),
-          phone: Yup.string().required(),
-          teamLeader: Yup.string().required(),
+          date: Yup.date().required(),
+          country: Yup.string().required(),
+          testimonial: Yup.string().required(),
         });
 
         await schema.validate(infoData, {
@@ -49,16 +49,16 @@ export default function CompaniesRegister(): JSX.Element {
         if (infoData.upload) {
           const upload = await SimpleFileUpload(infoData.upload);
           if (upload) {
-            infoData.companyLogo = upload;
+            infoData.picture = upload;
           }
         }
 
-        AddCompany(infoData).then(response => {
-          if (response.companie.id) {
+        AddTestimonial(infoData).then(response => {
+          if (response.id) {
             Modal({
               icon: 'success',
-              keyType: 'createdCompany',
-              onClick: () => navigate('/admin/companies'),
+              keyType: 'createdTestimonial',
+              onClick: () => navigate('/admin/testimonials'),
             });
           }
         });
@@ -79,21 +79,6 @@ export default function CompaniesRegister(): JSX.Element {
     [navigate],
   );
 
-  const getTeamLeaders = useCallback(async () => {
-    const { teamLeaders } = await GetTeamLeaders();
-    if (teamLeaders) {
-      const options: IOptionsDropdown[] = teamLeaders.map(teamLeader => {
-        return {
-          value: teamLeader.id,
-          label: teamLeader.name,
-        };
-      });
-      setOptionsTeamLeader(options);
-    } else {
-      Modal({ keyType: 'getTeamLeaders', icon: 'error' });
-    }
-  }, []);
-
   const getCountries = useCallback(async () => {
     const { countries } = await GetCountries();
     if (countries) {
@@ -112,46 +97,35 @@ export default function CompaniesRegister(): JSX.Element {
   useEffect(() => {
     getCountries();
   }, [getCountries]);
-  useEffect(() => {
-    getTeamLeaders();
-  }, [getTeamLeaders]);
 
   return (
     <ContentPage
-      title={`${Language.page.companies.companies} > ${Language.page.companies.newCompanies}`}
+      title={`${Language.page.testimonials.testimonials} > ${Language.page.testimonials.newTestimonials}`}
     >
       <Form
         ref={formRef}
         onSubmit={handleSubmit}
         onClick={() => formRef.current?.setErrors({})}
       >
-        <Section label={Language.page.companies.companies}>
+        <Section label={Language.page.testimonials.testimonials}>
           <ContentInput>
             <ButtonUpload name="upload">
-              {Language.page.companies.sendLogo}
+              {Language.fields.sendPicture}
             </ButtonUpload>
 
-            <Input name="name" label={Language.fields.fullName} />
-            <Input name="companyName" label={Language.fields.companyName} />
-            <Input name="email" label={Language.fields.email} type="email" />
+            <Input name="name" label={Language.fields.name} />
+            <InputDatePicker name="date" label={Language.fields.date} />
           </ContentInput>
           <ContentInput>
-            <InputDropDown
-              name="teamLeader"
-              label="Team Leader"
-              options={optionsTeamLeader}
-            />
             <InputDropDown
               name="country"
               label={Language.fields.country}
               options={optionsCountry}
             />
-            <Input name="phone" label={Language.fields.phone} mask="phone" />
-            <InputSwitch
-              label={Language.fields.status}
-              name="status"
-              valueDefault
-            />
+            <Input name="observations" label={Language.fields.observations} />
+          </ContentInput>
+          <ContentInput>
+            <Editor name="testimonial" label={Language.fields.testimonial} />
           </ContentInput>
         </Section>
         <Button variant="contained" type="submit">

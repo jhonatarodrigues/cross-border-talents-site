@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
 import { useNavigate } from 'react-router-dom';
-import Moment from 'moment';
+import Moment from 'moment-timezone';
 
 import {
   GetTestimonials,

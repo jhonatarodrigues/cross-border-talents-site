@@ -21,6 +21,7 @@ import InterestSkillsRegister from './pages/admin/interestSkillsRegister';
 import Jobs from './pages/admin/jobs';
 import JobsRegister from './pages/admin/jobsRegister';
 import Testimonials from './pages/admin/testimonials';
+import TestimonialsRegister from './pages/admin/testimonialsRegister';
 
 export default function Teste(): JSX.Element {
   return (
@@ -54,6 +55,10 @@ export default function Teste(): JSX.Element {
           <Route path="jobs/register" element={<JobsRegister />} />
 
           <Route path="testimonials" element={<Testimonials />} />
+          <Route
+            path="testimonials/register"
+            element={<TestimonialsRegister />}
+          />
         </Route>
 
         <Route path="*" element={<NotFound />} />

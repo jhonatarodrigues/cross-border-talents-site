@@ -27,6 +27,10 @@ const enUs = {
     title: 'Title',
     level: 'Level',
     description: 'Description',
+    sendPicture: 'Send Picture',
+    observations: 'Observations',
+    testimonial: 'Testimonial',
+    date: 'Date',
   },
 
   page: {

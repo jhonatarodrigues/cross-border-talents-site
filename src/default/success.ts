@@ -6,6 +6,7 @@ const success: { [key: string]: string } = {
   createdCandidate: 'Candidate created successfully.',
   createdInterestSkills: 'Interest skill created successfully.',
   createdJobs: 'Job created successfully.',
+  createdTestimonial: 'Testimonial created successfully.',
 };
 
 export default function successString(key: string): string {
