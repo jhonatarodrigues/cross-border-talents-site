@@ -45,9 +45,9 @@ export default function Teste(): JSX.Element {
           <Route path="candidates" element={<Candidates />} />
           <Route path="candidates/register" element={<CandidatesRegister />} />
 
-          <Route path="interestSkills" element={<InterestSkills />} />
+          <Route path="departament" element={<InterestSkills />} />
           <Route
-            path="interestSkills/register"
+            path="departament/register"
             element={<InterestSkillsRegister />}
           />
 

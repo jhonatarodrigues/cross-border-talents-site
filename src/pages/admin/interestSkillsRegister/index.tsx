@@ -36,7 +36,7 @@ export default function InterestSkillsRegister(): JSX.Element {
             Modal({
               icon: 'success',
               keyType: 'createdInterestSkills',
-              onClick: () => navigate('/admin/interestSkills'),
+              onClick: () => navigate('/admin/departament'),
             });
           }
         });

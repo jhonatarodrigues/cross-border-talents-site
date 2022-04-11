@@ -54,9 +54,9 @@ export default function Nav(): JSX.Element {
       route: '/admin/candidates',
     },
     {
-      title: `Interest Skills`,
+      title: `Department`,
       icon: faUser,
-      route: '/admin/interestSkills',
+      route: '/admin/departament',
     },
     {
       title: `Jobs`,

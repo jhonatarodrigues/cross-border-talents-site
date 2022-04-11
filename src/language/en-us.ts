@@ -63,9 +63,9 @@ const enUs = {
       cvUpload: 'Upload CV',
     },
     interestSkills: {
-      listInterestSkills: 'List of interest skills',
-      newInterestSkills: 'New interest skill',
-      interestSkills: 'Interest skill',
+      listInterestSkills: 'List of departament',
+      newInterestSkills: 'New departament',
+      interestSkills: 'Departament',
     },
     jobs: {
       listJobs: 'List of jobs',

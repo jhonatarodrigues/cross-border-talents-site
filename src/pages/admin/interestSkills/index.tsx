@@ -36,7 +36,7 @@ export default function InterestSkills(): JSX.Element {
     <ContentPage
       title={Language.page.interestSkills.listInterestSkills}
       buttonNewLabel={Language.page.interestSkills.newInterestSkills}
-      buttonNewClick={() => navigate('/admin/interestSkills/register')}
+      buttonNewClick={() => navigate('/admin/departament/register')}
     >
       <DataGrid rows={rows} columns={columns} autoHeight />
     </ContentPage>
