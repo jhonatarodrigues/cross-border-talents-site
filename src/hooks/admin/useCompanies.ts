@@ -29,6 +29,7 @@ export interface ICompanySend {
   country: string;
   companyLogo?: string;
   upload?: HTMLInputElement;
+  interestSkills: string;
 }
 
 interface IResponseCompanySend {
@@ -58,6 +59,7 @@ export function AddCompany(data: ICompanySend): Promise<IResponseCompanySend> {
             companyName: "${data.companyName}"
             teamLeader: "${data.teamLeader}"
             companyLogo: "${data.companyLogo}"
+            idInterestSkills: "${data.interestSkills}"
         ) {
             user {
                 id

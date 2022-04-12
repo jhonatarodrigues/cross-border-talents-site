@@ -12,6 +12,7 @@ import Input from '../../../components/input';
 import InputDropDown, {
   IOptionsDropdown,
 } from '../../../components/inputDropdown';
+import { GetInterestSkills } from '../../../hooks/admin/useInterestSkills';
 import InputSwitch from '../../../components/inputSwitch';
 import ContentPage from '../../../components/contentPage';
 import ContentInput from '../../../components/contentInput';
@@ -30,6 +31,9 @@ export default function CompaniesRegister(): JSX.Element {
   const [optionsCountry, setOptionsCountry] = useState<IOptionsDropdown[]>(
     [] as IOptionsDropdown[],
   );
+  const [optionsInterestSkills, setOptionsInterestSkills] = useState<
+    IOptionsDropdown[]
+  >([] as IOptionsDropdown[]);
 
   const handleSubmit: SubmitHandler<ICompanySend> = useCallback(
     async (data: ICompanySend) => {
@@ -109,12 +113,30 @@ export default function CompaniesRegister(): JSX.Element {
     }
   }, []);
 
+  const getInterestSkills = useCallback(async () => {
+    const { interestSkills } = await GetInterestSkills();
+    if (interestSkills) {
+      const options: IOptionsDropdown[] = interestSkills.map(item => {
+        return {
+          value: item.id,
+          label: item.name,
+        };
+      });
+      setOptionsInterestSkills(options);
+    } else {
+      Modal({ keyType: 'getInterestSkills', icon: 'error' });
+    }
+  }, []);
+
   useEffect(() => {
     getCountries();
   }, [getCountries]);
   useEffect(() => {
     getTeamLeaders();
   }, [getTeamLeaders]);
+  useEffect(() => {
+    getInterestSkills();
+  }, [getInterestSkills]);
 
   return (
     <ContentPage
@@ -133,8 +155,13 @@ export default function CompaniesRegister(): JSX.Element {
 
             <Input name="name" label={Language.fields.fullName} />
             <Input name="companyName" label={Language.fields.companyName} />
-            <Input name="email" label={Language.fields.email} type="email" />
           </ContentInput>
+          <ContentInput>
+            <Input name="email" label={Language.fields.email} type="email" />
+            <Input name="phone" label={Language.fields.phone} mask="phone" />
+          </ContentInput>
+        </Section>
+        <Section label={Language.page.companies.aditionalInfo}>
           <ContentInput>
             <InputDropDown
               name="teamLeader"
@@ -146,7 +173,12 @@ export default function CompaniesRegister(): JSX.Element {
               label={Language.fields.country}
               options={optionsCountry}
             />
-            <Input name="phone" label={Language.fields.phone} mask="phone" />
+            <InputDropDown
+              name="interestSkills"
+              label="Department"
+              options={optionsInterestSkills}
+            />
+
             <InputSwitch
               label={Language.fields.status}
               name="status"

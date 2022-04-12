@@ -64,6 +64,7 @@ export interface ICandidateSend {
 
   recruiter: string;
   teamLeader: string;
+  interestSkills: string;
 }
 
 interface IResponseCandidateSend {
@@ -104,7 +105,7 @@ export function AddCandidate(
             
             recruiter: "${data.recruiter}"
             teamLeader: "${data.teamLeader}"
-            
+            idInterestSkills: "${data.interestSkills}"
         ) {
             user {
                 id

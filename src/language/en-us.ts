@@ -54,6 +54,7 @@ const enUs = {
       newCompanies: 'New company',
       companies: 'Company',
       sendLogo: 'Send logo',
+      aditionalInfo: 'Aditional information',
     },
     candidates: {
       listCandidates: 'List of candidates',
@@ -61,6 +62,9 @@ const enUs = {
       candidates: 'Candidate',
       sendPicture: 'Send picture',
       cvUpload: 'Upload CV',
+      personalInformation: 'Personal information',
+      professionalInformation: 'Professional information',
+      permissions: 'Permissions',
     },
     interestSkills: {
       listInterestSkills: 'List of departament',

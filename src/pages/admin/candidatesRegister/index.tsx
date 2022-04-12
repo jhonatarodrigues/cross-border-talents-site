@@ -8,6 +8,7 @@ import Modal from '../../../components/modal';
 import { GetTeamLeaders } from '../../../hooks/admin/useTeamLeader';
 import { GetRecruiters } from '../../../hooks/admin/useRecruiters';
 import { GetCountries } from '../../../hooks/admin/useCountry';
+import { GetInterestSkills } from '../../../hooks/admin/useInterestSkills';
 import InputDatePicker from '../../../components/inputDatePicker';
 import {
   ICandidateSend,
@@ -38,6 +39,9 @@ export default function CandidatesRegister(): JSX.Element {
   const [optionsRecruiter, setOptionsRecruiter] = useState<IOptionsDropdown[]>(
     [] as IOptionsDropdown[],
   );
+  const [optionsInterestSkills, setOptionsInterestSkills] = useState<
+    IOptionsDropdown[]
+  >([] as IOptionsDropdown[]);
 
   const handleSubmit: SubmitHandler<ICandidateSend> = useCallback(
     async (data: ICandidateSend) => {
@@ -138,6 +142,20 @@ export default function CandidatesRegister(): JSX.Element {
       Modal({ keyType: 'getCountries', icon: 'error' });
     }
   }, []);
+  const getInterestSkills = useCallback(async () => {
+    const { interestSkills } = await GetInterestSkills();
+    if (interestSkills) {
+      const options: IOptionsDropdown[] = interestSkills.map(item => {
+        return {
+          value: item.id,
+          label: item.name,
+        };
+      });
+      setOptionsInterestSkills(options);
+    } else {
+      Modal({ keyType: 'getInterestSkills', icon: 'error' });
+    }
+  }, []);
 
   useEffect(() => {
     getCountries();
@@ -148,6 +166,9 @@ export default function CandidatesRegister(): JSX.Element {
   useEffect(() => {
     getRecruiters();
   }, [getRecruiters]);
+  useEffect(() => {
+    getInterestSkills();
+  }, [getInterestSkills]);
 
   return (
     <ContentPage
@@ -158,7 +179,7 @@ export default function CandidatesRegister(): JSX.Element {
         onSubmit={handleSubmit}
         onClick={() => formRef.current?.setErrors({})}
       >
-        <Section label={Language.page.candidates.candidates}>
+        <Section label={Language.page.candidates.personalInformation}>
           <ContentInput>
             <ButtonUpload name="uploadPicture">
               {Language.page.candidates.sendPicture}
@@ -173,19 +194,33 @@ export default function CandidatesRegister(): JSX.Element {
             <InputDatePicker
               dateOnly
               name="birthDate"
-              label={Language.fields.date}
+              label={Language.fields.birthDate}
             />
             <Input name="gender" label={Language.fields.gender} />
+            <InputDropDown
+              name="country"
+              label={Language.fields.country}
+              options={optionsCountry}
+            />
+          </ContentInput>
+        </Section>
+        <Section label={Language.page.candidates.professionalInformation}>
+          <ContentInput>
             <Input
               name="nativeLanguage"
               label={Language.fields.nativeLanguage}
             />
-          </ContentInput>
+            <InputDropDown
+              name="interestSkills"
+              label="Department"
+              options={optionsInterestSkills}
+            />
 
-          <ContentInput>
             <ButtonUpload name="uploadCv">
               {Language.page.candidates.cvUpload}
             </ButtonUpload>
+          </ContentInput>
+          <ContentInput>
             <InputDropDown
               name="englishLevel"
               label={Language.fields.englishLevel}
@@ -201,28 +236,31 @@ export default function CandidatesRegister(): JSX.Element {
               label="Recruiter"
               options={optionsRecruiter}
             />
-            <InputDropDown
-              name="country"
-              label={Language.fields.country}
-              options={optionsCountry}
-            />
           </ContentInput>
+        </Section>
+        <Section label={Language.page.candidates.permissions}>
           <ContentInput>
             <InputSwitch
               label={Language.fields.allowTalentPool}
               name="allowTalentPool"
               valueDefault
             />
+          </ContentInput>
+          <ContentInput>
             <InputSwitch
               label={Language.fields.allowContactMe}
               name="allowContactMe"
               valueDefault
             />
+          </ContentInput>
+          <ContentInput>
             <InputSwitch
               label={Language.fields.privacityPolicy}
               name="privacityPolicy"
               valueDefault
             />
+          </ContentInput>
+          <ContentInput>
             <InputSwitch
               label={Language.fields.status}
               name="status"
