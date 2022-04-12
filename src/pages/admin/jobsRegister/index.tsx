@@ -125,7 +125,7 @@ export default function JobsRegister(): JSX.Element {
           <ContentInput>
             <InputDropDown
               name="interestSkills"
-              label="Interest Skills"
+              label="Department"
               options={optionsInterestSkills}
             />
             <InputDropDown

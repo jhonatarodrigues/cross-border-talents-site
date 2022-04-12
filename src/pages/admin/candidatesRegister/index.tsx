@@ -8,6 +8,7 @@ import Modal from '../../../components/modal';
 import { GetTeamLeaders } from '../../../hooks/admin/useTeamLeader';
 import { GetRecruiters } from '../../../hooks/admin/useRecruiters';
 import { GetCountries } from '../../../hooks/admin/useCountry';
+import InputDatePicker from '../../../components/inputDatePicker';
 import {
   ICandidateSend,
   AddCandidate,
@@ -67,10 +68,7 @@ export default function CandidatesRegister(): JSX.Element {
           }
         }
 
-        console.log(infoData);
-
         AddCandidate(infoData).then(response => {
-          console.log('response', response);
           if (response.user.id) {
             Modal({
               icon: 'success',
@@ -172,7 +170,11 @@ export default function CandidatesRegister(): JSX.Element {
           </ContentInput>
           <ContentInput>
             <Input name="socialMedia" label={Language.fields.socialMedia} />
-            <Input name="birthDate" label={Language.fields.birthDate} />
+            <InputDatePicker
+              dateOnly
+              name="birthDate"
+              label={Language.fields.date}
+            />
             <Input name="gender" label={Language.fields.gender} />
             <Input
               name="nativeLanguage"

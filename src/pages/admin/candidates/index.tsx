@@ -6,22 +6,37 @@ import {
   GetListCandidates,
   ICandidate,
 } from '../../../hooks/admin/useCandidates';
+import { GetCountries, ICountrie } from '../../../hooks/admin/useCountry';
 import LabelDestached from '../../../components/labelDestached';
 import ContentPage from '../../../components/contentPage';
+import Modal from '../../../components/modal';
 import Language from '../../../language';
 
 export default function Candidates(): JSX.Element {
   const navigate = useNavigate();
   const [candidates, setCandidates] = useState<ICandidate[]>([]);
-  const rows: GridRowsProp = candidates.map((candidate: ICandidate) => ({
-    id: candidate.id,
-    name: candidate.user.name,
-    email: candidate.user.email,
-    country: candidate.country,
-    nativeLanguage: candidate.nativeLanguage,
-    englishLevel: candidate.englishLevel,
-    status: candidate.user.status,
-  }));
+  const [countries, setCountries] = useState<ICountrie[]>([]);
+
+  const rows: GridRowsProp = candidates.map((candidate: ICandidate) => {
+    let countrie = '';
+    const countrieFilter = countries.filter(
+      (country: ICountrie) => country.code === candidate.country,
+    );
+
+    if (countrieFilter && countrieFilter[0]) {
+      countrie = countrieFilter[0].name;
+    }
+
+    return {
+      id: candidate.id,
+      name: candidate.user.name,
+      email: candidate.user.email,
+      country: countrie,
+      nativeLanguage: candidate.nativeLanguage,
+      englishLevel: candidate.englishLevel,
+      status: candidate.user.status,
+    };
+  });
 
   const columns: GridColDef[] = [
     { field: 'name', headerName: 'Name', flex: 1 },
@@ -47,6 +62,23 @@ export default function Candidates(): JSX.Element {
       setCandidates(response.candidates);
     }
   }, []);
+
+  const hangleGetCountries = useCallback(() => {
+    GetCountries()
+      .then(response => {
+        setCountries(response.countries);
+      })
+      .catch(() => {
+        Modal({
+          icon: 'error',
+          keyType: 'getCountries',
+        });
+      });
+  }, []);
+
+  useEffect(() => {
+    hangleGetCountries();
+  }, [hangleGetCountries]);
 
   useEffect(() => {
     handleGetUser();
