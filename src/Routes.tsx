@@ -2,7 +2,8 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // -- PAGES
-
+import Dash from './pages/dash';
+// -- admin pages
 import Login from './pages/admin/login';
 
 import User from './pages/admin/user';
@@ -27,6 +28,7 @@ export default function Teste(): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Dash />} />
         <Route path="/admin">
           <Route path="login" element={<Login />} />
 

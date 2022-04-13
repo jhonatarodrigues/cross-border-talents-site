@@ -10,4 +10,6 @@ export const color = {
   gray: '#808080',
   graySemiDark: '#4A4A4A',
   red: '#f00',
+
+  blueOriginal: '#212F53',
 };
