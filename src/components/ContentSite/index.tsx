@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 
 import Header from '../headerSite';
+import FooterSite from '../footersite';
 
 import { Container, ContentPage } from './styles';
 
@@ -13,6 +14,7 @@ export default function ContentSite({ children }: IProps): JSX.Element {
     <Container>
       <Header />
       <ContentPage>{children}</ContentPage>
+      <FooterSite />
     </Container>
   );
 }

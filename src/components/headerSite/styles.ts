@@ -3,7 +3,7 @@ import styled from 'styled-components';
 // -- images
 
 export const HeaderDefault = styled.header`
-  background: #f00;
+  padding-top: 1.875rem;
 `;
 
 export const ContentHeader = styled.div`
