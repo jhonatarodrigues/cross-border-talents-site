@@ -23,6 +23,7 @@ export default function UserRegister(): JSX.Element {
       try {
         const schema = Yup.object().shape({
           name: Yup.string().required(),
+          lastName: Yup.string().required(),
           email: Yup.string().required(),
           phone: Yup.string().required(),
         });
@@ -66,9 +67,10 @@ export default function UserRegister(): JSX.Element {
         onSubmit={handleSubmit}
         onClick={() => formRef.current?.setErrors({})}
       >
-        <Section label={Language.page.user.user}>
+        <Section label={Language.page.user.personalInformation}>
           <ContentInput>
             <Input name="name" label={Language.fields.fullName} />
+            <Input name="lastName" label={Language.fields.lastName} />
             <Input name="email" label={Language.fields.email} type="email" />
           </ContentInput>
           <ContentInput>

@@ -14,6 +14,7 @@ interface IResponseUser {
 
 export interface IUserSend {
   name: string;
+  lastName: string;
   email: string;
   status: boolean;
   phone: string;
@@ -22,7 +23,7 @@ export interface IUserSend {
 export function AddUser(data: IUserSend): Promise<IUser> {
   const query = `
     mutation {
-      createUser(name: "${data.name}", email: "${data.email}", status: ${data.status}, phone: "${data.phone}") {
+      createUser(name: "${data.name}", lastName: "${data.lastName}", email: "${data.email}", status: ${data.status}, phone: "${data.phone}") {
         id
         name
         email

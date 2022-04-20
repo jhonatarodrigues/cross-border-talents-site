@@ -10,7 +10,8 @@ const enUs = {
 
   fields: {
     name: 'Name',
-    fullName: 'Full Name',
+    fullName: 'Name',
+    lastName: 'Last Name',
     companyName: 'Company Name',
     email: 'Email',
     phone: 'Phone',
@@ -38,6 +39,7 @@ const enUs = {
       listUser: 'List of users',
       newUser: 'New user',
       user: 'User',
+      personalInformation: 'Personal information',
     },
     teamLeader: {
       listTeamLeader: 'List of team leaders',
