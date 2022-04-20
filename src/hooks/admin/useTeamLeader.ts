@@ -14,6 +14,7 @@ interface IResponseTeamLeader {
 
 export interface ITeamLeaderSend {
   name: string;
+  lastName: string;
   email: string;
   status: boolean;
   phone: string;
@@ -22,7 +23,7 @@ export interface ITeamLeaderSend {
 export function AddTeamLeader(data: ITeamLeaderSend): Promise<ITeamLeader> {
   const query = `
     mutation {
-      createTeamLeader(name: "${data.name}", email: "${data.email}", status: ${data.status}, phone: "${data.phone}") {
+      createTeamLeader(name: "${data.name}", lastName: "${data.lastName}", email: "${data.email}", status: ${data.status}, phone: "${data.phone}") {
         id
         name
         email

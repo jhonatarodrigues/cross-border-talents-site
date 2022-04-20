@@ -26,6 +26,7 @@ export default function TeamLeaderRegister(): JSX.Element {
       try {
         const schema = Yup.object().shape({
           name: Yup.string().required(),
+          lastName: Yup.string().required(),
           email: Yup.string().required(),
           phone: Yup.string().required(),
         });
@@ -72,6 +73,7 @@ export default function TeamLeaderRegister(): JSX.Element {
         <Section label={Language.page.teamLeader.teamLeader}>
           <ContentInput>
             <Input name="name" label={Language.fields.fullName} />
+            <Input name="lastName" label={Language.fields.lastName} />
             <Input name="email" label={Language.fields.email} type="email" />
           </ContentInput>
           <ContentInput>
