@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback, useState, useEffect } from 'react';
 import { Form } from '@unform/web';
 import { SubmitHandler, FormHandles } from '@unform/core';
 import * as Yup from 'yup';
@@ -9,6 +9,10 @@ import {
   AddTeamLeader,
   ITeamLeaderSend,
 } from '../../../hooks/admin/useTeamLeader';
+import InputDropDown, {
+  IOptionsDropdown,
+} from '../../../components/inputDropdown';
+import { GetInterestSkills } from '../../../hooks/admin/useInterestSkills';
 import Input from '../../../components/input';
 import InputSwitch from '../../../components/inputSwitch';
 import ContentPage from '../../../components/contentPage';
@@ -20,6 +24,24 @@ import Language from '../../../language';
 export default function TeamLeaderRegister(): JSX.Element {
   const navigate = useNavigate();
   const formRef = useRef<FormHandles>(null);
+  const [optionsInterestSkills, setOptionsInterestSkills] = useState<
+    IOptionsDropdown[]
+  >([] as IOptionsDropdown[]);
+
+  const getInterestSkills = useCallback(async () => {
+    const { interestSkills } = await GetInterestSkills();
+    if (interestSkills) {
+      const options: IOptionsDropdown[] = interestSkills.map(item => {
+        return {
+          value: item.id,
+          label: item.name,
+        };
+      });
+      setOptionsInterestSkills(options);
+    } else {
+      Modal({ keyType: 'getInterestSkills', icon: 'error' });
+    }
+  }, []);
 
   const handleSubmit: SubmitHandler<ITeamLeaderSend> = useCallback(
     async (data: ITeamLeaderSend) => {
@@ -29,6 +51,7 @@ export default function TeamLeaderRegister(): JSX.Element {
           lastName: Yup.string().required(),
           email: Yup.string().required(),
           phone: Yup.string().required(),
+          department: Yup.string().required(),
         });
 
         await schema.validate(data, {
@@ -61,6 +84,10 @@ export default function TeamLeaderRegister(): JSX.Element {
     [navigate],
   );
 
+  useEffect(() => {
+    getInterestSkills();
+  }, [getInterestSkills]);
+
   return (
     <ContentPage
       title={`${Language.page.teamLeader.teamLeader} > ${Language.page.teamLeader.newTeamLeader}`}
@@ -70,13 +97,18 @@ export default function TeamLeaderRegister(): JSX.Element {
         onSubmit={handleSubmit}
         onClick={() => formRef.current?.setErrors({})}
       >
-        <Section label={Language.page.teamLeader.teamLeader}>
+        <Section label={Language.page.teamLeader.personalInformation}>
           <ContentInput>
             <Input name="name" label={Language.fields.fullName} />
             <Input name="lastName" label={Language.fields.lastName} />
             <Input name="email" label={Language.fields.email} type="email" />
           </ContentInput>
           <ContentInput>
+            <InputDropDown
+              name="department"
+              label="Department"
+              options={optionsInterestSkills}
+            />
             <Input name="phone" label={Language.fields.phone} mask="phone" />
             <InputSwitch
               label={Language.fields.status}

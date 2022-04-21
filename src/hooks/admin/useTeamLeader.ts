@@ -1,11 +1,18 @@
 import graphql from '../../services/graphql';
 
 export interface ITeamLeader {
+  department: string;
   id: string;
-  name: string;
-  email: string;
-  phone: string;
-  status: boolean;
+  idUser: string;
+  user: {
+    id: string;
+    name: string;
+    lastName: string;
+    email: string;
+    accessLevel: number;
+    status: boolean;
+    phone: string;
+  };
 }
 
 interface IResponseTeamLeader {
@@ -18,18 +25,34 @@ export interface ITeamLeaderSend {
   email: string;
   status: boolean;
   phone: string;
+  department: string;
 }
 
 export function AddTeamLeader(data: ITeamLeaderSend): Promise<ITeamLeader> {
   const query = `
     mutation {
-      createTeamLeader(name: "${data.name}", lastName: "${data.lastName}", email: "${data.email}", status: ${data.status}, phone: "${data.phone}") {
+        createTeamLeader(
+        name: "${data.name}",
+        lastName: "${data.lastName}"
+        email: "${data.email}"
+        phone: "${data.phone}"
+        status: ${data.status}
+        department: "${data.department}"
+        ) {
         id
-        name
-        email
-        phone
-        status
-      }
+        idUser
+        department
+        user {
+            id
+            name
+            lastName
+            email
+            phone
+            accessLevel
+            phone
+        }
+        
+        }
     }
   `;
 
@@ -45,14 +68,20 @@ export function AddTeamLeader(data: ITeamLeaderSend): Promise<ITeamLeader> {
 export function GetTeamLeaders(): Promise<IResponseTeamLeader> {
   const query = `
     query {
-      teamLeaders {
-        id
-        name
-        email
-        phone
-        status
-      }
-
+        teamLeaders{
+            department
+            id
+            idUser
+            user {
+                id
+                name
+                lastName
+                email
+                accessLevel
+                status
+                phone
+            }
+        }
     }
   `;
 

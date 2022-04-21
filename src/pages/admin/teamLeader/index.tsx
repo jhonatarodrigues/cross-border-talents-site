@@ -15,10 +15,10 @@ export default function TeamLeader(): JSX.Element {
   const [teamLeaders, setTeamLeaders] = useState<ITeamLeader[]>([]);
   const rows: GridRowsProp = teamLeaders.map((user: ITeamLeader) => ({
     id: user.id,
-    name: user.name,
-    email: user.email,
-    phone: user.phone,
-    status: user.status,
+    name: user.user.name,
+    email: user.user.email,
+    phone: user.user.phone,
+    status: user.user.status,
   }));
 
   const columns: GridColDef[] = [
