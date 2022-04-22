@@ -13,6 +13,7 @@ const enUs = {
     fullName: 'Name',
     lastName: 'Last Name',
     companyName: 'Company Name',
+    industry: 'Industry',
     email: 'Email',
     phone: 'Phone',
     status: 'Status',
@@ -32,6 +33,14 @@ const enUs = {
     observations: 'Observations',
     testimonial: 'Testimonial',
     date: 'Date',
+    webSiteUrl: 'Website URL',
+    size: 'Size',
+    adressLine1: 'Address Line 1',
+    adressLine2: 'Address Line 2',
+    city: 'City',
+    facebook: 'Facebook',
+    instagram: 'Instagram',
+    linkedin: 'Linkedin',
   },
 
   page: {
@@ -57,6 +66,9 @@ const enUs = {
       companies: 'Company',
       sendLogo: 'Send logo',
       aditionalInfo: 'Aditional information',
+      companyInformation: 'Company information',
+      contactInformation: 'Contact information',
+      socialMedia: 'Social media',
     },
     candidates: {
       listCandidates: 'List of candidates',

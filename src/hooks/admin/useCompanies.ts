@@ -1,4 +1,3 @@
-import { string } from 'yup';
 import graphql from '../../services/graphql';
 
 export interface ICompany {
@@ -9,9 +8,33 @@ export interface ICompany {
   user: {
     id: string;
     name: string;
-    email: string;
+    lastName: string;
     phone: string;
-    status: boolean;
+    email: string;
+    status: string;
+  };
+
+  companyName: string;
+  industry: string;
+  site: string;
+  size: string;
+  address1: string;
+  address2: string;
+  city: string;
+  userTeamLeader: {
+    id: string;
+    idUser: string;
+    department: string;
+    user: {
+      id: string;
+      name: string;
+      lastName: string;
+    };
+  };
+
+  interestSkills: {
+    id: string;
+    name: string;
   };
 }
 
@@ -21,6 +44,7 @@ interface IResponseCompanies {
 
 export interface ICompanySend {
   name: string;
+  lastName: string;
   email: string;
   status: boolean;
   phone: string;
@@ -30,6 +54,16 @@ export interface ICompanySend {
   companyLogo?: string;
   upload?: HTMLInputElement;
   interestSkills: string;
+
+  industry: string;
+  site: string;
+  size: string;
+  address1: string;
+  address2: string;
+  city: string;
+  facebook: string;
+  instagram: string;
+  linkedin: string;
 }
 
 interface IResponseCompanySend {
@@ -49,33 +83,44 @@ interface IResponseCompanySend {
 
 export function AddCompany(data: ICompanySend): Promise<IResponseCompanySend> {
   const query = `
-    mutation {
-            createCompanie(
-            name: "${data.name}"
-            email: "${data.email}"
-            phone: "${data.phone}"
-            status: ${data.status}
-            country: "${data.country}"
-            companyName: "${data.companyName}"
-            teamLeader: "${data.teamLeader}"
-            companyLogo: "${data.companyLogo}"
-            idInterestSkills: "${data.interestSkills}"
-        ) {
-            user {
-                id
-                name
-                email
-                phone
-                accessLevel
-            }
-            companie {
-                id
-                idUser
-                country
-                companyLogo
-            }
-        }
+  mutation {
+    createCompanie(
+      name: "${data.name}",
+      lastName: "${data.lastName}"
+      email: "${data.email}"
+      phone: "${data.phone}"
+      status: ${data.status}
+      country: "${data.country}"
+      companyName: "${data.companyName}"
+      companyLogo: "${data.companyLogo}"
+      industry: "${data.industry}"
+      site: "${data.site}"
+      size: "${data.size}"
+      address1: "${data.address1}"
+      address2: "${data.address2}"
+      city: "${data.city}"
+      facebook: "${data.facebook}"
+      instagram: "${data.instagram}"
+      linkedin: "${data.linkedin}"
+      
+      teamLeader: "${data.teamLeader}"
+      idInterestSkills:"${data.interestSkills}"
+    ){
+      companie{
+        id
+        idUser
+        idInterestSkills
+        companyName
+      }
+      user{
+        id
+        name
+        lastName
+        email
+      }
     }
+  }
+  
   `;
 
   return graphql(query)

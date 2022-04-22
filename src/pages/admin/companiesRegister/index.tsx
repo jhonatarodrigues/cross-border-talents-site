@@ -41,9 +41,13 @@ export default function CompaniesRegister(): JSX.Element {
       try {
         const schema = Yup.object().shape({
           name: Yup.string().required(),
+          lastName: Yup.string().required(),
           email: Yup.string().required(),
           phone: Yup.string().required(),
           teamLeader: Yup.string().required(),
+          companyName: Yup.string().required(),
+          industry: Yup.string().required(),
+          site: Yup.string().required(),
         });
 
         await schema.validate(infoData, {
@@ -147,18 +151,45 @@ export default function CompaniesRegister(): JSX.Element {
         onSubmit={handleSubmit}
         onClick={() => formRef.current?.setErrors({})}
       >
-        <Section label={Language.page.companies.companies}>
+        <Section label={Language.page.companies.companyInformation}>
           <ContentInput>
+            <Input name="companyName" label={Language.fields.companyName} />
+            <Input name="email" label={Language.fields.email} type="email" />
+            <Input name="industry" label={Language.fields.industry} />
+          </ContentInput>
+          <ContentInput>
+            <Input name="site" label={Language.fields.webSiteUrl} />
+            <Input name="size" label={Language.fields.size} />
             <ButtonUpload name="upload">
               {Language.page.companies.sendLogo}
             </ButtonUpload>
-
+          </ContentInput>
+        </Section>
+        <Section label={Language.page.companies.contactInformation}>
+          <ContentInput>
             <Input name="name" label={Language.fields.fullName} />
-            <Input name="companyName" label={Language.fields.companyName} />
+            <Input name="lastName" label={Language.fields.lastName} />
           </ContentInput>
           <ContentInput>
-            <Input name="email" label={Language.fields.email} type="email" />
+            <Input name="address1" label={Language.fields.adressLine1} />
+            <Input name="address2" label={Language.fields.adressLine2} />
+          </ContentInput>
+          <ContentInput>
+            <Input name="city" label={Language.fields.city} />
             <Input name="phone" label={Language.fields.phone} mask="phone" />
+            <InputDropDown
+              name="country"
+              label={Language.fields.country}
+              options={optionsCountry}
+            />
+          </ContentInput>
+        </Section>
+
+        <Section label={Language.page.companies.socialMedia}>
+          <ContentInput>
+            <Input name="facebook" label={Language.fields.facebook} />
+            <Input name="instagram" label={Language.fields.instagram} />
+            <Input name="linkedin" label={Language.fields.linkedin} />
           </ContentInput>
         </Section>
         <Section label={Language.page.companies.aditionalInfo}>
@@ -168,11 +199,7 @@ export default function CompaniesRegister(): JSX.Element {
               label="Team Leader"
               options={optionsTeamLeader}
             />
-            <InputDropDown
-              name="country"
-              label={Language.fields.country}
-              options={optionsCountry}
-            />
+
             <InputDropDown
               name="interestSkills"
               label="Department"
