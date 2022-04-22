@@ -15,7 +15,13 @@ export interface IRecruiter {
   };
   userTeamLeader: {
     id: string;
-    name: string;
+    idUser: string;
+    department: string;
+    user: {
+      id: string;
+      name: string;
+      lastName: string;
+    };
   };
 }
 
@@ -25,10 +31,12 @@ interface IResponseRecruiter {
 
 export interface IRecruiterSend {
   name: string;
+  lastName: string;
   email: string;
   status: boolean;
   phone: string;
   teamLeader: string;
+  department: string;
 }
 
 interface IResponseRecruiterSend {
@@ -51,10 +59,12 @@ export function AddRecruiter(
     mutation {
       createRecruiter (
         name: "${data.name}",
+        lastName: "${data.lastName}",
         email: "${data.email}",
         phone: "${data.phone}",
         status: ${data.status},
         teamLeader: ${data.teamLeader},
+        interestSkills: "${data.department}"
       ) {
         user{
           id 
@@ -93,9 +103,15 @@ export function GetRecruiters(): Promise<IResponseRecruiter> {
           phone
           status
         }
-        userTeamLeader {
-          id
-          name
+        userTeamLeader{
+            id
+            idUser
+            department
+            user {
+                id
+                name
+                lastName
+            }
         }
       }
     }

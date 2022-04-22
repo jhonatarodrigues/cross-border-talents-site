@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import Modal from '../../../components/modal';
 import { GetTeamLeaders } from '../../../hooks/admin/useTeamLeader';
+import { GetInterestSkills } from '../../../hooks/admin/useInterestSkills';
 import {
   IRecruiterSend,
   AddRecruiter,
@@ -28,15 +29,20 @@ export default function RecruiterRegister(): JSX.Element {
   const [optionsTeamLeader, setOptionsTeamLeader] = useState<
     IOptionsDropdown[]
   >([] as IOptionsDropdown[]);
+  const [optionsInterestSkills, setOptionsInterestSkills] = useState<
+    IOptionsDropdown[]
+  >([] as IOptionsDropdown[]);
 
   const handleSubmit: SubmitHandler<IRecruiterSend> = useCallback(
     async (data: IRecruiterSend) => {
       try {
         const schema = Yup.object().shape({
           name: Yup.string().required(),
+          lastName: Yup.string().required(),
           email: Yup.string().required(),
           phone: Yup.string().required(),
           teamLeader: Yup.string().required(),
+          department: Yup.string().required(),
         });
 
         await schema.validate(data, {
@@ -66,7 +72,7 @@ export default function RecruiterRegister(): JSX.Element {
         }
       }
     },
-    [],
+    [navigate],
   );
 
   const getTeamLeaders = useCallback(async () => {
@@ -84,6 +90,24 @@ export default function RecruiterRegister(): JSX.Element {
     }
   }, []);
 
+  const getInterestSkills = useCallback(async () => {
+    const { interestSkills } = await GetInterestSkills();
+    if (interestSkills) {
+      const options: IOptionsDropdown[] = interestSkills.map(item => {
+        return {
+          value: item.id,
+          label: item.name,
+        };
+      });
+      setOptionsInterestSkills(options);
+    } else {
+      Modal({ keyType: 'getInterestSkills', icon: 'error' });
+    }
+  }, []);
+
+  useEffect(() => {
+    getInterestSkills();
+  }, [getInterestSkills]);
   useEffect(() => {
     getTeamLeaders();
   }, [getTeamLeaders]);
@@ -97,9 +121,10 @@ export default function RecruiterRegister(): JSX.Element {
         onSubmit={handleSubmit}
         onClick={() => formRef.current?.setErrors({})}
       >
-        <Section label={Language.page.recruiter.recruiter}>
+        <Section label={Language.personalInformation}>
           <ContentInput>
             <Input name="name" label={Language.fields.fullName} />
+            <Input name="lastName" label={Language.fields.lastName} />
             <Input name="email" label={Language.fields.email} type="email" />
           </ContentInput>
           <ContentInput>
@@ -108,6 +133,11 @@ export default function RecruiterRegister(): JSX.Element {
               name="teamLeader"
               label="Team Leader"
               options={optionsTeamLeader}
+            />
+            <InputDropDown
+              name="department"
+              label="Department"
+              options={optionsInterestSkills}
             />
 
             <InputSwitch

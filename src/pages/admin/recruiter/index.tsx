@@ -16,7 +16,7 @@ export default function Recruiter(): JSX.Element {
     email: recruiter.user.email,
     phone: recruiter.user.phone,
     status: recruiter.user.status,
-    teamLeader: recruiter.userTeamLeader.name,
+    teamLeader: recruiter.userTeamLeader.user.name,
   }));
 
   const columns: GridColDef[] = [

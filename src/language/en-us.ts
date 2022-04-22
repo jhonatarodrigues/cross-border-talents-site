@@ -45,7 +45,6 @@ const enUs = {
       listTeamLeader: 'List of team leaders',
       newTeamLeader: 'New team leader',
       teamLeader: 'Team leader',
-      personalInformation: 'Personal information',
     },
     recruiter: {
       listRecruiter: 'List of recruiters',
@@ -85,5 +84,7 @@ const enUs = {
       testimonials: 'Testimonial',
     },
   },
+
+  personalInformation: 'Personal information',
 };
 export default enUs;

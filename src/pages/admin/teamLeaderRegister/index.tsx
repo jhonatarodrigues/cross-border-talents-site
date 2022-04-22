@@ -97,7 +97,7 @@ export default function TeamLeaderRegister(): JSX.Element {
         onSubmit={handleSubmit}
         onClick={() => formRef.current?.setErrors({})}
       >
-        <Section label={Language.page.teamLeader.personalInformation}>
+        <Section label={Language.personalInformation}>
           <ContentInput>
             <Input name="name" label={Language.fields.fullName} />
             <Input name="lastName" label={Language.fields.lastName} />
