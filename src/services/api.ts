@@ -4,6 +4,7 @@ import store from '../store';
 import { loadSuccess, loadLogout } from '../store/ducks/auth/actions';
 
 const baseURL = 'http://localhost:4000';
+// const baseURL = 'http://104.131.32.39:4000';
 const api = axios.create({
   baseURL,
 });
