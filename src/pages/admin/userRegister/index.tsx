@@ -72,9 +72,11 @@ export default function UserRegister(): JSX.Element {
             <Input name="name" label={Language.fields.fullName} />
             <Input name="lastName" label={Language.fields.lastName} />
             <Input name="email" label={Language.fields.email} type="email" />
-          </ContentInput>
-          <ContentInput>
             <Input name="phone" label={Language.fields.phone} mask="phone" />
+          </ContentInput>
+        </Section>
+        <Section label={Language.permissions}>
+          <ContentInput>
             <InputSwitch
               label={Language.fields.status}
               name="status"

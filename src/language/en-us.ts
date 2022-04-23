@@ -99,5 +99,6 @@ const enUs = {
   },
 
   personalInformation: 'Personal information',
+  permissions: 'Permissions',
 };
 export default enUs;

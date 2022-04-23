@@ -110,6 +110,11 @@ export default function TeamLeaderRegister(): JSX.Element {
               options={optionsInterestSkills}
             />
             <Input name="phone" label={Language.fields.phone} mask="phone" />
+          </ContentInput>
+        </Section>
+
+        <Section label={Language.permissions}>
+          <ContentInput>
             <InputSwitch
               label={Language.fields.status}
               name="status"

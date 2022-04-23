@@ -139,7 +139,10 @@ export default function RecruiterRegister(): JSX.Element {
               label="Department"
               options={optionsInterestSkills}
             />
-
+          </ContentInput>
+        </Section>
+        <Section label={Language.permissions}>
+          <ContentInput>
             <InputSwitch
               label={Language.fields.status}
               name="status"
