@@ -35,6 +35,35 @@ export default function CompaniesRegister(): JSX.Element {
     IOptionsDropdown[]
   >([] as IOptionsDropdown[]);
 
+  const optionsSize: IOptionsDropdown[] = [
+    {
+      value: '1 – 10 employees',
+      label: '1 – 10 employees',
+    },
+    {
+      value: '11 – 50 employees',
+      label: '11 – 50 employees',
+    },
+    {
+      value: '51 – 200 employees',
+      label: '51 – 200 employees',
+    },
+    {
+      value: '201 + employees',
+      label: '201 + employees',
+    },
+  ];
+  const optionsIndustry: IOptionsDropdown[] = [
+    {
+      value: 'option1',
+      label: 'option1',
+    },
+    {
+      value: 'option2',
+      label: 'option2',
+    },
+  ];
+
   const handleSubmit: SubmitHandler<ICompanySend> = useCallback(
     async (data: ICompanySend) => {
       const infoData = data;
@@ -155,11 +184,19 @@ export default function CompaniesRegister(): JSX.Element {
           <ContentInput>
             <Input name="companyName" label={Language.fields.companyName} />
             <Input name="email" label={Language.fields.email} type="email" />
-            <Input name="industry" label={Language.fields.industry} />
+            <InputDropDown
+              name="size"
+              label={Language.fields.industry}
+              options={optionsIndustry}
+            />
           </ContentInput>
           <ContentInput>
             <Input name="site" label={Language.fields.webSiteUrl} />
-            <Input name="size" label={Language.fields.size} />
+            <InputDropDown
+              name="size"
+              label={Language.fields.size}
+              options={optionsSize}
+            />
             <ButtonUpload name="upload">
               {Language.page.companies.sendLogo}
             </ButtonUpload>
