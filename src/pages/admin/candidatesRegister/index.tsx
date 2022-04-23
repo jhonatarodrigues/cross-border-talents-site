@@ -10,6 +10,8 @@ import { GetTeamLeaders } from '../../../hooks/admin/useTeamLeader';
 import { GetRecruiters } from '../../../hooks/admin/useRecruiters';
 import { GetCountries } from '../../../hooks/admin/useCountry';
 import { GetInterestSkills } from '../../../hooks/admin/useInterestSkills';
+import { GetLanguages } from '../../../hooks/admin/useLanguages';
+import { GetGender } from '../../../hooks/admin/useGender';
 import InputDatePicker from '../../../components/inputDatePicker';
 import {
   ICandidateSend,
@@ -43,6 +45,25 @@ export default function CandidatesRegister(): JSX.Element {
   const [optionsInterestSkills, setOptionsInterestSkills] = useState<
     IOptionsDropdown[]
   >([] as IOptionsDropdown[]);
+  const optionsNativeLanguage: IOptionsDropdown[] =
+    GetLanguages().languages.map(item => {
+      return {
+        value: item.code,
+        label: item.name,
+      };
+    });
+  const optionsGender: IOptionsDropdown[] = GetGender().gender.map(item => {
+    return {
+      label: item,
+      value: item,
+    };
+  });
+  const optionsEnglishLevel: IOptionsDropdown[] = [
+    { label: 'Fluent', value: 'Fluent' },
+    { label: 'Advanced', value: 'Advanced' },
+    { label: 'Intermediary', value: 'Intermediary' },
+    { label: 'Beginner', value: 'Beginner' },
+  ];
 
   const handleSubmit: SubmitHandler<ICandidateSend> = useCallback(
     async (data: ICandidateSend) => {
@@ -197,9 +218,11 @@ export default function CandidatesRegister(): JSX.Element {
           <ContentInput>
             <Input name="email" label={Language.fields.email} type="email" />
             <Input name="phone" label={Language.fields.phone} mask="phone" />
-            <Input
+
+            <InputDropDown
               name="nativeLanguage"
               label={Language.fields.nativeLanguage}
+              options={optionsNativeLanguage}
             />
           </ContentInput>
           <ContentInput>
@@ -208,7 +231,11 @@ export default function CandidatesRegister(): JSX.Element {
               name="birthDate"
               label={Language.fields.birthDate}
             />
-            <Input name="gender" label={Language.fields.gender} />
+            <InputDropDown
+              name="gender"
+              label={Language.fields.gender}
+              options={optionsGender}
+            />
             <InputDropDown
               name="country"
               label={Language.fields.countryOfResidence}
@@ -222,7 +249,7 @@ export default function CandidatesRegister(): JSX.Element {
             <InputDropDown
               name="englishLevel"
               label={Language.fields.englishLevel}
-              options={optionsTeamLeader}
+              options={optionsEnglishLevel}
             />
             <InputDropDown
               name="interestSkills"
