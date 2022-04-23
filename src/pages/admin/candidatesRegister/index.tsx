@@ -2,8 +2,9 @@ import React, { useRef, useCallback, useEffect, useState } from 'react';
 import { Form } from '@unform/web';
 import { SubmitHandler, FormHandles } from '@unform/core';
 import * as Yup from 'yup';
-
 import { useNavigate } from 'react-router-dom';
+
+import Editor from '../../../components/editor';
 import Modal from '../../../components/modal';
 import { GetTeamLeaders } from '../../../hooks/admin/useTeamLeader';
 import { GetRecruiters } from '../../../hooks/admin/useRecruiters';
@@ -49,9 +50,14 @@ export default function CandidatesRegister(): JSX.Element {
       try {
         const schema = Yup.object().shape({
           name: Yup.string().required(),
+          lastName: Yup.string().required(),
           email: Yup.string().required(),
           phone: Yup.string().required(),
           teamLeader: Yup.string().required(),
+          nativeLanguage: Yup.string().required(),
+          country: Yup.string().required(),
+          englishLevel: Yup.string().required(),
+          interestSkills: Yup.string().required(),
         });
 
         await schema.validate(infoData, {
@@ -186,11 +192,17 @@ export default function CandidatesRegister(): JSX.Element {
             </ButtonUpload>
 
             <Input name="name" label={Language.fields.fullName} />
-            <Input name="email" label={Language.fields.email} type="email" />
-            <Input name="phone" label={Language.fields.phone} mask="phone" />
+            <Input name="lastName" label={Language.fields.lastName} />
           </ContentInput>
           <ContentInput>
-            <Input name="socialMedia" label={Language.fields.socialMedia} />
+            <Input name="email" label={Language.fields.email} type="email" />
+            <Input name="phone" label={Language.fields.phone} mask="phone" />
+            <Input
+              name="nativeLanguage"
+              label={Language.fields.nativeLanguage}
+            />
+          </ContentInput>
+          <ContentInput>
             <InputDatePicker
               dateOnly
               name="birthDate"
@@ -199,33 +211,26 @@ export default function CandidatesRegister(): JSX.Element {
             <Input name="gender" label={Language.fields.gender} />
             <InputDropDown
               name="country"
-              label={Language.fields.country}
+              label={Language.fields.countryOfResidence}
               options={optionsCountry}
             />
           </ContentInput>
         </Section>
         <Section label={Language.page.candidates.professionalInformation}>
           <ContentInput>
-            <Input
-              name="nativeLanguage"
-              label={Language.fields.nativeLanguage}
+            <Input name="socialMedia" label={Language.fields.socialMedia} />
+            <InputDropDown
+              name="englishLevel"
+              label={Language.fields.englishLevel}
+              options={optionsTeamLeader}
             />
             <InputDropDown
               name="interestSkills"
               label="Department"
               options={optionsInterestSkills}
             />
-
-            <ButtonUpload name="uploadCv">
-              {Language.page.candidates.cvUpload}
-            </ButtonUpload>
           </ContentInput>
           <ContentInput>
-            <InputDropDown
-              name="englishLevel"
-              label={Language.fields.englishLevel}
-              options={optionsTeamLeader}
-            />
             <InputDropDown
               name="teamLeader"
               label="Team Leader"
@@ -233,9 +238,15 @@ export default function CandidatesRegister(): JSX.Element {
             />
             <InputDropDown
               name="recruiter"
-              label="Recruiter"
+              label="Approached by"
               options={optionsRecruiter}
             />
+            <ButtonUpload name="uploadCv">
+              {Language.page.candidates.cvUpload}
+            </ButtonUpload>
+          </ContentInput>
+          <ContentInput>
+            <Editor name="observations" label={Language.fields.observations} />
           </ContentInput>
         </Section>
         <Section label={Language.page.candidates.permissions}>

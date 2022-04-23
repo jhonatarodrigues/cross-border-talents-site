@@ -18,6 +18,7 @@ const enUs = {
     phone: 'Phone',
     status: 'Status',
     country: 'Country',
+    countryOfResidence: 'Country of Residence',
     socialMedia: 'Social Media',
     birthDate: 'Birth Date',
     gender: 'Gender',

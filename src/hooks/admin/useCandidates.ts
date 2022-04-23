@@ -14,18 +14,25 @@ export interface ICandidate {
   allowContactMe: boolean;
   privacityPolicy: boolean;
   englishLevel: number;
+  observations: string;
 
   userRecruiter: {
     id: string;
-    name: string;
-    email: string;
-    accessLevel: number;
+    user: {
+      id: string;
+      name: string;
+      email: string;
+      accessLevel: number;
+    };
   };
   userTeamLeader: {
     id: string;
-    name: string;
-    email: string;
-    accessLevel: number;
+    user: {
+      id: string;
+      name: string;
+      email: string;
+      accessLevel: number;
+    };
   };
   user: {
     id: string;
@@ -42,6 +49,7 @@ interface IResponseCandidates {
 
 export interface ICandidateSend {
   name: string;
+  lastName: string;
   email: string;
   phone: string;
   status: boolean;
@@ -61,6 +69,7 @@ export interface ICandidateSend {
   allowContactMe: boolean;
   privacityPolicy: boolean;
   englishLevel: string;
+  observations: string;
 
   recruiter: string;
   teamLeader: string;
@@ -87,6 +96,7 @@ export function AddCandidate(
     mutation {
         createCandidate(
             name: "${data.name}"
+            lastName: "${data.lastName}"
             email: "${data.email}"
             phone: "${data.phone}"
             status: ${data.status}
@@ -102,6 +112,7 @@ export function AddCandidate(
             allowContactMe: ${data.allowContactMe}
             privacityPolicy: ${data.privacityPolicy}
             englishLevel: "${data.englishLevel}"
+            observations: "${data.observations}"
             
             recruiter: "${data.recruiter}"
             teamLeader: "${data.teamLeader}"
@@ -151,15 +162,20 @@ export function GetListCandidates(): Promise<IResponseCandidates> {
             
             userRecruiter{
                 id
-                name
-                email
-                accessLevel
+                user{
+                    id
+                    name
+                    email
+                    accessLevel
+                }
             }
             userTeamLeader{
                 id
-                name
-                email
-                accessLevel
+                user {
+                    name
+                    email
+                    accessLevel
+                }
             }
             user{
                 id
