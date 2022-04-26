@@ -7,6 +7,9 @@ const enUs = {
   success: {
     titleSuccess: 'Success!',
   },
+  info: {
+    warning: 'Warning',
+  },
 
   fields: {
     name: 'Name',
@@ -100,5 +103,7 @@ const enUs = {
 
   personalInformation: 'Personal information',
   permissions: 'Permissions',
+  cancel: 'Cancel',
+  ok: 'Ok',
 };
 export default enUs;

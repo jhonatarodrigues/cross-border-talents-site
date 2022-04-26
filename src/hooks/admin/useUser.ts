@@ -1,3 +1,4 @@
+import { AxiosResponse } from 'axios';
 import graphql from '../../services/graphql';
 
 export interface IUser {
@@ -18,6 +19,16 @@ export interface IUserSend {
   email: string;
   status: boolean;
   phone: string;
+}
+
+export function DeleteUser(id: string): Promise<AxiosResponse> {
+  const query = `
+    mutation {
+        removeUser(id: "${id}")
+    }
+  `;
+
+  return graphql(query);
 }
 
 export function AddUser(data: IUserSend): Promise<IUser> {

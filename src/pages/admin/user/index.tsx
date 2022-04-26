@@ -1,11 +1,21 @@
 import React, { useEffect, useCallback, useState } from 'react';
-import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
+import {
+  DataGrid,
+  GridRowsProp,
+  GridColDef,
+  GridCellParams,
+} from '@mui/x-data-grid';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClose } from '@fortawesome/free-solid-svg-icons';
 
-import { GetUsers, IUser } from '../../../hooks/admin/useUser';
+import { GetUsers, IUser, DeleteUser } from '../../../hooks/admin/useUser';
 import LabelDestached from '../../../components/labelDestached';
 import ContentPage from '../../../components/contentPage';
 import Language from '../../../language';
+import Default from '../../../default';
+import Modal from '../../../components/modal';
+import { InvisibleButton } from './style';
 
 export default function User(): JSX.Element {
   const navigate = useNavigate();
@@ -17,6 +27,60 @@ export default function User(): JSX.Element {
     phone: user.phone,
     status: user.status,
   }));
+
+  const handleGetUser = useCallback(async () => {
+    const response = await GetUsers();
+    if (response && response.users) {
+      setUsers(response.users);
+    }
+  }, []);
+
+  useEffect(() => {
+    handleGetUser();
+  }, [handleGetUser]);
+
+  const handleDeleteUser = useCallback((id: string) => {
+    DeleteUser(id)
+      .then(response => {
+        if (response.data.removeUser) {
+          Modal({
+            keyType: 'removeUser',
+            icon: 'success',
+          });
+          handleGetUser();
+        } else {
+          Modal({
+            keyType: 'removeUser',
+            icon: 'error',
+          });
+        }
+      })
+      .catch(() => {
+        Modal({
+          keyType: 'removeUser',
+          icon: 'error',
+        });
+      });
+  }, []);
+
+  const renderActionCell = (e: GridCellParams) => {
+    return (
+      <InvisibleButton
+        title="Deletar"
+        onClick={() => {
+          Modal({
+            keyType: 'removeUser',
+            icon: 'info',
+            cancelButtonText: 'No',
+            confirmButtonText: 'Yes',
+            onClick: () => handleDeleteUser(e.row.id),
+          });
+        }}
+      >
+        <FontAwesomeIcon icon={faClose} color={Default.color.red} />
+      </InvisibleButton>
+    );
+  };
 
   const columns: GridColDef[] = [
     { field: 'name', headerName: 'Name', flex: 1 },
@@ -32,18 +96,12 @@ export default function User(): JSX.Element {
         />
       ),
     },
+    {
+      field: 'acoes',
+      headerName: 'Ações',
+      renderCell: renderActionCell,
+    },
   ];
-
-  const handleGetUser = useCallback(async () => {
-    const response = await GetUsers();
-    if (response && response.users) {
-      setUsers(response.users);
-    }
-  }, []);
-
-  useEffect(() => {
-    handleGetUser();
-  }, [handleGetUser]);
 
   return (
     <ContentPage
