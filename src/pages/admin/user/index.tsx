@@ -7,7 +7,7 @@ import {
 } from '@mui/x-data-grid';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClose } from '@fortawesome/free-solid-svg-icons';
+import { faClose, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 import { GetUsers, IUser, DeleteUser } from '../../../hooks/admin/useUser';
 import LabelDestached from '../../../components/labelDestached';
@@ -26,6 +26,7 @@ export default function User(): JSX.Element {
     email: user.email,
     phone: user.phone,
     status: user.status,
+    lastName: user.lastName,
   }));
 
   const handleGetUser = useCallback(async () => {
@@ -39,50 +40,64 @@ export default function User(): JSX.Element {
     handleGetUser();
   }, [handleGetUser]);
 
-  const handleDeleteUser = useCallback((id: string) => {
-    DeleteUser(id)
-      .then(response => {
-        if (response.data.removeUser) {
-          Modal({
-            keyType: 'removeUser',
-            icon: 'success',
-          });
-          handleGetUser();
-        } else {
+  const handleDeleteUser = useCallback(
+    (id: string) => {
+      DeleteUser(id)
+        .then(response => {
+          if (response.data.removeUser) {
+            Modal({
+              keyType: 'removeUser',
+              icon: 'success',
+            });
+            handleGetUser();
+          } else {
+            Modal({
+              keyType: 'removeUser',
+              icon: 'error',
+            });
+          }
+        })
+        .catch(() => {
           Modal({
             keyType: 'removeUser',
             icon: 'error',
           });
-        }
-      })
-      .catch(() => {
-        Modal({
-          keyType: 'removeUser',
-          icon: 'error',
         });
-      });
-  }, []);
+    },
+    [handleGetUser],
+  );
 
   const renderActionCell = (e: GridCellParams) => {
     return (
-      <InvisibleButton
-        title="Deletar"
-        onClick={() => {
-          Modal({
-            keyType: 'removeUser',
-            icon: 'info',
-            cancelButtonText: 'No',
-            confirmButtonText: 'Yes',
-            onClick: () => handleDeleteUser(e.row.id),
-          });
-        }}
-      >
-        <FontAwesomeIcon icon={faClose} color={Default.color.red} />
-      </InvisibleButton>
+      <>
+        <InvisibleButton
+          title="Deletar"
+          onClick={() => {
+            Modal({
+              keyType: 'removeUser',
+              icon: 'info',
+              cancelButtonText: 'No',
+              confirmButtonText: 'Yes',
+              onClick: () => handleDeleteUser(e.row.id),
+            });
+          }}
+        >
+          <FontAwesomeIcon icon={faClose} color={Default.color.red} />
+        </InvisibleButton>
+        <InvisibleButton
+          title="Deletar"
+          onClick={() => {
+            navigate('/admin/user/register', { state: { user: e.row } });
+          }}
+        >
+          <FontAwesomeIcon icon={faEdit} color={Default.color.blue} />
+        </InvisibleButton>
+      </>
     );
   };
 
   const columns: GridColDef[] = [
+    { field: 'lastName', headerName: 'lastName', hide: true },
     { field: 'name', headerName: 'Name', flex: 1 },
     { field: 'email', headerName: 'Email', flex: 1 },
     { field: 'phone', headerName: 'Phone', flex: 1 },

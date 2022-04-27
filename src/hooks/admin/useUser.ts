@@ -4,6 +4,7 @@ import graphql from '../../services/graphql';
 export interface IUser {
   id: string;
   name: string;
+  lastName: string;
   email: string;
   phone: string;
   status: boolean;
@@ -20,6 +21,9 @@ export interface IUserSend {
   status: boolean;
   phone: string;
 }
+export interface IUserSendUpdate extends IUserSend {
+  id: string;
+}
 
 export function DeleteUser(id: string): Promise<AxiosResponse> {
   const query = `
@@ -29,6 +33,34 @@ export function DeleteUser(id: string): Promise<AxiosResponse> {
   `;
 
   return graphql(query);
+}
+
+export function UpdateUser(data: IUserSendUpdate): Promise<IUser> {
+  const query = `
+      mutation {
+        updateUser(
+            id: "${data.id}"
+            name: "${data.name}", 
+            lastName: "${data.lastName}", 
+            status: ${data.status}, 
+            phone: "${data.phone}"
+        ) {
+          id
+          name
+          email
+          phone
+          status
+        }
+      }
+    `;
+
+  return graphql(query)
+    .then(response => {
+      return response.data.updateUser as IUser;
+    })
+    .catch(() => {
+      return {} as IUser;
+    });
 }
 
 export function AddUser(data: IUserSend): Promise<IUser> {
@@ -59,6 +91,7 @@ export function GetUsers(): Promise<IResponseUser> {
       users {
         id
         name
+        lastName
         email
         phone
         status

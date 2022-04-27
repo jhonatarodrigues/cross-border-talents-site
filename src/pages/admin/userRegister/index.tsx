@@ -2,10 +2,10 @@ import React, { useRef, useCallback } from 'react';
 import { Form } from '@unform/web';
 import { SubmitHandler, FormHandles } from '@unform/core';
 import * as Yup from 'yup';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-import { useNavigate } from 'react-router-dom';
 import Modal from '../../../components/modal';
-import { AddUser, IUserSend } from '../../../hooks/admin/useUser';
+import { AddUser, IUserSend, UpdateUser } from '../../../hooks/admin/useUser';
 import Input from '../../../components/input';
 import InputSwitch from '../../../components/inputSwitch';
 import ContentPage from '../../../components/contentPage';
@@ -14,9 +14,22 @@ import Button from '../../../components/button';
 import Section from '../../../components/section';
 import Language from '../../../language';
 
+interface IUserRegister {
+  user: {
+    id: string;
+    name: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    status: boolean;
+  };
+}
+
 export default function UserRegister(): JSX.Element {
   const navigate = useNavigate();
   const formRef = useRef<FormHandles>(null);
+  const location = useLocation();
+  const params = (location.state as IUserRegister) || {};
 
   const handleSubmit: SubmitHandler<IUserSend> = useCallback(
     async (data: IUserSend) => {
@@ -32,15 +45,27 @@ export default function UserRegister(): JSX.Element {
           abortEarly: false,
         });
 
-        AddUser(data).then(response => {
-          if (response.id) {
-            Modal({
-              icon: 'success',
-              keyType: 'createdUser',
-              onClick: () => navigate('/admin/user'),
-            });
-          }
-        });
+        if (params.user.id) {
+          UpdateUser({ ...data, id: params.user.id }).then(response => {
+            if (response.id) {
+              Modal({
+                icon: 'success',
+                keyType: 'updateUser',
+                onClick: () => navigate('/admin/user'),
+              });
+            }
+          });
+        } else {
+          AddUser(data).then(response => {
+            if (response.id) {
+              Modal({
+                icon: 'success',
+                keyType: 'createdUser',
+                onClick: () => navigate('/admin/user'),
+              });
+            }
+          });
+        }
       } catch (err) {
         const validationErrors: Record<string, string> = {};
 
@@ -55,12 +80,14 @@ export default function UserRegister(): JSX.Element {
         }
       }
     },
-    [navigate],
+    [navigate, params],
   );
 
   return (
     <ContentPage
-      title={`${Language.page.user.user} > ${Language.page.user.newUser}`}
+      title={`${Language.page.user.user} > ${
+        params.user.id ? params.user.name : Language.page.user.newUser
+      }`}
     >
       <Form
         ref={formRef}
@@ -69,10 +96,29 @@ export default function UserRegister(): JSX.Element {
       >
         <Section label={Language.page.user.personalInformation}>
           <ContentInput>
-            <Input name="name" label={Language.fields.fullName} />
-            <Input name="lastName" label={Language.fields.lastName} />
-            <Input name="email" label={Language.fields.email} type="email" />
-            <Input name="phone" label={Language.fields.phone} mask="phone" />
+            <Input
+              name="name"
+              label={Language.fields.fullName}
+              value={params.user.name}
+            />
+            <Input
+              name="lastName"
+              label={Language.fields.lastName}
+              value={params.user.lastName}
+            />
+            <Input
+              name="email"
+              label={Language.fields.email}
+              type="email"
+              value={params.user.email}
+              disabled={!!params.user.id}
+            />
+            <Input
+              name="phone"
+              label={Language.fields.phone}
+              mask="phone"
+              value={params.user.phone}
+            />
           </ContentInput>
         </Section>
         <Section label={Language.permissions}>
@@ -80,7 +126,7 @@ export default function UserRegister(): JSX.Element {
             <InputSwitch
               label={Language.fields.status}
               name="status"
-              valueDefault
+              valueDefault={params.user.status}
             />
           </ContentInput>
         </Section>

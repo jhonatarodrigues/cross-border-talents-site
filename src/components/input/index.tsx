@@ -20,14 +20,20 @@ import { InputField, ContentFiled, TextError } from './style';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
+  value?: string;
   mask?: 'cpf' | 'phone' | 'cnpj' | 'currency' | 'numeric' | 'cpfCnpj';
 }
 
 type IProps = TextFieldProps & InputProps;
 
-export default function Input({ name, mask, ...rest }: IProps) {
+export default function Input({
+  name,
+  value: defaultValueSet,
+  mask,
+  ...rest
+}: IProps) {
   const inputRef = useRef(null);
-  const { fieldName, defaultValue = '', registerField, error } = useField(name);
+  const { fieldName, defaultValue, registerField, error } = useField(name);
   const [inputValue, setInputValue] = useState<string>('');
 
   useEffect(() => {
@@ -37,14 +43,20 @@ export default function Input({ name, mask, ...rest }: IProps) {
       getValue: () => {
         return inputValue;
       },
-      setValue: (_, value) => {
-        setInputValue(value);
+      setValue: (_, setVal) => {
+        setInputValue(setVal);
       },
       clearValue: () => {
         setInputValue('');
       },
     });
   }, [fieldName, registerField, inputValue]);
+
+  useEffect(() => {
+    if (defaultValueSet) {
+      setInputValue(defaultValueSet);
+    }
+  }, [defaultValueSet]);
 
   const handleMask = useCallback(
     val => {
@@ -85,4 +97,5 @@ export default function Input({ name, mask, ...rest }: IProps) {
 
 Input.defaultProps = {
   mask: '',
+  value: '',
 };
