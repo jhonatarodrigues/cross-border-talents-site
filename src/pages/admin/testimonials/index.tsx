@@ -1,7 +1,14 @@
 import React, { useEffect, useCallback, useState } from 'react';
-import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
+import {
+  DataGrid,
+  GridRowsProp,
+  GridColDef,
+  GridCellParams,
+} from '@mui/x-data-grid';
 import { useNavigate } from 'react-router-dom';
 import Moment from 'moment-timezone';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClose, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 import {
   GetTestimonials,
@@ -11,6 +18,8 @@ import { GetCountries, ICountrie } from '../../../hooks/admin/useCountry';
 import Modal from '../../../components/modal';
 import ContentPage from '../../../components/contentPage';
 import Language from '../../../language';
+import Default from '../../../default';
+import { InvisibleButton } from './style';
 
 export default function Testimonials(): JSX.Element {
   const navigate = useNavigate();
@@ -20,13 +29,13 @@ export default function Testimonials(): JSX.Element {
   const rows: GridRowsProp = testimonials.map((item: ITestimonials) => {
     const timeStamp: number = parseInt(item.date, 10);
 
-    let countrie = '';
-    const countrieFilter = countries.filter(
+    let countryName = '';
+    const countryFilter = countries.filter(
       (country: ICountrie) => country.code === item.country,
     );
 
-    if (countrieFilter && countrieFilter[0]) {
-      countrie = countrieFilter[0].name;
+    if (countryFilter && countryFilter[0]) {
+      countryName = countryFilter[0].name;
     }
 
     return {
@@ -34,15 +43,49 @@ export default function Testimonials(): JSX.Element {
       name: item.name,
       date: Moment(timeStamp).format('DD/MM/YYYY HH:mm'),
       observations: item.observations,
-      country: countrie,
+      country: countryName,
     };
   });
+
+  const renderActionCell = (e: GridCellParams) => {
+    return (
+      <>
+        <InvisibleButton
+          title="Deletar"
+          onClick={() => {
+            Modal({
+              keyType: 'removeUser',
+              icon: 'info',
+              cancelButtonText: 'No',
+              confirmButtonText: 'Yes',
+              //   onClick: () => handleDeleteUser(e.row.id),
+            });
+          }}
+        >
+          <FontAwesomeIcon icon={faClose} color={Default.color.red} />
+        </InvisibleButton>
+        <InvisibleButton
+          title="Deletar"
+          onClick={() => {
+            navigate('/admin/user/register', { state: { user: e.row } });
+          }}
+        >
+          <FontAwesomeIcon icon={faEdit} color={Default.color.blue} />
+        </InvisibleButton>
+      </>
+    );
+  };
 
   const columns: GridColDef[] = [
     { field: 'name', headerName: 'Name', flex: 1 },
     { field: 'date', headerName: 'Date', flex: 1 },
-    { field: 'observations', headerName: 'Obeservation', flex: 1 },
+    { field: 'observations', headerName: 'Observation', flex: 1 },
     { field: 'country', headerName: 'Country', flex: 1 },
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      renderCell: renderActionCell,
+    },
   ];
 
   const handleGetUser = useCallback(async () => {
@@ -56,7 +99,7 @@ export default function Testimonials(): JSX.Element {
     handleGetUser();
   }, [handleGetUser]);
 
-  const hangleGetCountries = useCallback(() => {
+  const handleGetCountries = useCallback(() => {
     GetCountries()
       .then(response => {
         setCountries(response.countries);
@@ -70,8 +113,8 @@ export default function Testimonials(): JSX.Element {
   }, []);
 
   useEffect(() => {
-    hangleGetCountries();
-  }, [hangleGetCountries]);
+    handleGetCountries();
+  }, [handleGetCountries]);
 
   return (
     <ContentPage

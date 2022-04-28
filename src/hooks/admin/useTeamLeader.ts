@@ -93,3 +93,19 @@ export function GetTeamLeaders(): Promise<IResponseTeamLeader> {
       return { teamLeaders: [] };
     });
 }
+
+export function DeleteTeamLeader(id: string): Promise<boolean> {
+  const query = `
+    mutation {
+        removeTeamLeader(id: "${id}")
+    }
+  `;
+
+  return graphql(query)
+    .then(response => {
+      return response.data.removeTeamLeader as boolean;
+    })
+    .catch(() => {
+      return false;
+    });
+}

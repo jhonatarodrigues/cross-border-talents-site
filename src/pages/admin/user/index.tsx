@@ -112,8 +112,8 @@ export default function User(): JSX.Element {
       ),
     },
     {
-      field: 'acoes',
-      headerName: 'Ações',
+      field: 'actions',
+      headerName: 'Actions',
       renderCell: renderActionCell,
     },
   ];
