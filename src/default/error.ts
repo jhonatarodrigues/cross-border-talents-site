@@ -7,7 +7,7 @@ const error: { [key: string]: string } = {
   getRecruiter: 'Failed to get recruiter.',
   getInterestSkills: 'Failed to get interest skills.',
   removeUser: 'Failed to remove user.',
-  removeTeamLeader: 'Failed to remove team leader.',
+  removeTeamLeader: 'Failed to remove team leader or team leader in use.',
 };
 
 export default function errorString(key: string): string {

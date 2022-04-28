@@ -26,6 +26,9 @@ export default function TeamLeader(): JSX.Element {
   const [teamLeaders, setTeamLeaders] = useState<ITeamLeader[]>([]);
   const rows: GridRowsProp = teamLeaders.map((user: ITeamLeader) => ({
     id: user.id,
+    department: user.department,
+    lastName: user.user.lastName,
+
     name: user.user.name,
     email: user.user.email,
     phone: user.user.phone,
@@ -90,7 +93,9 @@ export default function TeamLeader(): JSX.Element {
         <InvisibleButton
           title="Deletar"
           onClick={() => {
-            navigate('/admin/user/register', { state: { user: e.row } });
+            navigate('/admin/teamLeader/register', {
+              state: { teamleader: e.row },
+            });
           }}
         >
           <FontAwesomeIcon icon={faEdit} color={Default.color.blue} />
@@ -100,6 +105,9 @@ export default function TeamLeader(): JSX.Element {
   };
 
   const columns: GridColDef[] = [
+    { field: 'id', hide: true, filterable: false },
+    { field: 'department', hide: true, filterable: false },
+
     { field: 'name', headerName: 'Name', flex: 1 },
     { field: 'email', headerName: 'Email', flex: 1 },
     { field: 'phone', headerName: 'Phone', flex: 1 },

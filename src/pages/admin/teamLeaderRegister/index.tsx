@@ -2,11 +2,12 @@ import React, { useRef, useCallback, useState, useEffect } from 'react';
 import { Form } from '@unform/web';
 import { SubmitHandler, FormHandles } from '@unform/core';
 import * as Yup from 'yup';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-import { useNavigate } from 'react-router-dom';
 import Modal from '../../../components/modal';
 import {
   AddTeamLeader,
+  UpdateTeamLeader,
   ITeamLeaderSend,
 } from '../../../hooks/admin/useTeamLeader';
 import InputDropDown, {
@@ -21,12 +22,26 @@ import Button from '../../../components/button';
 import Section from '../../../components/section';
 import Language from '../../../language';
 
+interface ITeamLeaderRegister {
+  teamleader: {
+    id: string;
+    email: string;
+    name: string;
+    lastName: string;
+    phone: string;
+    status: boolean;
+    department: string;
+  };
+}
+
 export default function TeamLeaderRegister(): JSX.Element {
   const navigate = useNavigate();
   const formRef = useRef<FormHandles>(null);
   const [optionsInterestSkills, setOptionsInterestSkills] = useState<
     IOptionsDropdown[]
   >([] as IOptionsDropdown[]);
+  const location = useLocation();
+  const params = (location?.state as ITeamLeaderRegister) || {};
 
   const getInterestSkills = useCallback(async () => {
     const { interestSkills } = await GetInterestSkills();
@@ -58,15 +73,28 @@ export default function TeamLeaderRegister(): JSX.Element {
           abortEarly: false,
         });
 
-        AddTeamLeader(data).then(response => {
-          if (response.id) {
-            Modal({
-              icon: 'success',
-              keyType: 'createdTeamLeader',
-              onClick: () => navigate('/admin/teamLeader'),
-            });
-          }
-        });
+        if (params.teamleader.id) {
+          const newData = { ...data, id: params.teamleader.id };
+          UpdateTeamLeader(newData).then(response => {
+            if (response.id) {
+              Modal({
+                icon: 'success',
+                keyType: 'updateTeamLeader',
+                onClick: () => navigate('/admin/teamLeader'),
+              });
+            }
+          });
+        } else {
+          AddTeamLeader(data).then(response => {
+            if (response.id) {
+              Modal({
+                icon: 'success',
+                keyType: 'createdTeamLeader',
+                onClick: () => navigate('/admin/teamLeader'),
+              });
+            }
+          });
+        }
       } catch (err) {
         const validationErrors: Record<string, string> = {};
 
@@ -90,7 +118,11 @@ export default function TeamLeaderRegister(): JSX.Element {
 
   return (
     <ContentPage
-      title={`${Language.page.teamLeader.teamLeader} > ${Language.page.teamLeader.newTeamLeader}`}
+      title={`${Language.page.teamLeader.teamLeader} > ${
+        params.teamleader.name
+          ? params.teamleader.name
+          : Language.page.teamLeader.newTeamLeader
+      }`}
     >
       <Form
         ref={formRef}
@@ -99,17 +131,37 @@ export default function TeamLeaderRegister(): JSX.Element {
       >
         <Section label={Language.personalInformation}>
           <ContentInput>
-            <Input name="name" label={Language.fields.fullName} />
-            <Input name="lastName" label={Language.fields.lastName} />
-            <Input name="email" label={Language.fields.email} type="email" />
+            <Input
+              name="name"
+              label={Language.fields.fullName}
+              value={params.teamleader.name}
+            />
+            <Input
+              name="lastName"
+              label={Language.fields.lastName}
+              value={params.teamleader.lastName}
+            />
+            <Input
+              name="email"
+              label={Language.fields.email}
+              type="email"
+              value={params.teamleader.email}
+              disabled={!!params.teamleader.email}
+            />
           </ContentInput>
           <ContentInput>
             <InputDropDown
               name="department"
               label="Department"
               options={optionsInterestSkills}
+              value={params.teamleader.department}
             />
-            <Input name="phone" label={Language.fields.phone} mask="phone" />
+            <Input
+              name="phone"
+              label={Language.fields.phone}
+              mask="phone"
+              value={params.teamleader.phone}
+            />
           </ContentInput>
         </Section>
 
@@ -118,7 +170,7 @@ export default function TeamLeaderRegister(): JSX.Element {
             <InputSwitch
               label={Language.fields.status}
               name="status"
-              valueDefault
+              valueDefault={params.teamleader.status}
             />
           </ContentInput>
         </Section>

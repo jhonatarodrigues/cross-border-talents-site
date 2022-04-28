@@ -28,6 +28,10 @@ export interface ITeamLeaderSend {
   department: string;
 }
 
+export interface ITeamLeaderUpdate extends ITeamLeaderSend {
+  id: string;
+}
+
 export function AddTeamLeader(data: ITeamLeaderSend): Promise<ITeamLeader> {
   const query = `
     mutation {
@@ -59,6 +63,45 @@ export function AddTeamLeader(data: ITeamLeaderSend): Promise<ITeamLeader> {
   return graphql(query)
     .then(response => {
       return response.data.createTeamLeader as ITeamLeader;
+    })
+    .catch(() => {
+      return {} as ITeamLeader;
+    });
+}
+
+export function UpdateTeamLeader(
+  data: ITeamLeaderUpdate,
+): Promise<ITeamLeader> {
+  const query = `
+    mutation {
+        updateTeamLeader(
+            id: "${data.id}"
+            name: "${data.name}",
+            lastName: "${data.lastName}"
+            phone: "${data.phone}"
+            status: ${data.status}
+            department: "${data.department}"
+        ) {
+        id
+        idUser
+        department
+        user {
+            id
+            name
+            lastName
+            email
+            phone
+            accessLevel
+            phone
+        }
+        
+        }
+    }
+  `;
+
+  return graphql(query)
+    .then(response => {
+      return response.data.updateTeamLeader as ITeamLeader;
     })
     .catch(() => {
       return {} as ITeamLeader;

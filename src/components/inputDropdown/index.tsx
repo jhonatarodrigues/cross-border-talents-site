@@ -22,11 +22,17 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
   label: string;
   options: IOptionsDropdown[];
+  value?: string;
 }
 
 type IProps = SelectProps & InputProps;
 
-export default function InputDropdown({ name, label, ...rest }: IProps) {
+export default function InputDropdown({
+  name,
+  label,
+  value: valueProp,
+  ...rest
+}: IProps) {
   const inputRef = useRef(null);
   const { fieldName, defaultValue = '', registerField, error } = useField(name);
   const [inputValue, setInputValue] = useState<string>('');
@@ -50,6 +56,12 @@ export default function InputDropdown({ name, label, ...rest }: IProps) {
   const handleChange = useCallback((value: string) => {
     setInputValue(value);
   }, []);
+
+  useEffect(() => {
+    if (valueProp) {
+      setInputValue(valueProp);
+    }
+  }, [valueProp]);
 
   return (
     <ContentFiled className="contentField">
@@ -77,3 +89,6 @@ export default function InputDropdown({ name, label, ...rest }: IProps) {
     </ContentFiled>
   );
 }
+InputDropdown.defaultProps = {
+  value: '',
+};
