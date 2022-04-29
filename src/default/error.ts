@@ -8,6 +8,7 @@ const error: { [key: string]: string } = {
   getInterestSkills: 'Failed to get interest skills.',
   removeUser: 'Failed to remove user.',
   removeTeamLeader: 'Failed to remove team leader or team leader in use.',
+  removeCompany: 'Failed to remove company.',
 };
 
 export default function errorString(key: string): string {

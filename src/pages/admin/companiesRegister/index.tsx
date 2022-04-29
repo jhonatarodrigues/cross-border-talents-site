@@ -1,13 +1,24 @@
-import React, { useRef, useCallback, useEffect, useState } from 'react';
+import React, {
+  useRef,
+  useCallback,
+  useEffect,
+  useState,
+  useMemo,
+} from 'react';
 import { Form } from '@unform/web';
 import { SubmitHandler, FormHandles } from '@unform/core';
 import * as Yup from 'yup';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-import { useNavigate } from 'react-router-dom';
 import Modal from '../../../components/modal';
 import { GetTeamLeaders } from '../../../hooks/admin/useTeamLeader';
 import { GetCountries } from '../../../hooks/admin/useCountry';
-import { AddCompany, ICompanySend } from '../../../hooks/admin/useCompanies';
+import {
+  AddCompany,
+  ICompanySend,
+  ICompany,
+  UpdateCompany,
+} from '../../../hooks/admin/useCompanies';
 import Input from '../../../components/input';
 import InputDropDown, {
   IOptionsDropdown,
@@ -19,8 +30,13 @@ import ContentInput from '../../../components/contentInput';
 import { SimpleFileUpload } from '../../../hooks/admin/useUpload';
 import Button from '../../../components/button';
 import Section from '../../../components/section';
+import ContentPicture from '../../../components/ContentPicture';
 import Language from '../../../language';
 import ButtonUpload from '../../../components/buttonUpload';
+
+interface ICompanyRegister {
+  company: ICompany;
+}
 
 export default function CompaniesRegister(): JSX.Element {
   const navigate = useNavigate();
@@ -34,6 +50,16 @@ export default function CompaniesRegister(): JSX.Element {
   const [optionsInterestSkills, setOptionsInterestSkills] = useState<
     IOptionsDropdown[]
   >([] as IOptionsDropdown[]);
+  const location = useLocation();
+  const params = useMemo(
+    () =>
+      (location?.state as ICompanyRegister) ||
+      ({ company: {} } as ICompanyRegister),
+    [location],
+  );
+  const [companyLogo, setCompanyLogo] = useState(
+    params.company.companyLogo || '',
+  );
 
   const optionsSize: IOptionsDropdown[] = [
     {
@@ -83,6 +109,12 @@ export default function CompaniesRegister(): JSX.Element {
           abortEarly: false,
         });
 
+        infoData.companyLogo = '';
+
+        if (companyLogo) {
+          infoData.companyLogo = companyLogo;
+        }
+
         if (infoData.upload) {
           const upload = await SimpleFileUpload(infoData.upload);
           if (upload) {
@@ -90,15 +122,31 @@ export default function CompaniesRegister(): JSX.Element {
           }
         }
 
-        AddCompany(infoData).then(response => {
-          if (response.companie.id) {
-            Modal({
-              icon: 'success',
-              keyType: 'createdCompany',
-              onClick: () => navigate('/admin/companies'),
-            });
-          }
-        });
+        if (params.company.id) {
+          const newInfoData = {
+            ...infoData,
+            id: params.company.id,
+          };
+          UpdateCompany(newInfoData).then(response => {
+            if (response.companie.id) {
+              Modal({
+                icon: 'success',
+                keyType: 'updateCompany',
+                onClick: () => navigate('/admin/companies'),
+              });
+            }
+          });
+        } else {
+          AddCompany(infoData).then(response => {
+            if (response.companie.id) {
+              Modal({
+                icon: 'success',
+                keyType: 'createdCompany',
+                onClick: () => navigate('/admin/companies'),
+              });
+            }
+          });
+        }
       } catch (err) {
         const validationErrors: Record<string, string> = {};
 
@@ -113,7 +161,7 @@ export default function CompaniesRegister(): JSX.Element {
         }
       }
     },
-    [navigate],
+    [navigate, params, companyLogo],
   );
 
   const getTeamLeaders = useCallback(async () => {
@@ -173,7 +221,11 @@ export default function CompaniesRegister(): JSX.Element {
 
   return (
     <ContentPage
-      title={`${Language.page.companies.companies} > ${Language.page.companies.newCompanies}`}
+      title={`${Language.page.companies.companies} > ${
+        params.company.companyName
+          ? params.company.companyName
+          : Language.page.companies.newCompanies
+      }`}
     >
       <Form
         ref={formRef}
@@ -182,51 +234,113 @@ export default function CompaniesRegister(): JSX.Element {
       >
         <Section label={Language.page.companies.companyInformation}>
           <ContentInput>
-            <Input name="companyName" label={Language.fields.companyName} />
-            <Input name="email" label={Language.fields.email} type="email" />
+            <Input
+              name="companyName"
+              label={Language.fields.companyName}
+              value={params.company.companyName}
+            />
+            <Input
+              name="email"
+              label={Language.fields.email}
+              type="email"
+              value={params.company.user.email}
+            />
             <InputDropDown
-              name="size"
+              name="industry"
               label={Language.fields.industry}
               options={optionsIndustry}
+              value={params.company.industry}
             />
           </ContentInput>
           <ContentInput>
-            <Input name="site" label={Language.fields.webSiteUrl} />
+            <Input
+              name="site"
+              label={Language.fields.webSiteUrl}
+              value={params.company.site}
+            />
             <InputDropDown
               name="size"
               label={Language.fields.size}
               options={optionsSize}
+              value={params.company.size}
             />
-            <ButtonUpload name="upload">
-              {Language.page.companies.sendLogo}
-            </ButtonUpload>
+            {companyLogo && companyLogo !== 'undefined' ? (
+              <ContentPicture
+                pictureUrl={companyLogo}
+                onRemove={() => {
+                  setCompanyLogo('');
+                }}
+              />
+            ) : (
+              <ButtonUpload name="upload">
+                {Language.page.companies.sendLogo}
+              </ButtonUpload>
+            )}
           </ContentInput>
         </Section>
         <Section label={Language.page.companies.contactInformation}>
           <ContentInput>
-            <Input name="name" label={Language.fields.fullName} />
-            <Input name="lastName" label={Language.fields.lastName} />
+            <Input
+              name="name"
+              label={Language.fields.fullName}
+              value={params.company.user.name}
+            />
+            <Input
+              name="lastName"
+              label={Language.fields.lastName}
+              value={params.company.user.lastName}
+            />
           </ContentInput>
           <ContentInput>
-            <Input name="address1" label={Language.fields.adressLine1} />
-            <Input name="address2" label={Language.fields.adressLine2} />
+            <Input
+              name="address1"
+              label={Language.fields.adressLine1}
+              value={params.company.address1}
+            />
+            <Input
+              name="address2"
+              label={Language.fields.adressLine2}
+              value={params.company.address2}
+            />
           </ContentInput>
           <ContentInput>
-            <Input name="city" label={Language.fields.city} />
-            <Input name="phone" label={Language.fields.phone} mask="phone" />
+            <Input
+              name="city"
+              label={Language.fields.city}
+              value={params.company.city}
+            />
+            <Input
+              name="phone"
+              label={Language.fields.phone}
+              mask="phone"
+              value={params.company.user.phone}
+            />
             <InputDropDown
               name="country"
               label={Language.fields.country}
               options={optionsCountry}
+              value={params.company.country}
             />
           </ContentInput>
         </Section>
 
         <Section label={Language.page.companies.socialMedia}>
           <ContentInput>
-            <Input name="facebook" label={Language.fields.facebook} />
-            <Input name="instagram" label={Language.fields.instagram} />
-            <Input name="linkedin" label={Language.fields.linkedin} />
+            <Input
+              name="facebook"
+              label={Language.fields.facebook}
+              value={params.company.facebook}
+            />
+            <Input
+              name="instagram"
+              label={Language.fields.instagram}
+              value={params.company.instagram}
+            />
+            <Input
+              name="linkedin"
+              label={Language.fields.linkedin}
+              value={params.company.linkedin}
+            />
           </ContentInput>
         </Section>
         <Section label={Language.page.companies.aditionalInfo}>
@@ -235,12 +349,14 @@ export default function CompaniesRegister(): JSX.Element {
               name="teamLeader"
               label="Team Leader"
               options={optionsTeamLeader}
+              value={params.company.userTeamLeader.id}
             />
 
             <InputDropDown
               name="interestSkills"
               label="Department"
               options={optionsInterestSkills}
+              value={params.company.interestSkills.id}
             />
           </ContentInput>
         </Section>
@@ -249,7 +365,7 @@ export default function CompaniesRegister(): JSX.Element {
             <InputSwitch
               label={Language.fields.status}
               name="status"
-              valueDefault
+              valueDefault={!!params.company.user.status}
             />
           </ContentInput>
         </Section>

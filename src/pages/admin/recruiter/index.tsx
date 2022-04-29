@@ -82,7 +82,7 @@ export default function Recruiter(): JSX.Element {
           title="Deletar"
           onClick={() => {
             Modal({
-              keyType: 'removeTeamLeader',
+              keyType: 'removeRecruiter',
               icon: 'info',
               cancelButtonText: 'No',
               confirmButtonText: 'Yes',

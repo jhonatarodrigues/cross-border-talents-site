@@ -1,13 +1,26 @@
 import React, { useEffect, useCallback, useState } from 'react';
-import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
+import {
+  DataGrid,
+  GridRowsProp,
+  GridColDef,
+  GridCellParams,
+} from '@mui/x-data-grid';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClose, faEdit } from '@fortawesome/free-solid-svg-icons';
 
-import { GetCompanies, ICompany } from '../../../hooks/admin/useCompanies';
+import {
+  GetCompanies,
+  ICompany,
+  DeleteCompany,
+} from '../../../hooks/admin/useCompanies';
 import { GetCountries, ICountrie } from '../../../hooks/admin/useCountry';
 import LabelDestached from '../../../components/labelDestached';
 import Modal from '../../../components/modal';
 import ContentPage from '../../../components/contentPage';
 import Language from '../../../language';
+import Default from '../../../default';
+import { InvisibleButton } from './style';
 
 export default function Companies(): JSX.Element {
   const navigate = useNavigate();
@@ -25,6 +38,8 @@ export default function Companies(): JSX.Element {
     }
 
     return {
+      allRow: company,
+
       id: company.id,
       name: company.user.name,
       email: company.user.email,
@@ -34,7 +49,76 @@ export default function Companies(): JSX.Element {
     };
   });
 
+  const handleGetUser = useCallback(async () => {
+    const response = await GetCompanies();
+    if (response && response.companies) {
+      setCompanies(response.companies);
+    }
+  }, []);
+
+  const handleDeleteCompany = useCallback(
+    async (id: string) => {
+      const response = await DeleteCompany(id);
+
+      try {
+        if (response) {
+          Modal({
+            keyType: 'removeCompany',
+            icon: 'success',
+          });
+          handleGetUser();
+        } else {
+          Modal({
+            keyType: 'removeCompany',
+            icon: 'error',
+          });
+        }
+      } catch {
+        Modal({
+          keyType: 'removeCompany',
+          icon: 'error',
+        });
+      }
+    },
+    [handleGetUser],
+  );
+
+  const renderActionCell = (e: GridCellParams) => {
+    return (
+      <>
+        <InvisibleButton
+          title="Deletar"
+          onClick={() => {
+            Modal({
+              keyType: 'removeCompany',
+              icon: 'info',
+              cancelButtonText: 'No',
+              confirmButtonText: 'Yes',
+              onClick: () => {
+                handleDeleteCompany(e.row.allRow.id);
+              },
+            });
+          }}
+        >
+          <FontAwesomeIcon icon={faClose} color={Default.color.red} />
+        </InvisibleButton>
+        <InvisibleButton
+          title="Deletar"
+          onClick={() => {
+            navigate('/admin/companies/register', {
+              state: { company: e.row.allRow },
+            });
+          }}
+        >
+          <FontAwesomeIcon icon={faEdit} color={Default.color.blue} />
+        </InvisibleButton>
+      </>
+    );
+  };
+
   const columns: GridColDef[] = [
+    { field: 'allRow', hide: true, filterable: false },
+
     { field: 'name', headerName: 'Name', flex: 1 },
     { field: 'email', headerName: 'Email', flex: 1 },
     { field: 'phone', headerName: 'Phone', flex: 1 },
@@ -49,14 +133,12 @@ export default function Companies(): JSX.Element {
         />
       ),
     },
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      renderCell: renderActionCell,
+    },
   ];
-
-  const handleGetUser = useCallback(async () => {
-    const response = await GetCompanies();
-    if (response && response.companies) {
-      setCompanies(response.companies);
-    }
-  }, []);
 
   const hangleGetCountries = useCallback(() => {
     GetCountries()
