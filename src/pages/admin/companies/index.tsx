@@ -41,7 +41,7 @@ export default function Companies(): JSX.Element {
       allRow: company,
 
       id: company.id,
-      name: company.user.name,
+      name: `${company.user.name} ${company.user.lastName || ''}`,
       email: company.user.email,
       phone: company.user.phone,
       status: company.user.status,

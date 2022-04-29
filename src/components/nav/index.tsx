@@ -29,7 +29,7 @@ export default function Nav(): JSX.Element {
 
   const navItens: INavItens[] = [
     {
-      title: `User`,
+      title: `Admin users`,
       icon: faUser,
       route: '/admin/user',
     },

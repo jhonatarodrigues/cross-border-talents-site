@@ -29,7 +29,7 @@ export default function TeamLeader(): JSX.Element {
     department: user.department,
     lastName: user.user.lastName,
 
-    name: user.user.name,
+    name: `${user.user.name} ${user.user.lastName || ''}`,
     email: user.user.email,
     phone: user.user.phone,
     status: user.user.status,

@@ -29,7 +29,7 @@ export default function Recruiter(): JSX.Element {
     department: recruiter.interestSkills,
     teamleaderid: recruiter.userTeamLeader.id,
 
-    name: recruiter.user.name,
+    name: `${recruiter.user.name} ${recruiter.user.lastName || ''}`,
     lastName: recruiter.user.lastName,
     email: recruiter.user.email,
     phone: recruiter.user.phone,

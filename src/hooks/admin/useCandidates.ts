@@ -21,6 +21,7 @@ export interface ICandidate {
     user: {
       id: string;
       name: string;
+      lastName: string;
       email: string;
       accessLevel: number;
     };
@@ -39,6 +40,7 @@ export interface ICandidate {
     name: string;
     email: string;
     accessLevel: number;
+    lastName: string;
     status: boolean;
   };
 }
@@ -165,6 +167,7 @@ export function GetListCandidates(): Promise<IResponseCandidates> {
                 user{
                     id
                     name
+                    lastName
                     email
                     accessLevel
                 }
@@ -180,6 +183,7 @@ export function GetListCandidates(): Promise<IResponseCandidates> {
             user{
                 id
                 name
+                lastName
                 email
                 accessLevel
                 status

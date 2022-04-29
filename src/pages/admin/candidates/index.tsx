@@ -29,7 +29,7 @@ export default function Candidates(): JSX.Element {
 
     return {
       id: candidate.id,
-      name: candidate.user.name,
+      name: `${candidate.user.name} ${candidate.user.lastName || ''}`,
       email: candidate.user.email,
       country: countrie,
       nativeLanguage: candidate.nativeLanguage,

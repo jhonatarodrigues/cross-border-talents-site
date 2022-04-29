@@ -22,7 +22,7 @@ export default function User(): JSX.Element {
   const [users, setUsers] = useState<IUser[]>([]);
   const rows: GridRowsProp = users.map((user: IUser) => ({
     id: user.id,
-    name: user.name,
+    name: `${user.name} ${user.lastName || ''}`,
     email: user.email,
     phone: user.phone,
     status: user.status,

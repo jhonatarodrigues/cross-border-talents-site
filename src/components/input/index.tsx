@@ -61,10 +61,12 @@ export default function Input({
   const handleMask = useCallback(
     val => {
       let responseVal = val;
+
+      //   else if (mask === 'phone') {
+      //     responseVal = formatPhone(responseVal);
+      //   }
       if (mask === 'cpf') {
         responseVal = formatCPF(responseVal);
-      } else if (mask === 'phone') {
-        responseVal = formatPhone(responseVal);
       } else if (mask === 'cnpj') {
         responseVal = formatCNPJ(responseVal);
       } else if (mask === 'currency') {

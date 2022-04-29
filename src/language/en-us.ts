@@ -49,9 +49,9 @@ const enUs = {
 
   page: {
     user: {
-      listUser: 'List of users',
-      newUser: 'New user',
-      user: 'User',
+      listUser: 'List of admin users',
+      newUser: 'New admin user',
+      user: 'Admin Users',
       personalInformation: 'Personal information',
     },
     teamLeader: {
