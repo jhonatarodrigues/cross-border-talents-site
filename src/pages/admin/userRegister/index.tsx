@@ -29,7 +29,8 @@ export default function UserRegister(): JSX.Element {
   const navigate = useNavigate();
   const formRef = useRef<FormHandles>(null);
   const location = useLocation();
-  const params = (location.state as IUserRegister) || {};
+  const params =
+    (location.state as IUserRegister) || ({ user: {} } as IUserRegister);
 
   const handleSubmit: SubmitHandler<IUserSend> = useCallback(
     async (data: IUserSend) => {

@@ -1,3 +1,4 @@
+import { AxiosResponse } from 'axios';
 import graphql from '../../services/graphql';
 
 export interface IRecruiter {
@@ -6,9 +7,11 @@ export interface IRecruiter {
   email: string;
   phone: string;
   status: boolean;
+  interestSkills: string;
   user: {
     id: string;
     name: string;
+    lastName: string;
     email: string;
     phone: string;
     status: boolean;
@@ -39,6 +42,10 @@ export interface IRecruiterSend {
   department: string;
 }
 
+export interface IRecruiterUpdate extends IRecruiterSend {
+  id: string;
+}
+
 interface IResponseRecruiterSend {
   user: {
     id: string;
@@ -50,6 +57,53 @@ interface IResponseRecruiterSend {
     idUser: string;
     teamLeader: string;
   };
+}
+
+export function DeleteRecruiter(id: string): Promise<AxiosResponse> {
+  const query = `
+      mutation {
+        removeRecruiter(id: "${id}")
+      }
+    `;
+
+  return graphql(query);
+}
+
+export function UpdateRecruiter(
+  data: IRecruiterUpdate,
+): Promise<IResponseRecruiterSend> {
+  const query = `
+      mutation {
+        updateRecruiter (
+          id: "${data.id}",
+          name: "${data.name}",
+          lastName: "${data.lastName}",
+          phone: "${data.phone}",
+          status: ${data.status},
+          teamLeader: ${data.teamLeader},
+          interestSkills: "${data.department}"
+        ) {
+          user{
+            id 
+            name
+            email
+          }
+          recruiter{
+            id
+            idUser
+            teamLeader
+          }
+        }
+      }
+    `;
+
+  return graphql(query)
+    .then(response => {
+      return response.data.updateRecruiter as IResponseRecruiterSend;
+    })
+    .catch(() => {
+      return {} as IResponseRecruiterSend;
+    });
 }
 
 export function AddRecruiter(
@@ -96,9 +150,11 @@ export function GetRecruiters(): Promise<IResponseRecruiter> {
         id
         idUser
         teamLeader
+        interestSkills
         user {
           id
           name
+          lastName
           email
           phone
           status

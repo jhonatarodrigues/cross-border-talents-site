@@ -1,15 +1,22 @@
-import React, { useRef, useCallback, useEffect, useState } from 'react';
+import React, {
+  useRef,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { Form } from '@unform/web';
 import { SubmitHandler, FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Modal from '../../../components/modal';
 import { GetTeamLeaders } from '../../../hooks/admin/useTeamLeader';
 import { GetInterestSkills } from '../../../hooks/admin/useInterestSkills';
 import {
   IRecruiterSend,
   AddRecruiter,
+  UpdateRecruiter,
 } from '../../../hooks/admin/useRecruiters';
 import Input from '../../../components/input';
 import InputDropDown, {
@@ -22,9 +29,30 @@ import Button from '../../../components/button';
 import Section from '../../../components/section';
 import Language from '../../../language';
 
+interface IRecruiterRegister {
+  recruiter: {
+    id: string;
+    department: string;
+    email: string;
+    name: string;
+    lastName: string;
+    phone: string;
+    status: boolean;
+    teamLeader: string;
+    teamleaderid: string;
+  };
+}
+
 export default function RecruiterRegister(): JSX.Element {
   const navigate = useNavigate();
   const formRef = useRef<FormHandles>(null);
+  const location = useLocation();
+  const params = useMemo(
+    () =>
+      (location?.state as IRecruiterRegister) ||
+      ({ recruiter: {} } as IRecruiterRegister),
+    [location],
+  );
 
   const [optionsTeamLeader, setOptionsTeamLeader] = useState<
     IOptionsDropdown[]
@@ -49,15 +77,31 @@ export default function RecruiterRegister(): JSX.Element {
           abortEarly: false,
         });
 
-        AddRecruiter(data).then(response => {
-          if (response.recruiter.id) {
-            Modal({
-              icon: 'success',
-              keyType: 'createdRecruiter',
-              onClick: () => navigate('/admin/recruiter'),
-            });
-          }
-        });
+        if (params.recruiter.id) {
+          const newData = {
+            ...data,
+            id: params.recruiter.id,
+          };
+          UpdateRecruiter(newData).then(response => {
+            if (response.recruiter.id) {
+              Modal({
+                icon: 'success',
+                keyType: 'updateRecruiter',
+                onClick: () => navigate('/admin/recruiter'),
+              });
+            }
+          });
+        } else {
+          AddRecruiter(data).then(response => {
+            if (response.recruiter.id) {
+              Modal({
+                icon: 'success',
+                keyType: 'createdRecruiter',
+                onClick: () => navigate('/admin/recruiter'),
+              });
+            }
+          });
+        }
       } catch (err) {
         const validationErrors: Record<string, string> = {};
 
@@ -72,7 +116,7 @@ export default function RecruiterRegister(): JSX.Element {
         }
       }
     },
-    [navigate],
+    [navigate, params],
   );
 
   const getTeamLeaders = useCallback(async () => {
@@ -114,7 +158,11 @@ export default function RecruiterRegister(): JSX.Element {
 
   return (
     <ContentPage
-      title={`${Language.page.recruiter.recruiter} > ${Language.page.recruiter.newRecruiter}`}
+      title={`${Language.page.recruiter.recruiter} > ${
+        params.recruiter.name
+          ? params.recruiter.name
+          : Language.page.recruiter.newRecruiter
+      }`}
     >
       <Form
         ref={formRef}
@@ -123,21 +171,42 @@ export default function RecruiterRegister(): JSX.Element {
       >
         <Section label={Language.personalInformation}>
           <ContentInput>
-            <Input name="name" label={Language.fields.fullName} />
-            <Input name="lastName" label={Language.fields.lastName} />
-            <Input name="email" label={Language.fields.email} type="email" />
+            <Input
+              name="name"
+              label={Language.fields.fullName}
+              value={params.recruiter.name}
+            />
+            <Input
+              name="lastName"
+              label={Language.fields.lastName}
+              value={params.recruiter.lastName}
+            />
+            <Input
+              name="email"
+              label={Language.fields.email}
+              type="email"
+              value={params.recruiter.email}
+              disabled={!!params.recruiter.id}
+            />
           </ContentInput>
           <ContentInput>
-            <Input name="phone" label={Language.fields.phone} mask="phone" />
+            <Input
+              name="phone"
+              label={Language.fields.phone}
+              mask="phone"
+              value={params.recruiter.phone}
+            />
             <InputDropDown
               name="teamLeader"
               label="Team Leader"
               options={optionsTeamLeader}
+              value={params.recruiter.teamleaderid}
             />
             <InputDropDown
               name="department"
               label="Department"
               options={optionsInterestSkills}
+              value={params.recruiter.department}
             />
           </ContentInput>
         </Section>

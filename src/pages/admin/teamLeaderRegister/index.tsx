@@ -41,7 +41,9 @@ export default function TeamLeaderRegister(): JSX.Element {
     IOptionsDropdown[]
   >([] as IOptionsDropdown[]);
   const location = useLocation();
-  const params = (location?.state as ITeamLeaderRegister) || {};
+  const params =
+    (location?.state as ITeamLeaderRegister) ||
+    ({ teamleader: {} } as ITeamLeaderRegister);
 
   const getInterestSkills = useCallback(async () => {
     const { interestSkills } = await GetInterestSkills();
@@ -109,7 +111,7 @@ export default function TeamLeaderRegister(): JSX.Element {
         }
       }
     },
-    [navigate],
+    [navigate, params],
   );
 
   useEffect(() => {
