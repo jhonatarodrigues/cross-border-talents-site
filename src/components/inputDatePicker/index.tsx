@@ -61,6 +61,13 @@ export default function InputDatePicker({
               setInputValue(newValue);
             }}
             inputFormat="dd/MM/yyyy"
+            InputProps={{
+              sx: {
+                borderRadius: '0.625rem',
+                padding: '0 0.625rem 0 0.3125rem',
+                height: '2.5rem',
+              },
+            }}
           />
         ) : (
           <DateTimePicker
@@ -71,6 +78,13 @@ export default function InputDatePicker({
               setInputValue(newValue);
             }}
             inputFormat="dd/MM/yyyy HH:mm"
+            InputProps={{
+              sx: {
+                borderRadius: '0.625rem',
+                padding: '0 0.625rem 0 0.3125rem',
+                height: '2.5rem',
+              },
+            }}
           />
         )}
       </LocalizationProvider>
