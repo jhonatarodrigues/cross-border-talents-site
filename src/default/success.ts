@@ -17,6 +17,8 @@ const success: { [key: string]: string } = {
   updateCompany: 'Company updated successfully.',
   removeCandidate: 'Candidate removed successfully.',
   updateCandidate: 'Candidate updated successfully.',
+  removeInterestSkills: 'Interest skill removed successfully.',
+  updateInterestSkills: 'Interest skill updated successfully.',
 };
 
 export default function successString(key: string): string {

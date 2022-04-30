@@ -2,12 +2,13 @@ import React, { useRef, useCallback } from 'react';
 import { Form } from '@unform/web';
 import { SubmitHandler, FormHandles } from '@unform/core';
 import * as Yup from 'yup';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-import { useNavigate } from 'react-router-dom';
 import Modal from '../../../components/modal';
 import {
   AddInterestSkills,
   IInterestSkillsSend,
+  UpdateInterestSkills,
 } from '../../../hooks/admin/useInterestSkills';
 import Input from '../../../components/input';
 import ContentPage from '../../../components/contentPage';
@@ -16,9 +17,20 @@ import Button from '../../../components/button';
 import Section from '../../../components/section';
 import Language from '../../../language';
 
+interface IInterestSkillsRegister {
+  departament: {
+    id: string;
+    name: string;
+  };
+}
+
 export default function InterestSkillsRegister(): JSX.Element {
   const navigate = useNavigate();
   const formRef = useRef<FormHandles>(null);
+  const location = useLocation();
+  const params =
+    (location.state as IInterestSkillsRegister) ||
+    ({ departament: {} } as IInterestSkillsRegister);
 
   const handleSubmit: SubmitHandler<IInterestSkillsSend> = useCallback(
     async (data: IInterestSkillsSend) => {
@@ -31,15 +43,31 @@ export default function InterestSkillsRegister(): JSX.Element {
           abortEarly: false,
         });
 
-        AddInterestSkills(data).then(response => {
-          if (response.id) {
-            Modal({
-              icon: 'success',
-              keyType: 'createdInterestSkills',
-              onClick: () => navigate('/admin/departament'),
-            });
-          }
-        });
+        if (params.departament.id) {
+          const newData = {
+            ...data,
+            id: params.departament.id,
+          };
+          UpdateInterestSkills(newData).then(response => {
+            if (response.id) {
+              Modal({
+                icon: 'success',
+                keyType: 'updateInterestSkills',
+                onClick: () => navigate('/admin/departament'),
+              });
+            }
+          });
+        } else {
+          AddInterestSkills(data).then(response => {
+            if (response.id) {
+              Modal({
+                icon: 'success',
+                keyType: 'createdInterestSkills',
+                onClick: () => navigate('/admin/departament'),
+              });
+            }
+          });
+        }
       } catch (err) {
         const validationErrors: Record<string, string> = {};
 
@@ -68,7 +96,11 @@ export default function InterestSkillsRegister(): JSX.Element {
       >
         <Section label={Language.page.interestSkills.interestSkills}>
           <ContentInput>
-            <Input name="name" label={`${Language.fields.name} *`} />
+            <Input
+              name="name"
+              label={`${Language.fields.name} *`}
+              value={params.departament.name}
+            />
           </ContentInput>
         </Section>
         <Button variant="contained" type="submit">

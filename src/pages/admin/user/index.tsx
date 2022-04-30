@@ -71,7 +71,7 @@ export default function User(): JSX.Element {
     return (
       <>
         <InvisibleButton
-          title="Deletar"
+          title="Delete"
           onClick={() => {
             Modal({
               keyType: 'removeUser',
@@ -85,7 +85,7 @@ export default function User(): JSX.Element {
           <FontAwesomeIcon icon={faClose} color={Default.color.red} />
         </InvisibleButton>
         <InvisibleButton
-          title="Deletar"
+          title="Update"
           onClick={() => {
             navigate('/admin/user/register', { state: { user: e.row } });
           }}

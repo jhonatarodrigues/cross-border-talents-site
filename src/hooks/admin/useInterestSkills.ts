@@ -1,3 +1,4 @@
+import { AxiosResponse } from 'axios';
 import graphql from '../../services/graphql';
 
 export interface IInterestSkills {
@@ -11,6 +12,30 @@ interface IResponseInterestSkills {
 
 export interface IInterestSkillsSend {
   name: string;
+}
+interface IInterestSkillsUpdate extends IInterestSkillsSend {
+  id: string;
+}
+
+export function UpdateInterestSkills(
+  data: IInterestSkillsUpdate,
+): Promise<IInterestSkills> {
+  const query = `
+      mutation {
+        updateInterestSkill(id: "${data.id}", name: "${data.name}"){
+              id
+              name
+            }
+      }
+    `;
+
+  return graphql(query)
+    .then(response => {
+      return response.data.updateInterestSkill as IInterestSkills;
+    })
+    .catch(() => {
+      return {} as IInterestSkills;
+    });
 }
 
 export function AddInterestSkills(
@@ -32,6 +57,16 @@ export function AddInterestSkills(
     .catch(() => {
       return {} as IInterestSkills;
     });
+}
+
+export function DeleteInterestSkills(id: string): Promise<AxiosResponse> {
+  const query = `
+      mutation {
+        removeInterestSkill(id: "${id}")
+      }
+    `;
+
+  return graphql(query);
 }
 
 export function GetInterestSkills(): Promise<IResponseInterestSkills> {

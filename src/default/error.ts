@@ -1,5 +1,5 @@
 const error: { [key: string]: string } = {
-  'network error': 'Network error: Failed to conect to the server.',
+  'network error': 'Network error: Failed to connect to the server.',
   notAuthorized: 'Not authorized: You are not authorized to access this page.',
   userExists: 'User already exists.',
   getTeamLeaders: 'Failed to get team leaders.',
@@ -10,6 +10,7 @@ const error: { [key: string]: string } = {
   removeTeamLeader: 'Failed to remove team leader or team leader in use.',
   removeCompany: 'Failed to remove company.',
   removeCandidate: 'Failed to remove candidate.',
+  removeInterestSkills: 'Failed to remove interest skills.',
 };
 
 export default function errorString(key: string): string {
