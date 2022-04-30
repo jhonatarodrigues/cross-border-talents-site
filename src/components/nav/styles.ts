@@ -107,3 +107,8 @@ export const Divider = styled.div`
 export const ContentDivider = styled.div`
   padding: 0.9375rem 1.25rem;
 `;
+export const ButtonInvisible = styled.button`
+  border: 0;
+  padding: 0;
+  background: transparent;
+`;

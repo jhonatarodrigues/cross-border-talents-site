@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { useSelector, useDispatch } from 'react-redux';
-import { Form } from '@unform/web';
+
 import { SubmitHandler, FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import Swal from 'sweetalert2';
@@ -19,8 +19,10 @@ import {
   LoginPageContainer,
   ContentLogin,
   IconLogin,
-  TitleLogin,
   Space,
+  ContentButton,
+  FormStyled,
+  ButtonForgotPassword,
 } from './style';
 
 interface IForm {
@@ -97,26 +99,27 @@ export default function Login(): JSX.Element {
         <IconLogin>
           <FontAwesomeIcon icon={faUser} />
         </IconLogin>
-        <TitleLogin>Sign In</TitleLogin>
-        <Form
+        <FormStyled
           ref={formRef}
           onSubmit={handleLogin}
           onClick={() => formRef.current?.setErrors({})}
         >
-          <Input name="user" label="User" />
+          <Input name="user" label="Username" />
           <Input name="password" label="Password" type="password" />
 
-          <Button type="submit">Sign In</Button>
-        </Form>
+          <ContentButton>
+            <ButtonForgotPassword type="button">
+              Forgot your password?
+            </ButtonForgotPassword>
+            <Button type="submit">Login</Button>
+          </ContentButton>
+        </FormStyled>
         {auth.loading && (
           <>
             <Space />
             <CircularProgress />
           </>
         )}
-
-        <Space />
-        <Button variant="text">Forgot password?</Button>
       </ContentLogin>
     </LoginPageContainer>
   );

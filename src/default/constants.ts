@@ -2,6 +2,7 @@ export const color = {
   blue: '#0A033C',
   blueLight: '#58687F',
   blueLight2: '#BEBEBE',
+  blueAqua: '#D6EBE4',
   white: '#fff',
   white2: '#F9FAFB',
   iceWhite: '#cfcfcf87',
