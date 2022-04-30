@@ -73,12 +73,11 @@ export default function CandidatesRegister(): JSX.Element {
           name: Yup.string().required(),
           lastName: Yup.string().required(),
           email: Yup.string().required(),
-          phone: Yup.string().required(),
-          teamLeader: Yup.string().required(),
           nativeLanguage: Yup.string().required(),
           country: Yup.string().required(),
           englishLevel: Yup.string().required(),
           interestSkills: Yup.string().required(),
+          teamLeader: Yup.string().required(),
         });
 
         await schema.validate(infoData, {
@@ -212,16 +211,20 @@ export default function CandidatesRegister(): JSX.Element {
               {Language.page.candidates.sendPicture}
             </ButtonUpload>
 
-            <Input name="name" label={Language.fields.fullName} />
-            <Input name="lastName" label={Language.fields.lastName} />
+            <Input name="name" label={`${Language.fields.fullName} *`} />
+            <Input name="lastName" label={`${Language.fields.lastName} *`} />
           </ContentInput>
           <ContentInput>
-            <Input name="email" label={Language.fields.email} type="email" />
+            <Input
+              name="email"
+              label={`${Language.fields.email} *`}
+              type="email"
+            />
             <Input name="phone" label={Language.fields.phone} mask="phone" />
 
             <InputDropDown
               name="nativeLanguage"
-              label={Language.fields.nativeLanguage}
+              label={`${Language.fields.nativeLanguage} *`}
               options={optionsNativeLanguage}
             />
           </ContentInput>
@@ -238,7 +241,7 @@ export default function CandidatesRegister(): JSX.Element {
             />
             <InputDropDown
               name="country"
-              label={Language.fields.countryOfResidence}
+              label={`${Language.fields.countryOfResidence} *`}
               options={optionsCountry}
             />
           </ContentInput>
@@ -248,19 +251,19 @@ export default function CandidatesRegister(): JSX.Element {
             <Input name="socialMedia" label={Language.fields.socialMedia} />
             <InputDropDown
               name="englishLevel"
-              label={Language.fields.englishLevel}
+              label={`${Language.fields.englishLevel} *`}
               options={optionsEnglishLevel}
             />
             <InputDropDown
               name="interestSkills"
-              label="Department"
+              label="Department *"
               options={optionsInterestSkills}
             />
           </ContentInput>
           <ContentInput>
             <InputDropDown
               name="teamLeader"
-              label="Team Leader"
+              label="Team Leader *"
               options={optionsTeamLeader}
             />
             <InputDropDown

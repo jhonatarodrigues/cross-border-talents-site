@@ -80,8 +80,7 @@ export const ContentLogo = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  text-align: center;
-  padding: 0.9375rem 0;
+  padding: 0.9375rem 1.875rem;
 `;
 export const LogoImage = styled.img`
   width: 7.375rem;
@@ -98,4 +97,13 @@ export const LineActive = styled.div`
   height: 1px;
   background: ${Default.color.blueLight};
   margin-right: 1rem;
+`;
+
+export const Divider = styled.div`
+  width: 100%;
+  height: 1px;
+  background: ${Default.color.gray};
+`;
+export const ContentDivider = styled.div`
+  padding: 0.9375rem 1.25rem;
 `;

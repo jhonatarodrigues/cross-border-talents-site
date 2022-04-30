@@ -1,5 +1,16 @@
 import React from 'react';
-import { faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import {
+  faUser,
+  IconDefinition,
+  faUserCheck,
+  faUserPlus,
+  faBuilding,
+  faChessPawn,
+  faMessage,
+  faStar,
+  faQuestion,
+  faComment,
+} from '@fortawesome/free-solid-svg-icons';
 import { Link, useLocation } from 'react-router-dom';
 
 import Default from '../../default';
@@ -15,6 +26,8 @@ import {
   LogoImage,
   ContentItemText,
   LineActive,
+  Divider,
+  ContentDivider,
 } from './styles';
 
 interface INavItens {
@@ -40,32 +53,32 @@ export default function Nav(): JSX.Element {
     },
     {
       title: `Recruiters`,
-      icon: faUser,
+      icon: faUserPlus,
       route: '/admin/recruiter',
     },
     {
       title: `Companies`,
-      icon: faUser,
+      icon: faBuilding,
       route: '/admin/companies',
     },
     {
       title: `Candidates`,
-      icon: faUser,
+      icon: faUserCheck,
       route: '/admin/candidates',
     },
     {
       title: `Department`,
-      icon: faUser,
+      icon: faChessPawn,
       route: '/admin/departament',
     },
     {
       title: `Jobs`,
-      icon: faUser,
+      icon: faStar,
       route: '/admin/jobs',
     },
     {
       title: `Testimonials`,
-      icon: faUser,
+      icon: faMessage,
       route: '/admin/testimonials',
     },
   ];
@@ -104,6 +117,45 @@ export default function Nav(): JSX.Element {
             </ItemNav>
           </Link>
         ))}
+        <ContentDivider>
+          <Divider />
+        </ContentDivider>
+        <Link
+          to="http://google.com"
+          key="linkFAQs"
+          style={{ textDecoration: 'none' }}
+        >
+          <ItemNav key="linkFAQsItem" openMain>
+            <ContentItemText>
+              <ContainerTitle openMain>
+                <ItemIcon
+                  openMain
+                  icon={faQuestion}
+                  color={Default.color.blueLight}
+                />
+                <TextNav openMain>Faqs</TextNav>
+              </ContainerTitle>
+            </ContentItemText>
+          </ItemNav>
+        </Link>
+        <Link
+          to="http://google.com"
+          key="linkHelpCenter"
+          style={{ textDecoration: 'none' }}
+        >
+          <ItemNav key="linkHelpCenterItem" openMain>
+            <ContentItemText>
+              <ContainerTitle openMain>
+                <ItemIcon
+                  openMain
+                  icon={faComment}
+                  color={Default.color.blueLight}
+                />
+                <TextNav openMain>Help Center</TextNav>
+              </ContainerTitle>
+            </ContentItemText>
+          </ItemNav>
+        </Link>
       </ContentNav>
     </ContainerNav>
   );

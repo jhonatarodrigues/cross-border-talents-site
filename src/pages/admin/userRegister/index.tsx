@@ -39,7 +39,6 @@ export default function UserRegister(): JSX.Element {
           name: Yup.string().required(),
           lastName: Yup.string().required(),
           email: Yup.string().required(),
-          phone: Yup.string().required(),
         });
 
         await schema.validate(data, {
@@ -99,17 +98,17 @@ export default function UserRegister(): JSX.Element {
           <ContentInput>
             <Input
               name="name"
-              label={Language.fields.fullName}
+              label={`${Language.fields.fullName} *`}
               value={params.user.name}
             />
             <Input
               name="lastName"
-              label={Language.fields.lastName}
+              label={`${Language.fields.lastName} *`}
               value={params.user.lastName}
             />
             <Input
               name="email"
-              label={Language.fields.email}
+              label={`${Language.fields.email} *`}
               type="email"
               value={params.user.email}
               disabled={!!params.user.id}

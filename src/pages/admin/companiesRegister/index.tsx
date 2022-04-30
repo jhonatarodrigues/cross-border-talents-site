@@ -51,14 +51,15 @@ export default function CompaniesRegister(): JSX.Element {
     IOptionsDropdown[]
   >([] as IOptionsDropdown[]);
   const location = useLocation();
-  const params = useMemo(
-    () =>
-      (location?.state as ICompanyRegister) ||
-      ({ company: {} } as ICompanyRegister),
-    [location],
-  );
+  const params = useMemo(() => {
+    if (location?.state) {
+      return location?.state as ICompanyRegister;
+    }
+
+    return null;
+  }, [location]);
   const [companyLogo, setCompanyLogo] = useState(
-    params.company.companyLogo || '',
+    params?.company.companyLogo || '',
   );
 
   const optionsSize: IOptionsDropdown[] = [
@@ -95,14 +96,13 @@ export default function CompaniesRegister(): JSX.Element {
       const infoData = data;
       try {
         const schema = Yup.object().shape({
-          name: Yup.string().required(),
-          lastName: Yup.string().required(),
-          email: Yup.string().required(),
-          phone: Yup.string().required(),
-          teamLeader: Yup.string().required(),
           companyName: Yup.string().required(),
+          email: Yup.string().required(),
           industry: Yup.string().required(),
           site: Yup.string().required(),
+          name: Yup.string().required(),
+          lastName: Yup.string().required(),
+          phone: Yup.string().required(),
         });
 
         await schema.validate(infoData, {
@@ -122,10 +122,10 @@ export default function CompaniesRegister(): JSX.Element {
           }
         }
 
-        if (params.company.id) {
+        if (params?.company.id) {
           const newInfoData = {
             ...infoData,
-            id: params.company.id,
+            id: params?.company.id,
           };
           UpdateCompany(newInfoData).then(response => {
             if (response.companie.id) {
@@ -222,8 +222,8 @@ export default function CompaniesRegister(): JSX.Element {
   return (
     <ContentPage
       title={`${Language.page.companies.companies} > ${
-        params.company.companyName
-          ? params.company.companyName
+        params?.company.companyName
+          ? params?.company.companyName
           : Language.page.companies.newCompanies
       }`}
     >
@@ -236,33 +236,33 @@ export default function CompaniesRegister(): JSX.Element {
           <ContentInput>
             <Input
               name="companyName"
-              label={Language.fields.companyName}
-              value={params.company.companyName}
+              label={`${Language.fields.companyName} *`}
+              value={params?.company && params?.company.companyName}
             />
             <Input
               name="email"
-              label={Language.fields.email}
+              label={`${Language.fields.email} *`}
               type="email"
-              value={params.company.user.email}
+              value={params?.company.user.email}
             />
             <InputDropDown
               name="industry"
-              label={Language.fields.industry}
+              label={`${Language.fields.industry} *`}
               options={optionsIndustry}
-              value={params.company.industry}
+              value={params?.company.industry}
             />
           </ContentInput>
           <ContentInput>
             <Input
               name="site"
-              label={Language.fields.webSiteUrl}
-              value={params.company.site}
+              label={`${Language.fields.webSiteUrl} *`}
+              value={params?.company.site}
             />
             <InputDropDown
               name="size"
               label={Language.fields.size}
               options={optionsSize}
-              value={params.company.size}
+              value={params?.company.size}
             />
             {companyLogo && companyLogo !== 'undefined' ? (
               <ContentPicture
@@ -282,44 +282,44 @@ export default function CompaniesRegister(): JSX.Element {
           <ContentInput>
             <Input
               name="name"
-              label={Language.fields.fullName}
-              value={params.company.user.name}
+              label={`${Language.fields.fullName} *`}
+              value={params?.company.user.name}
             />
             <Input
               name="lastName"
-              label={Language.fields.lastName}
-              value={params.company.user.lastName}
+              label={`${Language.fields.lastName} *`}
+              value={params?.company.user.lastName}
             />
           </ContentInput>
           <ContentInput>
             <Input
               name="address1"
               label={Language.fields.adressLine1}
-              value={params.company.address1}
+              value={params?.company.address1}
             />
             <Input
               name="address2"
               label={Language.fields.adressLine2}
-              value={params.company.address2}
+              value={params?.company.address2}
             />
           </ContentInput>
           <ContentInput>
             <Input
               name="city"
               label={Language.fields.city}
-              value={params.company.city}
+              value={params?.company.city}
             />
             <Input
               name="phone"
-              label={Language.fields.phone}
+              label={`${Language.fields.phone} *`}
               mask="phone"
-              value={params.company.user.phone}
+              value={params?.company.user.phone}
             />
             <InputDropDown
               name="country"
               label={Language.fields.country}
               options={optionsCountry}
-              value={params.company.country}
+              value={params?.company.country}
             />
           </ContentInput>
         </Section>
@@ -329,17 +329,17 @@ export default function CompaniesRegister(): JSX.Element {
             <Input
               name="facebook"
               label={Language.fields.facebook}
-              value={params.company.facebook}
+              value={params?.company.facebook}
             />
             <Input
               name="instagram"
               label={Language.fields.instagram}
-              value={params.company.instagram}
+              value={params?.company.instagram}
             />
             <Input
               name="linkedin"
               label={Language.fields.linkedin}
-              value={params.company.linkedin}
+              value={params?.company.linkedin}
             />
           </ContentInput>
         </Section>
@@ -349,14 +349,14 @@ export default function CompaniesRegister(): JSX.Element {
               name="teamLeader"
               label="Team Leader"
               options={optionsTeamLeader}
-              value={params.company.userTeamLeader.id}
+              value={params?.company.userTeamLeader.id}
             />
 
             <InputDropDown
               name="interestSkills"
               label="Department"
               options={optionsInterestSkills}
-              value={params.company.interestSkills.id}
+              value={params?.company.interestSkills.id}
             />
           </ContentInput>
         </Section>
@@ -365,7 +365,7 @@ export default function CompaniesRegister(): JSX.Element {
             <InputSwitch
               label={Language.fields.status}
               name="status"
-              valueDefault={!!params.company.user.status}
+              valueDefault={!!params?.company.user.status}
             />
           </ContentInput>
         </Section>

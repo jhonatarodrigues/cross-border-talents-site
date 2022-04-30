@@ -113,19 +113,22 @@ export default function TestimonialsRegister(): JSX.Element {
               {Language.fields.sendPicture}
             </ButtonUpload>
 
-            <Input name="name" label={Language.fields.name} />
-            <InputDatePicker name="date" label={Language.fields.date} />
+            <Input name="name" label={`${Language.fields.name} *`} />
+            <InputDatePicker name="date" label={`${Language.fields.date} *`} />
           </ContentInput>
           <ContentInput>
             <InputDropDown
               name="country"
-              label={Language.fields.country}
+              label={`${Language.fields.country} *`}
               options={optionsCountry}
             />
             <Input name="observations" label={Language.fields.observations} />
           </ContentInput>
           <ContentInput>
-            <Editor name="testimonial" label={Language.fields.testimonial} />
+            <Editor
+              name="testimonial"
+              label={`${Language.fields.testimonial} *`}
+            />
           </ContentInput>
         </Section>
         <Button variant="contained" type="submit">

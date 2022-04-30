@@ -67,7 +67,6 @@ export default function TeamLeaderRegister(): JSX.Element {
           name: Yup.string().required(),
           lastName: Yup.string().required(),
           email: Yup.string().required(),
-          phone: Yup.string().required(),
           department: Yup.string().required(),
         });
 
@@ -135,17 +134,17 @@ export default function TeamLeaderRegister(): JSX.Element {
           <ContentInput>
             <Input
               name="name"
-              label={Language.fields.fullName}
+              label={`${Language.fields.fullName} *`}
               value={params.teamleader.name}
             />
             <Input
               name="lastName"
-              label={Language.fields.lastName}
+              label={`${Language.fields.lastName} *`}
               value={params.teamleader.lastName}
             />
             <Input
               name="email"
-              label={Language.fields.email}
+              label={`${Language.fields.email} *`}
               type="email"
               value={params.teamleader.email}
               disabled={!!params.teamleader.email}
@@ -154,7 +153,7 @@ export default function TeamLeaderRegister(): JSX.Element {
           <ContentInput>
             <InputDropDown
               name="department"
-              label="Department"
+              label="Department *"
               options={optionsInterestSkills}
               value={params.teamleader.department}
             />

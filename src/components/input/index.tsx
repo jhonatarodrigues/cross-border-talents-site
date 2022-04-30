@@ -7,12 +7,13 @@ import React, {
 } from 'react';
 import { TextFieldProps } from '@mui/material/TextField';
 import { useField } from '@unform/core';
+import { styled } from '@mui/material/styles';
 
+import Default from '../../default';
 import {
   formatCNPJ,
   formatCPF,
   formatCurrency,
-  formatPhone,
   formatNumeric,
   formatCPFCNPJ,
 } from '../../util/format';
@@ -25,6 +26,28 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 type IProps = TextFieldProps & InputProps;
+
+const CssTextField = styled(InputField)({
+  '& label.Mui-focused': {
+    color: 'green',
+  },
+  '& .MuiInput-underline:after': {
+    borderBottomColor: 'green',
+  },
+  '& .MuiOutlinedInput-root': {
+    padding: '0px',
+    borderRadius: '0.625rem',
+    // '& fieldset': {
+    //   borderColor: 'red',
+    // },
+    // '&:hover fieldset': {
+    //   borderColor: 'yellow',
+    // },
+    '&.Mui-focused fieldset': {
+      borderColor: Default.color.blue,
+    },
+  },
+});
 
 export default function Input({
   name,
@@ -62,9 +85,6 @@ export default function Input({
     val => {
       let responseVal = val;
 
-      //   else if (mask === 'phone') {
-      //     responseVal = formatPhone(responseVal);
-      //   }
       if (mask === 'cpf') {
         responseVal = formatCPF(responseVal);
       } else if (mask === 'cnpj') {
@@ -84,13 +104,14 @@ export default function Input({
 
   return (
     <ContentFiled className="contentField">
-      <InputField
+      <CssTextField
         ref={inputRef}
         id={fieldName}
         {...rest}
         variant="outlined"
         value={inputValue || defaultValue}
-        onChange={e => handleMask(e.target.value)}
+        onChange={(e: any) => handleMask(e.target.value)}
+        size="small"
       />
       {error && <TextError>{error}</TextError>}
     </ContentFiled>

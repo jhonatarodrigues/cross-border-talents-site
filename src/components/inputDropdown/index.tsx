@@ -10,7 +10,9 @@ import { useField } from '@unform/core';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
+import { styled } from '@mui/material/styles';
 
+import Default from '../../default';
 import { SelectField, ContentFiled, TextError } from './style';
 
 export interface IOptionsDropdown {
@@ -26,6 +28,28 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 type IProps = SelectProps & InputProps;
+
+const FormControlS = styled(FormControl)({
+  '& label.Mui-focused': {
+    color: 'green',
+  },
+  '& .MuiInput-underline:after': {
+    borderBottomColor: 'green',
+  },
+  '& .MuiOutlinedInput-root': {
+    padding: '0px',
+    borderRadius: '0.625rem',
+    // '& fieldset': {
+    //   borderColor: 'red',
+    // },
+    // '&:hover fieldset': {
+    //   borderColor: 'yellow',
+    // },
+    '&.Mui-focused fieldset': {
+      borderColor: Default.color.blue,
+    },
+  },
+});
 
 export default function InputDropdown({
   name,
@@ -65,7 +89,7 @@ export default function InputDropdown({
 
   return (
     <ContentFiled className="contentField">
-      <FormControl style={{ width: '100%' }}>
+      <FormControlS style={{ width: '100%' }} size="small">
         <InputLabel id={`${fieldName}-label`}>{label}</InputLabel>
         <SelectField
           ref={inputRef}
@@ -84,7 +108,7 @@ export default function InputDropdown({
             </MenuItem>
           ))}
         </SelectField>
-      </FormControl>
+      </FormControlS>
       {error && <TextError>{error}</TextError>}
     </ContentFiled>
   );

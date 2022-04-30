@@ -119,18 +119,18 @@ export default function JobsRegister(): JSX.Element {
       >
         <Section label={Language.page.jobs.jobs}>
           <ContentInput>
-            <Input name="jobTitle" label={Language.fields.title} />
-            <Input name="level" label={Language.fields.level} />
+            <Input name="jobTitle" label={`${Language.fields.title} *`} />
+            <Input name="level" label={`${Language.fields.level} *`} />
           </ContentInput>
           <ContentInput>
             <InputDropDown
               name="interestSkills"
-              label="Department"
+              label="Department *"
               options={optionsInterestSkills}
             />
             <InputDropDown
               name="country"
-              label={Language.fields.country}
+              label={`${Language.fields.country} *`}
               options={optionsCountry}
             />
           </ContentInput>

@@ -68,7 +68,6 @@ export default function RecruiterRegister(): JSX.Element {
           name: Yup.string().required(),
           lastName: Yup.string().required(),
           email: Yup.string().required(),
-          phone: Yup.string().required(),
           teamLeader: Yup.string().required(),
           department: Yup.string().required(),
         });
@@ -173,17 +172,17 @@ export default function RecruiterRegister(): JSX.Element {
           <ContentInput>
             <Input
               name="name"
-              label={Language.fields.fullName}
+              label={`${Language.fields.fullName} *`}
               value={params.recruiter.name}
             />
             <Input
               name="lastName"
-              label={Language.fields.lastName}
+              label={`${Language.fields.lastName} *`}
               value={params.recruiter.lastName}
             />
             <Input
               name="email"
-              label={Language.fields.email}
+              label={`${Language.fields.email} *`}
               type="email"
               value={params.recruiter.email}
               disabled={!!params.recruiter.id}
@@ -198,13 +197,13 @@ export default function RecruiterRegister(): JSX.Element {
             />
             <InputDropDown
               name="teamLeader"
-              label="Team Leader"
+              label="Team Leader *"
               options={optionsTeamLeader}
               value={params.recruiter.teamleaderid}
             />
             <InputDropDown
               name="department"
-              label="Department"
+              label="Department *"
               options={optionsInterestSkills}
               value={params.recruiter.department}
             />

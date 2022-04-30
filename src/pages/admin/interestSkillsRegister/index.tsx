@@ -68,7 +68,7 @@ export default function InterestSkillsRegister(): JSX.Element {
       >
         <Section label={Language.page.interestSkills.interestSkills}>
           <ContentInput>
-            <Input name="name" label={Language.fields.name} />
+            <Input name="name" label={`${Language.fields.name} *`} />
           </ContentInput>
         </Section>
         <Button variant="contained" type="submit">
