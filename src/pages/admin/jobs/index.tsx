@@ -1,12 +1,21 @@
 import React, { useEffect, useCallback, useState } from 'react';
-import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
+import {
+  DataGrid,
+  GridRowsProp,
+  GridColDef,
+  GridCellParams,
+} from '@mui/x-data-grid';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClose, faEdit } from '@fortawesome/free-solid-svg-icons';
 
-import { GetJobs, IJobs } from '../../../hooks/admin/useJobs';
+import { GetJobs, IJobs, DeleteJobs } from '../../../hooks/admin/useJobs';
 import { GetCountries, ICountrie } from '../../../hooks/admin/useCountry';
 import ContentPage from '../../../components/contentPage';
 import Modal from '../../../components/modal';
 import Language from '../../../language';
+import Default from '../../../default';
+import { InvisibleButton } from './style';
 
 export default function Jobs(): JSX.Element {
   const navigate = useNavigate();
@@ -25,6 +34,11 @@ export default function Jobs(): JSX.Element {
 
     return {
       id: item.id,
+      countryId: item.country,
+      description: item.description,
+      interestSkills: item.interestSkills,
+      date: item.date,
+
       jobTitle: item.jobTitle,
       level: item.level,
       country: countrie,
@@ -32,19 +46,80 @@ export default function Jobs(): JSX.Element {
     };
   });
 
-  const columns: GridColDef[] = [
-    { field: 'jobTitle', headerName: 'Title', flex: 1 },
-    { field: 'level', headerName: 'Level', flex: 1 },
-    { field: 'country', headerName: 'Country', flex: 1 },
-    { field: 'department', headerName: 'Department', flex: 1 },
-  ];
-
   const handleGetJobs = useCallback(async () => {
     const response = await GetJobs();
     if (response && response.jobs) {
       setJobs(response.jobs);
     }
   }, []);
+
+  const handleDeleteJobs = useCallback(
+    (id: string) => {
+      DeleteJobs(id)
+        .then(response => {
+          if (response.data.removeJobs) {
+            Modal({
+              keyType: 'removeJobs',
+              icon: 'success',
+            });
+            handleGetJobs();
+          } else {
+            Modal({
+              keyType: 'removeJobs',
+              icon: 'error',
+            });
+          }
+        })
+        .catch(() => {
+          Modal({
+            keyType: 'removeJobs',
+            icon: 'error',
+          });
+        });
+    },
+    [handleGetJobs],
+  );
+
+  const renderActionCell = (e: GridCellParams) => {
+    return (
+      <>
+        <InvisibleButton
+          title="Delete"
+          onClick={() => {
+            Modal({
+              keyType: 'removeJobs',
+              icon: 'info',
+              cancelButtonText: 'No',
+              confirmButtonText: 'Yes',
+              onClick: () => handleDeleteJobs(e.row.id),
+            });
+          }}
+        >
+          <FontAwesomeIcon icon={faClose} color={Default.color.red} />
+        </InvisibleButton>
+        <InvisibleButton
+          title="Update"
+          onClick={() => {
+            navigate('/admin/jobs/register', { state: { jobs: e.row } });
+          }}
+        >
+          <FontAwesomeIcon icon={faEdit} color={Default.color.blue} />
+        </InvisibleButton>
+      </>
+    );
+  };
+
+  const columns: GridColDef[] = [
+    { field: 'jobTitle', headerName: 'Title', flex: 1 },
+    { field: 'level', headerName: 'Level', flex: 1 },
+    { field: 'country', headerName: 'Country', flex: 1 },
+    { field: 'department', headerName: 'Department', flex: 1 },
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      renderCell: renderActionCell,
+    },
+  ];
 
   useEffect(() => {
     handleGetJobs();

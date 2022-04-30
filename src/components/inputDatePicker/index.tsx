@@ -51,7 +51,7 @@ export default function InputDatePicker({
 
   return (
     <ContentFiled className="contentField">
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <LocalizationProvider dateAdapter={AdapterDateFns} size="small">
         {dateOnly ? (
           <DatePicker
             renderInput={props => <TextField {...props} />}

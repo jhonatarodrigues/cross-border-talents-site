@@ -1,23 +1,39 @@
-import React, { useRef, useCallback, useEffect, useState } from 'react';
+import React, {
+  useRef,
+  useCallback,
+  useEffect,
+  useState,
+  useMemo,
+} from 'react';
 import { Form } from '@unform/web';
 import { SubmitHandler, FormHandles } from '@unform/core';
 import * as Yup from 'yup';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-import { useNavigate } from 'react-router-dom';
 import Modal from '../../../components/modal';
 import Editor from '../../../components/editor';
 import { GetInterestSkills } from '../../../hooks/admin/useInterestSkills';
 import { GetCountries } from '../../../hooks/admin/useCountry';
-import { IJobsSend, AddJobs } from '../../../hooks/admin/useJobs';
+import {
+  IJobsSend,
+  AddJobs,
+  IJobs,
+  UpdateJobs,
+} from '../../../hooks/admin/useJobs';
 import Input from '../../../components/input';
 import InputDropDown, {
   IOptionsDropdown,
 } from '../../../components/inputDropdown';
+import InputDatePicker from '../../../components/inputDatePicker';
 import ContentPage from '../../../components/contentPage';
 import ContentInput from '../../../components/contentInput';
 import Button from '../../../components/button';
 import Section from '../../../components/section';
 import Language from '../../../language';
+
+interface IJobsRegister {
+  jobs: IJobs;
+}
 
 export default function JobsRegister(): JSX.Element {
   const navigate = useNavigate();
@@ -28,6 +44,13 @@ export default function JobsRegister(): JSX.Element {
   >([] as IOptionsDropdown[]);
   const [optionsCountry, setOptionsCountry] = useState<IOptionsDropdown[]>(
     [] as IOptionsDropdown[],
+  );
+  const location = useLocation();
+  //   const params = (location.state as IJobsRegister) || null;
+
+  const params = useMemo(
+    () => (location?.state as IJobsRegister) || null,
+    [location],
   );
 
   const handleSubmit: SubmitHandler<IJobsSend> = useCallback(
@@ -44,15 +67,31 @@ export default function JobsRegister(): JSX.Element {
           abortEarly: false,
         });
 
-        AddJobs(data).then(response => {
-          if (response.id) {
-            Modal({
-              icon: 'success',
-              keyType: 'createdJobs',
-              onClick: () => navigate('/admin/jobs'),
-            });
-          }
-        });
+        if (params?.jobs.id) {
+          const newData = {
+            ...data,
+            id: params.jobs.id,
+          };
+          UpdateJobs(newData).then(response => {
+            if (response.id) {
+              Modal({
+                icon: 'success',
+                keyType: 'updateJobs',
+                onClick: () => navigate('/admin/jobs'),
+              });
+            }
+          });
+        } else {
+          AddJobs(data).then(response => {
+            if (response.id) {
+              Modal({
+                icon: 'success',
+                keyType: 'createdJobs',
+                onClick: () => navigate('/admin/jobs'),
+              });
+            }
+          });
+        }
       } catch (err) {
         const validationErrors: Record<string, string> = {};
 
@@ -67,7 +106,7 @@ export default function JobsRegister(): JSX.Element {
         }
       }
     },
-    [navigate],
+    [navigate, params],
   );
 
   const getInterestSkills = useCallback(async () => {
@@ -110,7 +149,9 @@ export default function JobsRegister(): JSX.Element {
 
   return (
     <ContentPage
-      title={`${Language.page.jobs.jobs} > ${Language.page.jobs.newJobs}`}
+      title={`${Language.page.jobs.jobs} > ${
+        params.jobs.jobTitle || Language.page.jobs.newJobs
+      }`}
     >
       <Form
         ref={formRef}
@@ -119,23 +160,42 @@ export default function JobsRegister(): JSX.Element {
       >
         <Section label={Language.page.jobs.jobs}>
           <ContentInput>
-            <Input name="jobTitle" label={`${Language.fields.title} *`} />
-            <Input name="level" label={`${Language.fields.level} *`} />
+            <Input
+              name="jobTitle"
+              label={`${Language.fields.title} *`}
+              value={params?.jobs.jobTitle}
+            />
+            <Input
+              name="level"
+              label={`${Language.fields.level} *`}
+              value={params?.jobs.level}
+            />
+            <InputDatePicker
+              name="date"
+              label={Language.fields.date}
+              value={new Date(parseInt(params?.jobs.date, 10) || new Date())}
+            />
           </ContentInput>
           <ContentInput>
             <InputDropDown
               name="interestSkills"
               label="Department *"
               options={optionsInterestSkills}
+              value={params?.jobs.interestSkills.id}
             />
             <InputDropDown
               name="country"
               label={`${Language.fields.country} *`}
               options={optionsCountry}
+              value={params?.jobs.countryId}
             />
           </ContentInput>
           <ContentInput>
-            <Editor name="description" label={Language.fields.description} />
+            <Editor
+              name="description"
+              label={Language.fields.description}
+              value={params?.jobs.description}
+            />
           </ContentInput>
         </Section>
         <Button variant="contained" type="submit">

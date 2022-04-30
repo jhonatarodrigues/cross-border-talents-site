@@ -28,12 +28,12 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 type IProps = TextFieldProps & InputProps;
 
 const CssTextField = styled(InputField)({
-  '& label.Mui-focused': {
-    color: 'green',
-  },
-  '& .MuiInput-underline:after': {
-    borderBottomColor: 'green',
-  },
+  //   '& label.Mui-focused': {
+  //     color: 'green',
+  //   },
+  //   '& .MuiInput-underline:after': {
+  //     borderBottomColor: 'green',
+  //   },
   '& .MuiOutlinedInput-root': {
     padding: '0px',
     borderRadius: '0.625rem',
