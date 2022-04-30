@@ -27,6 +27,7 @@ export const ContainerNav = styled.div<IMain>`
 export const ContentNav = styled.div`
   height: 100%;
   border-top: 1px solid #efefef;
+  overflow-y: auto;
 `;
 
 export const ItemNav = styled.div<IActive>`

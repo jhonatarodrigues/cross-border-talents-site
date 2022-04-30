@@ -1,19 +1,28 @@
-import React, { useRef, useCallback, useEffect, useState } from 'react';
+import React, {
+  useRef,
+  useCallback,
+  useEffect,
+  useState,
+  useMemo,
+} from 'react';
 import { Form } from '@unform/web';
 import { SubmitHandler, FormHandles } from '@unform/core';
 import * as Yup from 'yup';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-import { useNavigate } from 'react-router-dom';
 import Modal from '../../../components/modal';
 import { GetCountries } from '../../../hooks/admin/useCountry';
 import {
   AddTestimonial,
   ITestimonialSend,
+  ITestimonials,
+  UpdateTestimonial,
 } from '../../../hooks/admin/useTestimonials';
 import Input from '../../../components/input';
 import InputDropDown, {
   IOptionsDropdown,
 } from '../../../components/inputDropdown';
+import ContentPicture from '../../../components/ContentPicture';
 import InputDatePicker from '../../../components/inputDatePicker';
 import Editor from '../../../components/editor';
 import ContentPage from '../../../components/contentPage';
@@ -24,11 +33,23 @@ import Section from '../../../components/section';
 import Language from '../../../language';
 import ButtonUpload from '../../../components/buttonUpload';
 
+interface ITestimonialRegister {
+  testimonial: ITestimonials;
+}
+
 export default function TestimonialsRegister(): JSX.Element {
   const navigate = useNavigate();
   const formRef = useRef<FormHandles>(null);
   const [optionsCountry, setOptionsCountry] = useState<IOptionsDropdown[]>(
     [] as IOptionsDropdown[],
+  );
+  const location = useLocation();
+  const params = useMemo(
+    () => (location?.state as ITestimonialRegister) || null,
+    [location],
+  );
+  const [uploadPicture, setUploadPicture] = useState(
+    params?.testimonial.picture || '',
   );
 
   const handleSubmit: SubmitHandler<ITestimonialSend> = useCallback(
@@ -46,6 +67,10 @@ export default function TestimonialsRegister(): JSX.Element {
           abortEarly: false,
         });
 
+        if (uploadPicture) {
+          infoData.picture = uploadPicture;
+        }
+
         if (infoData.upload) {
           const upload = await SimpleFileUpload(infoData.upload);
           if (upload) {
@@ -53,15 +78,31 @@ export default function TestimonialsRegister(): JSX.Element {
           }
         }
 
-        AddTestimonial(infoData).then(response => {
-          if (response.id) {
-            Modal({
-              icon: 'success',
-              keyType: 'createdTestimonial',
-              onClick: () => navigate('/admin/testimonials'),
-            });
-          }
-        });
+        if (params?.testimonial.id) {
+          const newInfoDate = {
+            ...infoData,
+            id: params.testimonial.id,
+          };
+          UpdateTestimonial(newInfoDate).then(response => {
+            if (response.id) {
+              Modal({
+                icon: 'success',
+                keyType: 'updateTestimonials',
+                onClick: () => navigate('/admin/testimonials'),
+              });
+            }
+          });
+        } else {
+          AddTestimonial(infoData).then(response => {
+            if (response.id) {
+              Modal({
+                icon: 'success',
+                keyType: 'createdTestimonial',
+                onClick: () => navigate('/admin/testimonials'),
+              });
+            }
+          });
+        }
       } catch (err) {
         const validationErrors: Record<string, string> = {};
 
@@ -76,7 +117,7 @@ export default function TestimonialsRegister(): JSX.Element {
         }
       }
     },
-    [navigate],
+    [navigate, params, uploadPicture],
   );
 
   const getCountries = useCallback(async () => {
@@ -98,6 +139,7 @@ export default function TestimonialsRegister(): JSX.Element {
     getCountries();
   }, [getCountries]);
 
+  console.log(params);
   return (
     <ContentPage
       title={`${Language.page.testimonials.testimonials} > ${Language.page.testimonials.newTestimonials}`}
@@ -109,25 +151,50 @@ export default function TestimonialsRegister(): JSX.Element {
       >
         <Section label={Language.page.testimonials.testimonials}>
           <ContentInput>
-            <ButtonUpload name="upload">
-              {Language.fields.sendPicture}
-            </ButtonUpload>
+            {uploadPicture ? (
+              <ContentPicture
+                pictureUrl={uploadPicture}
+                onRemove={() => {
+                  setUploadPicture('');
+                }}
+              />
+            ) : (
+              <ButtonUpload name="upload">
+                {Language.fields.sendPicture}
+              </ButtonUpload>
+            )}
 
-            <Input name="name" label={`${Language.fields.name} *`} />
-            <InputDatePicker name="date" label={`${Language.fields.date} *`} />
+            <Input
+              name="name"
+              label={`${Language.fields.name} *`}
+              value={params?.testimonial.name}
+            />
+            <InputDatePicker
+              name="date"
+              label={`${Language.fields.date} *`}
+              value={
+                new Date(parseInt(params?.testimonial.date, 10) || new Date())
+              }
+            />
           </ContentInput>
           <ContentInput>
             <InputDropDown
               name="country"
               label={`${Language.fields.country} *`}
               options={optionsCountry}
+              value={params?.testimonial.country}
             />
-            <Input name="observations" label={Language.fields.observations} />
+            <Input
+              name="observations"
+              label={Language.fields.observations}
+              value={params?.testimonial.observations}
+            />
           </ContentInput>
           <ContentInput>
             <Editor
               name="testimonial"
               label={`${Language.fields.testimonial} *`}
+              value={params?.testimonial.testimonial}
             />
           </ContentInput>
         </Section>

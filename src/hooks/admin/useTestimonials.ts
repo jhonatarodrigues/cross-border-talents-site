@@ -1,3 +1,4 @@
+import { AxiosResponse } from 'axios';
 import Moment from 'moment-timezone';
 import graphql from '../../services/graphql';
 
@@ -23,6 +24,55 @@ export interface ITestimonialSend {
   observations: string;
   country: string;
   upload?: HTMLInputElement;
+}
+
+interface IITestimonialUpdate extends ITestimonialSend {
+  id: string;
+}
+
+export function DeleteTestimonial(id: string): Promise<AxiosResponse> {
+  const query = `
+      mutation {
+          removeTestimonial(id: "${id}")
+      }
+    `;
+
+  return graphql(query);
+}
+
+export function UpdateTestimonial(
+  data: IITestimonialUpdate,
+): Promise<ITestimonials> {
+  const query = `
+      mutation {
+          updateTestimonial(
+              id: "${data.id}",
+              name: "${data.name}",
+              picture: "${data.picture}",
+              date: "${Moment(data.date).format('YYYY-MM-DD HH:mm')}",
+              testimonial: "${data.testimonial}",
+              observations: "${data.observations}",
+              country: "${data.country}"
+          ){
+              id
+              name
+              picture
+              date
+              testimonial
+              observations
+              country
+          }
+      }
+    
+    `;
+
+  return graphql(query)
+    .then(response => {
+      return response.data.updateTestimonial as ITestimonials;
+    })
+    .catch(() => {
+      return {} as ITestimonials;
+    });
 }
 
 export function AddTestimonial(data: ITestimonialSend): Promise<ITestimonials> {

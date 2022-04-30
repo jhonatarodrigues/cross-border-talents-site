@@ -13,6 +13,7 @@ import { faClose, faEdit } from '@fortawesome/free-solid-svg-icons';
 import {
   GetTestimonials,
   ITestimonials,
+  DeleteTestimonial,
 } from '../../../hooks/admin/useTestimonials';
 import { GetCountries, ICountrie } from '../../../hooks/admin/useCountry';
 import Modal from '../../../components/modal';
@@ -39,6 +40,8 @@ export default function Testimonials(): JSX.Element {
     }
 
     return {
+      allData: item,
+
       id: item.id,
       name: item.name,
       date: Moment(timeStamp).format('DD/MM/YYYY HH:mm'),
@@ -47,6 +50,40 @@ export default function Testimonials(): JSX.Element {
     };
   });
 
+  const handleGetUser = useCallback(async () => {
+    const response = await GetTestimonials();
+    if (response && response.testimonials) {
+      setTestimonials(response.testimonials);
+    }
+  }, []);
+
+  const handleDeleteTestimonial = useCallback(
+    (id: string) => {
+      DeleteTestimonial(id)
+        .then(response => {
+          if (response.data.removeTestimonial) {
+            Modal({
+              keyType: 'removeTestimonial',
+              icon: 'success',
+            });
+            handleGetUser();
+          } else {
+            Modal({
+              keyType: 'removeTestimonial',
+              icon: 'error',
+            });
+          }
+        })
+        .catch(() => {
+          Modal({
+            keyType: 'removeTestimonial',
+            icon: 'error',
+          });
+        });
+    },
+    [handleGetUser],
+  );
+
   const renderActionCell = (e: GridCellParams) => {
     return (
       <>
@@ -54,20 +91,22 @@ export default function Testimonials(): JSX.Element {
           title="Deletar"
           onClick={() => {
             Modal({
-              keyType: 'removeUser',
+              keyType: 'removeTestimonials',
               icon: 'info',
               cancelButtonText: 'No',
               confirmButtonText: 'Yes',
-              //   onClick: () => handleDeleteUser(e.row.id),
+              onClick: () => handleDeleteTestimonial(e.row.id),
             });
           }}
         >
           <FontAwesomeIcon icon={faClose} color={Default.color.red} />
         </InvisibleButton>
         <InvisibleButton
-          title="Deletar"
+          title="Update"
           onClick={() => {
-            navigate('/admin/user/register', { state: { user: e.row } });
+            navigate('/admin/testimonials/register', {
+              state: { testimonial: e.row.allData },
+            });
           }}
         >
           <FontAwesomeIcon icon={faEdit} color={Default.color.blue} />
@@ -87,13 +126,6 @@ export default function Testimonials(): JSX.Element {
       renderCell: renderActionCell,
     },
   ];
-
-  const handleGetUser = useCallback(async () => {
-    const response = await GetTestimonials();
-    if (response && response.testimonials) {
-      setTestimonials(response.testimonials);
-    }
-  }, []);
 
   useEffect(() => {
     handleGetUser();
