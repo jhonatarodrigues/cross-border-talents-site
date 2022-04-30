@@ -27,7 +27,6 @@ export const ContentLogin = styled.div`
 export const IconLogin = styled.div`
   width: 8.375rem;
   height: 2.625rem;
-  background: ${Default.color.blue};
   margin-bottom: 2.5rem;
 `;
 
@@ -54,4 +53,9 @@ export const ButtonForgotPassword = styled.button`
   color: ${Default.color.blueLight};
   font-size: 0.75rem;
   font-weight: 600;
+`;
+
+export const Logo = styled.img`
+  width: 100%;
+  height: auto;
 `;

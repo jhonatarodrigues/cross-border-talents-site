@@ -14,6 +14,7 @@ import { ApplicationState } from '../../../store';
 import { AuthTypes } from '../../../store/ducks/auth/types';
 import Input from '../../../components/input';
 import Button from '../../../components/button';
+import LogoImage from '../../../assets/images/logo.png';
 
 import {
   LoginPageContainer,
@@ -23,6 +24,7 @@ import {
   ContentButton,
   FormStyled,
   ButtonForgotPassword,
+  Logo,
 } from './style';
 
 interface IForm {
@@ -97,7 +99,7 @@ export default function Login(): JSX.Element {
     <LoginPageContainer>
       <ContentLogin>
         <IconLogin>
-          <FontAwesomeIcon icon={faUser} />
+          <Logo src={LogoImage} />
         </IconLogin>
         <FormStyled
           ref={formRef}
