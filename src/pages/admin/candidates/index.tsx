@@ -1,16 +1,26 @@
 import React, { useEffect, useCallback, useState } from 'react';
-import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
+import {
+  DataGrid,
+  GridRowsProp,
+  GridColDef,
+  GridCellParams,
+} from '@mui/x-data-grid';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClose, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 import {
   GetListCandidates,
   ICandidate,
+  DeleteCandidate,
 } from '../../../hooks/admin/useCandidates';
 import { GetCountries, ICountrie } from '../../../hooks/admin/useCountry';
 import LabelDestached from '../../../components/labelDestached';
 import ContentPage from '../../../components/contentPage';
 import Modal from '../../../components/modal';
 import Language from '../../../language';
+import Default from '../../../default';
+import { InvisibleButton } from './style';
 
 export default function Candidates(): JSX.Element {
   const navigate = useNavigate();
@@ -28,6 +38,8 @@ export default function Candidates(): JSX.Element {
     }
 
     return {
+      allRow: candidate,
+
       id: candidate.id,
       name: `${candidate.user.name} ${candidate.user.lastName || ''}`,
       email: candidate.user.email,
@@ -38,7 +50,76 @@ export default function Candidates(): JSX.Element {
     };
   });
 
+  const handleGetUser = useCallback(async () => {
+    const response = await GetListCandidates();
+    if (response && response.candidates) {
+      setCandidates(response.candidates);
+    }
+  }, []);
+
+  const handleDeleteCandidate = useCallback(
+    async (id: string) => {
+      const response = await DeleteCandidate(id);
+
+      try {
+        if (response) {
+          Modal({
+            keyType: 'removeCandidate',
+            icon: 'success',
+          });
+          handleGetUser();
+        } else {
+          Modal({
+            keyType: 'removeCandidate',
+            icon: 'error',
+          });
+        }
+      } catch {
+        Modal({
+          keyType: 'removeCandidate',
+          icon: 'error',
+        });
+      }
+    },
+    [handleGetUser],
+  );
+
+  const renderActionCell = (e: GridCellParams) => {
+    return (
+      <>
+        <InvisibleButton
+          title="Deletar"
+          onClick={() => {
+            Modal({
+              keyType: 'removeCompany',
+              icon: 'info',
+              cancelButtonText: 'No',
+              confirmButtonText: 'Yes',
+              onClick: () => {
+                handleDeleteCandidate(e.row.allRow.id);
+              },
+            });
+          }}
+        >
+          <FontAwesomeIcon icon={faClose} color={Default.color.red} />
+        </InvisibleButton>
+        <InvisibleButton
+          title="Update"
+          onClick={() => {
+            navigate('/admin/candidates/register', {
+              state: { candidate: e.row.allRow },
+            });
+          }}
+        >
+          <FontAwesomeIcon icon={faEdit} color={Default.color.blue} />
+        </InvisibleButton>
+      </>
+    );
+  };
+
   const columns: GridColDef[] = [
+    { field: 'allRow', hide: true, filterable: false },
+
     { field: 'name', headerName: 'Name', flex: 1 },
     { field: 'email', headerName: 'Email', flex: 1 },
     { field: 'country', headerName: 'Country', flex: 1 },
@@ -54,14 +135,12 @@ export default function Candidates(): JSX.Element {
         />
       ),
     },
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      renderCell: renderActionCell,
+    },
   ];
-
-  const handleGetUser = useCallback(async () => {
-    const response = await GetListCandidates();
-    if (response && response.candidates) {
-      setCandidates(response.candidates);
-    }
-  }, []);
 
   const hangleGetCountries = useCallback(() => {
     GetCountries()

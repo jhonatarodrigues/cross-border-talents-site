@@ -12,6 +12,7 @@ import { ContentFiled, TextError } from './style';
 
 interface InputProps extends EditorProps {
   name: string;
+  value?: string;
 }
 
 type IProps = TextFieldProps & InputProps;
@@ -33,7 +34,7 @@ const {
   Unlink,
 } = EditorTools;
 
-export default function Editor({ name }: IProps) {
+export default function Editor({ name, value: valueUser }: IProps) {
   const inputRef = useRef(null);
   const { fieldName, registerField, error } = useField(name);
   const [inputValue, setInputValue] = useState<string>('');
@@ -53,6 +54,12 @@ export default function Editor({ name }: IProps) {
       },
     });
   }, [fieldName, registerField, inputValue]);
+
+  useEffect(() => {
+    if (valueUser) {
+      setInputValue(valueUser);
+    }
+  }, [valueUser]);
 
   return (
     <ContentFiled className="contentField">
@@ -74,3 +81,6 @@ export default function Editor({ name }: IProps) {
     </ContentFiled>
   );
 }
+Editor.defaultProps = {
+  value: '',
+};

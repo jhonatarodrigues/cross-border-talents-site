@@ -1,9 +1,17 @@
-import React, { useRef, useCallback, useEffect, useState } from 'react';
+import React, {
+  useRef,
+  useCallback,
+  useEffect,
+  useState,
+  useMemo,
+} from 'react';
 import { Form } from '@unform/web';
 import { SubmitHandler, FormHandles } from '@unform/core';
 import * as Yup from 'yup';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
+import ContentPicture from '../../../components/ContentPicture';
+import ContentFile from '../../../components/ContentFile';
 import Editor from '../../../components/editor';
 import Modal from '../../../components/modal';
 import { GetTeamLeaders } from '../../../hooks/admin/useTeamLeader';
@@ -15,7 +23,9 @@ import { GetGender } from '../../../hooks/admin/useGender';
 import InputDatePicker from '../../../components/inputDatePicker';
 import {
   ICandidateSend,
+  ICandidate,
   AddCandidate,
+  UpdateCandidate,
 } from '../../../hooks/admin/useCandidates';
 import Input from '../../../components/input';
 import InputDropDown, {
@@ -29,6 +39,10 @@ import Button from '../../../components/button';
 import Section from '../../../components/section';
 import Language from '../../../language';
 import ButtonUpload from '../../../components/buttonUpload';
+
+interface ICandidateRegister {
+  candidate: ICandidate;
+}
 
 export default function CandidatesRegister(): JSX.Element {
   const navigate = useNavigate();
@@ -45,6 +59,18 @@ export default function CandidatesRegister(): JSX.Element {
   const [optionsInterestSkills, setOptionsInterestSkills] = useState<
     IOptionsDropdown[]
   >([] as IOptionsDropdown[]);
+  const location = useLocation();
+  const params = useMemo(() => {
+    if (location?.state) {
+      return location?.state as ICandidateRegister;
+    }
+    return null;
+  }, [location]);
+  const [uploadPicture, setUploadPicture] = useState(
+    params?.candidate.profilePicture || '',
+  );
+  const [uploadCv, setUploadCV] = useState(params?.candidate.cvUpload || '');
+
   const optionsNativeLanguage: IOptionsDropdown[] =
     GetLanguages().languages.map(item => {
       return {
@@ -84,11 +110,22 @@ export default function CandidatesRegister(): JSX.Element {
           abortEarly: false,
         });
 
+        infoData.profilePicture = '';
+
+        if (uploadPicture) {
+          infoData.profilePicture = uploadPicture;
+        }
+
         if (infoData.uploadPicture) {
           const upload = await SimpleFileUpload(infoData.uploadPicture);
           if (upload) {
             infoData.profilePicture = upload;
           }
+        }
+
+        infoData.cvUpload = '';
+        if (uploadCv) {
+          infoData.cvUpload = uploadCv;
         }
 
         if (infoData.uploadCv) {
@@ -98,15 +135,31 @@ export default function CandidatesRegister(): JSX.Element {
           }
         }
 
-        AddCandidate(infoData).then(response => {
-          if (response.user.id) {
-            Modal({
-              icon: 'success',
-              keyType: 'createdCandidate',
-              onClick: () => navigate('/admin/candidates'),
-            });
-          }
-        });
+        if (params?.candidate.id) {
+          const newInfoData = {
+            ...infoData,
+            id: params.candidate.id,
+          };
+          UpdateCandidate(newInfoData).then(response => {
+            if (response.user.id) {
+              Modal({
+                icon: 'success',
+                keyType: 'updateCandidate',
+                onClick: () => navigate('/admin/candidates'),
+              });
+            }
+          });
+        } else {
+          AddCandidate(infoData).then(response => {
+            if (response.user.id) {
+              Modal({
+                icon: 'success',
+                keyType: 'createdCandidate',
+                onClick: () => navigate('/admin/candidates'),
+              });
+            }
+          });
+        }
       } catch (err) {
         const validationErrors: Record<string, string> = {};
 
@@ -121,7 +174,7 @@ export default function CandidatesRegister(): JSX.Element {
         }
       }
     },
-    [navigate],
+    [navigate, params, uploadPicture, uploadCv],
   );
 
   const getTeamLeaders = useCallback(async () => {
@@ -198,7 +251,11 @@ export default function CandidatesRegister(): JSX.Element {
 
   return (
     <ContentPage
-      title={`${Language.page.candidates.candidates} > ${Language.page.candidates.newCandidates}`}
+      title={`${Language.page.candidates.candidates} > ${
+        params?.candidate.user.name
+          ? params?.candidate.user.name
+          : Language.page.candidates.newCandidates
+      }`}
     >
       <Form
         ref={formRef}
@@ -207,25 +264,49 @@ export default function CandidatesRegister(): JSX.Element {
       >
         <Section label={Language.page.candidates.personalInformation}>
           <ContentInput>
-            <ButtonUpload name="uploadPicture">
-              {Language.page.candidates.sendPicture}
-            </ButtonUpload>
+            {uploadPicture && uploadPicture !== 'undefined' ? (
+              <ContentPicture
+                pictureUrl={uploadPicture}
+                onRemove={() => {
+                  setUploadPicture('');
+                }}
+              />
+            ) : (
+              <ButtonUpload name="uploadPicture">
+                {Language.page.candidates.sendPicture}
+              </ButtonUpload>
+            )}
 
-            <Input name="name" label={`${Language.fields.fullName} *`} />
-            <Input name="lastName" label={`${Language.fields.lastName} *`} />
+            <Input
+              name="name"
+              label={`${Language.fields.fullName} *`}
+              value={params?.candidate.user.name}
+            />
+            <Input
+              name="lastName"
+              label={`${Language.fields.lastName} *`}
+              value={params?.candidate.user.lastName}
+            />
           </ContentInput>
           <ContentInput>
             <Input
               name="email"
               label={`${Language.fields.email} *`}
               type="email"
+              value={params?.candidate.user.email}
             />
-            <Input name="phone" label={Language.fields.phone} mask="phone" />
+            <Input
+              name="phone"
+              label={Language.fields.phone}
+              mask="phone"
+              value={params?.candidate.user.phone}
+            />
 
             <InputDropDown
               name="nativeLanguage"
               label={`${Language.fields.nativeLanguage} *`}
               options={optionsNativeLanguage}
+              value={params?.candidate.nativeLanguage}
             />
           </ContentInput>
           <ContentInput>
@@ -233,31 +314,40 @@ export default function CandidatesRegister(): JSX.Element {
               dateOnly
               name="birthDate"
               label={Language.fields.birthDate}
+              value={new Date(params?.candidate.birthDate || '')}
             />
             <InputDropDown
               name="gender"
               label={Language.fields.gender}
               options={optionsGender}
+              value={params?.candidate.gender}
             />
             <InputDropDown
               name="country"
               label={`${Language.fields.countryOfResidence} *`}
               options={optionsCountry}
+              value={params?.candidate.country}
             />
           </ContentInput>
         </Section>
         <Section label={Language.page.candidates.professionalInformation}>
           <ContentInput>
-            <Input name="socialMedia" label={Language.fields.socialMedia} />
+            <Input
+              name="socialMedia"
+              label={Language.fields.socialMedia}
+              value={params?.candidate.socialMedia}
+            />
             <InputDropDown
               name="englishLevel"
               label={`${Language.fields.englishLevel} *`}
               options={optionsEnglishLevel}
+              value={String(params?.candidate.englishLevel)}
             />
             <InputDropDown
               name="interestSkills"
               label="Department *"
               options={optionsInterestSkills}
+              value={params?.candidate.idInterestSkills}
             />
           </ContentInput>
           <ContentInput>
@@ -265,18 +355,33 @@ export default function CandidatesRegister(): JSX.Element {
               name="teamLeader"
               label="Team Leader *"
               options={optionsTeamLeader}
+              value={params?.candidate.userTeamLeader.id}
             />
             <InputDropDown
               name="recruiter"
               label="Approached by"
               options={optionsRecruiter}
+              value={params?.candidate.userRecruiter.id}
             />
-            <ButtonUpload name="uploadCv">
-              {Language.page.candidates.cvUpload}
-            </ButtonUpload>
+            {uploadCv && uploadCv !== 'undefined' ? (
+              <ContentFile
+                fileName={uploadCv}
+                onRemove={() => {
+                  setUploadCV('');
+                }}
+              />
+            ) : (
+              <ButtonUpload name="uploadCv">
+                {Language.page.candidates.cvUpload}
+              </ButtonUpload>
+            )}
           </ContentInput>
           <ContentInput>
-            <Editor name="observations" label={Language.fields.observations} />
+            <Editor
+              name="observations"
+              label={Language.fields.observations}
+              value={params?.candidate.observations}
+            />
           </ContentInput>
         </Section>
         <Section label={Language.page.candidates.permissions}>
@@ -284,28 +389,28 @@ export default function CandidatesRegister(): JSX.Element {
             <InputSwitch
               label={Language.fields.allowTalentPool}
               name="allowTalentPool"
-              valueDefault
+              valueDefault={params?.candidate.allowTalentPool}
             />
           </ContentInput>
           <ContentInput>
             <InputSwitch
               label={Language.fields.allowContactMe}
               name="allowContactMe"
-              valueDefault
+              valueDefault={params?.candidate.allowContactMe}
             />
           </ContentInput>
           <ContentInput>
             <InputSwitch
               label={Language.fields.privacityPolicy}
               name="privacityPolicy"
-              valueDefault
+              valueDefault={params?.candidate.privacityPolicy}
             />
           </ContentInput>
           <ContentInput>
             <InputSwitch
               label={Language.fields.status}
               name="status"
-              valueDefault
+              valueDefault={params?.candidate.user.status}
             />
           </ContentInput>
         </Section>

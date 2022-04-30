@@ -11,12 +11,18 @@ import { ContentFiled, TextError } from './style';
 interface InputProps {
   name: string;
   label: string;
+  value?: Date;
   dateOnly?: boolean;
 }
 
 type IProps = InputProps;
 
-export default function InputDatePicker({ name, label, dateOnly }: IProps) {
+export default function InputDatePicker({
+  name,
+  label,
+  value: valueUser,
+  dateOnly,
+}: IProps) {
   const inputRef = useRef(null);
   const { fieldName, registerField, error } = useField(name);
   const [inputValue, setInputValue] = useState<Date | null>(new Date());
@@ -36,6 +42,12 @@ export default function InputDatePicker({ name, label, dateOnly }: IProps) {
       },
     });
   }, [fieldName, registerField, inputValue]);
+
+  useEffect(() => {
+    if (valueUser) {
+      setInputValue(valueUser);
+    }
+  }, [valueUser]);
 
   return (
     <ContentFiled className="contentField">
@@ -69,4 +81,5 @@ export default function InputDatePicker({ name, label, dateOnly }: IProps) {
 
 InputDatePicker.defaultProps = {
   dateOnly: false,
+  value: null,
 };

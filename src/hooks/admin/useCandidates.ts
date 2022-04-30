@@ -1,3 +1,4 @@
+import { AxiosResponse } from 'axios';
 import graphql from '../../services/graphql';
 
 export interface ICandidate {
@@ -15,6 +16,7 @@ export interface ICandidate {
   privacityPolicy: boolean;
   englishLevel: number;
   observations: string;
+  idInterestSkills: string;
 
   userRecruiter: {
     id: string;
@@ -42,6 +44,7 @@ export interface ICandidate {
     accessLevel: number;
     lastName: string;
     status: boolean;
+    phone: string;
   };
 }
 
@@ -78,6 +81,10 @@ export interface ICandidateSend {
   interestSkills: string;
 }
 
+interface ICandidateUpdate extends ICandidateSend {
+  id: string;
+}
+
 interface IResponseCandidateSend {
   user: {
     id: string;
@@ -89,6 +96,69 @@ interface IResponseCandidateSend {
     id: string;
     idUser: string;
   };
+}
+
+export function DeleteCandidate(id: string): Promise<AxiosResponse> {
+  const query = `
+        mutation {
+            removeCandidate(id: "${id}")
+        }
+      `;
+
+  return graphql(query);
+}
+
+export function UpdateCandidate(
+  data: ICandidateUpdate,
+): Promise<IResponseCandidateSend> {
+  const query = `
+      mutation {
+        updateCandidate(
+              id: "${data.id}",
+              name: "${data.name}"
+              lastName: "${data.lastName}"
+              phone: "${data.phone}"
+              status: ${data.status}
+              
+              profilePicture: "${data.profilePicture}"
+              socialMedia: "${data.socialMedia}"
+              birthDate: "${data.birthDate}"
+              country: "${data.country}"
+              gender: "${data.gender}"
+              nativeLanguage: "${data.nativeLanguage}"
+              cvUpload: "${data.cvUpload}"
+              allowTalentPool: ${data.allowTalentPool}
+              allowContactMe: ${data.allowContactMe}
+              privacityPolicy: ${data.privacityPolicy}
+              englishLevel: "${data.englishLevel}"
+              observations: "${data.observations}"
+              
+              recruiter: "${data.recruiter}"
+              teamLeader: "${data.teamLeader}"
+              idInterestSkills: "${data.interestSkills}"
+          ) {
+              user {
+                  id
+                  name
+                  email
+                  accessLevel
+              }
+              candidate{
+                  id
+                  idUser
+              }
+          }
+      }
+    
+    `;
+
+  return graphql(query)
+    .then(response => {
+      return response.data.updateCandidate as IResponseCandidateSend;
+    })
+    .catch(() => {
+      return {} as IResponseCandidateSend;
+    });
 }
 
 export function AddCandidate(
@@ -161,6 +231,8 @@ export function GetListCandidates(): Promise<IResponseCandidates> {
             allowContactMe
             privacityPolicy
             englishLevel
+            idInterestSkills
+            observations
             
             userRecruiter{
                 id
@@ -187,6 +259,7 @@ export function GetListCandidates(): Promise<IResponseCandidates> {
                 email
                 accessLevel
                 status
+                phone
             }
         
         }
