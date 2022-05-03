@@ -1,11 +1,9 @@
 import styled from 'styled-components';
 
-import Default from '../../default';
-
 // -- images
 
 export const Container = styled.div`
-  width: 68.75rem;
+  width: 75rem;
 `;
 
 export const BaseContent = styled.div`
