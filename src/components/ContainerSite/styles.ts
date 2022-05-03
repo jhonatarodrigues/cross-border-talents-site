@@ -1,9 +1,12 @@
 import styled from 'styled-components';
 
 // -- images
-
-export const Container = styled.div`
+interface IRow {
+  row?: boolean;
+}
+export const Container = styled.div<IRow>`
   width: 75rem;
+  flex-direction: ${({ row }) => (row ? 'row' : 'column')};
 `;
 
 export const BaseContent = styled.div`

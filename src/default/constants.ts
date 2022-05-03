@@ -14,6 +14,7 @@ export const color = {
   red: '#f00',
   success: '#54D6AB',
   blueBase: '#7FA0C7',
+  spotlight: '#FF7746',
 
   blueOriginal: '#212F53',
 };

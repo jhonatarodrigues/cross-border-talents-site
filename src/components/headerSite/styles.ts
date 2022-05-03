@@ -4,6 +4,9 @@ import styled from 'styled-components';
 
 export const HeaderDefault = styled.header`
   padding-top: 1.875rem;
+  width: 100%;
+  position: absolute;
+  z-index: 1;
 `;
 
 export const ContentHeader = styled.div`
