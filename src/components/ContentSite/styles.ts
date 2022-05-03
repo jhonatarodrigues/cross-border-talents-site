@@ -14,4 +14,6 @@ export const Container = styled.div`
     display: flex;
   }
 `;
-export const ContentPage = styled.div``;
+export const ContentPage = styled.div`
+  flex-direction: column;
+`;

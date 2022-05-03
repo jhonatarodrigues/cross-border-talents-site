@@ -2,13 +2,16 @@ import styled from 'styled-components';
 
 import Default from '../../default';
 
-interface IVariant {
+interface IContentButton {
   variant?: string;
+  bgColor?: string;
 }
 
-export const ContentButton = styled.button<IVariant>`
+export const ContentButton = styled.button<IContentButton>`
   background: ${props =>
-    props.variant === 'outlined' ? 'transparent' : Default.color.blueOriginal};
+    props.variant === 'outlined'
+      ? 'transparent'
+      : props.bgColor || Default.color.blueOriginal};
   padding: 0.625rem 1.25rem;
   border: 1px solid
     ${props =>
@@ -18,7 +21,7 @@ export const ContentButton = styled.button<IVariant>`
   border-radius: 0.625rem;
 `;
 
-export const Text = styled.p<IVariant>`
+export const Text = styled.p<IContentButton>`
   margin: 0;
   padding: 0;
   font-size: 0.75rem;

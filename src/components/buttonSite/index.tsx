@@ -5,15 +5,17 @@ import { ContentButton, Text } from './style';
 interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   variant?: 'outlined';
+  bgColor?: string;
 }
 
 export default function DefaultButtonSite({
   children,
   variant,
+  bgColor,
   ...rest
 }: IProps): JSX.Element {
   return (
-    <ContentButton variant={variant} {...rest}>
+    <ContentButton variant={variant} {...rest} bgColor={bgColor}>
       <Text variant={variant}>{children}</Text>
     </ContentButton>
   );
@@ -21,4 +23,5 @@ export default function DefaultButtonSite({
 
 DefaultButtonSite.defaultProps = {
   variant: '',
+  bgColor: '',
 };
