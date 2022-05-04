@@ -3,6 +3,7 @@ import React from 'react';
 import Button from '../buttonSite';
 import ContainerSite from '../ContainerSite';
 
+import logo from '../../assets/images/logo.png';
 import {
   HeaderDefault,
   ContentHeader,
@@ -11,6 +12,7 @@ import {
   Ul,
   Li,
   Content,
+  ContentLogoImage,
 } from './styles';
 
 interface IProps {
@@ -23,7 +25,9 @@ export default function Header({ transparent }: IProps): JSX.Element {
       <ContainerSite>
         <ContentHeader>
           <Content>
-            <ContentLogo />
+            <ContentLogo>
+              <ContentLogoImage src={logo} alt="Logo" />
+            </ContentLogo>
             <Nav>
               <Ul>
                 <Li>Jobs</Li>

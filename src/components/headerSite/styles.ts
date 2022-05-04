@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 import Default from '../../default';
 
-// -- images
 interface ITransparent {
   transparent?: boolean;
 }
@@ -30,8 +29,8 @@ export const Content = styled.div`
 export const ContentLogo = styled.div`
   width: 6.9375rem;
   height: 2.1875rem;
-  border: 1px solid;
 `;
+export const ContentLogoImage = styled.img``;
 
 export const Nav = styled.nav`
   display: flex;
