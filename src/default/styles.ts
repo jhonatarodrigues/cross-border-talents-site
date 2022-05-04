@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { color as Color } from './constants';
 
 interface ISpace {
-  height?: string;
+  h?: string;
   w?: string;
 }
 
@@ -70,7 +70,7 @@ export const Text = styled.p<ITitle>`
     textAlignCenter ? 'center' : 'flex-start'};
 `;
 export const Text2 = styled.p<ITitle>`
-  font-size: 12px;
+  font-size: 0.75rem;
   line-height: 1rem;
   color: ${({ color }) => color || Color.whiteLight};
   text-align: ${({ textAlignCenter }) => (textAlignCenter ? 'center' : 'left')};
@@ -90,10 +90,10 @@ export const Row = styled.div<IAlignCenter>`
 export const Column = styled.div<IAlignCenter>`
   flex-direction: column;
   width: 100%;
-  justify-content: ${({ alignItens }) => alignItens || 'flex-start'};
+  align-items: ${({ alignItens }) => alignItens || 'flex-start'};
   justify-content: ${({ justifyContent }) => justifyContent || 'flex-start'};
 `;
 export const Space = styled.div<ISpace>`
   width: ${props => props.w || '100%'};
-  height: ${props => props.height || '100%'};
+  height: ${props => props.h || '100%'};
 `;

@@ -127,7 +127,7 @@ export default function Dash(): JSX.Element {
               </Default.Column>
             </ExpertiseBlockType>
           </div>
-          <Default.Space height="5.875rem" />
+          <Default.Space h="5.875rem" />
           <Default.Row>
             <ExpertiseBLockImage />
             <ExpertiseBLockContentText>
@@ -136,12 +136,12 @@ export default function Dash(): JSX.Element {
                   Benefits of using
                   <br /> our system
                 </Default.TitleH3>
-                <Default.Space />
+                <Default.Space h="1rem" />
                 <Default.Subtitle>
                   Lots of technology and great experience for the global
                   recruitment market
                 </Default.Subtitle>
-                <Default.Space height="4.25rem" />
+                <Default.Space h="4.25rem" />
                 <ExpertiseContentIcons>
                   <ExpertiseIcon>
                     <FontAwesomeIcon
@@ -164,7 +164,7 @@ export default function Dash(): JSX.Element {
                     </ExpertiseIconTitle>
                   </ExpertiseIcon>
                 </ExpertiseContentIcons>
-                <Default.Space height="2.5rem" />
+                <Default.Space h="2.5rem" />
                 <ExpertiseContentIcons>
                   <ExpertiseIcon>
                     <FontAwesomeIcon
@@ -196,7 +196,7 @@ export default function Dash(): JSX.Element {
           <Default.TitleH3 color={Default.color.blue} textAlignCenter>
             Newest Jobs Opportunities
           </Default.TitleH3>
-          <Default.Space height="2.5rem" />
+          <Default.Space h="2.5rem" />
           <div>
             <ContentSearch width="100%">
               <InputSearch placeholder="Search job by title" />
@@ -211,7 +211,7 @@ export default function Dash(): JSX.Element {
               <ButtonSearch>Find a job</ButtonSearch>
             </ContentSearch>
           </div>
-          <Default.Space height="1.875rem" />
+          <Default.Space h="1.875rem" />
           <Default.Row>
             <NewJobItem>
               <Default.Title2 color={Default.color.blue}>
@@ -219,7 +219,7 @@ export default function Dash(): JSX.Element {
                 <br />
                 Connectivity Team
               </Default.Title2>
-              <Default.Space height="0.625rem" />
+              <Default.Space h="0.625rem" />
               <NewJobItemContentIcon>
                 <Default.Row alignItens="center">
                   <FontAwesomeIcon
@@ -232,7 +232,7 @@ export default function Dash(): JSX.Element {
                   </NewJobItemContentIconText>
                 </Default.Row>
               </NewJobItemContentIcon>
-              <Default.Space height="0.625rem" />
+              <Default.Space h="0.625rem" />
               <Default.Subtitle color={Default.color.gray}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed...
               </Default.Subtitle>
@@ -243,7 +243,7 @@ export default function Dash(): JSX.Element {
                 <br />
                 Connectivity Team
               </Default.Title2>
-              <Default.Space height="0.625rem" />
+              <Default.Space h="0.625rem" />
               <NewJobItemContentIcon>
                 <Default.Row alignItens="center">
                   <FontAwesomeIcon
@@ -256,7 +256,7 @@ export default function Dash(): JSX.Element {
                   </NewJobItemContentIconText>
                 </Default.Row>
               </NewJobItemContentIcon>
-              <Default.Space height="0.625rem" />
+              <Default.Space h="0.625rem" />
               <Default.Subtitle color={Default.color.gray}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed...
               </Default.Subtitle>
@@ -267,7 +267,7 @@ export default function Dash(): JSX.Element {
                 <br />
                 Connectivity Team
               </Default.Title2>
-              <Default.Space height="0.625rem" />
+              <Default.Space h="0.625rem" />
               <NewJobItemContentIcon>
                 <Default.Row alignItens="center">
                   <FontAwesomeIcon
@@ -280,7 +280,7 @@ export default function Dash(): JSX.Element {
                   </NewJobItemContentIconText>
                 </Default.Row>
               </NewJobItemContentIcon>
-              <Default.Space height="0.625rem" />
+              <Default.Space h="0.625rem" />
               <Default.Subtitle color={Default.color.gray}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed...
               </Default.Subtitle>
@@ -291,7 +291,7 @@ export default function Dash(): JSX.Element {
                 <br />
                 Connectivity Team
               </Default.Title2>
-              <Default.Space height="0.625rem" />
+              <Default.Space h="0.625rem" />
               <NewJobItemContentIcon>
                 <Default.Row alignItens="center">
                   <FontAwesomeIcon
@@ -304,13 +304,13 @@ export default function Dash(): JSX.Element {
                   </NewJobItemContentIconText>
                 </Default.Row>
               </NewJobItemContentIcon>
-              <Default.Space height="0.625rem" />
+              <Default.Space h="0.625rem" />
               <Default.Subtitle color={Default.color.gray}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed...
               </Default.Subtitle>
             </NewJobItem>
           </Default.Row>
-          <Default.Space height="2.5rem" />
+          <Default.Space h="2.5rem" />
           <Default.Row justifyContent="center">
             <div>
               <ButtonSite>Discover all opportunities</ButtonSite>
@@ -323,11 +323,11 @@ export default function Dash(): JSX.Element {
           <Default.TitleH3 color={Default.color.white} textAlignCenter>
             Why CBT is your best choice?
           </Default.TitleH3>
-          <Default.Space height="1.25rem" />
+          <Default.Space h="1.25rem" />
           <Default.Subtitle textAlignCenter>
             Testimonials from our candidates
           </Default.Subtitle>
-          <Default.Space height="4.375rem" />
+          <Default.Space h="4.375rem" />
 
           <Default.Row>
             <BestChoiceItem>
@@ -335,7 +335,7 @@ export default function Dash(): JSX.Element {
                 <Default.Title2 color={Default.color.success}>
                   Mariana C.
                 </Default.Title2>
-                <Default.Space height="15px" />
+                <Default.Space h="15px" />
                 <Default.Text color={Default.color.white}>
                   I would like to thank Morgane for all her help during the
                   recruiting process. She showed great professionalism by
@@ -345,7 +345,7 @@ export default function Dash(): JSX.Element {
                   advising me through the entire process until the time of
                   hiring.
                 </Default.Text>
-                <Default.Space height="30px" />
+                <Default.Space h="30px" />
                 <BestChoiceItemText color={Default.color.whiteLight}>
                   Mariana is working as a Customer Delight in Portugal
                 </BestChoiceItemText>
@@ -356,7 +356,7 @@ export default function Dash(): JSX.Element {
                 <Default.Title2 color={Default.color.success}>
                   Mariana C.
                 </Default.Title2>
-                <Default.Space height="15px" />
+                <Default.Space h="15px" />
                 <Default.Text color={Default.color.white}>
                   I would like to thank Morgane for all her help during the
                   recruiting process. She showed great professionalism by
@@ -366,7 +366,7 @@ export default function Dash(): JSX.Element {
                   advising me through the entire process until the time of
                   hiring.
                 </Default.Text>
-                <Default.Space height="30px" />
+                <Default.Space h="30px" />
                 <BestChoiceItemText color={Default.color.whiteLight}>
                   Mariana is working as a Customer Delight in Portugal
                 </BestChoiceItemText>
@@ -374,7 +374,7 @@ export default function Dash(): JSX.Element {
             </BestChoiceItem>
           </Default.Row>
 
-          <Default.Space height="2.5rem" />
+          <Default.Space h="2.5rem" />
           <Default.Row justifyContent="center">
             <div>
               <ButtonSite bgColor={Default.color.spotlight}>

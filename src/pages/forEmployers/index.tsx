@@ -73,7 +73,7 @@ export default function ForEmployers(): JSX.Element {
             <Default.Title3 color={Default.color.blueLight}>
               Find 332 jobs opportunities
             </Default.Title3>
-            <Default.Space height="2.5rem" />
+            <Default.Space h="2.5rem" />
             <Form
               ref={formRef}
               onSubmit={handleSubmit}
@@ -120,7 +120,7 @@ export default function ForEmployers(): JSX.Element {
                 </ContentInput>
               </Default.Column>
             </Form>
-            <Default.Space height="1.875rem" />
+            <Default.Space h="1.875rem" />
             <Default.Row>
               <ContainerTag>
                 <TagIcon color={Default.color.success} />
@@ -155,14 +155,14 @@ export default function ForEmployers(): JSX.Element {
             </Default.Row>
           </BlockFilter>
 
-          <Default.Space height="8.125rem" />
+          <Default.Space h="8.125rem" />
           <ContentBox>
             <Box>
               <Default.Column>
                 <Default.Title4 color={Default.color.blue}>
                   Backend Engineer Connectivity Team
                 </Default.Title4>
-                <Default.Space height="1.25rem" />
+                <Default.Space h="1.25rem" />
                 <Default.Row>
                   <Default.Row alignItens="center">
                     <FontAwesomeIcon
@@ -180,12 +180,12 @@ export default function ForEmployers(): JSX.Element {
                     </TagNewJobItem>
                   </Default.Row>
                 </Default.Row>
-                <Default.Space height="0.625rem" />
+                <Default.Space h="0.625rem" />
                 <Default.Text2 color={Default.color.gray}>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                   sed...
                 </Default.Text2>
-                <Default.Space height="0.9375rem" />
+                <Default.Space h="0.9375rem" />
                 <Default.Row>
                   <ButtonSite bgColor={Default.color.success}>
                     Apply Now
@@ -202,7 +202,7 @@ export default function ForEmployers(): JSX.Element {
                 <Default.Title4 color={Default.color.blue}>
                   Backend Engineer Connectivity Team
                 </Default.Title4>
-                <Default.Space height="1.25rem" />
+                <Default.Space h="1.25rem" />
                 <Default.Row>
                   <Default.Row alignItens="center">
                     <FontAwesomeIcon
@@ -220,12 +220,12 @@ export default function ForEmployers(): JSX.Element {
                     </TagNewJobItem>
                   </Default.Row>
                 </Default.Row>
-                <Default.Space height="0.625rem" />
+                <Default.Space h="0.625rem" />
                 <Default.Text2 color={Default.color.gray}>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                   sed...
                 </Default.Text2>
-                <Default.Space height="0.9375rem" />
+                <Default.Space h="0.9375rem" />
                 <Default.Row>
                   <ButtonSite bgColor={Default.color.success}>
                     Apply Now
@@ -242,7 +242,7 @@ export default function ForEmployers(): JSX.Element {
                 <Default.Title4 color={Default.color.blue}>
                   Backend Engineer Connectivity Team
                 </Default.Title4>
-                <Default.Space height="1.25rem" />
+                <Default.Space h="1.25rem" />
                 <Default.Row>
                   <Default.Row alignItens="center">
                     <FontAwesomeIcon
@@ -260,12 +260,12 @@ export default function ForEmployers(): JSX.Element {
                     </TagNewJobItem>
                   </Default.Row>
                 </Default.Row>
-                <Default.Space height="0.625rem" />
+                <Default.Space h="0.625rem" />
                 <Default.Text2 color={Default.color.gray}>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                   sed...
                 </Default.Text2>
-                <Default.Space height="0.9375rem" />
+                <Default.Space h="0.9375rem" />
                 <Default.Row>
                   <ButtonSite bgColor={Default.color.success}>
                     Apply Now
@@ -282,7 +282,7 @@ export default function ForEmployers(): JSX.Element {
                 <Default.Title4 color={Default.color.blue}>
                   Backend Engineer Connectivity Team
                 </Default.Title4>
-                <Default.Space height="1.25rem" />
+                <Default.Space h="1.25rem" />
                 <Default.Row>
                   <Default.Row alignItens="center">
                     <FontAwesomeIcon
@@ -300,12 +300,12 @@ export default function ForEmployers(): JSX.Element {
                     </TagNewJobItem>
                   </Default.Row>
                 </Default.Row>
-                <Default.Space height="0.625rem" />
+                <Default.Space h="0.625rem" />
                 <Default.Text2 color={Default.color.gray}>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                   sed...
                 </Default.Text2>
-                <Default.Space height="0.9375rem" />
+                <Default.Space h="0.9375rem" />
                 <Default.Row>
                   <ButtonSite bgColor={Default.color.success}>
                     Apply Now

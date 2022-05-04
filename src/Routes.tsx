@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // -- PAGES
 import Dash from './pages/dash';
 import ForEmployers from './pages/forEmployers';
+import TalentPool from './pages/talentPool';
 
 // -- admin pages
 import Login from './pages/admin/login';
@@ -32,6 +33,7 @@ export default function Teste(): JSX.Element {
       <Routes>
         <Route path="/" element={<Dash />} />
         <Route path="/for-employers" element={<ForEmployers />} />
+        <Route path="/talent-pool" element={<TalentPool />} />
 
         <Route path="/admin">
           <Route path="login" element={<Login />} />
