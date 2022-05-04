@@ -13,9 +13,13 @@ import {
   Content,
 } from './styles';
 
-export default function Header(): JSX.Element {
+interface IProps {
+  transparent?: boolean;
+}
+
+export default function Header({ transparent }: IProps): JSX.Element {
   return (
-    <HeaderDefault>
+    <HeaderDefault transparent={transparent}>
       <ContainerSite>
         <ContentHeader>
           <Content>
@@ -41,3 +45,7 @@ export default function Header(): JSX.Element {
     </HeaderDefault>
   );
 }
+
+Header.defaultProps = {
+  transparent: false,
+};

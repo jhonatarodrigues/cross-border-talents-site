@@ -15,6 +15,8 @@ export const color = {
   success: '#54D6AB',
   blueBase: '#7FA0C7',
   spotlight: '#FF7746',
+  greenLemon: '#C2D654',
+  grayBackground: '#F8F8F8',
 
   blueOriginal: '#212F53',
 };

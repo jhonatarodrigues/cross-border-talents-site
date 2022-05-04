@@ -1,12 +1,19 @@
 import styled from 'styled-components';
 
-// -- images
+import Default from '../../default';
 
-export const HeaderDefault = styled.header`
-  padding-top: 1.875rem;
+// -- images
+interface ITransparent {
+  transparent?: boolean;
+}
+
+export const HeaderDefault = styled.header<ITransparent>`
+  padding: 1.875rem 0;
   width: 100%;
   position: absolute;
   z-index: 1;
+  background-color: ${({ transparent }) =>
+    transparent ? 'transparent' : Default.color.white};
 `;
 
 export const ContentHeader = styled.div`

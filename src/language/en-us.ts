@@ -12,6 +12,7 @@ const enUs = {
   },
 
   fields: {
+    department: 'Department',
     name: 'Name',
     fullName: 'Name',
     lastName: 'Last Name',
@@ -45,6 +46,11 @@ const enUs = {
     facebook: 'Facebook',
     instagram: 'Instagram',
     linkedin: 'Linkedin',
+    allRegions: 'All Regions',
+    typeOfContract: 'Type of Contract',
+    experienceLevel: 'Experience Level',
+    searchJobTitle: 'Search job by title...',
+    language: 'Language',
   },
 
   page: {

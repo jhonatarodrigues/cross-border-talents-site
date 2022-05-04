@@ -3,6 +3,7 @@ import { color as Color } from './constants';
 
 interface ISpace {
   height?: string;
+  w?: string;
 }
 
 interface IColor {
@@ -47,9 +48,30 @@ export const Title2 = styled.p<IColor>`
   color: ${({ color }) => color || Color.whiteLight};
 `;
 
+export const Title3 = styled.p<IColor>`
+  font-size: 2rem;
+  line-height: 2.875rem;
+  font-weight: 600;
+  color: ${({ color }) => color || Color.whiteLight};
+`;
+export const Title4 = styled.p<IColor>`
+  font-size: 1.5625rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  color: ${({ color }) => color || Color.whiteLight};
+`;
+
 export const Text = styled.p<ITitle>`
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.25rem;
+  color: ${({ color }) => color || Color.whiteLight};
+  text-align: ${({ textAlignCenter }) => (textAlignCenter ? 'center' : 'left')};
+  justify-content: ${({ textAlignCenter }) =>
+    textAlignCenter ? 'center' : 'flex-start'};
+`;
+export const Text2 = styled.p<ITitle>`
+  font-size: 12px;
+  line-height: 1rem;
   color: ${({ color }) => color || Color.whiteLight};
   text-align: ${({ textAlignCenter }) => (textAlignCenter ? 'center' : 'left')};
   justify-content: ${({ textAlignCenter }) =>
@@ -67,10 +89,11 @@ export const Row = styled.div<IAlignCenter>`
 `;
 export const Column = styled.div<IAlignCenter>`
   flex-direction: column;
+  width: 100%;
   justify-content: ${({ alignItens }) => alignItens || 'flex-start'};
   justify-content: ${({ justifyContent }) => justifyContent || 'flex-start'};
 `;
 export const Space = styled.div<ISpace>`
-  width: 100%;
-  height: ${props => props.height || '1rem'};
+  width: ${props => props.w || '100%'};
+  height: ${props => props.height || '100%'};
 `;

@@ -38,7 +38,7 @@ import {
 
 export default function Dash(): JSX.Element {
   return (
-    <ContentSite>
+    <ContentSite headerTransparent>
       <Banner>
         <ContainerSite>
           <Title>
