@@ -25,6 +25,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   options: IOptionsDropdown[];
   value?: string;
+  typeSize?: 'small' | 'medium' | undefined;
 }
 
 type IProps = SelectProps & InputProps;
@@ -54,6 +55,7 @@ const FormControlS = styled(FormControl)({
 export default function InputDropdown({
   name,
   label,
+  typeSize,
   value: valueProp,
   ...rest
 }: IProps) {
@@ -89,7 +91,7 @@ export default function InputDropdown({
 
   return (
     <ContentFiled className="contentField">
-      <FormControlS style={{ width: '100%' }} size="small">
+      <FormControlS style={{ width: '100%' }} size={typeSize}>
         <InputLabel id={`${fieldName}-label`}>{label}</InputLabel>
         <SelectField
           ref={inputRef}
@@ -115,4 +117,5 @@ export default function InputDropdown({
 }
 InputDropdown.defaultProps = {
   value: '',
+  typeSize: 'small',
 };

@@ -23,6 +23,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
   value?: string;
   mask?: 'cpf' | 'phone' | 'cnpj' | 'currency' | 'numeric' | 'cpfCnpj';
+  typeSize?: 'small' | 'medium' | undefined;
 }
 
 type IProps = TextFieldProps & InputProps;
@@ -38,7 +39,7 @@ const CssTextField = styled(InputField)({
     padding: '0px',
     borderRadius: '0.625rem',
     // '& fieldset': {
-    //   borderColor: 'red',
+    //   borderColor: '#f00',
     // },
     // '&:hover fieldset': {
     //   borderColor: 'yellow',
@@ -52,6 +53,7 @@ const CssTextField = styled(InputField)({
 export default function Input({
   name,
   value: defaultValueSet,
+  typeSize,
   mask,
   ...rest
 }: IProps) {
@@ -111,7 +113,7 @@ export default function Input({
         variant="outlined"
         value={inputValue || defaultValue}
         onChange={(e: any) => handleMask(e.target.value)}
-        size="small"
+        size={typeSize}
       />
       {error && <TextError>{error}</TextError>}
     </ContentFiled>
@@ -121,4 +123,5 @@ export default function Input({
 Input.defaultProps = {
   mask: '',
   value: '',
+  typeSize: 'small',
 };

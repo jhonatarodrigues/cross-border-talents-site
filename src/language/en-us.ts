@@ -51,6 +51,9 @@ const enUs = {
     experienceLevel: 'Experience Level',
     searchJobTitle: 'Search job by title...',
     language: 'Language',
+    yourName: 'Your Name',
+    businessEmail: 'Business Email',
+    skillsRequired: 'Skills Required',
   },
 
   page: {

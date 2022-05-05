@@ -17,6 +17,7 @@ export const color = {
   spotlight: '#FF7746',
   greenLemon: '#C2D654',
   grayBackground: '#F8F8F8',
+  grayExtremeLight: '#EFEFEF',
 
   blueOriginal: '#212F53',
 };
