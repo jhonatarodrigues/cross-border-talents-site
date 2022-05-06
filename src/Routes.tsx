@@ -6,6 +6,7 @@ import Dash from './pages/dash';
 import ForEmployers from './pages/forEmployers';
 import TalentPool from './pages/talentPool';
 import TopCandidates from './pages/topCandidates';
+import CompanyNeed from './pages/companyNeed';
 
 // -- admin pages
 import Login from './pages/admin/login';
@@ -36,6 +37,7 @@ export default function Teste(): JSX.Element {
         <Route path="/for-employers" element={<ForEmployers />} />
         <Route path="/talent-pool" element={<TalentPool />} />
         <Route path="/top-candidates" element={<TopCandidates />} />
+        <Route path="/company-need" element={<CompanyNeed />} />
 
         <Route path="/admin">
           <Route path="login" element={<Login />} />

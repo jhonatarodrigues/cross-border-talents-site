@@ -54,6 +54,11 @@ const enUs = {
     yourName: 'Your Name',
     businessEmail: 'Business Email',
     skillsRequired: 'Skills Required',
+    residence: 'Residence',
+    academyBackground: 'Academy Background',
+    multilingual: 'Multilingual',
+    typeCategory: 'Type the category, keyword...',
+    firstName: 'First Name',
   },
 
   page: {

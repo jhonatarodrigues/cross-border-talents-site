@@ -12,6 +12,7 @@ export const Container = styled.div`
   flex-direction: column;
   * {
     display: flex;
+    font-family: 'Epilogue', sans-serif;
   }
 `;
 export const ContentPage = styled.div`

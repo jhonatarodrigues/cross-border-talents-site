@@ -32,4 +32,7 @@ export const Text = styled.p<IContentButton>`
       : Default.color.white};
   font-weight: 700;
   text-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  display: flex;
 `;
