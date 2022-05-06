@@ -59,6 +59,9 @@ const enUs = {
     multilingual: 'Multilingual',
     typeCategory: 'Type the category, keyword...',
     firstName: 'First Name',
+    yourEmail: 'Your Email',
+    subject: 'Subject',
+    yourMessage: 'Your Message',
   },
 
   page: {

@@ -18,10 +18,15 @@ interface IAlignCenter {
   justifyContent?: string;
 }
 
-export const Title = styled.h1`
+export const Title = styled.h1<ITitle>`
   font-size: 3rem;
   line-height: 3.125rem;
   font-weight: 600;
+  color: ${({ color }) => color};
+  text-align: ${({ textAlignCenter }) => (textAlignCenter ? 'center' : 'left')};
+  display: flex;
+  justify-content: ${({ textAlignCenter }) =>
+    textAlignCenter ? 'center' : 'flex-start'};
 `;
 export const TitleH3 = styled.h3<ITitle>`
   font-size: 3rem;

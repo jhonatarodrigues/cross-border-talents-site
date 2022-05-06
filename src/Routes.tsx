@@ -8,6 +8,7 @@ import TalentPool from './pages/talentPool';
 import TopCandidates from './pages/topCandidates';
 import CompanyNeed from './pages/companyNeed';
 import OurItAcademy from './pages/ourItAcademy';
+import Contact from './pages/contact';
 
 // -- admin pages
 import Login from './pages/admin/login';
@@ -40,6 +41,7 @@ export default function Teste(): JSX.Element {
         <Route path="/top-candidates" element={<TopCandidates />} />
         <Route path="/company-need" element={<CompanyNeed />} />
         <Route path="/our-it-academy" element={<OurItAcademy />} />
+        <Route path="/contact" element={<Contact />} />
 
         <Route path="/admin">
           <Route path="login" element={<Login />} />
