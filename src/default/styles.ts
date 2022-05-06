@@ -35,7 +35,7 @@ export const TitleH3 = styled.h3<ITitle>`
 `;
 export const Subtitle = styled.p<ITitle>`
   font-size: 1rem;
-  line-height: 1.25rem;
+  line-height: 1.5rem;
   color: ${({ color }) => color || Color.whiteLight};
   text-align: ${({ textAlignCenter }) => (textAlignCenter ? 'center' : 'left')};
   justify-content: ${({ textAlignCenter }) =>
