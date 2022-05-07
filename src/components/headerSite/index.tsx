@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
 import Button from '../buttonSite';
 import ContainerSite from '../ContainerSite';
 
@@ -13,6 +14,9 @@ import {
   Li,
   Content,
   ContentLogoImage,
+  Dropdown,
+  ListDropdown,
+  ListDropdownItem,
 } from './styles';
 
 interface IProps {
@@ -26,15 +30,40 @@ export default function Header({ transparent }: IProps): JSX.Element {
         <ContentHeader>
           <Content>
             <ContentLogo>
-              <ContentLogoImage src={logo} alt="Logo" />
+              <Link to="/">
+                <ContentLogoImage src={logo} alt="Logo" />
+              </Link>
             </ContentLogo>
             <Nav>
               <Ul>
-                <Li>Jobs</Li>
-                <Li>For Employers</Li>
-                <Li>Talent Pool</Li>
-                <Li>Academy</Li>
-                <Li>Institutional</Li>
+                <Li>
+                  <Link to="/for-employers">Jobs</Link>
+                </Li>
+                <Li>
+                  <Link to="/talent-pool">For Employers</Link>
+                </Li>
+                <Li>
+                  <Link to="/top-candidates">Talent Pool</Link>
+                </Li>
+                <Li>
+                  <Link to="/our-it-academy">Academy</Link>
+                </Li>
+                <Li>
+                  <Dropdown>
+                    <div>Institutional</div>
+                    <ListDropdown className="listDropdown">
+                      <ListDropdownItem>
+                        <Link to="/blog">Blog</Link>
+                      </ListDropdownItem>
+                      <ListDropdownItem>
+                        <Link to="/about-us">About Us</Link>
+                      </ListDropdownItem>
+                      <ListDropdownItem>
+                        <Link to="/testimonials">Testimonials</Link>
+                      </ListDropdownItem>
+                    </ListDropdown>
+                  </Dropdown>
+                </Li>
               </Ul>
             </Nav>
           </Content>

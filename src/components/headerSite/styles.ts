@@ -10,7 +10,7 @@ export const HeaderDefault = styled.header<ITransparent>`
   padding: 1.875rem 0;
   width: 100%;
   position: absolute;
-  z-index: 1;
+  z-index: 200;
   background-color: ${({ transparent }) =>
     transparent ? 'transparent' : Default.color.white};
 `;
@@ -45,10 +45,49 @@ export const Li = styled.li`
   font-size: 0.875rem;
   font-weight: 600;
   margin: 0 10px;
+  a {
+    color: ${Default.color.blueOriginal};
+  }
   &:first-child {
     margin-left: 0;
   }
   &:last-child {
     margin-right: 0;
+  }
+`;
+export const Dropdown = styled.div`
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+  &:hover {
+    .listDropdown {
+      opacity: 1;
+      display: flex;
+      transition: opacity 0.5s;
+    }
+  }
+`;
+export const ListDropdown = styled.div`
+  background: ${Default.color.white};
+  position: absolute;
+  bottom: 0;
+  transform: translateY(100%);
+  width: 10.375rem;
+  padding: 1.5625rem 1.875rem;
+  border-radius: 1.25rem;
+  box-shadow: 0px 0px 30px #0000001a;
+  flex-direction: column;
+  transition: all 0.2s ease;
+  opacity: 0;
+  display: hidden;
+  z-index: 200;
+`;
+export const ListDropdownItem = styled.div`
+  font-size: 0.875rem;
+  font-weight: 600;
+  width: 100%;
+  margin-bottom: 0.625rem;
+  a {
+    color: ${Default.color.blueOriginal};
   }
 `;
