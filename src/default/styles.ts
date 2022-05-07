@@ -46,11 +46,14 @@ export const Subtitle = styled.p<ITitle>`
   justify-content: ${({ textAlignCenter }) =>
     textAlignCenter ? 'center' : 'flex-start'};
 `;
-export const Title2 = styled.p<IColor>`
+export const Title2 = styled.p<ITitle>`
   font-size: 1.25rem;
   line-height: 1.375rem;
   font-weight: 600;
   color: ${({ color }) => color || Color.whiteLight};
+  text-align: ${({ textAlignCenter }) => (textAlignCenter ? 'center' : 'left')};
+  justify-content: ${({ textAlignCenter }) =>
+    textAlignCenter ? 'center' : 'flex-start'};
 `;
 
 export const Title3 = styled.p<IColor>`

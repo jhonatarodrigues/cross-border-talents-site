@@ -31,9 +31,9 @@ export default function Testimonials(): JSX.Element {
                 dream job
               </Title>
 
-              <Default.Subtitle color={Default.color.success}>
+              <Default.Title2 color={Default.color.success}>
                 OUR CROSS BORDER TALENTS
-              </Default.Subtitle>
+              </Default.Title2>
             </BannerContentTitle>
             <ImageBanner />
           </Default.Row>

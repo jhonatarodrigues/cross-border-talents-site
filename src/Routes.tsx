@@ -10,6 +10,7 @@ import CompanyNeed from './pages/companyNeed';
 import OurItAcademy from './pages/ourItAcademy';
 import Contact from './pages/contact';
 import TestimonialsPage from './pages/testimonials';
+import MeetCompany from './pages/meetCompany';
 
 // -- admin pages
 import Login from './pages/admin/login';
@@ -44,6 +45,7 @@ export default function Teste(): JSX.Element {
         <Route path="/our-it-academy" element={<OurItAcademy />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/testimonials" element={<TestimonialsPage />} />
+        <Route path="/meet-company" element={<MeetCompany />} />
 
         <Route path="/admin">
           <Route path="login" element={<Login />} />
