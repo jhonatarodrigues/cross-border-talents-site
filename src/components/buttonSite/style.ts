@@ -20,6 +20,7 @@ export const ContentButton = styled.button<IContentButton>`
         : props.bgColor || Default.color.blueOriginal};
   border-radius: 0.625rem;
   display: flex;
+  cursor: pointer;
 `;
 
 export const Text = styled.p<IContentButton>`
