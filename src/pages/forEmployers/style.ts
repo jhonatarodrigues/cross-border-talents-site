@@ -74,11 +74,18 @@ export const Box = styled.div`
   margin-right: 1.875rem;
   margin-bottom: 30px;
   width: calc(33.33% - 1.25rem);
+  border: 1px solid transparent;
+  position: relative;
   &:nth-child(3n) {
     margin-right: 0;
   }
   &last-child {
     margin-right: 0;
+  }
+  transition: all 0.3s ease;
+  &:hover {
+    border: 1px solid ${Default.color.blueBase};
+    transition: all 0.2s ease;
   }
 `;
 export const NewJobItemContentIconText = styled.p`
@@ -92,4 +99,15 @@ export const TagNewJobItem = styled.div<IColor>`
   color: ${Default.color.white};
   font-size: 0.8125rem;
   border-radius: 1.25rem;
+`;
+export const BoxTag = styled.div`
+  position: absolute;
+  border-top-left-radius: 0.3125rem;
+  border-bottom-right-radius: 0.3125rem;
+  top: -1px;
+  left: -1px;
+  background: ${Default.color.blueBase};
+  padding: 0.5rem 1rem;
+  font-size: 0.625rem;
+  color: ${Default.color.white};
 `;

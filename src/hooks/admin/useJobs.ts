@@ -21,6 +21,16 @@ interface IResponseJobs {
   jobs: IJobs[];
 }
 
+interface IResponseJobsPage {
+  jobsSearch: {
+    jobs: IJobs[];
+    infoPage: {
+      currentPage: number;
+      maxPage: number;
+    };
+  };
+}
+
 export interface IJobsSend {
   interestSkills: string;
   jobTitle: string;
@@ -132,5 +142,52 @@ export function GetJobs(): Promise<IResponseJobs> {
     })
     .catch(() => {
       return { jobs: [] };
+    });
+}
+
+export function GetJobsPage({
+  search,
+  page,
+  itensPerPage,
+}: {
+  search?: string;
+  page?: number;
+  itensPerPage?: number;
+}): Promise<IResponseJobsPage> {
+  const query = `
+      query {
+        jobsSearch (search: "${search || ''}",  ${
+    page ? `page: ${page},` : ''
+  } ${itensPerPage ? `itensPerPage: ${itensPerPage},` : ''}) {
+            jobs{
+                id
+                idInterestSkills
+                jobTitle
+                level
+                country
+                description
+                date
+                interestSkills{
+                    id
+                    name
+                }
+            } 
+            infoPage{
+                currentPage
+                maxPage
+            }
+        }
+  
+      }
+    `;
+
+  return graphql(query)
+    .then(response => {
+      return response.data as IResponseJobsPage;
+    })
+    .catch(() => {
+      return {
+        jobsSearch: { jobs: [], infoPage: { currentPage: 0, maxPage: 0 } },
+      };
     });
 }

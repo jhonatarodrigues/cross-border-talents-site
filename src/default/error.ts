@@ -13,6 +13,7 @@ const error: { [key: string]: string } = {
   removeInterestSkills: 'Failed to remove interest skills.',
   removeJobs: 'Failed to remove job.',
   removeTestimonials: 'Failed to remove testimonial.',
+  getJobs: 'Failed to get jobs.',
 };
 
 export default function errorString(key: string): string {
