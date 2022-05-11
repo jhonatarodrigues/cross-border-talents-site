@@ -52,6 +52,16 @@ interface IResponseCandidates {
   candidates: ICandidate[];
 }
 
+export interface IResponseSearchCandidates {
+  searchCandidates: {
+    candidates: ICandidate[];
+    infoPage: {
+      currentPage: number;
+      maxPage: number;
+    };
+  };
+}
+
 export interface ICandidateSend {
   name: string;
   lastName: string;
@@ -273,4 +283,42 @@ export function GetListCandidates(): Promise<IResponseCandidates> {
     .catch(() => {
       return { candidates: [] };
     });
+}
+
+export function GetCandidatesPage({
+  search,
+  itensPerPage,
+  page,
+}: {
+  search?: string;
+  itensPerPage?: number;
+  page?: number;
+}): Promise<IResponseSearchCandidates> {
+  const query = `
+        query{
+            searchCandidates(search:"${search}", ${
+    itensPerPage ? `itensPerPage:${itensPerPage},` : ''
+  } ${page ? `page:${page}` : ''}){
+            candidates{
+                id
+                idUser
+                idInterestSkills
+                observations
+                country
+                user{
+                name
+                lastName
+                }
+            }
+            infoPage{
+                currentPage
+                maxPage
+            }
+            }
+        }
+    `;
+
+  return graphql(query).then(response => {
+    return response.data as IResponseSearchCandidates;
+  });
 }

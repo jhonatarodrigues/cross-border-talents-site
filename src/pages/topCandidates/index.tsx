@@ -59,6 +59,7 @@ export default function TopCandidates(): JSX.Element {
   const handleSubmit: SubmitHandler = useCallback(async data => {
     console.log('submit');
   }, []);
+
   return (
     <ContentSite>
       <Banner>

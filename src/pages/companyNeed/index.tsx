@@ -12,11 +12,14 @@ import InputDropDown, {
 import ContentSite from '../../components/ContentSite';
 import ContainerSite from '../../components/ContainerSite';
 import ContentInput from '../../components/contentInput';
+import { GetCountries, ICountrie } from '../../hooks/admin/useCountry';
+import { GetCandidatesPage, ICandidate } from '../../hooks/admin/useCandidates';
 import { GetInterestSkills } from '../../hooks/admin/useInterestSkills';
 import ButtonSite from '../../components/buttonSite';
 import Default from '../../default';
 import Language from '../../language';
 import CustomModal from '../../components/CustomModal';
+import Modal from '../../components/modal';
 import {
   Banner,
   Title,
@@ -45,10 +48,27 @@ export default function CompanyNeed(): JSX.Element {
   const [optionsInterestSkills, setOptionsInterestSkills] = useState<
     IOptionsDropdown[]
   >([] as IOptionsDropdown[]);
+  const [candidates, setCandidates] = useState<ICandidate[]>([]);
+  const [country, setCountry] = useState<ICountrie[]>([]);
 
-  const handleSubmit: SubmitHandler = useCallback(async data => {
-    console.log('submit');
+  const getCountries = useCallback(async () => {
+    const { countries } = await GetCountries();
+    if (countries) {
+      const options: IOptionsDropdown[] = countries.map(countryItem => {
+        return {
+          value: countryItem.code,
+          label: countryItem.name,
+        };
+      });
+      setCountry(countries);
+    } else {
+      Modal({ keyType: 'getCountries', icon: 'error' });
+    }
   }, []);
+
+  useEffect(() => {
+    getCountries();
+  }, [getCountries]);
 
   const getInterestSkills = useCallback(async () => {
     const { interestSkills } = await GetInterestSkills();
@@ -64,9 +84,28 @@ export default function CompanyNeed(): JSX.Element {
       //   Modal({ keyType: 'getInterestSkills', icon: 'error' });
     }
   }, []);
-  //   useEffect(() => {
-  //     getInterestSkills();
-  //   }, [getInterestSkills]);
+  useEffect(() => {
+    getInterestSkills();
+  }, [getInterestSkills]);
+
+  const getCandidates = useCallback(async (search?: string) => {
+    try {
+      const response = await GetCandidatesPage({
+        search: search || '',
+      });
+
+      setCandidates(response.searchCandidates.candidates);
+    } catch {
+      Modal({ keyType: 'getCandidates', icon: 'error' });
+    }
+  }, []);
+
+  const handleSubmit: SubmitHandler = useCallback(
+    async data => {
+      getCandidates(data.typeCategory);
+    },
+    [getCandidates],
+  );
 
   const renderModalRegister = useCallback(() => {
     if (!modalRegister) {
@@ -156,6 +195,10 @@ export default function CompanyNeed(): JSX.Element {
     );
   }, [formRefRegister, optionsInterestSkills, handleSubmit, modalRegister]);
 
+  useEffect(() => {
+    getCandidates();
+  }, [getCandidates]);
+
   return (
     <ContentSite>
       {renderModalRegister()}
@@ -223,165 +266,70 @@ export default function CompanyNeed(): JSX.Element {
 
           <Default.Space h="7.1875rem" />
           <ContentBox>
-            <Box>
-              <TagBox>Candidate</TagBox>
-              <Default.Column>
-                <Default.Title4 color={Default.color.blue}>
-                  Backend Engineer Connectivity Team
-                </Default.Title4>
-                <Default.Space h="1.25rem" />
-                <Default.Row>
-                  <Default.Row alignItens="center">
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      color={Default.color.success}
-                      fontSize={21}
+            {candidates.map(item => {
+              let countryDesc = '';
+
+              if (country.length > 0) {
+                countryDesc =
+                  country.find(
+                    (countryItem: ICountrie) =>
+                      countryItem.code === item.country,
+                  )?.name || '';
+              }
+
+              return (
+                <Box key={item.id}>
+                  <TagBox>Candidate</TagBox>
+                  <Default.Column>
+                    <Default.Title4 color={Default.color.blue}>
+                      {item.user.name} {item.user.lastName}
+                    </Default.Title4>
+                    <Default.Space h="1.25rem" />
+                    <Default.Row>
+                      <Default.Row alignItens="center">
+                        <FontAwesomeIcon
+                          icon={faLocationDot}
+                          color={Default.color.success}
+                          fontSize={21}
+                        />
+                        <NewJobItemContentIconText>
+                          {countryDesc}
+                        </NewJobItemContentIconText>
+                      </Default.Row>
+                      <Default.Row justifyContent="flex-end">
+                        <TagNewJobItem color={Default.color.blueBase}>
+                          ID 12345
+                        </TagNewJobItem>
+                      </Default.Row>
+                    </Default.Row>
+                    <Default.Space h="0.625rem" />
+                    <Default.Text2
+                      color={Default.color.gray}
+                      dangerouslySetInnerHTML={{
+                        __html:
+                          item.observations && item.observations.length > 50
+                            ? `${item.observations.slice(0, 50)}...`
+                            : item.observations,
+                      }}
                     />
-                    <NewJobItemContentIconText>
-                      London, UK
-                    </NewJobItemContentIconText>
-                  </Default.Row>
-                  <Default.Row justifyContent="flex-end">
-                    <TagNewJobItem color={Default.color.blueBase}>
-                      ID 12345
-                    </TagNewJobItem>
-                  </Default.Row>
-                </Default.Row>
-                <Default.Space h="0.625rem" />
-                <Default.Text2 color={Default.color.gray}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                  sed...
-                </Default.Text2>
-                <Default.Space h="0.9375rem" />
-                <Default.Row>
-                  <ButtonSite
-                    bgColor={Default.color.success}
-                    onClick={() => setModalRegister(true)}
-                  >
-                    <FontAwesomeIcon icon={faEye} color={Default.color.white} />
-                    &nbsp;&nbsp;Blind CV
-                  </ButtonSite>
-                  <Default.Space w="0.625rem" />
-                </Default.Row>
-              </Default.Column>
-            </Box>
-            <Box>
-              <TagBox>Candidate</TagBox>
-              <Default.Column>
-                <Default.Title4 color={Default.color.blue}>
-                  Backend Engineer Connectivity Team
-                </Default.Title4>
-                <Default.Space h="1.25rem" />
-                <Default.Row>
-                  <Default.Row alignItens="center">
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      color={Default.color.success}
-                      fontSize={21}
-                    />
-                    <NewJobItemContentIconText>
-                      London, UK
-                    </NewJobItemContentIconText>
-                  </Default.Row>
-                  <Default.Row justifyContent="flex-end">
-                    <TagNewJobItem color={Default.color.blueBase}>
-                      ID 12345
-                    </TagNewJobItem>
-                  </Default.Row>
-                </Default.Row>
-                <Default.Space h="0.625rem" />
-                <Default.Text2 color={Default.color.gray}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                  sed...
-                </Default.Text2>
-                <Default.Space h="0.9375rem" />
-                <Default.Row>
-                  <ButtonSite bgColor={Default.color.success}>
-                    <FontAwesomeIcon icon={faEye} color={Default.color.white} />
-                    &nbsp;&nbsp;Blind CV
-                  </ButtonSite>
-                  <Default.Space w="0.625rem" />
-                </Default.Row>
-              </Default.Column>
-            </Box>
-            <Box>
-              <TagBox>Candidate</TagBox>
-              <Default.Column>
-                <Default.Title4 color={Default.color.blue}>
-                  Backend Engineer Connectivity Team
-                </Default.Title4>
-                <Default.Space h="1.25rem" />
-                <Default.Row>
-                  <Default.Row alignItens="center">
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      color={Default.color.success}
-                      fontSize={21}
-                    />
-                    <NewJobItemContentIconText>
-                      London, UK
-                    </NewJobItemContentIconText>
-                  </Default.Row>
-                  <Default.Row justifyContent="flex-end">
-                    <TagNewJobItem color={Default.color.blueBase}>
-                      ID 12345
-                    </TagNewJobItem>
-                  </Default.Row>
-                </Default.Row>
-                <Default.Space h="0.625rem" />
-                <Default.Text2 color={Default.color.gray}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                  sed...
-                </Default.Text2>
-                <Default.Space h="0.9375rem" />
-                <Default.Row>
-                  <ButtonSite bgColor={Default.color.success}>
-                    <FontAwesomeIcon icon={faEye} color={Default.color.white} />
-                    &nbsp;&nbsp;Blind CV
-                  </ButtonSite>
-                  <Default.Space w="0.625rem" />
-                </Default.Row>
-              </Default.Column>
-            </Box>
-            <Box>
-              <TagBox>Candidate</TagBox>
-              <Default.Column>
-                <Default.Title4 color={Default.color.blue}>
-                  Backend Engineer Connectivity Team
-                </Default.Title4>
-                <Default.Space h="1.25rem" />
-                <Default.Row>
-                  <Default.Row alignItens="center">
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      color={Default.color.success}
-                      fontSize={21}
-                    />
-                    <NewJobItemContentIconText>
-                      London, UK
-                    </NewJobItemContentIconText>
-                  </Default.Row>
-                  <Default.Row justifyContent="flex-end">
-                    <TagNewJobItem color={Default.color.blueBase}>
-                      ID 12345
-                    </TagNewJobItem>
-                  </Default.Row>
-                </Default.Row>
-                <Default.Space h="0.625rem" />
-                <Default.Text2 color={Default.color.gray}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                  sed...
-                </Default.Text2>
-                <Default.Space h="0.9375rem" />
-                <Default.Row>
-                  <ButtonSite bgColor={Default.color.success}>
-                    <FontAwesomeIcon icon={faEye} color={Default.color.white} />
-                    &nbsp;&nbsp;Blind CV
-                  </ButtonSite>
-                  <Default.Space w="0.625rem" />
-                </Default.Row>
-              </Default.Column>
-            </Box>
+                    <Default.Space h="0.9375rem" />
+                    <Default.Row>
+                      <ButtonSite
+                        bgColor={Default.color.success}
+                        onClick={() => setModalRegister(true)}
+                      >
+                        <FontAwesomeIcon
+                          icon={faEye}
+                          color={Default.color.white}
+                        />
+                        &nbsp;&nbsp;Blind CV
+                      </ButtonSite>
+                      <Default.Space w="0.625rem" />
+                    </Default.Row>
+                  </Default.Column>
+                </Box>
+              );
+            })}
           </ContentBox>
         </ContainerSite>
       </BlockForEmployers>

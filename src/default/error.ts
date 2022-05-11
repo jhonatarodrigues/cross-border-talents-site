@@ -14,6 +14,7 @@ const error: { [key: string]: string } = {
   removeJobs: 'Failed to remove job.',
   removeTestimonials: 'Failed to remove testimonial.',
   getJobs: 'Failed to get jobs.',
+  getCandidates: 'Failed to get candidates.',
 };
 
 export default function errorString(key: string): string {
