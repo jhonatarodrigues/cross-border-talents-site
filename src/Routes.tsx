@@ -32,6 +32,7 @@ import Jobs from './pages/admin/jobs';
 import JobsRegister from './pages/admin/jobsRegister';
 import Testimonials from './pages/admin/testimonials';
 import TestimonialsRegister from './pages/admin/testimonialsRegister';
+import TalentPoolAdmin from './pages/admin/talentPool';
 
 export default function Teste(): JSX.Element {
   return (
@@ -79,6 +80,8 @@ export default function Teste(): JSX.Element {
             path="testimonials/register"
             element={<TestimonialsRegister />}
           />
+
+          <Route path="talent-pool" element={<TalentPoolAdmin />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />

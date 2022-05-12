@@ -86,6 +86,11 @@ export default function Nav(): JSX.Element {
       icon: faMessage,
       route: '/admin/testimonials',
     },
+    {
+      title: `Talent Pool`,
+      icon: faMessage,
+      route: '/admin/talent-pool',
+    },
   ];
 
   return (

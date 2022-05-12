@@ -116,6 +116,9 @@ const enUs = {
       newTestimonials: 'New testimonial',
       testimonials: 'Testimonial',
     },
+    talentPool: {
+      listTalentPool: 'List of talent pool',
+    },
   },
 
   personalInformation: 'Personal information',
