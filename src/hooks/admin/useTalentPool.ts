@@ -30,6 +30,20 @@ interface IResponseUniqueTalentPool {
   talentPool: ITalentPools;
 }
 
+export interface IAddUserTalentPool {
+  idCandidate: number;
+  idUser: number;
+
+  profile: string;
+  observation: string;
+  softwares: string;
+  education: string;
+  experience: string;
+  languages: string;
+  status: boolean;
+  charge: string;
+}
+
 export function GetTalentPools(): Promise<IResponseUser> {
   const query = `
     query{
@@ -108,21 +122,23 @@ export function GetUniqueTalentPools({
   });
 }
 
-export function AddUserTalentPool(data: any): Promise<AxiosResponse> {
+export function AddUserTalentPool(
+  data: IAddUserTalentPool,
+): Promise<AxiosResponse> {
   const query = `
+  mutation{
     moveUserTalentPool(
         idCandidate: ${data.idCandidate}
-        idTeamLeader: 5
-        idUser: 65
-        data: "2022-01-02"
-        charge: "aaacharge"
-        profile: "asdas"
-        observation: "asdasdas----"
-        softwares: "23923"
-             education: "education"
-        experience: "asdasd--"
-        languages: "alan"
-        status: true
+
+        idUser: ${data.idUser}
+        charge: "${data.charge}"
+        profile: "${data.profile}"
+        observation: "${data.observation}"
+        softwares: "${data.softwares}"
+        education: "${data.education}"
+        experience: "${data.experience}"
+        languages: "${data.languages}"
+        status: ${data.status}
       )
       {
         id
@@ -139,6 +155,7 @@ export function AddUserTalentPool(data: any): Promise<AxiosResponse> {
         status
         charge
       }
+    }
     `;
 
   return graphql(query);

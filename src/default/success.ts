@@ -24,6 +24,8 @@ const success: { [key: string]: string } = {
   removeTestimonials: 'Testimonial removed successfully.',
   updateTestimonials: 'Testimonial updated successfully.',
   addTalentPoolInterest: 'Talent pool interest added successfully.',
+  updateCandidateTalentPool: 'Candidate and Talent pool updated successfully.',
+  createdCandidateTalentPool: 'Candidate and Talent pool created successfully.',
 };
 
 export default function successString(key: string): string {

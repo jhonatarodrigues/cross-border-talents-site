@@ -9,7 +9,6 @@ import { Form } from '@unform/web';
 import { SubmitHandler, FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 import ContentPicture from '../../../components/ContentPicture';
 import ContentFile from '../../../components/ContentFile';
@@ -38,12 +37,13 @@ import ContentInput from '../../../components/contentInput';
 import { SimpleFileUpload } from '../../../hooks/admin/useUpload';
 import Button from '../../../components/button';
 import Section from '../../../components/section';
-import { ApplicationState } from '../../../store';
 import Language from '../../../language';
 import ButtonUpload from '../../../components/buttonUpload';
 import {
   GetUniqueTalentPools,
   ITalentPools,
+  AddUserTalentPool,
+  IAddUserTalentPool,
 } from '../../../hooks/admin/useTalentPool';
 
 interface ITalentPool extends ICandidateSend {
@@ -64,7 +64,6 @@ interface ICandidateRegister {
 
 export default function CandidatesRegister(): JSX.Element {
   const navigate = useNavigate();
-  const { auth } = useSelector((state: ApplicationState) => state);
   const formRef = useRef<FormHandles>(null);
   const [talentPool, setTalentPool] = useState<ITalentPools>(
     {} as ITalentPools,
@@ -158,7 +157,7 @@ export default function CandidatesRegister(): JSX.Element {
         }
 
         if (params?.candidate.talentPoolVerify) {
-          const dataTalentPool = {
+          const dataTalentPool: IAddUserTalentPool = {
             charge: data.charge,
             observation: data.observation,
             softwares: data.softwares,
@@ -166,34 +165,48 @@ export default function CandidatesRegister(): JSX.Element {
             experience: data.experience,
             languages: data.languages,
             status: data.statusTalentPool,
+
+            idCandidate: parseInt(params.candidate.id, 10),
+            idUser: parseInt(params.candidate.idUser, 10),
+
+            profile: data.profile,
           };
+
+          const response = await AddUserTalentPool(dataTalentPool);
+          if (!response.data.moveUserTalentPool.id) {
+            return;
+          }
         }
 
-        // if (params?.candidate.id) {
-        //   const newInfoData = {
-        //     ...infoData,
-        //     id: params.candidate.id,
-        //   };
-        //   UpdateCandidate(newInfoData).then(response => {
-        //     if (response.user.id) {
-        //       Modal({
-        //         icon: 'success',
-        //         keyType: 'updateCandidate',
-        //         onClick: () => navigate('/admin/candidates'),
-        //       });
-        //     }
-        //   });
-        // } else {
-        //   AddCandidate(infoData).then(response => {
-        //     if (response.user.id) {
-        //       Modal({
-        //         icon: 'success',
-        //         keyType: 'createdCandidate',
-        //         onClick: () => navigate('/admin/candidates'),
-        //       });
-        //     }
-        //   });
-        // }
+        if (params?.candidate.id) {
+          const newInfoData = {
+            ...infoData,
+            id: params.candidate.id,
+          };
+          UpdateCandidate(newInfoData).then(response => {
+            if (response.user.id) {
+              Modal({
+                icon: 'success',
+                keyType: params?.candidate.talentPoolVerify
+                  ? 'updateCandidateTalentPool'
+                  : 'updateCandidate',
+                onClick: () => navigate('/admin/candidates'),
+              });
+            }
+          });
+        } else {
+          AddCandidate(infoData).then(response => {
+            if (response.user.id) {
+              Modal({
+                icon: 'success',
+                keyType: params?.candidate.talentPoolVerify
+                  ? 'createdCandidateTalentPool'
+                  : 'createdCandidate',
+                onClick: () => navigate('/admin/candidates'),
+              });
+            }
+          });
+        }
       } catch (err) {
         const validationErrors: Record<string, string> = {};
 
@@ -436,6 +449,13 @@ export default function CandidatesRegister(): JSX.Element {
 
         {params?.candidate.talentPoolVerify && (
           <Section label={Language.page.candidates.informationToTalentPool}>
+            <ContentInput>
+              <Input
+                name="profile"
+                label={`${Language.fields.profile} *`}
+                value={talentPool?.profile}
+              />
+            </ContentInput>
             <ContentInput>
               <Input
                 name="charge"
