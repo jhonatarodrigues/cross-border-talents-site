@@ -13,6 +13,7 @@ interface IUser {
   email: string;
   name: string;
   phone: string;
+  accessLevel: string;
 }
 export interface IAuth {
   token: string;

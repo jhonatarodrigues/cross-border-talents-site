@@ -236,7 +236,7 @@ export default function TalentPool(): JSX.Element {
         </ContentModal>
       </CustomModal>
     );
-  }, [modalDetails, selectedRow]);
+  }, [modalDetails, selectedRow, checkTalentPoolInterest]);
 
   return (
     <ContentPage title={Language.page.talentPool.listTalentPool}>

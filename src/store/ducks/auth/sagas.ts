@@ -10,6 +10,7 @@ import { IAuth } from './types';
 interface IParams extends AnyAction {
   username: string;
   password: string;
+  accessLevel: string;
 }
 
 interface IReturn {
@@ -28,6 +29,7 @@ export function* load({ username, password }: IParams) {
         user{
           name
           email
+          accessLevel
         }
         token
         refreshToken
