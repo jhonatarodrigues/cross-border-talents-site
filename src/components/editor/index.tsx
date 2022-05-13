@@ -8,7 +8,7 @@ import {
   EditorProps,
 } from '@progress/kendo-react-editor';
 
-import { ContentFiled, TextError } from './style';
+import { ContentFiled, TextError, Title } from './style';
 
 interface InputProps extends EditorProps {
   name: string;
@@ -63,6 +63,7 @@ export default function Editor({ name, value: valueUser }: IProps) {
 
   return (
     <ContentFiled className="contentField">
+      <Title>{fieldName}</Title>
       <EditorKendo
         ref={inputRef}
         tools={[

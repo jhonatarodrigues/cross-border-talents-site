@@ -17,6 +17,7 @@ export interface ICandidate {
   englishLevel: number;
   observations: string;
   idInterestSkills: string;
+  talentPoolVerify: boolean;
 
   userRecruiter: {
     id: string;
@@ -243,6 +244,7 @@ export function GetListCandidates(): Promise<IResponseCandidates> {
             englishLevel
             idInterestSkills
             observations
+            talentPoolVerify
             
             userRecruiter{
                 id

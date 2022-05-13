@@ -16,3 +16,15 @@ export const TextError = styled.p`
   color: ${Default.color.red};
   margin-top: 0.3125rem;
 `;
+export const Title = styled.p`
+  font-size: 0.75em;
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: 400;
+  font-size: 1rem;
+  text-overflow: ellipsis;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  line-height: 1.4375em;
+  letter-spacing: 0.00938em;
+  text-transform: capitalize;
+  margin-bottom: 0.3125rem;
+`;

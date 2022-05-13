@@ -9,6 +9,7 @@ import { Form } from '@unform/web';
 import { SubmitHandler, FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import ContentPicture from '../../../components/ContentPicture';
 import ContentFile from '../../../components/ContentFile';
@@ -37,8 +38,25 @@ import ContentInput from '../../../components/contentInput';
 import { SimpleFileUpload } from '../../../hooks/admin/useUpload';
 import Button from '../../../components/button';
 import Section from '../../../components/section';
+import { ApplicationState } from '../../../store';
 import Language from '../../../language';
 import ButtonUpload from '../../../components/buttonUpload';
+import {
+  GetUniqueTalentPools,
+  ITalentPools,
+} from '../../../hooks/admin/useTalentPool';
+
+interface ITalentPool extends ICandidateSend {
+  data: string;
+  profile: string;
+  observation: string;
+  softwares: string;
+  education: string;
+  experience: string;
+  charge: string;
+  languages: string;
+  statusTalentPool: boolean;
+}
 
 interface ICandidateRegister {
   candidate: ICandidate;
@@ -46,7 +64,11 @@ interface ICandidateRegister {
 
 export default function CandidatesRegister(): JSX.Element {
   const navigate = useNavigate();
+  const { auth } = useSelector((state: ApplicationState) => state);
   const formRef = useRef<FormHandles>(null);
+  const [talentPool, setTalentPool] = useState<ITalentPools>(
+    {} as ITalentPools,
+  );
   const [optionsTeamLeader, setOptionsTeamLeader] = useState<
     IOptionsDropdown[]
   >([] as IOptionsDropdown[]);
@@ -91,8 +113,8 @@ export default function CandidatesRegister(): JSX.Element {
     { label: 'Beginner', value: 'Beginner' },
   ];
 
-  const handleSubmit: SubmitHandler<ICandidateSend> = useCallback(
-    async (data: ICandidateSend) => {
+  const handleSubmit: SubmitHandler<ITalentPool> = useCallback(
+    async (data: ITalentPool) => {
       const infoData = data;
       try {
         const schema = Yup.object().shape({
@@ -135,31 +157,43 @@ export default function CandidatesRegister(): JSX.Element {
           }
         }
 
-        if (params?.candidate.id) {
-          const newInfoData = {
-            ...infoData,
-            id: params.candidate.id,
+        if (params?.candidate.talentPoolVerify) {
+          const dataTalentPool = {
+            charge: data.charge,
+            observation: data.observation,
+            softwares: data.softwares,
+            education: data.education,
+            experience: data.experience,
+            languages: data.languages,
+            status: data.statusTalentPool,
           };
-          UpdateCandidate(newInfoData).then(response => {
-            if (response.user.id) {
-              Modal({
-                icon: 'success',
-                keyType: 'updateCandidate',
-                onClick: () => navigate('/admin/candidates'),
-              });
-            }
-          });
-        } else {
-          AddCandidate(infoData).then(response => {
-            if (response.user.id) {
-              Modal({
-                icon: 'success',
-                keyType: 'createdCandidate',
-                onClick: () => navigate('/admin/candidates'),
-              });
-            }
-          });
         }
+
+        // if (params?.candidate.id) {
+        //   const newInfoData = {
+        //     ...infoData,
+        //     id: params.candidate.id,
+        //   };
+        //   UpdateCandidate(newInfoData).then(response => {
+        //     if (response.user.id) {
+        //       Modal({
+        //         icon: 'success',
+        //         keyType: 'updateCandidate',
+        //         onClick: () => navigate('/admin/candidates'),
+        //       });
+        //     }
+        //   });
+        // } else {
+        //   AddCandidate(infoData).then(response => {
+        //     if (response.user.id) {
+        //       Modal({
+        //         icon: 'success',
+        //         keyType: 'createdCandidate',
+        //         onClick: () => navigate('/admin/candidates'),
+        //       });
+        //     }
+        //   });
+        // }
       } catch (err) {
         const validationErrors: Record<string, string> = {};
 
@@ -248,6 +282,21 @@ export default function CandidatesRegister(): JSX.Element {
   useEffect(() => {
     getInterestSkills();
   }, [getInterestSkills]);
+
+  const handleGetTalentPool = useCallback(async () => {
+    if (!params?.candidate.id) {
+      return;
+    }
+
+    const response = await GetUniqueTalentPools({
+      idUser: params.candidate.user.id,
+    });
+
+    setTalentPool(response.talentPool);
+  }, [params]);
+  useEffect(() => {
+    handleGetTalentPool();
+  }, [handleGetTalentPool]);
 
   return (
     <ContentPage
@@ -384,6 +433,60 @@ export default function CandidatesRegister(): JSX.Element {
             />
           </ContentInput>
         </Section>
+
+        {params?.candidate.talentPoolVerify && (
+          <Section label={Language.page.candidates.informationToTalentPool}>
+            <ContentInput>
+              <Input
+                name="charge"
+                label={`${Language.fields.charge} *`}
+                value={talentPool?.charge}
+              />
+            </ContentInput>
+            <ContentInput>
+              <Input
+                name="observation"
+                label={`${Language.fields.skillsCompetences} *`}
+                value={talentPool?.observation}
+              />
+            </ContentInput>
+            <ContentInput>
+              <Input
+                name="softwares"
+                label={`${Language.fields.softwares} *`}
+                value={talentPool?.softwares}
+              />
+            </ContentInput>
+            <ContentInput>
+              <Input
+                name="education"
+                label={`${Language.fields.education} *`}
+                value={talentPool?.education}
+              />
+            </ContentInput>
+            <ContentInput>
+              <Editor
+                name="experience"
+                label={Language.fields.workExperience}
+                value={talentPool?.experience}
+              />
+            </ContentInput>
+            <ContentInput>
+              <Input
+                name="languages"
+                label={`${Language.fields.languages} *`}
+                value={talentPool?.languages}
+              />
+            </ContentInput>
+            <ContentInput>
+              <InputSwitch
+                label={Language.fields.status}
+                name="statusTalentPool"
+                valueDefault={talentPool?.status}
+              />
+            </ContentInput>
+          </Section>
+        )}
         <Section label={Language.page.candidates.permissions}>
           <ContentInput>
             <InputSwitch

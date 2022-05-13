@@ -62,6 +62,13 @@ const enUs = {
     yourEmail: 'Your Email',
     subject: 'Subject',
     yourMessage: 'Your Message',
+    charge: 'Charge',
+    profile: 'Profile',
+    skillsCompetences: 'Skills & Competences',
+    softwares: 'Softwares',
+    education: 'Education',
+    workExperience: 'Work Experience',
+    languages: 'Languages',
   },
 
   page: {
@@ -100,6 +107,7 @@ const enUs = {
       personalInformation: 'Personal information',
       professionalInformation: 'Professional information',
       permissions: 'Permissions',
+      informationToTalentPool: 'Information to Talent Pool',
     },
     interestSkills: {
       listInterestSkills: 'List of departament',

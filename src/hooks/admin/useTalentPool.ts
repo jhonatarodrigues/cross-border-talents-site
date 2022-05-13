@@ -1,3 +1,4 @@
+import { AxiosResponse } from 'axios';
 import graphql from '../../services/graphql';
 
 export interface ITalentPools {
@@ -12,7 +13,7 @@ export interface ITalentPools {
   education: string;
   experience: string;
   languages: string;
-  status: string;
+  status: boolean;
   charge: string;
   user: {
     name: string;
@@ -24,6 +25,9 @@ export interface ITalentPools {
 
 interface IResponseUser {
   talentPools: ITalentPools[];
+}
+interface IResponseUniqueTalentPool {
+  talentPool: ITalentPools;
 }
 
 export function GetTalentPools(): Promise<IResponseUser> {
@@ -64,4 +68,78 @@ export function GetTalentPools(): Promise<IResponseUser> {
         talentPools: [],
       };
     });
+}
+
+export function GetUniqueTalentPools({
+  idUser,
+}: {
+  idUser: string;
+}): Promise<IResponseUniqueTalentPool> {
+  const query = `
+      query{
+        talentPool(idUser:${idUser}){
+              id
+              idCandidate
+              idUser
+              idTeamLeader
+              data
+              profile
+              observation
+              softwares
+              education
+              experience
+              languages
+              status
+              charge
+              user{
+                  id
+                  name
+                  lastName
+                  email
+                  phone
+              }
+              
+          }
+      }
+    `;
+
+  return graphql(query).then(response => {
+    return response.data as IResponseUniqueTalentPool;
+  });
+}
+
+export function AddUserTalentPool(data: any): Promise<AxiosResponse> {
+  const query = `
+    moveUserTalentPool(
+        idCandidate: ${data.idCandidate}
+        idTeamLeader: 5
+        idUser: 65
+        data: "2022-01-02"
+        charge: "aaacharge"
+        profile: "asdas"
+        observation: "asdasdas----"
+        softwares: "23923"
+             education: "education"
+        experience: "asdasd--"
+        languages: "alan"
+        status: true
+      )
+      {
+        id
+        idCandidate
+        idUser
+        idTeamLeader
+        data
+        profile
+        observation
+        softwares
+        education
+        experience
+        languages
+        status
+        charge
+      }
+    `;
+
+  return graphql(query);
 }
