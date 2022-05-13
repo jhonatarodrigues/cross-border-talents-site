@@ -13,6 +13,10 @@ export const BackgroundModal = styled.div`
   z-index: 10;
   background: rgba(33, 47, 83, 0.8);
   flex-direction: column;
+  display: flex;
+  * {
+    display: flex;
+  }
 `;
 export const ContentModal = styled.div`
   background: ${Default.color.white};

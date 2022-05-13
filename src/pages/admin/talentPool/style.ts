@@ -59,3 +59,6 @@ export const InvisibleButton = styled.button`
     opacity: 0.5;
   }
 `;
+export const ContentModal = styled.div`
+  width: 60vw;
+`;

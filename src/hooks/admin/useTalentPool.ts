@@ -18,6 +18,7 @@ export interface ITalentPools {
     name: string;
     lastName: string;
     email: string;
+    phone: string;
   };
 }
 
@@ -47,6 +48,7 @@ export function GetTalentPools(): Promise<IResponseUser> {
                 name
                 lastName
                 email
+                phone
             }
             
         }

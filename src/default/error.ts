@@ -15,6 +15,7 @@ const error: { [key: string]: string } = {
   removeTestimonials: 'Failed to remove testimonial.',
   getJobs: 'Failed to get jobs.',
   getCandidates: 'Failed to get candidates.',
+  talentPoolInterestExists: 'Talent pool interest already exists.',
 };
 
 export default function errorString(key: string): string {

@@ -125,5 +125,6 @@ const enUs = {
   permissions: 'Permissions',
   cancel: 'Cancel',
   ok: 'Ok',
+  informationCandidate: 'Information candidate',
 };
 export default enUs;
