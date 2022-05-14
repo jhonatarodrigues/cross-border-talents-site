@@ -16,6 +16,8 @@ const error: { [key: string]: string } = {
   getJobs: 'Failed to get jobs.',
   getCandidates: 'Failed to get candidates.',
   talentPoolInterestExists: 'Talent pool interest already exists.',
+  acceptTerms: 'You need agree to privacy policy to continue.',
+  registerModalCompany: 'Failed to register company.',
 };
 
 export default function errorString(key: string): string {

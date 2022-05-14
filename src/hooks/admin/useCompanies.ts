@@ -253,3 +253,50 @@ export function GetCompanies(): Promise<IResponseCompanies> {
       return { companies: [] };
     });
 }
+
+export function AddCompanyModalPage({
+  name,
+  lastName,
+  email,
+  phone,
+  companyName,
+  idInterestSkills,
+}: {
+  name: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  companyName: string;
+  idInterestSkills: string;
+}): Promise<AxiosResponse> {
+  const query = `
+    mutation{
+        createCompanie(
+            name: "${name}"
+            lastName: "${lastName}"
+            email: "${email}"
+            phone: "${phone}"
+            companyName:"${companyName}"
+            idInterestSkills: "${idInterestSkills}"
+        ) {
+            user {
+                id
+                name
+                lastName
+                email
+                phone
+            }
+            companie {
+                id
+                idUser
+                idInterestSkills
+                companyLogo
+                country
+                companyName
+            }
+        }
+    }
+  `;
+
+  return graphql(query);
+}

@@ -3,7 +3,8 @@ import { Form } from '@unform/web';
 import { SubmitHandler, FormHandles } from '@unform/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faEye } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
 
 import Input from '../../components/input';
 import InputDropDown, {
@@ -13,13 +14,17 @@ import ContentSite from '../../components/ContentSite';
 import ContainerSite from '../../components/ContainerSite';
 import ContentInput from '../../components/contentInput';
 import { GetCountries, ICountrie } from '../../hooks/admin/useCountry';
-import { GetCandidatesPage, ICandidate } from '../../hooks/admin/useCandidates';
 import { GetInterestSkills } from '../../hooks/admin/useInterestSkills';
+import {
+  GetTalentPoolsPage,
+  ITalentPools,
+} from '../../hooks/admin/useTalentPool';
 import ButtonSite from '../../components/buttonSite';
 import Default from '../../default';
 import Language from '../../language';
 import CustomModal from '../../components/CustomModal';
 import Modal from '../../components/modal';
+import { AddCompanyModalPage } from '../../hooks/admin/useCompanies';
 import {
   Banner,
   Title,
@@ -48,8 +53,10 @@ export default function CompanyNeed(): JSX.Element {
   const [optionsInterestSkills, setOptionsInterestSkills] = useState<
     IOptionsDropdown[]
   >([] as IOptionsDropdown[]);
-  const [candidates, setCandidates] = useState<ICandidate[]>([]);
+  const [candidates, setCandidates] = useState<ITalentPools[]>([]);
   const [country, setCountry] = useState<ICountrie[]>([]);
+  const [terms, setTerms] = useState(false);
+  const navigate = useNavigate();
 
   const getCountries = useCallback(async () => {
     const { countries } = await GetCountries();
@@ -90,11 +97,11 @@ export default function CompanyNeed(): JSX.Element {
 
   const getCandidates = useCallback(async (search?: string) => {
     try {
-      const response = await GetCandidatesPage({
+      const response = await GetTalentPoolsPage({
         search: search || '',
       });
 
-      setCandidates(response.searchCandidates.candidates);
+      setCandidates(response.talentPools);
     } catch {
       Modal({ keyType: 'getCandidates', icon: 'error' });
     }
@@ -105,6 +112,62 @@ export default function CompanyNeed(): JSX.Element {
       getCandidates(data.typeCategory);
     },
     [getCandidates],
+  );
+  const handleSubmitRegister: SubmitHandler = useCallback(
+    async data => {
+      if (!terms) {
+        Modal({ keyType: 'acceptTerms', icon: 'error' });
+        return;
+      }
+
+      try {
+        const schema = Yup.object().shape({
+          name: Yup.string().required(),
+          lastName: Yup.string().required(),
+          email: Yup.string().required(),
+          phone: Yup.string().required(),
+          companyName: Yup.string().required(),
+          idInterestSkills: Yup.string().required(),
+        });
+
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        AddCompanyModalPage(data)
+          .then(response => {
+            if (response.data.createCompanie.user.id) {
+              Modal({
+                keyType: 'registerModalCompanySuccess',
+                icon: 'success',
+                onClick: () => {
+                  setModalRegister(false);
+                  navigate('/admin/login');
+                },
+              });
+            }
+          })
+          .catch(() => {
+            Modal({
+              keyType: 'registerModalCompany',
+              icon: 'error',
+            });
+          });
+      } catch (err) {
+        const validationErrors: Record<string, string> = {};
+
+        if (err instanceof Yup.ValidationError) {
+          err.inner.forEach((error: Yup.ValidationError) => {
+            if (error.path) {
+              validationErrors[error.path] = error.message;
+            }
+          });
+
+          formRefRegister.current?.setErrors(validationErrors);
+        }
+      }
+    },
+    [terms, navigate],
   );
 
   const renderModalRegister = useCallback(() => {
@@ -128,8 +191,8 @@ export default function CompanyNeed(): JSX.Element {
         <Default.Space h="1.875rem" />
         <FormRender
           ref={formRefRegister}
-          onSubmit={handleSubmit}
-          onClick={() => formRef.current?.setErrors({})}
+          onSubmit={handleSubmitRegister}
+          onClick={() => formRefRegister.current?.setErrors({})}
         >
           <Default.Column>
             <ContentInput>
@@ -146,7 +209,7 @@ export default function CompanyNeed(): JSX.Element {
             </ContentInput>
             <ContentInput>
               <Input
-                name="businessEmail"
+                name="email"
                 label={`${Language.fields.businessEmail} *`}
                 typeSize="medium"
               />
@@ -165,7 +228,7 @@ export default function CompanyNeed(): JSX.Element {
             </ContentInput>
             <ContentInput>
               <InputDropDown
-                name="skillsRequired"
+                name="idInterestSkills"
                 label={`${Language.fields.skillsRequired} *`}
                 typeSize="medium"
                 options={optionsInterestSkills}
@@ -173,7 +236,11 @@ export default function CompanyNeed(): JSX.Element {
             </ContentInput>
             <Default.Space h="1.875rem" />
             <Default.Row alignItens="center">
-              <InputCheck type="radio" name="terms" />
+              <InputCheck
+                type="radio"
+                name="terms"
+                onChange={item => setTerms(item.target.checked)}
+              />
               <Default.Text2 color={Default.color.gray}>
                 I have read and agree to the &nbsp;
                 <Link to="/">
@@ -193,7 +260,12 @@ export default function CompanyNeed(): JSX.Element {
         </FormRender>
       </CustomModal>
     );
-  }, [formRefRegister, optionsInterestSkills, handleSubmit, modalRegister]);
+  }, [
+    formRefRegister,
+    optionsInterestSkills,
+    handleSubmitRegister,
+    modalRegister,
+  ]);
 
   useEffect(() => {
     getCandidates();
@@ -273,7 +345,7 @@ export default function CompanyNeed(): JSX.Element {
                 countryDesc =
                   country.find(
                     (countryItem: ICountrie) =>
-                      countryItem.code === item.country,
+                      countryItem.code === item.candidate.country,
                   )?.name || '';
               }
 
@@ -307,9 +379,9 @@ export default function CompanyNeed(): JSX.Element {
                       color={Default.color.gray}
                       dangerouslySetInnerHTML={{
                         __html:
-                          item.observations && item.observations.length > 50
-                            ? `${item.observations.slice(0, 50)}...`
-                            : item.observations,
+                          item.profile && item.profile.length > 50
+                            ? `${item.profile.slice(0, 50)}...`
+                            : item.profile,
                       }}
                     />
                     <Default.Space h="0.9375rem" />

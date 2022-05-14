@@ -26,6 +26,7 @@ const success: { [key: string]: string } = {
   addTalentPoolInterest: 'Talent pool interest added successfully.',
   updateCandidateTalentPool: 'Candidate and Talent pool updated successfully.',
   createdCandidateTalentPool: 'Candidate and Talent pool created successfully.',
+  registerModalCompanySuccess: 'Company registered successfully.',
 };
 
 export default function successString(key: string): string {

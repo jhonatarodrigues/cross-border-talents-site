@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios';
+import api from '../../services/api';
 import graphql from '../../services/graphql';
 
 export interface ITalentPools {
@@ -20,6 +21,12 @@ export interface ITalentPools {
     lastName: string;
     email: string;
     phone: string;
+  };
+  candidate: {
+    birthDate: string;
+    country: string;
+    gender: string;
+    observations: string;
   };
 }
 
@@ -159,4 +166,52 @@ export function AddUserTalentPool(
     `;
 
   return graphql(query);
+}
+
+export function GetTalentPoolsPage({
+  search,
+}: {
+  search?: string;
+}): Promise<IResponseUser> {
+  const query = `
+    query {
+        talentPools(search: "${search}") {
+          id
+          idCandidate
+          idUser
+          idTeamLeader
+          data
+          profile
+          observation
+          softwares
+          education
+          experience
+          charge
+          languages
+          user {
+            id
+            name
+            lastName
+            email
+            phone
+          }
+          candidate {
+            birthDate
+            country
+            gender
+            observations
+          }
+        }
+      }
+      
+    `;
+  return graphql(query)
+    .then(response => {
+      return response.data as IResponseUser;
+    })
+    .catch(() => {
+      return {
+        talentPools: [],
+      };
+    });
 }
