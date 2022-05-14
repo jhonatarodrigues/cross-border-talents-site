@@ -18,6 +18,7 @@ const error: { [key: string]: string } = {
   talentPoolInterestExists: 'Talent pool interest already exists.',
   acceptTerms: 'You need agree to privacy policy to continue.',
   registerModalCompany: 'Failed to register company.',
+  tokenTalentPool: 'Failed to verify token.',
 };
 
 export default function errorString(key: string): string {

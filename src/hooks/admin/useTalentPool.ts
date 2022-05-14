@@ -215,3 +215,16 @@ export function GetTalentPoolsPage({
       };
     });
 }
+
+export function AcceptTokenTalentPool({
+  token,
+}: {
+  token: string;
+}): Promise<AxiosResponse> {
+  const query = `
+    mutation {
+        addUserTalentPool(token: "${token}") 
+    }`;
+
+  return graphql(query);
+}
