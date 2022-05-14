@@ -12,11 +12,12 @@ import {
   faComment,
 } from '@fortawesome/free-solid-svg-icons';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Default from '../../default';
 import { AuthTypes } from '../../store/ducks/auth/types';
 import Logo from '../../assets/images/logo.png';
+import { ApplicationState } from '../../store';
 import {
   ContainerNav,
   ContentNav,
@@ -44,48 +45,54 @@ export default function Nav(): JSX.Element {
   const activeRoute = location.pathname;
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { auth } = useSelector((state: ApplicationState) => state);
 
   const navItens: INavItens[] = [
-    {
-      title: `Admin users`,
-      icon: faUser,
-      route: '/admin/user',
-    },
-    {
-      title: `Team Leader`,
-      icon: faUser,
-      route: '/admin/teamLeader',
-    },
-    {
-      title: `Recruiters`,
-      icon: faUserPlus,
-      route: '/admin/recruiter',
-    },
-    {
-      title: `Companies`,
-      icon: faBuilding,
-      route: '/admin/companies',
-    },
-    {
-      title: `Candidates`,
-      icon: faUserCheck,
-      route: '/admin/candidates',
-    },
-    {
-      title: `Department`,
-      icon: faChessPawn,
-      route: '/admin/departament',
-    },
-    {
-      title: `Jobs`,
-      icon: faStar,
-      route: '/admin/jobs',
-    },
-    {
-      title: `Testimonials`,
-      icon: faMessage,
-      route: '/admin/testimonials',
-    },
+    ...(auth.user.accessLevel !== 4
+      ? [
+          {
+            title: `Admin users`,
+            icon: faUser,
+            route: '/admin/user',
+          },
+          {
+            title: `Team Leader`,
+            icon: faUser,
+            route: '/admin/teamLeader',
+          },
+          {
+            title: `Recruiters`,
+            icon: faUserPlus,
+            route: '/admin/recruiter',
+          },
+          {
+            title: `Companies`,
+            icon: faBuilding,
+            route: '/admin/companies',
+          },
+          {
+            title: `Candidates`,
+            icon: faUserCheck,
+            route: '/admin/candidates',
+          },
+          {
+            title: `Department`,
+            icon: faChessPawn,
+            route: '/admin/departament',
+          },
+          {
+            title: `Jobs`,
+            icon: faStar,
+            route: '/admin/jobs',
+          },
+          {
+            title: `Testimonials`,
+            icon: faMessage,
+            route: '/admin/testimonials',
+          },
+        ]
+      : []),
+
     {
       title: `Talent Pool`,
       icon: faMessage,
