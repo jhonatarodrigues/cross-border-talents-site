@@ -48,10 +48,17 @@ export default function JobsRegister(): JSX.Element {
   const location = useLocation();
   //   const params = (location.state as IJobsRegister) || null;
 
-  const params = useMemo(
-    () => (location?.state as IJobsRegister) || null,
-    [location],
-  );
+  //   const params = useMemo(
+  //     () => (location?.state as IJobsRegister) || { jobs: {} as IJobs },
+  //     [location],
+  //   );
+
+  const params = useMemo(() => {
+    if (location?.state) {
+      return location?.state as IJobsRegister;
+    }
+    return null;
+  }, [location]);
 
   const handleSubmit: SubmitHandler<IJobsSend> = useCallback(
     async (data: IJobsSend) => {
@@ -67,7 +74,7 @@ export default function JobsRegister(): JSX.Element {
           abortEarly: false,
         });
 
-        if (params?.jobs.id) {
+        if (params && params?.jobs.id) {
           const newData = {
             ...data,
             id: params.jobs.id,
@@ -150,7 +157,7 @@ export default function JobsRegister(): JSX.Element {
   return (
     <ContentPage
       title={`${Language.page.jobs.jobs} > ${
-        params.jobs.jobTitle || Language.page.jobs.newJobs
+        params?.jobs.jobTitle || Language.page.jobs.newJobs
       }`}
     >
       <Form
@@ -173,7 +180,9 @@ export default function JobsRegister(): JSX.Element {
             <InputDatePicker
               name="date"
               label={Language.fields.date}
-              value={new Date(parseInt(params?.jobs.date, 10) || new Date())}
+              value={
+                new Date(parseInt(params?.jobs.date || '', 10) || new Date())
+              }
             />
           </ContentInput>
           <ContentInput>
