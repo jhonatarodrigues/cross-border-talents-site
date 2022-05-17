@@ -3,8 +3,8 @@ import store from '../store';
 
 import { loadSuccess, loadLogout } from '../store/ducks/auth/actions';
 
-const baseURL = process.env.REACT_APP_URL_API;
-// const baseURL = 'http://104.131.32.39:4000';
+const baseURL = process.env.REACT_APP_URL_API || '';
+
 const api = axios.create({
   baseURL,
 });
