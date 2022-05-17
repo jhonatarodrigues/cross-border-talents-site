@@ -4,7 +4,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import moment from 'moment-timezone';
 import Store, { persistor } from './store';
 
-import './styles/index.scss';
+import './styles/index.css';
 import Routes from './Routes';
 
 function App() {

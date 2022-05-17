@@ -64,10 +64,11 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "sass src/styles/scss:src/styles/css && react-scripts build",
+    "start": "sass ./src/styles/index.scss:src/styles/index.css && react-scripts start",
+    "build": "sass ./src/styles/index.scss:src/styles/index.css && react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "sass": "sass ./src/styles/index.scss:src/styles/index.css"
   },
   "eslintConfig": {
     "extends": [

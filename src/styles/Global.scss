@@ -4,7 +4,7 @@
     font-family: 'Gill Sans';
     src: url('../assets/fonts/GillSans.woff2') format('woff2'),
         url('../assets/fonts/GillSans.woff') format('woff');
-    font-weight: normal;
+    font-weight: 400;
     font-style: normal;
     font-display: swap;
 }
@@ -13,7 +13,7 @@
     font-family: 'Gill Sans';
     src: url('../assets/fonts/GillSans-BoldItalic.woff2') format('woff2'),
         url('../assets/fonts/GillSans-BoldItalic.woff') format('woff');
-    font-weight: bold;
+    font-weight: 700;
     font-style: italic;
     font-display: swap;
 }
@@ -31,7 +31,7 @@
     font-family: 'Gill Sans';
     src: url('../assets/fonts/GillSans-Bold.woff2') format('woff2'),
         url('../assets/fonts/GillSans-Bold.woff') format('woff');
-    font-weight: bold;
+    font-weight: 700;
     font-style: normal;
     font-display: swap;
 }
@@ -76,7 +76,7 @@
     font-family: 'Gill Sans';
     src: url('../assets/fonts/GillSans-UltraBold.woff2') format('woff2'),
         url('../assets/fonts/GillSans-UltraBold.woff') format('woff');
-    font-weight: bold;
+    font-weight: 900;
     font-style: normal;
     font-display: swap;
 }
@@ -84,7 +84,7 @@
 
 
 body {
-    font-family: Gill Sans;
+    font-family: 'Gill Sans', sans-serif;
     font-size: 16px;
     height: 100%;
     display: flex;

@@ -12,10 +12,12 @@ interface InputProps {
 type IProps = InputProps;
 
 export default function ContentPicture({ pictureUrl, onRemove }: IProps) {
+  const baseURL = process.env.REACT_APP_URL_API;
+
   return (
     <ContainerPicture
       style={{
-        backgroundImage: `url(http://localhost:4000/files/${pictureUrl})`,
+        backgroundImage: `url(${baseURL}/files/${pictureUrl})`,
       }}
     >
       <ButtonRemove onClick={() => onRemove()} type="button">
