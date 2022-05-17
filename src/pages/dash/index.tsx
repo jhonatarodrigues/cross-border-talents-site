@@ -3,6 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
+import SearchIcon from '../../assets/svg/iconSearch';
+import MetricsIcon from '../../assets/svg/metrics';
+import LockIcon from '../../assets/svg/lock';
+import FilterIcon from '../../assets/svg/filter';
+
 import Default from '../../default';
 import ContentSite from '../../components/ContentSite';
 import ContainerSite from '../../components/ContainerSite';
@@ -34,6 +39,8 @@ import {
   BestChoice,
   BestChoiceItem,
   BestChoiceItemText,
+  ExpertiseBlockImageBack,
+  ExpertiseBlockImageFunny,
 } from './style';
 
 export default function Dash(): JSX.Element {
@@ -129,7 +136,10 @@ export default function Dash(): JSX.Element {
           </div>
           <Default.Space h="5.875rem" />
           <Default.Row>
-            <ExpertiseBLockImage />
+            <ExpertiseBLockImage>
+              <ExpertiseBlockImageBack />
+              <ExpertiseBlockImageFunny />
+            </ExpertiseBLockImage>
             <ExpertiseBLockContentText>
               <Default.Column>
                 <Default.TitleH3 color={Default.color.success}>
@@ -144,10 +154,7 @@ export default function Dash(): JSX.Element {
                 <Default.Space h="4.25rem" />
                 <ExpertiseContentIcons>
                   <ExpertiseIcon>
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      color={Default.color.spotlight}
-                    />
+                    <SearchIcon />
                     <ExpertiseIconTitle>
                       Easy talent
                       <br />
@@ -155,10 +162,7 @@ export default function Dash(): JSX.Element {
                     </ExpertiseIconTitle>
                   </ExpertiseIcon>
                   <ExpertiseIcon>
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      color={Default.color.spotlight}
-                    />
+                    <MetricsIcon />
                     <ExpertiseIconTitle>
                       Constant <br /> content update
                     </ExpertiseIconTitle>
@@ -167,20 +171,14 @@ export default function Dash(): JSX.Element {
                 <Default.Space h="2.5rem" />
                 <ExpertiseContentIcons>
                   <ExpertiseIcon>
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      color={Default.color.spotlight}
-                    />
+                    <LockIcon />
                     <ExpertiseIconTitle>
                       Privacy and <br />
                       security
                     </ExpertiseIconTitle>
                   </ExpertiseIcon>
                   <ExpertiseIcon>
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      color={Default.color.spotlight}
-                    />
+                    <FilterIcon />
                     <ExpertiseIconTitle>
                       Filter what <br /> matters
                     </ExpertiseIconTitle>

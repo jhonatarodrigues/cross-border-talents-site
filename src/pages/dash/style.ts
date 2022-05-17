@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import Default from '../../default';
 
+import image1 from '../../assets/images/home/ourExpertise.png';
+
 interface IWidth {
   width?: string;
 }
@@ -120,7 +122,26 @@ export const TextExpertiseBlockType = styled.p`
 export const ExpertiseBLockImage = styled.div`
   width: 41.5625rem;
   height: 36.9375rem;
-  background: #0f0;
+  position: relative;
+`;
+
+export const ExpertiseBlockImageBack = styled.div`
+  width: 37.8125rem;
+  height: 33.4375rem;
+  background: url(${image1}) no-repeat center;
+  background-size: cover;
+  margin-top: -3.75rem;
+  border-radius: 3.125rem;
+  position: absolute;
+  z-index: 1;
+`;
+export const ExpertiseBlockImageFunny = styled.div`
+  width: 37.8125rem;
+  height: 33.4375rem;
+  background: ${Default.color.blueLight};
+  margin-left: 3.75rem;
+  border-radius: 3.125rem;
+  opacity: 0.4;
 `;
 export const ExpertiseBLockContentText = styled.div`
   padding: 4.5625rem;
