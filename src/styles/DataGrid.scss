@@ -1,24 +1,24 @@
-.css-jgzxgq-MuiDataGrid-root{
+.MuiDataGrid-root {
     border-radius: 10px!important;
     border: none!important;
 
-    .css-1jbbcbn-MuiDataGrid-columnHeaderTitle{
+    .MuiDataGrid-columnHeaderTitle{
         color: $blue;
         font-size: 1rem;
         font-weight: 500;
         line-height: 1.5rem;
     }
     .MuiDataGrid-cellContent,
-    .css-pdct74-MuiTablePagination-selectLabel,
-    .css-194a1fa-MuiSelect-select-MuiInputBase-input.MuiSelect-select,
-    .css-levciy-MuiTablePagination-displayedRows, 
-    .css-de9k3v-MuiDataGrid-selectedRowCount{
+    .MuiTablePagination-selectLabel,
+    .MuiSelect-select-MuiInputBase-input.MuiSelect-select,
+    .MuiTablePagination-displayedRows, 
+    .MuiDataGrid-selectedRowCount{
         color: #808080;
         font-size: 16px;
     }
 }
 
-.css-sghohy-MuiButtonBase-root-MuiButton-root.MuiButton-containedPrimary {
+.MuiButton-root.MuiButton-containedPrimary {
     background-color: $blueSemiLight;
     box-shadow: none;
 
@@ -26,24 +26,24 @@
         background-color: $blueLight;
     }
 }
-.MuiOutlinedInput-input.MuiInputBase-input.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input{
+.MuiOutlinedInput-input.MuiInputBase-input.MuiInputBase-input-MuiOutlinedInput-input{
     color:#808080;
     font-size: .875rem;
 }
-.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root{
+.MuiInputLabel-root{
     color: #808080!important;
     font-size: .875rem!important;
 }
-.css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked{
+.MuiSwitch-switchBase.Mui-checked{
     color: $white!important;
 }
-.css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track{
+.MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track{
     background-color: $blueBase!important;
 }
-.css-1u3bzj6-MuiFormControl-root-MuiTextField-root{
+.MuiTextField-root{
     width: 100%;
 }
-.css-sghohy-MuiButtonBase-root-MuiButton-root{
+.MuiButton-root{
     font-family: "Gill Sans", sans-serif !important;
     font-weight: 600 !important;
 }
