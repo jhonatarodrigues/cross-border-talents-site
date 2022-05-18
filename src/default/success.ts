@@ -28,6 +28,7 @@ const success: { [key: string]: string } = {
   createdCandidateTalentPool: 'Candidate and Talent pool created successfully.',
   registerModalCompanySuccess: 'Company registered successfully.',
   tokenTalentPool: 'Token verify successfully.',
+  contactSuccess: 'Contact sent successfully.',
 };
 
 export default function successString(key: string): string {

@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import Default from '../../default';
 
+import LearCode from '../../assets/images/academy/learnCode.jpg';
+
 interface IWidth {
   width?: string;
 }
@@ -51,7 +53,7 @@ export const Image = styled.div`
   width: 36.9375rem;
   height: 42.125rem;
   border-radius: 3.125rem;
-  background: #f00;
+  background: url(${LearCode}) center no-repeat;
   position: relative;
   margin-left: -60px;
   margin-top: -60px;

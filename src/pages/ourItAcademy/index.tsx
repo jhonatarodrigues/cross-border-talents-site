@@ -66,9 +66,11 @@ export default function OurItAcademy(): JSX.Element {
           </Default.Text>
           <Default.Space h="1.25rem" />
           <Default.Row justifyContent="center">
-            <ButtonSite bgColor={Default.color.spotlight}>
-              Take your opportunity here
-            </ButtonSite>
+            <Link to="/for-employers">
+              <ButtonSite bgColor={Default.color.spotlight}>
+                Take your opportunity here
+              </ButtonSite>
+            </Link>
           </Default.Row>
           <Default.Space h="12.0625rem" />
 

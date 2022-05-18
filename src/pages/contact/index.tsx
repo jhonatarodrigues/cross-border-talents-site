@@ -4,17 +4,19 @@ import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { SubmitHandler, FormHandles } from '@unform/core';
+import * as Yup from 'yup';
+
+import IconLock from '../../assets/svg/lock';
 
 import Default from '../../default';
 import Input from '../../components/input';
-import InputDropDown, {
-  IOptionsDropdown,
-} from '../../components/inputDropdown';
+import { SendContact } from '../../hooks/admin/useContact';
 import ContentSite from '../../components/ContentSite';
 import ContainerSite from '../../components/ContainerSite';
 import ContentInput from '../../components/contentInput';
 import ButtonSite from '../../components/buttonSite';
 import Language from '../../language';
+import Modal from '../../components/modal';
 import {
   Banner,
   Title,
@@ -29,13 +31,48 @@ import {
 } from './style';
 
 export default function Contact(): JSX.Element {
-  const formRefContactUs = useRef<FormHandles>(null);
-  const [optionsInterestSkills, setOptionsInterestSkills] = useState<
-    IOptionsDropdown[]
-  >([] as IOptionsDropdown[]);
+  const formRef = useRef<FormHandles>(null);
 
   const handleSubmit: SubmitHandler = useCallback(async data => {
-    console.log('submit');
+    try {
+      const schema = Yup.object().shape({
+        name: Yup.string().required(),
+        email: Yup.string().required(),
+        subject: Yup.string().required(),
+        message: Yup.string().required(),
+      });
+
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+
+      const response = await SendContact(data);
+
+      if (response.data.sendContact) {
+        Modal({
+          icon: 'success',
+          keyType: 'contactSuccess',
+        });
+        formRef.current?.reset();
+      } else {
+        Modal({
+          icon: 'error',
+          keyType: 'contactSuccess',
+        });
+      }
+    } catch (err) {
+      const validationErrors: Record<string, string> = {};
+
+      if (err instanceof Yup.ValidationError) {
+        err.inner.forEach((error: Yup.ValidationError) => {
+          if (error.path) {
+            validationErrors[error.path] = error.message;
+          }
+        });
+
+        formRef.current?.setErrors(validationErrors);
+      }
+    }
   }, []);
 
   return (
@@ -81,11 +118,7 @@ export default function Contact(): JSX.Element {
                   </Default.Column>
                   <Default.Space w="3.125rem" />
                   <Default.Column>
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      fontSize={40}
-                      color={Default.color.white}
-                    />
+                    <IconLock />
                     <Default.Space h="0.9375rem" />
                     <Default.Title2 color={Default.color.white}>
                       Privacy and <br />
@@ -95,12 +128,12 @@ export default function Contact(): JSX.Element {
                 </Default.Row>
               </Default.Column>
             </div>
-            <BlockContactUsForm>
+            <BlockContactUsForm id="topCandidatesForm">
               <Default.Column justifyContent="space-between">
                 <FormRender
-                  ref={formRefContactUs}
+                  ref={formRef}
                   onSubmit={handleSubmit}
-                  onClick={() => formRefContactUs.current?.setErrors({})}
+                  onClick={() => formRef.current?.setErrors({})}
                 >
                   <Default.Column>
                     <ContentInput>

@@ -20,6 +20,7 @@ const error: { [key: string]: string } = {
   registerModalCompany: 'Failed to register company.',
   tokenTalentPool: 'Failed to verify token.',
   getTestimonials: 'Failed to get testimonials.',
+  contactSuccess: 'Failed to send contact.',
 };
 
 export default function errorString(key: string): string {

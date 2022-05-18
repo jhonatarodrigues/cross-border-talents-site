@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Form } from '@unform/web';
 
+import BannerContact from '../../assets/images/contact/bannerContact.jpg';
 import Default from '../../default';
 
 export const Banner = styled.div`
@@ -8,7 +9,7 @@ export const Banner = styled.div`
   width: 100%;
   align-items: center;
   flex-direction: row;
-  background-color: #0f0;
+  background: url(${BannerContact}) center no-repeat;
 `;
 export const Title = styled(Default.Title)`
   color: ${Default.color.white};
