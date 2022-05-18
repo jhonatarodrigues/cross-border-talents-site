@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { Form } from '@unform/web';
 
+import TalentPool from '../../assets/images/talentPool/talent-pool.jpg';
+import StopWorrying from '../../assets/images/talentPool/stop-worrying.jpg';
 import Default from '../../default';
 
 interface IColor {
@@ -12,7 +14,7 @@ export const Banner = styled.div`
   width: 100%;
   align-items: center;
   flex-direction: row;
-  background-color: #f00;
+  background: url(${TalentPool}) center no-repeat;
 `;
 export const Title = styled(Default.Title)`
   color: ${Default.color.white};
@@ -89,6 +91,7 @@ export const NewJobBLock = styled(Default.BlockContent)`
   align-items: center;
 `;
 export const NewJobItem = styled.div`
+  width: 100%;
   background: ${Default.color.white};
   padding: 2.5rem;
   flex-direction: column;
@@ -162,7 +165,7 @@ export const BlockStopWorryingImageContent = styled(Default.Column)`
 export const BlockStopWorryingImage = styled.div`
   width: 41.625rem;
   height: 33.1875rem;
-  background: #f0f;
+  background: url(${StopWorrying}) center no-repeat;
   border-radius: 3.125rem;
   top: 0;
   position: relative;
@@ -262,16 +265,31 @@ export const BestChoice = styled(Default.BlockContent)`
   background: ${Default.color.blueOriginal};
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+  .slick-list {
+    overflow: visible;
+    .slick-slide {
+      opacity: 0.3;
+      &.slick-active {
+        opacity: 1;
+      }
+    }
+  }
+  .slick-arrow {
+    z-index: 10;
+  }
 `;
 export const BestChoiceItem = styled.div`
   border: 1px solid ${Default.color.success};
   padding: 2.8125rem 2.5rem;
   border-radius: 1.25rem;
   width: 28.4375rem;
+  margin: 0 0.9375rem;
 `;
 export const BestChoiceItemText = styled(Default.Text)`
   font-size: 0.75rem;
 `;
+
 export const BlockGetFree = styled(Default.BlockContent)`
   background: ${Default.color.grayExtremeLight};
 `;
@@ -286,4 +304,7 @@ export const BlockGetFreeItem = styled.div`
   &:last-child {
     margin-right: 0;
   }
+`;
+export const GetFreeContentIcon = styled.div`
+  width: 2.625rem;
 `;

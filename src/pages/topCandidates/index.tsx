@@ -1,14 +1,35 @@
 import React, { useRef, useCallback, useEffect, useState } from 'react';
-
 import { SubmitHandler, FormHandles } from '@unform/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { Link, useNavigate } from 'react-router-dom';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import Slider from 'react-slick';
+import * as Yup from 'yup';
 
-import { Link } from 'react-router-dom';
+import IconIct from '../../assets/svg/ict';
+import IconGear from '../../assets/svg/gear';
+import IconStar from '../../assets/svg/star';
+import IconPlanet from '../../assets/svg/planet';
+import IconBookMark from '../../assets/svg/bookMark';
+import IconFolder from '../../assets/svg/folder';
+import IconDocument from '../../assets/svg/document';
+import IconProfile from '../../assets/svg/profile';
+
+import { AddCompanyModalPage } from '../../hooks/admin/useCompanies';
+import {
+  GetTestimonialsSearch,
+  ITestimonials,
+} from '../../hooks/admin/useTestimonials';
+import { GetCountries, ICountrie } from '../../hooks/admin/useCountry';
+import { GetInterestSkills } from '../../hooks/admin/useInterestSkills';
+import { GetJobsPage, IJobs } from '../../hooks/admin/useJobs';
 import ContentSite from '../../components/ContentSite';
 import ContainerSite from '../../components/ContainerSite';
 import ContentInput from '../../components/contentInput';
 import Input from '../../components/input';
+import Modal from '../../components/modal';
 import InputDropDown, {
   IOptionsDropdown,
 } from '../../components/inputDropdown';
@@ -28,7 +49,6 @@ import {
   ExpertiseArrow,
   NewJobBLock,
   NewJobItem,
-  NewJobItemContentIcon,
   NewJobItemContentIconText,
   NewJobTitleContent,
   TagNewJobItem,
@@ -48,6 +68,7 @@ import {
   BestChoiceItemText,
   BlockGetFree,
   BlockGetFreeItem,
+  GetFreeContentIcon,
 } from './style';
 
 export default function TopCandidates(): JSX.Element {
@@ -55,10 +76,129 @@ export default function TopCandidates(): JSX.Element {
   const [optionsInterestSkills, setOptionsInterestSkills] = useState<
     IOptionsDropdown[]
   >([] as IOptionsDropdown[]);
+  const [jobs, setJobs] = useState<IJobs[]>([]);
+  const [country, setCountry] = useState<ICountrie[]>([]);
+  const [testimonials, setTestimonials] = useState<ITestimonials[]>([]);
+  const navigate = useNavigate();
 
-  const handleSubmit: SubmitHandler = useCallback(async data => {
-    console.log('submit');
+  const getInterestSkills = useCallback(async () => {
+    const { interestSkills } = await GetInterestSkills();
+    if (interestSkills) {
+      const options: IOptionsDropdown[] = interestSkills.map(item => {
+        return {
+          value: item.id,
+          label: item.name,
+        };
+      });
+      setOptionsInterestSkills(options);
+    } else {
+      Modal({ keyType: 'getInterestSkills', icon: 'error' });
+    }
   }, []);
+  useEffect(() => {
+    getInterestSkills();
+  }, [getInterestSkills]);
+
+  const handleSubmit: SubmitHandler = useCallback(
+    async data => {
+      try {
+        const schema = Yup.object().shape({
+          name: Yup.string().required(),
+          lastName: Yup.string().required(),
+          email: Yup.string().required(),
+          phone: Yup.string().required(),
+          companyName: Yup.string().required(),
+          idInterestSkills: Yup.string().required(),
+        });
+
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        AddCompanyModalPage(data)
+          .then(response => {
+            if (response.data.createCompanie.user.id) {
+              Modal({
+                keyType: 'registerModalCompanySuccess',
+                icon: 'success',
+                onClick: () => {
+                  navigate('/admin/login');
+                },
+              });
+            }
+          })
+          .catch(() => {
+            Modal({
+              keyType: 'registerModalCompany',
+              icon: 'error',
+            });
+          });
+      } catch (err) {
+        const validationErrors: Record<string, string> = {};
+
+        if (err instanceof Yup.ValidationError) {
+          err.inner.forEach((error: Yup.ValidationError) => {
+            if (error.path) {
+              validationErrors[error.path] = error.message;
+            }
+          });
+
+          formRef.current?.setErrors(validationErrors);
+        }
+      }
+    },
+    [navigate],
+  );
+
+  const getCountries = useCallback(async () => {
+    const { countries } = await GetCountries();
+    if (countries) {
+      const options: IOptionsDropdown[] = countries.map(countryItem => {
+        return {
+          value: countryItem.code,
+          label: countryItem.name,
+        };
+      });
+      setCountry(countries);
+    } else {
+      Modal({ keyType: 'getCountries', icon: 'error' });
+    }
+  }, []);
+  const getJobs = useCallback(async (search?: string) => {
+    try {
+      const response = await GetJobsPage({
+        search,
+        itensPerPage: 4,
+        page: 1,
+      });
+
+      setJobs(response.jobsSearch.jobs);
+    } catch {
+      Modal({ keyType: 'getJobs', icon: 'error' });
+    }
+  }, []);
+
+  const getTestimonials = useCallback(async () => {
+    try {
+      const response = await GetTestimonialsSearch({
+        itensPerPage: 4,
+        page: 1,
+      });
+      setTestimonials(response.testimonialsSearch.testimonials);
+    } catch {
+      Modal({ keyType: 'getTestimonials', icon: 'error' });
+    }
+  }, []);
+
+  useEffect(() => {
+    getTestimonials();
+  }, [getTestimonials]);
+  useEffect(() => {
+    getJobs();
+  }, [getJobs]);
+  useEffect(() => {
+    getCountries();
+  }, [getCountries]);
 
   return (
     <ContentSite>
@@ -90,11 +230,7 @@ export default function TopCandidates(): JSX.Element {
           <div>
             <ExpertiseBlockType>
               <ContentIconExpertise>
-                <FontAwesomeIcon
-                  icon={faLocationDot}
-                  color={Default.color.white}
-                  fontSize={30}
-                />
+                <IconIct />
               </ContentIconExpertise>
               <Default.Column>
                 <TitleExpertiseBlockType>ICT</TitleExpertiseBlockType>
@@ -121,7 +257,7 @@ export default function TopCandidates(): JSX.Element {
                 />
               </ContentIconExpertise>
               <Default.Column>
-                <TitleExpertiseBlockType>ICT</TitleExpertiseBlockType>
+                <TitleExpertiseBlockType>Multilingual</TitleExpertiseBlockType>
                 <TextExpertiseBlockType>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt
@@ -138,14 +274,10 @@ export default function TopCandidates(): JSX.Element {
             </ExpertiseBlockType>
             <ExpertiseBlockType>
               <ContentIconExpertise>
-                <FontAwesomeIcon
-                  icon={faLocationDot}
-                  color={Default.color.white}
-                  fontSize={30}
-                />
+                <IconGear />
               </ContentIconExpertise>
               <Default.Column>
-                <TitleExpertiseBlockType>ICT</TitleExpertiseBlockType>
+                <TitleExpertiseBlockType>Engineering</TitleExpertiseBlockType>
                 <TextExpertiseBlockType>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt
@@ -182,127 +314,54 @@ export default function TopCandidates(): JSX.Element {
           <Default.Space h="2.5rem" />
 
           <Default.Row>
-            <NewJobItem>
-              <NewJobTagType>Candidate</NewJobTagType>
-              <Default.Title2 color={Default.color.blue}>
-                Backend Engineer
-                <br />
-                Connectivity Team
-              </Default.Title2>
-              <Default.Space h="0.625rem" />
-              <Default.Row>
-                <Default.Row alignItens="center">
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    color={Default.color.success}
-                    fontSize={21}
-                  />
-                  <NewJobItemContentIconText>
-                    London, UK
-                  </NewJobItemContentIconText>
-                </Default.Row>
-                <Default.Row justifyContent="flex-end">
-                  <TagNewJobItem color={Default.color.blueBase}>
-                    ID 12345
-                  </TagNewJobItem>
-                </Default.Row>
-              </Default.Row>
-              <Default.Space h="0.625rem" />
-              <Default.Subtitle color={Default.color.gray}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed...
-              </Default.Subtitle>
-            </NewJobItem>
+            {jobs.map(job => {
+              let countryDesc = '';
 
-            <NewJobItem>
-              <NewJobTagType>Candidate</NewJobTagType>
-              <Default.Title2 color={Default.color.blue}>
-                Backend Engineer
-                <br />
-                Connectivity Team
-              </Default.Title2>
-              <Default.Space h="0.625rem" />
-              <Default.Row>
-                <Default.Row alignItens="center">
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    color={Default.color.success}
-                    fontSize={21}
+              if (country.length > 0) {
+                countryDesc =
+                  country.find(
+                    (countryItem: ICountrie) =>
+                      countryItem.code === job.country,
+                  )?.name || '';
+              }
+
+              return (
+                <NewJobItem>
+                  <NewJobTagType>Candidate</NewJobTagType>
+                  <Default.Title2 color={Default.color.blue}>
+                    {job.jobTitle}
+                  </Default.Title2>
+                  <Default.Space h="0.625rem" />
+                  <Default.Row>
+                    <Default.Row alignItens="center">
+                      <FontAwesomeIcon
+                        icon={faLocationDot}
+                        color={Default.color.success}
+                        fontSize={21}
+                      />
+                      <NewJobItemContentIconText>
+                        {countryDesc}
+                      </NewJobItemContentIconText>
+                    </Default.Row>
+                    <Default.Row justifyContent="flex-end">
+                      <TagNewJobItem color={Default.color.blueBase}>
+                        ID 12345
+                      </TagNewJobItem>
+                    </Default.Row>
+                  </Default.Row>
+                  <Default.Space h="0.625rem" />
+                  <Default.Subtitle
+                    color={Default.color.gray}
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        job.description.length > 50
+                          ? `${job.description.slice(0, 50)}...`
+                          : job.description,
+                    }}
                   />
-                  <NewJobItemContentIconText>
-                    London, UK
-                  </NewJobItemContentIconText>
-                </Default.Row>
-                <Default.Row justifyContent="flex-end">
-                  <TagNewJobItem color={Default.color.blueBase}>
-                    ID 12345
-                  </TagNewJobItem>
-                </Default.Row>
-              </Default.Row>
-              <Default.Space h="0.625rem" />
-              <Default.Subtitle color={Default.color.gray}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed...
-              </Default.Subtitle>
-            </NewJobItem>
-            <NewJobItem>
-              <NewJobTagType>Candidate</NewJobTagType>
-              <Default.Title2 color={Default.color.blue}>
-                Backend Engineer
-                <br />
-                Connectivity Team
-              </Default.Title2>
-              <Default.Space h="0.625rem" />
-              <Default.Row>
-                <Default.Row alignItens="center">
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    color={Default.color.success}
-                    fontSize={21}
-                  />
-                  <NewJobItemContentIconText>
-                    London, UK
-                  </NewJobItemContentIconText>
-                </Default.Row>
-                <Default.Row justifyContent="flex-end">
-                  <TagNewJobItem color={Default.color.blueBase}>
-                    ID 12345
-                  </TagNewJobItem>
-                </Default.Row>
-              </Default.Row>
-              <Default.Space h="0.625rem" />
-              <Default.Subtitle color={Default.color.gray}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed...
-              </Default.Subtitle>
-            </NewJobItem>
-            <NewJobItem>
-              <NewJobTagType>Candidate</NewJobTagType>
-              <Default.Title2 color={Default.color.blue}>
-                Backend Engineer
-                <br />
-                Connectivity Team
-              </Default.Title2>
-              <Default.Space h="0.625rem" />
-              <Default.Row>
-                <Default.Row alignItens="center">
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    color={Default.color.success}
-                    fontSize={21}
-                  />
-                  <NewJobItemContentIconText>
-                    London, UK
-                  </NewJobItemContentIconText>
-                </Default.Row>
-                <Default.Row justifyContent="flex-end">
-                  <TagNewJobItem color={Default.color.blueBase}>
-                    ID 12345
-                  </TagNewJobItem>
-                </Default.Row>
-              </Default.Row>
-              <Default.Space h="0.625rem" />
-              <Default.Subtitle color={Default.color.gray}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed...
-              </Default.Subtitle>
-            </NewJobItem>
+                </NewJobItem>
+              );
+            })}
           </Default.Row>
         </ContainerSite>
       </NewJobBLock>
@@ -323,11 +382,7 @@ export default function TopCandidates(): JSX.Element {
               <Default.Space h="45px" />
               <Default.Row>
                 <WastedIconContent>
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    color={Default.color.success}
-                    fontSize={30}
-                  />
+                  <IconIct />
                   <Default.Space h="0.9375rem" />
                   <Default.Title2 color={Default.color.white}>
                     ICT
@@ -335,11 +390,7 @@ export default function TopCandidates(): JSX.Element {
                 </WastedIconContent>
 
                 <WastedIconContent>
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    color={Default.color.success}
-                    fontSize={30}
-                  />
+                  <IconGear />
                   <Default.Space h="0.9375rem" />
                   <Default.Title2 color={Default.color.white}>
                     Engineering
@@ -376,11 +427,7 @@ export default function TopCandidates(): JSX.Element {
           <div>
             <ExpertiseBlockType>
               <ContentIconExpertise>
-                <FontAwesomeIcon
-                  icon={faLocationDot}
-                  color={Default.color.spotlight}
-                  fontSize={30}
-                />
+                <IconPlanet />
               </ContentIconExpertise>
               <Default.Column>
                 <TitleExpertiseBlockType>
@@ -396,11 +443,7 @@ export default function TopCandidates(): JSX.Element {
             </ExpertiseBlockType>
             <ExpertiseBlockType>
               <ContentIconExpertise>
-                <FontAwesomeIcon
-                  icon={faLocationDot}
-                  color={Default.color.spotlight}
-                  fontSize={30}
-                />
+                <IconBookMark />
               </ContentIconExpertise>
               <Default.Column>
                 <TitleExpertiseBlockType>
@@ -415,11 +458,7 @@ export default function TopCandidates(): JSX.Element {
             </ExpertiseBlockType>
             <ExpertiseBlockType>
               <ContentIconExpertise>
-                <FontAwesomeIcon
-                  icon={faLocationDot}
-                  color={Default.color.spotlight}
-                  fontSize={30}
-                />
+                <IconStar />
               </ContentIconExpertise>
               <Default.Column>
                 <TitleExpertiseBlockType>
@@ -453,7 +492,7 @@ export default function TopCandidates(): JSX.Element {
                 </Default.Subtitle>
               </Default.Column>
             </div>
-            <BlockContactUsForm>
+            <BlockContactUsForm id="topCandidatesForm">
               <ContactBlockInfo>
                 Request you access to the Talent Pool
               </ContactBlockInfo>
@@ -471,27 +510,32 @@ export default function TopCandidates(): JSX.Element {
                         label={`${Language.fields.yourName} *`}
                         typeSize="medium"
                       />
+                      <Input
+                        name="lastName"
+                        label={`${Language.fields.lastName} *`}
+                        typeSize="medium"
+                      />
                     </ContentInput>
                     <ContentInput>
                       <Input
-                        name="name"
+                        name="email"
                         label={`${Language.fields.businessEmail} *`}
                         typeSize="medium"
                       />
                       <Input
-                        name="name"
+                        name="phone"
                         label={Language.fields.phone}
                         typeSize="medium"
                       />
                     </ContentInput>
                     <ContentInput>
                       <Input
-                        name="name"
+                        name="companyName"
                         label={`${Language.fields.companyName} *`}
                         typeSize="medium"
                       />
                       <InputDropDown
-                        name="experienceLevel"
+                        name="idInterestSkills"
                         label={`${Language.fields.skillsRequired} *`}
                         typeSize="medium"
                         options={optionsInterestSkills}
@@ -499,12 +543,15 @@ export default function TopCandidates(): JSX.Element {
                     </ContentInput>
                     <Default.Space h="0.9375rem" />
                     <Default.Row alignItens="center">
-                      <ButtonSite bgColor={Default.color.spotlight}>
+                      <ButtonSite
+                        bgColor={Default.color.spotlight}
+                        type="submit"
+                      >
                         Request Access
                       </ButtonSite>
                       <TextHaveAccount>
                         Already have an account? &nbsp;
-                        <Link to="/"> Login here</Link>
+                        <Link to="/admin/login"> Login here</Link>
                       </TextHaveAccount>
                     </Default.Row>
                   </Default.Column>
@@ -526,57 +573,50 @@ export default function TopCandidates(): JSX.Element {
           <Default.Space h="4.375rem" />
 
           <Default.Row>
-            <BestChoiceItem>
-              <Default.Column justifyContent="space-between">
-                <Default.Title2 color={Default.color.success}>
-                  Mariana C.
-                </Default.Title2>
-                <Default.Space h="15px" />
-                <Default.Text color={Default.color.white}>
-                  I would like to thank Morgane for all her help during the
-                  recruiting process. She showed great professionalism by
-                  explaining to me in detail how the company works and what it
-                  could provide me, in addition to finding a job offer that
-                  matched my professional experience and expectations, carefully
-                  advising me through the entire process until the time of
-                  hiring.
-                </Default.Text>
-                <Default.Space h="30px" />
-                <BestChoiceItemText color={Default.color.whiteLight}>
-                  Mariana is working as a Customer Delight in Portugal
-                </BestChoiceItemText>
-              </Default.Column>
-            </BestChoiceItem>
-            <BestChoiceItem>
-              <Default.Column justifyContent="space-between">
-                <Default.Title2 color={Default.color.success}>
-                  Mariana C.
-                </Default.Title2>
-                <Default.Space h="15px" />
-                <Default.Text color={Default.color.white}>
-                  I would like to thank Morgane for all her help during the
-                  recruiting process. She showed great professionalism by
-                  explaining to me in detail how the company works and what it
-                  could provide me, in addition to finding a job offer that
-                  matched my professional experience and expectations, carefully
-                  advising me through the entire process until the time of
-                  hiring.
-                </Default.Text>
-                <Default.Space h="30px" />
-                <BestChoiceItemText color={Default.color.whiteLight}>
-                  Mariana is working as a Customer Delight in Portugal
-                </BestChoiceItemText>
-              </Default.Column>
-            </BestChoiceItem>
+            <Slider
+              dots
+              infinite
+              speed={500}
+              slidesToShow={2}
+              slidesToScroll={1}
+              adaptiveHeight
+              arrows
+            >
+              {testimonials.map(testimonial => {
+                return (
+                  <BestChoiceItem>
+                    <Default.Column justifyContent="space-between">
+                      <Default.Title2 color={Default.color.success}>
+                        {testimonial.name}
+                      </Default.Title2>
+                      <Default.Space h="15px" />
+                      <Default.Text
+                        color={Default.color.white}
+                        dangerouslySetInnerHTML={{
+                          __html:
+                            testimonial.testimonial.length > 480
+                              ? `${testimonial.testimonial.slice(0, 480)}...`
+                              : testimonial.testimonial,
+                        }}
+                      />
+                      <Default.Space h="30px" />
+                      <BestChoiceItemText color={Default.color.whiteLight}>
+                        {testimonial.observations}
+                      </BestChoiceItemText>
+                    </Default.Column>
+                  </BestChoiceItem>
+                );
+              })}
+            </Slider>
           </Default.Row>
 
           <Default.Space h="2.5rem" />
           <Default.Row justifyContent="center">
-            <div>
+            <Link to="/testimonials">
               <ButtonSite bgColor={Default.color.spotlight}>
                 See all testimonials
               </ButtonSite>
-            </div>
+            </Link>
           </Default.Row>
         </ContainerSite>
       </BestChoice>
@@ -598,11 +638,9 @@ export default function TopCandidates(): JSX.Element {
             <Default.Row>
               <BlockGetFreeItem>
                 <Default.Row>
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    color={Default.color.spotlight}
-                    fontSize={42}
-                  />
+                  <GetFreeContentIcon>
+                    <IconFolder />
+                  </GetFreeContentIcon>
                   <Default.Space w="2.1875rem" />
                   <Default.Title2 color={Default.color.gray}>
                     Free access to an exclusive list of experienced profiles
@@ -612,11 +650,13 @@ export default function TopCandidates(): JSX.Element {
               </BlockGetFreeItem>
               <BlockGetFreeItem>
                 <Default.Row>
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    color={Default.color.spotlight}
-                    fontSize={42}
-                  />
+                  <GetFreeContentIcon>
+                    <FontAwesomeIcon
+                      icon={faLocationDot}
+                      color={Default.color.spotlight}
+                      fontSize={42}
+                    />
+                  </GetFreeContentIcon>
                   <Default.Space w="2.1875rem" />
                   <Default.Title2 color={Default.color.gray}>
                     The best team of recruiters working to find top candidates
@@ -630,11 +670,9 @@ export default function TopCandidates(): JSX.Element {
             <Default.Row alignItens="stretch">
               <BlockGetFreeItem>
                 <Default.Row>
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    color={Default.color.spotlight}
-                    fontSize={42}
-                  />
+                  <GetFreeContentIcon>
+                    <IconDocument />
+                  </GetFreeContentIcon>
                   <Default.Space w="2.1875rem" />
                   <Default.Title2 color={Default.color.gray}>
                     Top profiles available in the field of Engineering, ICT, and
@@ -644,11 +682,9 @@ export default function TopCandidates(): JSX.Element {
               </BlockGetFreeItem>
               <BlockGetFreeItem>
                 <Default.Row>
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    color={Default.color.spotlight}
-                    fontSize={42}
-                  />
+                  <GetFreeContentIcon>
+                    <IconProfile />
+                  </GetFreeContentIcon>
                   <Default.Space w="2.1875rem" />
                   <Default.Title2 color={Default.color.gray}>
                     No time wasted with another interview. We work hard to find
@@ -660,11 +696,11 @@ export default function TopCandidates(): JSX.Element {
           </Default.Column>
           <Default.Space h="5rem" />
           <Default.Row justifyContent="center">
-            <div>
+            <Link to="/company-need">
               <ButtonSite bgColor={Default.color.blueOriginal}>
                 Access the Talent Pool for free
               </ButtonSite>
-            </div>
+            </Link>
           </Default.Row>
         </ContainerSite>
       </BlockGetFree>

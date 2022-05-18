@@ -266,6 +266,56 @@ export default function CompanyNeed(): JSX.Element {
     handleSubmitRegister,
     modalRegister,
   ]);
+  const handleSubmitContactUS: SubmitHandler = useCallback(
+    async data => {
+      try {
+        const schema = Yup.object().shape({
+          name: Yup.string().required(),
+          lastName: Yup.string().required(),
+          email: Yup.string().required(),
+          phone: Yup.string().required(),
+          companyName: Yup.string().required(),
+          idInterestSkills: Yup.string().required(),
+        });
+
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        AddCompanyModalPage(data)
+          .then(response => {
+            if (response.data.createCompanie.user.id) {
+              Modal({
+                keyType: 'registerModalCompanySuccess',
+                icon: 'success',
+                onClick: () => {
+                  navigate('/admin/login');
+                },
+              });
+            }
+          })
+          .catch(() => {
+            Modal({
+              keyType: 'registerModalCompany',
+              icon: 'error',
+            });
+          });
+      } catch (err) {
+        const validationErrors: Record<string, string> = {};
+
+        if (err instanceof Yup.ValidationError) {
+          err.inner.forEach((error: Yup.ValidationError) => {
+            if (error.path) {
+              validationErrors[error.path] = error.message;
+            }
+          });
+
+          formRefContactUs.current?.setErrors(validationErrors);
+        }
+      }
+    },
+    [navigate],
+  );
 
   useEffect(() => {
     getCandidates();
@@ -423,7 +473,7 @@ export default function CompanyNeed(): JSX.Element {
                 </Default.Subtitle>
               </Default.Column>
             </div>
-            <BlockContactUsForm>
+            <BlockContactUsForm id="topCandidatesForm">
               <ContactBlockInfo>
                 Request you access to the Talent Pool
               </ContactBlockInfo>
@@ -431,8 +481,8 @@ export default function CompanyNeed(): JSX.Element {
               <Default.Column justifyContent="space-between">
                 <FormRender
                   ref={formRefContactUs}
-                  onSubmit={handleSubmit}
-                  onClick={() => formRef.current?.setErrors({})}
+                  onSubmit={handleSubmitContactUS}
+                  onClick={() => formRefContactUs.current?.setErrors({})}
                 >
                   <Default.Column>
                     <ContentInput>
@@ -441,27 +491,32 @@ export default function CompanyNeed(): JSX.Element {
                         label={`${Language.fields.yourName} *`}
                         typeSize="medium"
                       />
+                      <Input
+                        name="lastName"
+                        label={`${Language.fields.lastName} *`}
+                        typeSize="medium"
+                      />
                     </ContentInput>
                     <ContentInput>
                       <Input
-                        name="name"
+                        name="email"
                         label={`${Language.fields.businessEmail} *`}
                         typeSize="medium"
                       />
                       <Input
-                        name="name"
+                        name="phone"
                         label={Language.fields.phone}
                         typeSize="medium"
                       />
                     </ContentInput>
                     <ContentInput>
                       <Input
-                        name="name"
+                        name="companyName"
                         label={`${Language.fields.companyName} *`}
                         typeSize="medium"
                       />
                       <InputDropDown
-                        name="experienceLevel"
+                        name="idInterestSkills"
                         label={`${Language.fields.skillsRequired} *`}
                         typeSize="medium"
                         options={optionsInterestSkills}
@@ -469,12 +524,15 @@ export default function CompanyNeed(): JSX.Element {
                     </ContentInput>
                     <Default.Space h="0.9375rem" />
                     <Default.Row alignItens="center">
-                      <ButtonSite bgColor={Default.color.spotlight}>
+                      <ButtonSite
+                        bgColor={Default.color.spotlight}
+                        type="submit"
+                      >
                         Request Access
                       </ButtonSite>
                       <TextHaveAccount>
                         Already have an account? &nbsp;
-                        <Link to="/"> Login here</Link>
+                        <Link to="/admin/login"> Login here</Link>
                       </TextHaveAccount>
                     </Default.Row>
                   </Default.Column>

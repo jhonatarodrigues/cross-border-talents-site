@@ -26,9 +26,13 @@
         background-color: $blueLight;
     }
 }
-.MuiOutlinedInput-input.MuiInputBase-input.MuiInputBase-input-MuiOutlinedInput-input{
-    color:#808080;
+#topCandidatesForm .MuiOutlinedInput-input.MuiInputBase-input{
+    color:#fff;
     font-size: .875rem;
+    .MuiInputLabel-root{
+        color: #fff;
+        font-size: .875rem;
+    }
 }
 .MuiInputLabel-root{
     color: #808080!important;
