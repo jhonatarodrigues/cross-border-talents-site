@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 
+import { GetCountries, ICountrie } from '../../hooks/admin/useCountry';
+import {
+  GetTestimonialsSearch,
+  ITestimonials,
+} from '../../hooks/admin/useTestimonials';
+import Modal from '../../components/modal';
 import ContentSite from '../../components/ContentSite';
 import ContainerSite from '../../components/ContainerSite';
 import ButtonSite from '../../components/buttonSite';
 import Default from '../../default';
-
 import {
   Banner,
   Title,
@@ -19,6 +24,39 @@ import {
 } from './style';
 
 export default function Testimonials(): JSX.Element {
+  const baseURL = process.env.REACT_APP_URL_API;
+  const [country, setCountry] = useState<ICountrie[]>([]);
+  const [testimonials, setTestimonials] = useState<ITestimonials[]>([]);
+
+  const getCountries = useCallback(async () => {
+    const { countries } = await GetCountries();
+    if (countries) {
+      setCountry(countries);
+    } else {
+      Modal({ keyType: 'getCountries', icon: 'error' });
+    }
+  }, []);
+
+  const getTestimonials = useCallback(async () => {
+    try {
+      const response = await GetTestimonialsSearch({
+        // itensPerPage: 4,
+        // page: 1,
+      });
+      setTestimonials(response.testimonialsSearch.testimonials);
+    } catch {
+      Modal({ keyType: 'getTestimonials', icon: 'error' });
+    }
+  }, []);
+
+  useEffect(() => {
+    getTestimonials();
+  }, [getTestimonials]);
+
+  useEffect(() => {
+    getCountries();
+  }, [getCountries]);
+
   return (
     <ContentSite>
       <Banner>
@@ -46,146 +84,57 @@ export default function Testimonials(): JSX.Element {
           </Default.TitleH3>
           <Default.Space h="7.75rem" />
           <TestimonialsContent>
-            <TestimonialsItem>
-              <ImageTestimonials />
-              <Default.Row justifyContent="space-between">
-                <Default.Row>
-                  <Default.Subtitle color={Default.color.success}>
-                    Mariana C.
-                  </Default.Subtitle>
-                </Default.Row>
+            {testimonials.map(testimonial => {
+              let countryDesc = '';
 
-                <Default.Row justifyContent="flex-end">
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    color={Default.color.success}
-                    fontSize={20}
-                  />
-                  <Default.Space w="0.9375rem" />
-                  <Default.Text2 color={Default.color.blueLight2}>
-                    Portugal
-                  </Default.Text2>
-                </Default.Row>
-              </Default.Row>
-              <Default.Space h="0.9375rem" />
-              <Default.Text color={Default.color.gray}>
-                I would like to thank Morgane for all her help during the
-                recruiting process. She showed great professionalism by
-                explaining to me in detail how the company works and what it
-                could provide me, in addition to finding a job offer that
-                matched my professional experience and expectations, carefully
-                advising me through the entire process until the time of hiring.
-              </Default.Text>
-              <Default.Space h="0.9375rem" />
-              <Default.Text2 color={Default.color.blueLight2}>
-                Mariana is working as a Customer Delight in Portugal
-              </Default.Text2>
-            </TestimonialsItem>
-            <TestimonialsItem>
-              <ImageTestimonials />
-              <Default.Row justifyContent="space-between">
-                <Default.Row>
-                  <Default.Subtitle color={Default.color.success}>
-                    Mariana C.
-                  </Default.Subtitle>
-                </Default.Row>
+              if (country.length > 0) {
+                countryDesc =
+                  country.find(
+                    (countryItem: ICountrie) =>
+                      countryItem.code === testimonial.country,
+                  )?.name || '';
+              }
 
-                <Default.Row justifyContent="flex-end">
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    color={Default.color.success}
-                    fontSize={20}
+              return (
+                <TestimonialsItem>
+                  <ImageTestimonials
+                    style={{
+                      background: `url(${baseURL}/files/${testimonial.picture}) center no-repeat`,
+                    }}
                   />
-                  <Default.Space w="0.9375rem" />
-                  <Default.Text2 color={Default.color.blueLight2}>
-                    Portugal
-                  </Default.Text2>
-                </Default.Row>
-              </Default.Row>
-              <Default.Space h="0.9375rem" />
-              <Default.Text color={Default.color.gray}>
-                I would like to thank Morgane for all her help during the
-                recruiting process. She showed great professionalism by
-                explaining to me in detail how the company works and what it
-                could provide me, in addition to finding a job offer that
-                matched my professional experience and expectations, carefully
-                advising me through the entire process until the time of hiring.
-              </Default.Text>
-              <Default.Space h="0.9375rem" />
-              <Default.Text2 color={Default.color.blueLight2}>
-                Mariana is working as a Customer Delight in Portugal
-              </Default.Text2>
-            </TestimonialsItem>
-            <TestimonialsItem>
-              <ImageTestimonials />
-              <Default.Row justifyContent="space-between">
-                <Default.Row>
-                  <Default.Subtitle color={Default.color.success}>
-                    Mariana C.
-                  </Default.Subtitle>
-                </Default.Row>
+                  <Default.Row justifyContent="space-between">
+                    <Default.Row>
+                      <Default.Subtitle color={Default.color.success}>
+                        {testimonial.name}
+                      </Default.Subtitle>
+                    </Default.Row>
 
-                <Default.Row justifyContent="flex-end">
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    color={Default.color.success}
-                    fontSize={20}
+                    <Default.Row justifyContent="flex-end">
+                      <FontAwesomeIcon
+                        icon={faLocationDot}
+                        color={Default.color.success}
+                        fontSize={20}
+                      />
+                      <Default.Space w="0.9375rem" />
+                      <Default.Text2 color={Default.color.blueLight2}>
+                        {countryDesc}
+                      </Default.Text2>
+                    </Default.Row>
+                  </Default.Row>
+                  <Default.Space h="0.9375rem" />
+                  <Default.Text
+                    color={Default.color.gray}
+                    dangerouslySetInnerHTML={{
+                      __html: testimonial.testimonial,
+                    }}
                   />
-                  <Default.Space w="0.9375rem" />
+                  <Default.Space h="0.9375rem" />
                   <Default.Text2 color={Default.color.blueLight2}>
-                    Portugal
+                    {testimonial.observations}
                   </Default.Text2>
-                </Default.Row>
-              </Default.Row>
-              <Default.Space h="0.9375rem" />
-              <Default.Text color={Default.color.gray}>
-                I would like to thank Morgane for all her help during the
-                recruiting process. She showed great professionalism by
-                explaining to me in detail how the company works and what it
-                could provide me, in addition to finding a job offer that
-                matched my professional experience and expectations, carefully
-                advising me through the entire process until the time of hiring.
-              </Default.Text>
-              <Default.Space h="0.9375rem" />
-              <Default.Text2 color={Default.color.blueLight2}>
-                Mariana is working as a Customer Delight in Portugal
-              </Default.Text2>
-            </TestimonialsItem>
-            <TestimonialsItem>
-              <ImageTestimonials />
-              <Default.Row justifyContent="space-between">
-                <Default.Row>
-                  <Default.Subtitle color={Default.color.success}>
-                    Mariana C.
-                  </Default.Subtitle>
-                </Default.Row>
-
-                <Default.Row justifyContent="flex-end">
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    color={Default.color.success}
-                    fontSize={20}
-                  />
-                  <Default.Space w="0.9375rem" />
-                  <Default.Text2 color={Default.color.blueLight2}>
-                    Portugal
-                  </Default.Text2>
-                </Default.Row>
-              </Default.Row>
-              <Default.Space h="0.9375rem" />
-              <Default.Text color={Default.color.gray}>
-                I would like to thank Morgane for all her help during the
-                recruiting process. She showed great professionalism by
-                explaining to me in detail how the company works and what it
-                could provide me, in addition to finding a job offer that
-                matched my professional experience and expectations, carefully
-                advising me through the entire process until the time of hiring.
-              </Default.Text>
-              <Default.Space h="0.9375rem" />
-              <Default.Text2 color={Default.color.blueLight2}>
-                Mariana is working as a Customer Delight in Portugal
-              </Default.Text2>
-            </TestimonialsItem>
+                </TestimonialsItem>
+              );
+            })}
           </TestimonialsContent>
           <Default.Row justifyContent="center">
             <ButtonSite bgColor={Default.color.blueOriginal}>

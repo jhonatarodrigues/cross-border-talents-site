@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import Default from '../../default';
 
+import BannerTestimonials from '../../assets/images/testimonials/testimonials.jpg';
+
 export const Banner = styled.div`
   height: 40.8125rem;
   width: 100%;
@@ -30,7 +32,8 @@ export const ImageBanner = styled.div`
   margin-left: -2.5rem;
   position: relative;
   z-index: 1;
-  background: #f0f;
+  background: url(${BannerTestimonials}) center no-repeat;
+  background-size: cover;
 `;
 export const BlockTestimonials = styled(Default.BlockContent)`
   background: ${Default.color.grayBackground};
@@ -61,5 +64,5 @@ export const ImageTestimonials = styled.div`
   width: 6.1875rem;
   height: 6.1875rem;
   border-radius: 50%;
-  background: #f0f;
+  background-size: cover !important;
 `;
