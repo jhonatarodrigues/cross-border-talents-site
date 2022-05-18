@@ -2,6 +2,9 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 
+import { Link } from 'react-router-dom';
+import IconBookMark from '../../assets/svg/bookMark';
+
 import ContentSite from '../../components/ContentSite';
 import ContainerSite from '../../components/ContainerSite';
 import ButtonSite from '../../components/buttonSite';
@@ -33,6 +36,8 @@ import {
   MapImage,
   BlockBaseHistory,
   BlockBaseItem,
+  ContentIconMark,
+  MapImageLegend,
 } from './style';
 
 export default function MeetCompany(): JSX.Element {
@@ -133,11 +138,9 @@ export default function MeetCompany(): JSX.Element {
                   </Default.TitleH3>
                   <Default.Space h="1.25rem" />
                   <Default.Row>
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      fontSize={35}
-                      color={Default.color.spotlight}
-                    />
+                    <ContentIconMark>
+                      <IconBookMark />
+                    </ContentIconMark>
                     <Default.Space w="1.25rem" />
                     <Default.Title2 color={Default.color.blueBase}>
                       Committed to helping refugees with job opportunities over
@@ -146,11 +149,9 @@ export default function MeetCompany(): JSX.Element {
                   </Default.Row>
                   <Default.Space h="1.875rem" />
                   <Default.Row>
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      fontSize={35}
-                      color={Default.color.spotlight}
-                    />
+                    <ContentIconMark>
+                      <IconBookMark />
+                    </ContentIconMark>
                     <Default.Space w="1.25rem" />
                     <Default.Title2 color={Default.color.blueBase}>
                       Helping people in need that are fleeing Ukraine offering
@@ -159,11 +160,9 @@ export default function MeetCompany(): JSX.Element {
                   </Default.Row>
                   <Default.Space h="1.875rem" />
                   <Default.Row>
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      fontSize={35}
-                      color={Default.color.spotlight}
-                    />
+                    <ContentIconMark>
+                      <IconBookMark />
+                    </ContentIconMark>
                     <Default.Space w="1.25rem" />
                     <Default.Title2 color={Default.color.blueBase}>
                       Webinar sessions to explain our career path with our
@@ -172,11 +171,9 @@ export default function MeetCompany(): JSX.Element {
                   </Default.Row>
                   <Default.Space h="1.875rem" />
                   <Default.Row>
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      fontSize={35}
-                      color={Default.color.spotlight}
-                    />
+                    <ContentIconMark>
+                      <IconBookMark />
+                    </ContentIconMark>
                     <Default.Space w="1.25rem" />
                     <Default.Title2 color={Default.color.blueBase}>
                       With 3 Seals of Excellence we strive to solve the skills
@@ -185,11 +182,9 @@ export default function MeetCompany(): JSX.Element {
                   </Default.Row>
                   <Default.Space h="1.875rem" />
                   <Default.Row>
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      fontSize={35}
-                      color={Default.color.spotlight}
-                    />
+                    <ContentIconMark>
+                      <IconBookMark />
+                    </ContentIconMark>
                     <Default.Space w="1.25rem" />
                     <Default.Title2 color={Default.color.blueBase}>
                       Improving the world of work by facilitating employment
@@ -224,9 +219,11 @@ export default function MeetCompany(): JSX.Element {
                 cross-countries.
               </Default.Subtitle>
               <Default.Space h="2.5rem" />
-              <ButtonSite bgColor={Default.color.blueOriginal}>
-                Join our team
-              </ButtonSite>
+              <Link to="/for-employers">
+                <ButtonSite bgColor={Default.color.blueOriginal}>
+                  Join our team
+                </ButtonSite>
+              </Link>
             </Default.Column>
 
             <BlockStopWorryingImageContent>
@@ -350,6 +347,7 @@ export default function MeetCompany(): JSX.Element {
         </Default.TitleH3>
         <Default.Space h="4.0625rem" />
         <MapImage />
+        <MapImageLegend />
       </MapImageBlock>
       <BlockBaseHistory>
         <ContainerSite>

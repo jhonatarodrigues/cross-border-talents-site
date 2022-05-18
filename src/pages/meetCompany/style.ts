@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 import Default from '../../default';
 
+import About from '../../assets/images/about/about-interna.jpg';
+import BePart from '../../assets/images/about/bePart.jpg';
+import Map from '../../assets/images/about/map.jpg';
+import MapLegend from '../../assets/images/about/mapLegend.jpg';
+
 export const Banner = styled.div`
   height: 40.8125rem;
   width: 100%;
@@ -50,7 +55,8 @@ export const Image = styled.div`
   width: 36.9375rem;
   height: 42.125rem;
   border-radius: 3.125rem;
-  background: #f00;
+  background: url(${About}) center no-repeat;
+  background-size: cover;
   position: relative;
   margin-left: -60px;
   margin-top: -60px;
@@ -106,7 +112,8 @@ export const BlockStopWorryingImageContent = styled(Default.Column)`
 export const BlockStopWorryingImage = styled.div`
   width: 34.9375rem;
   height: 23.6875rem;
-  background: #f0f;
+  background: url(${BePart}) center no-repeat;
+  background-size: cover;
   border-radius: 3.125rem;
   top: 0;
   position: relative;
@@ -160,7 +167,8 @@ export const ImageBestPratice = styled.div`
   width: 36.9375rem;
   height: 31.4375rem;
   border-radius: 3.125rem;
-  background: #f00;
+  background: url(${About}) center no-repeat;
+  background-size: cover;
   position: relative;
   margin-left: 0px;
   margin-top: -3.75rem;
@@ -184,7 +192,12 @@ export const MapImageBlock = styled(Default.BlockContent)`
 export const MapImage = styled.div`
   width: 100%;
   height: 41.875rem;
-  background: #f0f;
+  background: url(${Map}) center no-repeat;
+`;
+export const MapImageLegend = styled.div`
+  width: 100%;
+  height: 1.875rem;
+  background: url(${MapLegend}) center no-repeat;
 `;
 export const BlockBaseHistory = styled(Default.BlockContent)`
   background: ${Default.color.blueLight};
@@ -210,4 +223,7 @@ export const BlockBaseItem = styled.div`
     margin-right: -1.875rem;
     right: 0;
   }
+`;
+export const ContentIconMark = styled.div`
+  width: 1.875rem;
 `;
