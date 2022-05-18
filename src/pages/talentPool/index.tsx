@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
+import IconFilter from '../../assets/svg/filter';
+import IconStar from '../../assets/svg/star';
+import IconIct from '../../assets/svg/ict';
+import IconGear from '../../assets/svg/gear';
+
+import { GetCountries, ICountrie } from '../../hooks/admin/useCountry';
+import { GetJobsPage, IJobs } from '../../hooks/admin/useJobs';
+import Modal from '../../components/modal';
 import Default from '../../default';
 import ContentSite from '../../components/ContentSite';
 import ContainerSite from '../../components/ContainerSite';
@@ -30,9 +38,41 @@ import {
   WastedImageContentAll,
   WastedTextImage,
   WastedIconContent,
+  ExpertiseBLockImageOrnament,
+  ExpertiseBLockImageBack,
 } from './style';
 
 export default function TalentPool(): JSX.Element {
+  const [jobs, setJobs] = useState<IJobs[]>([]);
+  const [country, setCountry] = useState<ICountrie[]>([]);
+
+  const getCountries = useCallback(async () => {
+    const { countries } = await GetCountries();
+    if (countries) {
+      setCountry(countries);
+    } else {
+      Modal({ keyType: 'getCountries', icon: 'error' });
+    }
+  }, []);
+  const getJobs = useCallback(async (search?: string) => {
+    try {
+      const response = await GetJobsPage({
+        search,
+        itensPerPage: 4,
+        page: 1,
+      });
+
+      setJobs(response.jobsSearch.jobs);
+    } catch {
+      Modal({ keyType: 'getJobs', icon: 'error' });
+    }
+  }, []);
+  useEffect(() => {
+    getJobs();
+  }, [getJobs]);
+  useEffect(() => {
+    getCountries();
+  }, [getCountries]);
   return (
     <ContentSite>
       <Banner>
@@ -68,7 +108,10 @@ export default function TalentPool(): JSX.Element {
           <TitleExpertise>Top Candidates of the Week</TitleExpertise>
           <Default.Space h="6.625rem" />
           <Default.Row>
-            <ExpertiseBLockImage />
+            <ExpertiseBLockImage>
+              <ExpertiseBLockImageOrnament />
+              <ExpertiseBLockImageBack />
+            </ExpertiseBLockImage>
             <ExpertiseBLockContentText>
               <Default.Column>
                 <Default.TitleH3 color={Default.color.blueBase}>
@@ -91,11 +134,7 @@ export default function TalentPool(): JSX.Element {
                       justifyContent="flex-start"
                     >
                       <Default.Space h="1.75rem" />
-                      <FontAwesomeIcon
-                        icon={faLocationDot}
-                        color={Default.color.success}
-                        fontSize={40}
-                      />
+                      <IconStar />
                       <Default.Space h="1rem" />
                       <Default.Title2 color={Default.color.blueOriginal}>
                         Highlights to <br />
@@ -108,11 +147,7 @@ export default function TalentPool(): JSX.Element {
                       justifyContent="flex-start"
                     >
                       <Default.Space h="1.75rem" />
-                      <FontAwesomeIcon
-                        icon={faLocationDot}
-                        color={Default.color.success}
-                        fontSize={40}
-                      />
+                      <IconFilter />
                       <Default.Space h="1rem" />
                       <Default.Title2 color={Default.color.blueOriginal}>
                         Quickly <br />
@@ -120,7 +155,7 @@ export default function TalentPool(): JSX.Element {
                       </Default.Title2>
                     </Default.Column>
                   </Default.Row>
-                  <Default.Row />
+                  <Default.Space w="80%" />
                 </Default.Row>
 
                 <Default.Space h="1.875rem" />
@@ -132,111 +167,57 @@ export default function TalentPool(): JSX.Element {
           </Default.Row>
           <Default.Space h="7.5rem" />
           <Default.Row>
-            <NewJobItem>
-              <Default.Title2 color={Default.color.blue}>
-                Backend Engineer
-                <br />
-                Connectivity Team
-              </Default.Title2>
-              <Default.Space h="0.625rem" />
-              <NewJobItemContentIcon>
-                <Default.Row alignItens="center">
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    color={Default.color.success}
-                    fontSize={20}
+            {jobs.map(job => {
+              let countryDesc = '';
+
+              if (country.length > 0) {
+                countryDesc =
+                  country.find(
+                    (countryItem: ICountrie) =>
+                      countryItem.code === job.country,
+                  )?.name || '';
+              }
+
+              return (
+                <NewJobItem>
+                  <Default.Title2 color={Default.color.blue}>
+                    {job.jobTitle}
+                  </Default.Title2>
+                  <Default.Space h="0.625rem" />
+                  <NewJobItemContentIcon>
+                    <Default.Row alignItens="center">
+                      <FontAwesomeIcon
+                        icon={faLocationDot}
+                        color={Default.color.success}
+                        fontSize={20}
+                      />
+                      <NewJobItemContentIconText>
+                        {countryDesc}
+                      </NewJobItemContentIconText>
+                    </Default.Row>
+                    <Default.Row justifyContent="flex-end" alignItens="center">
+                      <TagItem>ID 12345</TagItem>
+                    </Default.Row>
+                  </NewJobItemContentIcon>
+                  <Default.Space h="0.625rem" />
+                  <Default.Subtitle
+                    color={Default.color.gray}
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        job.description.length > 50
+                          ? `${job.description.slice(0, 50)}...`
+                          : job.description,
+                    }}
                   />
-                  <NewJobItemContentIconText>
-                    London, UK
-                  </NewJobItemContentIconText>
-                </Default.Row>
-                <Default.Row justifyContent="flex-end" alignItens="center">
-                  <TagItem>ID 12345</TagItem>
-                </Default.Row>
-              </NewJobItemContentIcon>
-              <Default.Space h="0.625rem" />
-              <Default.Subtitle color={Default.color.gray}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed...
-              </Default.Subtitle>
-            </NewJobItem>
-            <NewJobItem>
-              <Default.Title2 color={Default.color.blue}>
-                Backend Engineer
-                <br />
-                Connectivity Team
-              </Default.Title2>
-              <Default.Space h="0.625rem" />
-              <NewJobItemContentIcon>
-                <Default.Row alignItens="center">
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    color={Default.color.success}
-                    fontSize={20}
-                  />
-                  <NewJobItemContentIconText>
-                    London, UK
-                  </NewJobItemContentIconText>
-                </Default.Row>
-              </NewJobItemContentIcon>
-              <Default.Space h="0.625rem" />
-              <Default.Subtitle color={Default.color.gray}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed...
-              </Default.Subtitle>
-            </NewJobItem>
-            <NewJobItem>
-              <Default.Title2 color={Default.color.blue}>
-                Backend Engineer
-                <br />
-                Connectivity Team
-              </Default.Title2>
-              <Default.Space h="0.625rem" />
-              <NewJobItemContentIcon>
-                <Default.Row alignItens="center">
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    color={Default.color.success}
-                    fontSize={20}
-                  />
-                  <NewJobItemContentIconText>
-                    London, UK
-                  </NewJobItemContentIconText>
-                </Default.Row>
-              </NewJobItemContentIcon>
-              <Default.Space h="0.625rem" />
-              <Default.Subtitle color={Default.color.gray}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed...
-              </Default.Subtitle>
-            </NewJobItem>
-            <NewJobItem>
-              <Default.Title2 color={Default.color.blue}>
-                Backend Engineer
-                <br />
-                Connectivity Team
-              </Default.Title2>
-              <Default.Space h="0.625rem" />
-              <NewJobItemContentIcon>
-                <Default.Row alignItens="center">
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    color={Default.color.success}
-                    fontSize={20}
-                  />
-                  <NewJobItemContentIconText>
-                    London, UK
-                  </NewJobItemContentIconText>
-                </Default.Row>
-              </NewJobItemContentIcon>
-              <Default.Space h="0.625rem" />
-              <Default.Subtitle color={Default.color.gray}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed...
-              </Default.Subtitle>
-            </NewJobItem>
+                </NewJobItem>
+              );
+            })}
           </Default.Row>
           <Default.Space h="2.5rem" />
           <Default.Row justifyContent="center">
-            <div>
+            <Link to="/for-employers">
               <ButtonSite>Discover all opportunities</ButtonSite>
-            </div>
+            </Link>
           </Default.Row>
         </ContainerSite>
       </CandidatesWeek>
@@ -284,11 +265,7 @@ export default function TalentPool(): JSX.Element {
               <Default.Space h="2.8125rem" />
               <Default.Row>
                 <WastedIconContent>
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    color={Default.color.success}
-                    fontSize={30}
-                  />
+                  <IconIct />
                   <Default.Space h="0.9375rem" />
                   <Default.Title2 color={Default.color.white}>
                     ICT
@@ -306,11 +283,7 @@ export default function TalentPool(): JSX.Element {
                   </Default.Title2>
                 </WastedIconContent>
                 <WastedIconContent>
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    color={Default.color.success}
-                    fontSize={30}
-                  />
+                  <IconGear />
                   <Default.Space h="0.9375rem" />
                   <Default.Title2 color={Default.color.white}>
                     Engineering
@@ -319,11 +292,11 @@ export default function TalentPool(): JSX.Element {
               </Default.Row>
               <Default.Space h="3.125rem" />
               <Default.Row>
-                <div>
+                <Link to="/company-need">
                   <ButtonSite bgColor={Default.color.spotlight}>
                     Access the Talent Pool for free
                   </ButtonSite>
-                </div>
+                </Link>
               </Default.Row>
             </Default.Column>
           </Default.Row>

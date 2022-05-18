@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import Default from '../../default';
 
+import TopCandidates from '../../assets/images/forEmployers/topCandidates.jpg';
+import GetFreeAccess from '../../assets/images/forEmployers/getFreeAccess.jpg';
+
 interface IWidth {
   width?: string;
 }
@@ -61,7 +64,7 @@ export const TextIconSearch = styled.h3`
 `;
 
 export const CandidatesWeek = styled(Default.BlockContent)`
-  background: ${Default.color.white};
+  background: ${Default.color.grayBackground};
   justify-content: center;
   align-items: center;
 `;
@@ -71,11 +74,27 @@ export const TitleExpertise = styled(Default.TitleH3)`
   justify-content: center;
 `;
 export const ExpertiseBLockImage = styled.div`
-  width: 34.9375rem;
-  min-width: 34.9375rem;
   height: 23.6875rem;
-  background: #0f0;
   margin-right: 3.75rem;
+  position: relative;
+`;
+export const ExpertiseBLockImageOrnament = styled.div`
+  width: 34.9375rem;
+  height: 23.6875rem;
+  position: absolute;
+  left: 0;
+  margin-top: -3.125rem;
+  border-radius: 3.125rem;
+  border: 1px solid ${Default.color.spotlight};
+`;
+export const ExpertiseBLockImageBack = styled.div`
+  width: 34.9375rem;
+  height: 23.6875rem;
+  background: url(${TopCandidates}) center no-repeat;
+  border-radius: 3.125rem;
+  margin-left: 3.125rem;
+  position: relative;
+  z-index: 2;
 `;
 export const ExpertiseBLockContentText = styled.div`
   padding: 0;
@@ -86,6 +105,8 @@ export const NewJobItem = styled.div`
   flex-direction: column;
   border-radius: 1.25rem;
   margin: 0 0.625rem;
+  width: 100%;
+  box-shadow: 0px 0px 30px #0000000d;
   &:first-child {
     margin-left: 0;
   }
@@ -121,7 +142,7 @@ export const ContentWastedImage = styled.div`
   margin-right: 4.6875rem;
 `;
 export const WastedImage = styled.div`
-  background: #f0f;
+  background: url(${GetFreeAccess}) center no-repeat;
   width: 29.3125rem;
   height: 29.9375rem;
   border-radius: 3.125rem;
