@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import Slider from 'react-slick';
 
 import SearchIcon from '../../assets/svg/iconSearch';
 import MetricsIcon from '../../assets/svg/metrics';
 import LockIcon from '../../assets/svg/lock';
 import FilterIcon from '../../assets/svg/filter';
 
+import { GetCountries, ICountrie } from '../../hooks/admin/useCountry';
+import { GetJobsPage, IJobs } from '../../hooks/admin/useJobs';
+import {
+  GetTestimonialsSearch,
+  ITestimonials,
+} from '../../hooks/admin/useTestimonials';
+import Modal from '../../components/modal';
 import Default from '../../default';
 import ContentSite from '../../components/ContentSite';
 import ContainerSite from '../../components/ContainerSite';
@@ -44,6 +54,56 @@ import {
 } from './style';
 
 export default function Dash(): JSX.Element {
+  const [jobs, setJobs] = useState<IJobs[]>([]);
+  const [country, setCountry] = useState<ICountrie[]>([]);
+  const [testimonials, setTestimonials] = useState<ITestimonials[]>([]);
+
+  const getCountries = useCallback(async () => {
+    const { countries } = await GetCountries();
+    if (countries) {
+      setCountry(countries);
+    } else {
+      Modal({ keyType: 'getCountries', icon: 'error' });
+    }
+  }, []);
+
+  const getJobs = useCallback(async (search?: string) => {
+    try {
+      const response = await GetJobsPage({
+        search,
+        itensPerPage: 4,
+        page: 1,
+      });
+
+      setJobs(response.jobsSearch.jobs);
+    } catch {
+      Modal({ keyType: 'getJobs', icon: 'error' });
+    }
+  }, []);
+
+  const getTestimonials = useCallback(async () => {
+    try {
+      const response = await GetTestimonialsSearch({
+        itensPerPage: 4,
+        page: 1,
+      });
+      setTestimonials(response.testimonialsSearch.testimonials);
+    } catch {
+      Modal({ keyType: 'getTestimonials', icon: 'error' });
+    }
+  }, []);
+
+  useEffect(() => {
+    getTestimonials();
+  }, [getTestimonials]);
+
+  useEffect(() => {
+    getCountries();
+  }, [getCountries]);
+
+  useEffect(() => {
+    getJobs();
+  }, [getJobs]);
   return (
     <ContentSite headerTransparent>
       <Banner>
@@ -211,108 +271,54 @@ export default function Dash(): JSX.Element {
           </div>
           <Default.Space h="1.875rem" />
           <Default.Row>
-            <NewJobItem>
-              <Default.Title2 color={Default.color.blue}>
-                Backend Engineer
-                <br />
-                Connectivity Team
-              </Default.Title2>
-              <Default.Space h="0.625rem" />
-              <NewJobItemContentIcon>
-                <Default.Row alignItens="center">
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    color={Default.color.success}
-                    fontSize={20}
+            {jobs.map(job => {
+              let countryDesc = '';
+
+              if (country.length > 0) {
+                countryDesc =
+                  country.find(
+                    (countryItem: ICountrie) =>
+                      countryItem.code === job.country,
+                  )?.name || '';
+              }
+
+              return (
+                <NewJobItem>
+                  <Default.Title2 color={Default.color.blue}>
+                    {job.jobTitle}
+                  </Default.Title2>
+                  <Default.Space h="0.625rem" />
+                  <NewJobItemContentIcon>
+                    <Default.Row alignItens="center">
+                      <FontAwesomeIcon
+                        icon={faLocationDot}
+                        color={Default.color.success}
+                        fontSize={20}
+                      />
+                      <NewJobItemContentIconText>
+                        {countryDesc}
+                      </NewJobItemContentIconText>
+                    </Default.Row>
+                  </NewJobItemContentIcon>
+                  <Default.Space h="0.625rem" />
+                  <Default.Subtitle
+                    color={Default.color.gray}
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        job.description.length > 50
+                          ? `${job.description.slice(0, 50)}...`
+                          : job.description,
+                    }}
                   />
-                  <NewJobItemContentIconText>
-                    London, UK
-                  </NewJobItemContentIconText>
-                </Default.Row>
-              </NewJobItemContentIcon>
-              <Default.Space h="0.625rem" />
-              <Default.Subtitle color={Default.color.gray}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed...
-              </Default.Subtitle>
-            </NewJobItem>
-            <NewJobItem>
-              <Default.Title2 color={Default.color.blue}>
-                Backend Engineer
-                <br />
-                Connectivity Team
-              </Default.Title2>
-              <Default.Space h="0.625rem" />
-              <NewJobItemContentIcon>
-                <Default.Row alignItens="center">
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    color={Default.color.success}
-                    fontSize={20}
-                  />
-                  <NewJobItemContentIconText>
-                    London, UK
-                  </NewJobItemContentIconText>
-                </Default.Row>
-              </NewJobItemContentIcon>
-              <Default.Space h="0.625rem" />
-              <Default.Subtitle color={Default.color.gray}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed...
-              </Default.Subtitle>
-            </NewJobItem>
-            <NewJobItem>
-              <Default.Title2 color={Default.color.blue}>
-                Backend Engineer
-                <br />
-                Connectivity Team
-              </Default.Title2>
-              <Default.Space h="0.625rem" />
-              <NewJobItemContentIcon>
-                <Default.Row alignItens="center">
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    color={Default.color.success}
-                    fontSize={20}
-                  />
-                  <NewJobItemContentIconText>
-                    London, UK
-                  </NewJobItemContentIconText>
-                </Default.Row>
-              </NewJobItemContentIcon>
-              <Default.Space h="0.625rem" />
-              <Default.Subtitle color={Default.color.gray}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed...
-              </Default.Subtitle>
-            </NewJobItem>
-            <NewJobItem>
-              <Default.Title2 color={Default.color.blue}>
-                Backend Engineer
-                <br />
-                Connectivity Team
-              </Default.Title2>
-              <Default.Space h="0.625rem" />
-              <NewJobItemContentIcon>
-                <Default.Row alignItens="center">
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    color={Default.color.success}
-                    fontSize={20}
-                  />
-                  <NewJobItemContentIconText>
-                    London, UK
-                  </NewJobItemContentIconText>
-                </Default.Row>
-              </NewJobItemContentIcon>
-              <Default.Space h="0.625rem" />
-              <Default.Subtitle color={Default.color.gray}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed...
-              </Default.Subtitle>
-            </NewJobItem>
+                </NewJobItem>
+              );
+            })}
           </Default.Row>
           <Default.Space h="2.5rem" />
           <Default.Row justifyContent="center">
-            <div>
+            <Link to="/for-employers">
               <ButtonSite>Discover all opportunities</ButtonSite>
-            </div>
+            </Link>
           </Default.Row>
         </ContainerSite>
       </NewJobBLock>
@@ -328,57 +334,50 @@ export default function Dash(): JSX.Element {
           <Default.Space h="4.375rem" />
 
           <Default.Row>
-            <BestChoiceItem>
-              <Default.Column justifyContent="space-between">
-                <Default.Title2 color={Default.color.success}>
-                  Mariana C.
-                </Default.Title2>
-                <Default.Space h="15px" />
-                <Default.Text color={Default.color.white}>
-                  I would like to thank Morgane for all her help during the
-                  recruiting process. She showed great professionalism by
-                  explaining to me in detail how the company works and what it
-                  could provide me, in addition to finding a job offer that
-                  matched my professional experience and expectations, carefully
-                  advising me through the entire process until the time of
-                  hiring.
-                </Default.Text>
-                <Default.Space h="30px" />
-                <BestChoiceItemText color={Default.color.whiteLight}>
-                  Mariana is working as a Customer Delight in Portugal
-                </BestChoiceItemText>
-              </Default.Column>
-            </BestChoiceItem>
-            <BestChoiceItem>
-              <Default.Column justifyContent="space-between">
-                <Default.Title2 color={Default.color.success}>
-                  Mariana C.
-                </Default.Title2>
-                <Default.Space h="15px" />
-                <Default.Text color={Default.color.white}>
-                  I would like to thank Morgane for all her help during the
-                  recruiting process. She showed great professionalism by
-                  explaining to me in detail how the company works and what it
-                  could provide me, in addition to finding a job offer that
-                  matched my professional experience and expectations, carefully
-                  advising me through the entire process until the time of
-                  hiring.
-                </Default.Text>
-                <Default.Space h="30px" />
-                <BestChoiceItemText color={Default.color.whiteLight}>
-                  Mariana is working as a Customer Delight in Portugal
-                </BestChoiceItemText>
-              </Default.Column>
-            </BestChoiceItem>
+            <Slider
+              dots
+              infinite
+              speed={500}
+              slidesToShow={2}
+              slidesToScroll={1}
+              adaptiveHeight
+              arrows
+            >
+              {testimonials.map(testimonial => {
+                return (
+                  <BestChoiceItem>
+                    <Default.Column justifyContent="space-between">
+                      <Default.Title2 color={Default.color.success}>
+                        {testimonial.name}
+                      </Default.Title2>
+                      <Default.Space h="15px" />
+                      <Default.Text
+                        color={Default.color.white}
+                        dangerouslySetInnerHTML={{
+                          __html:
+                            testimonial.testimonial.length > 480
+                              ? `${testimonial.testimonial.slice(0, 480)}...`
+                              : testimonial.testimonial,
+                        }}
+                      />
+                      <Default.Space h="30px" />
+                      <BestChoiceItemText color={Default.color.whiteLight}>
+                        {testimonial.observations}
+                      </BestChoiceItemText>
+                    </Default.Column>
+                  </BestChoiceItem>
+                );
+              })}
+            </Slider>
           </Default.Row>
 
           <Default.Space h="2.5rem" />
           <Default.Row justifyContent="center">
-            <div>
+            <Link to="/testimonials">
               <ButtonSite bgColor={Default.color.spotlight}>
                 See all testimonials
               </ButtonSite>
-            </div>
+            </Link>
           </Default.Row>
         </ContainerSite>
       </BestChoice>

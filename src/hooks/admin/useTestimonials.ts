@@ -26,6 +26,16 @@ export interface ITestimonialSend {
   upload?: HTMLInputElement;
 }
 
+interface IResponseTestimonialsSearch {
+  testimonialsSearch: {
+    testimonials: ITestimonials[];
+    infoPage: {
+      currentPage: number;
+      maxPage: number;
+    };
+  };
+}
+
 interface IITestimonialUpdate extends ITestimonialSend {
   id: string;
 }
@@ -130,5 +140,53 @@ export function GetTestimonials(): Promise<IResponseTestimonials> {
     })
     .catch(() => {
       return { testimonials: [] };
+    });
+}
+
+export function GetTestimonialsSearch({
+  search,
+  page,
+  itensPerPage,
+}: {
+  search?: string;
+  page?: number;
+  itensPerPage?: number;
+}): Promise<IResponseTestimonialsSearch> {
+  const query = `
+    query{
+        testimonialsSearch(search: "${search || ''}",  ${
+    page ? `page: ${page},` : ''
+  } ${itensPerPage ? `itensPerPage: ${itensPerPage},` : ''}){
+          testimonials{
+            id
+            name
+            picture
+            date
+            testimonial
+            observations
+            country
+          }
+          infoPage{
+            currentPage
+            maxPage
+          }
+        }
+      }
+    `;
+
+  return graphql(query)
+    .then(response => {
+      return response.data as IResponseTestimonialsSearch;
+    })
+    .catch(() => {
+      return {
+        testimonialsSearch: {
+          testimonials: [],
+          infoPage: {
+            currentPage: 0,
+            maxPage: 0,
+          },
+        },
+      };
     });
 }

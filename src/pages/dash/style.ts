@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Default from '../../default';
 
 import image1 from '../../assets/images/home/ourExpertise.png';
+import imageNewJob from '../../assets/images/home/newJobs.jpg';
 
 interface IWidth {
   width?: string;
@@ -120,13 +121,12 @@ export const TextExpertiseBlockType = styled.p`
   padding-left: 0.9375rem;
 `;
 export const ExpertiseBLockImage = styled.div`
-  width: 41.5625rem;
   height: 36.9375rem;
   position: relative;
 `;
 
 export const ExpertiseBlockImageBack = styled.div`
-  width: 37.8125rem;
+  width: 37.5rem;
   height: 33.4375rem;
   background: url(${image1}) no-repeat center;
   background-size: cover;
@@ -163,7 +163,8 @@ export const ExpertiseIconTitle = styled.p`
 `;
 
 export const NewJobBLock = styled(Default.BlockContent)`
-  background: #f00;
+  background: url(${imageNewJob}) no-repeat center;
+  background-size: cover;
   justify-content: center;
   align-items: center;
 `;
@@ -173,6 +174,7 @@ export const NewJobItem = styled.div`
   flex-direction: column;
   border-radius: 1.25rem;
   margin: 0 0.625rem;
+  width: 100%;
   &:first-child {
     margin-left: 0;
   }
@@ -194,12 +196,26 @@ export const BestChoice = styled(Default.BlockContent)`
   background: ${Default.color.blueOriginal};
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+  .slick-list {
+    overflow: visible;
+    .slick-slide {
+      opacity: 0.3;
+      &.slick-active {
+        opacity: 1;
+      }
+    }
+  }
+  .slick-arrow {
+    z-index: 10;
+  }
 `;
 export const BestChoiceItem = styled.div`
   border: 1px solid ${Default.color.success};
   padding: 2.8125rem 2.5rem;
   border-radius: 1.25rem;
   width: 28.4375rem;
+  margin: 0 0.9375rem;
 `;
 export const BestChoiceItemText = styled(Default.Text)`
   font-size: 0.75rem;

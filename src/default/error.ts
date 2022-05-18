@@ -19,6 +19,7 @@ const error: { [key: string]: string } = {
   acceptTerms: 'You need agree to privacy policy to continue.',
   registerModalCompany: 'Failed to register company.',
   tokenTalentPool: 'Failed to verify token.',
+  getTestimonials: 'Failed to get testimonials.',
 };
 
 export default function errorString(key: string): string {
