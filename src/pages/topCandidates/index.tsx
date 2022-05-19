@@ -16,6 +16,7 @@ import IconBookMark from '../../assets/svg/bookMark';
 import IconFolder from '../../assets/svg/folder';
 import IconDocument from '../../assets/svg/document';
 import IconProfile from '../../assets/svg/profile';
+import IconMultilingual from '../../assets/svg/multilingual';
 
 import { AddCompanyModalPage } from '../../hooks/admin/useCompanies';
 import {
@@ -250,11 +251,7 @@ export default function TopCandidates(): JSX.Element {
             </ExpertiseBlockType>
             <ExpertiseBlockType>
               <ContentIconExpertise>
-                <FontAwesomeIcon
-                  icon={faLocationDot}
-                  color={Default.color.white}
-                  fontSize={30}
-                />
+                <IconMultilingual />
               </ContentIconExpertise>
               <Default.Column>
                 <TitleExpertiseBlockType>Multilingual</TitleExpertiseBlockType>
@@ -400,11 +397,7 @@ export default function TopCandidates(): JSX.Element {
               <Default.Space h="2.5rem" />
               <Default.Row>
                 <WastedIconContent>
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    color={Default.color.success}
-                    fontSize={30}
-                  />
+                  <IconMultilingual />
                   <Default.Space h="0.9375rem" />
                   <Default.Title2 color={Default.color.white}>
                     Multilingual Tech

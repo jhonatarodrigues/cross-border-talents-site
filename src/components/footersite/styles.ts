@@ -33,12 +33,10 @@ export const RowNav = styled.div`
 `;
 export const LeftContentFirst = styled.div`
   width: 10.375rem;
-  border: 1px solid #fff;
 `;
-export const ContentLogo = styled.div`
-  width: 150px;
-  height: 50px;
-  background: #f00;
+export const ContentLogo = styled.img`
+  width: 9.375rem;
+  height: 3.125rem;
 `;
 
 export const Nav = styled.ul`
@@ -64,14 +62,13 @@ export const Content = styled.div<IColumns>`
 
 export const ContentNav = styled.div`
   width: 100%;
-  padding-left: 3.75rem;
+  padding-left: 3.4375rem;
   flex-direction: column;
 `;
 
-export const Selo = styled.div`
-  width: 56px;
-  height: 46px;
-  background: #0ff;
+export const Selo = styled.img`
+  width: 3.5rem;
+  height: 2.875rem;
   margin-left: 0.625rem;
 `;
 
@@ -97,8 +94,9 @@ export const LinkFooter = styled.h3<IMail>`
   font-size: 0.875rem;
   color: ${({ mail }) =>
     mail ? Default.color.success : Default.color.whiteLight};
-  line-height: 28px;
+  line-height: 1.75rem;
   text-decoration: ${({ mail }) => (mail ? 'underline' : 'none')};
+  align-items: center;
 `;
 
 export const CopyrightText = styled.h3<IMail>`

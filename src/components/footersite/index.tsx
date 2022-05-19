@@ -1,15 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import {
   faFacebookF,
   faLinkedinIn,
   faInstagram,
 } from '@fortawesome/free-brands-svg-icons';
 
-import ContainerSite from '../ContainerSite';
+import LogoWhite from '../../assets/images/logoWhite.png';
+import ImageExcellence1 from '../../assets/images/excellence1.png';
+import ImageExcellence2 from '../../assets/images/excellence2.png';
+import ImageExcellence3 from '../../assets/images/excellence3.png';
 
+import ContainerSite from '../ContainerSite';
+import Default from '../../default';
 import {
   ContentFooter,
   Row,
@@ -39,7 +44,7 @@ export default function FooterSite(): JSX.Element {
           <Row>
             <Content>
               <LeftContentFirst>
-                <ContentLogo />
+                <ContentLogo src={LogoWhite} />
               </LeftContentFirst>
               <Nav>
                 <ItemNav>Jobs</ItemNav>
@@ -49,9 +54,9 @@ export default function FooterSite(): JSX.Element {
               </Nav>
             </Content>
             <Content>
-              <Selo />
-              <Selo />
-              <Selo />
+              <Selo src={ImageExcellence1} />
+              <Selo src={ImageExcellence2} />
+              <Selo src={ImageExcellence3} />
             </Content>
           </Row>
           <LineDivider />
@@ -85,7 +90,15 @@ export default function FooterSite(): JSX.Element {
                 Portugal
               </LinkFooter>
               <Link to="mailto: info@cbtalents.com">
-                <LinkFooter mail>info@cbtalents.com</LinkFooter>
+                <LinkFooter mail>
+                  <FontAwesomeIcon
+                    icon={faEnvelope}
+                    color={Default.color.success}
+                    fontSize={12}
+                    style={{ marginRight: '0.3125rem' }}
+                  />
+                  info@cbtalents.com
+                </LinkFooter>
               </Link>
             </ContentNav>
             <ContentNav>

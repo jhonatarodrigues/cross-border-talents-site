@@ -36,10 +36,9 @@ export const TextIconSearch = styled.h3`
     color: ${Default.color.spotlight};
   }
 `;
-export const IconSearch = styled.div`
-  width: 43px;
-  height: 35px;
-  background: #ff0;
+export const IconSearch = styled.img`
+  width: 2.6875rem;
+  height: 2.1875rem;
   margin-right: 0.625rem;
 `;
 export const BlockAcademy = styled(Default.BlockContent)`

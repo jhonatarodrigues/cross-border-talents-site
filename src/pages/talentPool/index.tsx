@@ -3,10 +3,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
+import ImageExcellence1 from '../../assets/images/excellence1.png';
+import ImageExcellence2 from '../../assets/images/excellence2.png';
+import ImageExcellence3 from '../../assets/images/excellence3.png';
+
 import IconFilter from '../../assets/svg/filter';
 import IconStar from '../../assets/svg/star';
 import IconIct from '../../assets/svg/ict';
 import IconGear from '../../assets/svg/gear';
+import IconMultilingual from '../../assets/svg/multilingual';
 
 import { GetCountries, ICountrie } from '../../hooks/admin/useCountry';
 import { GetJobsPage, IJobs } from '../../hooks/admin/useJobs';
@@ -92,9 +97,9 @@ export default function TalentPool(): JSX.Element {
           </div>
           <Default.Space h="2rem" />
           <div>
-            <IconSearch />
-            <IconSearch />
-            <IconSearch />
+            <IconSearch src={ImageExcellence1} />
+            <IconSearch src={ImageExcellence2} />
+            <IconSearch src={ImageExcellence3} />
             <TextIconSearch>
               <span>WE ARE GLOBAL</span>
               <br />
@@ -272,11 +277,7 @@ export default function TalentPool(): JSX.Element {
                   </Default.Title2>
                 </WastedIconContent>
                 <WastedIconContent>
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    color={Default.color.success}
-                    fontSize={30}
-                  />
+                  <IconMultilingual />
                   <Default.Space h="0.9375rem" />
                   <Default.Title2 color={Default.color.white}>
                     Multilingual

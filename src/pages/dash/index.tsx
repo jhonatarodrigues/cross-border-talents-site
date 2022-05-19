@@ -10,6 +10,9 @@ import SearchIcon from '../../assets/svg/iconSearch';
 import MetricsIcon from '../../assets/svg/metrics';
 import LockIcon from '../../assets/svg/lock';
 import FilterIcon from '../../assets/svg/filter';
+import ImageExcellence1 from '../../assets/images/excellence1.png';
+import ImageExcellence2 from '../../assets/images/excellence2.png';
+import ImageExcellence3 from '../../assets/images/excellence3.png';
 
 import { GetCountries, ICountrie } from '../../hooks/admin/useCountry';
 import { GetJobsPage, IJobs } from '../../hooks/admin/useJobs';
@@ -126,13 +129,13 @@ export default function Dash(): JSX.Element {
             </ContentSearch>
           </div>
           <SubtitleSearchBanner>
-            It’s a company and need to hire talents?
+            It’s a company and need to hire talents?&nbsp;
             <Link to="/"> Request your access here</Link>
           </SubtitleSearchBanner>
           <div>
-            <IconSearch />
-            <IconSearch />
-            <IconSearch />
+            <IconSearch src={ImageExcellence1} />
+            <IconSearch src={ImageExcellence2} />
+            <IconSearch src={ImageExcellence3} />
             <TextIconSearch>
               <span>WE ARE GLOBAL</span>
               <br />

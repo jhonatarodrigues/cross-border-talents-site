@@ -45,10 +45,9 @@ export const ButtonSearch = styled.button`
   padding: 1.125rem;
   min-width: 7.5rem;
 `;
-export const IconSearch = styled.div`
-  width: 43px;
-  height: 35px;
-  background: #ff0;
+export const IconSearch = styled.img`
+  width: 2.6875rem;
+  height: 2.1875rem;
   margin-right: 0.625rem;
 `;
 

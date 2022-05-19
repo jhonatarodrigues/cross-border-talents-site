@@ -3,6 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
+import ImageExcellence1 from '../../assets/images/excellence1.png';
+import ImageExcellence2 from '../../assets/images/excellence2.png';
+import ImageExcellence3 from '../../assets/images/excellence3.png';
+
 import Default from '../../default';
 import ContentSite from '../../components/ContentSite';
 import ContainerSite from '../../components/ContainerSite';
@@ -36,9 +40,9 @@ export default function OurItAcademy(): JSX.Element {
           </div>
           <Default.Space h="2rem" />
           <div>
-            <IconSearch />
-            <IconSearch />
-            <IconSearch />
+            <IconSearch src={ImageExcellence1} />
+            <IconSearch src={ImageExcellence2} />
+            <IconSearch src={ImageExcellence3} />
             <TextIconSearch>
               <span>WE ARE GLOBAL</span>
               <br />

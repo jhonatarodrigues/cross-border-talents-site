@@ -3,6 +3,7 @@ import Default from '../../default';
 
 import image1 from '../../assets/images/home/ourExpertise.png';
 import imageNewJob from '../../assets/images/home/newJobs.jpg';
+import ImageBanner from '../../assets/images/home/banner.jpg';
 
 interface IWidth {
   width?: string;
@@ -13,7 +14,8 @@ export const Banner = styled.div`
   width: 100%;
   align-items: center;
   flex-direction: row;
-  background-color: #f0f;
+  background: url(${ImageBanner}) no-repeat center;
+  background-size: cover;
 `;
 export const Title = styled(Default.Title)`
   color: ${Default.color.blue};
@@ -64,10 +66,9 @@ export const SubtitleSearchBanner = styled.p`
     color: ${Default.color.blue};
   }
 `;
-export const IconSearch = styled.div`
-  width: 43px;
-  height: 35px;
-  background: #ff0;
+export const IconSearch = styled.img`
+  width: 2.6875rem;
+  height: 2.1875rem;
   margin-right: 0.625rem;
 `;
 
