@@ -1,23 +1,4 @@
-const gender = [
-  'Agender',
-  'Androgynous',
-  'Bigender',
-  'Demigirl',
-  'Demiguy',
-  'Feminine',
-  'Femme',
-  'Genderqueer',
-  'Genderfluid',
-  'Intersex',
-  'Man',
-  'Masculine',
-  'Neutrois',
-  'Nonbinary',
-  'Other',
-  'Pangender',
-  'Third Gender',
-  'Woman',
-];
+const gender = ['Male', 'Female', 'Untold'];
 
 export interface IResponseGender {
   gender: string[];

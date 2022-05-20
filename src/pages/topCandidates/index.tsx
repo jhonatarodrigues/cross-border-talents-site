@@ -17,6 +17,7 @@ import IconFolder from '../../assets/svg/folder';
 import IconDocument from '../../assets/svg/document';
 import IconProfile from '../../assets/svg/profile';
 import IconMultilingual from '../../assets/svg/multilingual';
+import IconPaper from '../../assets/svg/paper';
 
 import { AddCompanyModalPage } from '../../hooks/admin/useCompanies';
 import {
@@ -644,11 +645,7 @@ export default function TopCandidates(): JSX.Element {
               <BlockGetFreeItem>
                 <Default.Row>
                   <GetFreeContentIcon>
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      color={Default.color.spotlight}
-                      fontSize={42}
-                    />
+                    <IconPaper />
                   </GetFreeContentIcon>
                   <Default.Space w="2.1875rem" />
                   <Default.Title2 color={Default.color.gray}>
@@ -689,7 +686,7 @@ export default function TopCandidates(): JSX.Element {
           </Default.Column>
           <Default.Space h="5rem" />
           <Default.Row justifyContent="center">
-            <Link to="/company-need">
+            <Link to="/talent-pool/preview">
               <ButtonSite bgColor={Default.color.blueOriginal}>
                 Access the Talent Pool for free
               </ButtonSite>

@@ -37,16 +37,16 @@ export default function Header({ transparent }: IProps): JSX.Element {
             <Nav>
               <Ul>
                 <Li>
-                  <Link to="/for-employers">Jobs</Link>
+                  <Link to="/jobs">Jobs</Link>
                 </Li>
                 <Li>
-                  <Link to="/talent-pool">For Employers</Link>
+                  <Link to="/for-employers">For Employers</Link>
                 </Li>
                 <Li>
-                  <Link to="/top-candidates">Talent Pool</Link>
+                  <Link to="/talent-pool">Talent Pool</Link>
                 </Li>
                 <Li>
-                  <Link to="/our-it-academy">Academy</Link>
+                  <Link to="/academy">Academy</Link>
                 </Li>
                 <Li>
                   <Dropdown>
@@ -60,6 +60,9 @@ export default function Header({ transparent }: IProps): JSX.Element {
                       </ListDropdownItem>
                       <ListDropdownItem>
                         <Link to="/testimonials">Testimonials</Link>
+                      </ListDropdownItem>
+                      <ListDropdownItem>
+                        <Link to="/contact">Contact</Link>
                       </ListDropdownItem>
                     </ListDropdown>
                   </Dropdown>

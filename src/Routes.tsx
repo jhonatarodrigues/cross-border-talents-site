@@ -40,14 +40,14 @@ export default function Teste(): JSX.Element {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Dash />} />
-        <Route path="/for-employers" element={<ForEmployers />} />
-        <Route path="/talent-pool" element={<TalentPool />} />
-        <Route path="/top-candidates" element={<TopCandidates />} />
-        <Route path="/company-need" element={<CompanyNeed />} />
-        <Route path="/our-it-academy" element={<OurItAcademy />} />
+        <Route path="/jobs" element={<ForEmployers />} />
+        <Route path="/for-employers" element={<TalentPool />} />
+        <Route path="/talent-pool" element={<TopCandidates />} />
+        <Route path="/talent-pool/preview" element={<CompanyNeed />} />
+        <Route path="/academy" element={<OurItAcademy />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/testimonials" element={<TestimonialsPage />} />
-        <Route path="/meet-company" element={<MeetCompany />} />
+        <Route path="/about-us" element={<MeetCompany />} />
         <Route
           path="/registerTalentPool/:token"
           element={<RegisterTalentPool />}

@@ -28,7 +28,7 @@ const enUs = {
     gender: 'Gender',
     nativeLanguage: 'Native Language',
     allowTalentPool: 'Allow Talent Pool',
-    privacityPolicy: 'Privacity Policy',
+    privacityPolicy: 'Privacy Policy',
     allowContactMe: 'Allow Contact Me',
     englishLevel: 'English Level',
     title: 'Title',

@@ -113,3 +113,6 @@ export const ButtonInvisible = styled.button`
   padding: 0;
   background: transparent;
 `;
+export const ContentICon = styled.div`
+  width: 1.875rem;
+`;

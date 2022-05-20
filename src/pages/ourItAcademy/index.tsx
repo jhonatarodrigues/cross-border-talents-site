@@ -70,7 +70,7 @@ export default function OurItAcademy(): JSX.Element {
           </Default.Text>
           <Default.Space h="1.25rem" />
           <Default.Row justifyContent="center">
-            <Link to="/for-employers">
+            <Link to="/jobs">
               <ButtonSite bgColor={Default.color.spotlight}>
                 Take your opportunity here
               </ButtonSite>
@@ -88,9 +88,9 @@ export default function OurItAcademy(): JSX.Element {
                 <Default.Space w="4.6875rem" />
                 <Default.Column>
                   <div>
-                    <IconExcellence />
-                    <IconExcellence />
-                    <IconExcellence />
+                    <IconExcellence src={ImageExcellence1} />
+                    <IconExcellence src={ImageExcellence2} />
+                    <IconExcellence src={ImageExcellence3} />
                   </div>
                   <Default.Space h="2.8125rem" />
                   <Default.TitleH3 color={Default.color.blueBase}>

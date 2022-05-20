@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Default from '../../default';
 
 import LearCode from '../../assets/images/academy/learnCode.jpg';
+import ImageBanner from '../../assets/images/academy/banner.jpg';
 
 interface IWidth {
   width?: string;
@@ -12,10 +13,11 @@ export const Banner = styled.div`
   width: 100%;
   align-items: center;
   flex-direction: row;
-  background-color: #0f0;
+  background: url(${ImageBanner}) no-repeat center center;
+  background-size: cover;
 `;
 export const Title = styled(Default.Title)`
-  color: ${Default.color.white};
+  color: ${Default.color.blueOriginal};
   margin-bottom: 1.25rem;
 `;
 export const InputSearch = styled.input`
@@ -66,9 +68,8 @@ export const ImageOrnament = styled.div`
   background: ${Default.color.blueOriginal};
   position: relative;
 `;
-export const IconExcellence = styled.div`
+export const IconExcellence = styled.img`
   width: 4.125rem;
   height: 3.3125rem;
-  background: #ff0;
   margin-right: 0.625rem;
 `;

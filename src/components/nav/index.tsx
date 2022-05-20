@@ -10,6 +10,9 @@ import {
   faStar,
   faQuestion,
   faComment,
+  faHand,
+  faSuitcase,
+  faUserTie,
 } from '@fortawesome/free-solid-svg-icons';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,6 +35,7 @@ import {
   Divider,
   ContentDivider,
   ButtonInvisible,
+  ContentICon,
 } from './styles';
 
 interface INavItens {
@@ -57,7 +61,7 @@ export default function Nav(): JSX.Element {
           },
           {
             title: `Team Leader`,
-            icon: faUser,
+            icon: faUserTie,
             route: '/admin/teamLeader',
           },
           {
@@ -82,7 +86,7 @@ export default function Nav(): JSX.Element {
           },
           {
             title: `Jobs`,
-            icon: faStar,
+            icon: faSuitcase,
             route: '/admin/jobs',
           },
           {
@@ -90,12 +94,17 @@ export default function Nav(): JSX.Element {
             icon: faMessage,
             route: '/admin/testimonials',
           },
+          {
+            title: `Approach`,
+            icon: faHand,
+            route: '/',
+          },
         ]
       : []),
 
     {
       title: `Talent Pool`,
-      icon: faMessage,
+      icon: faStar,
       route: '/admin/talent-pool',
     },
   ];
@@ -120,11 +129,13 @@ export default function Nav(): JSX.Element {
             >
               <ContentItemText>
                 <ContainerTitle openMain>
-                  <ItemIcon
-                    openMain
-                    icon={nav.icon}
-                    color={Default.color.blueLight}
-                  />
+                  <ContentICon>
+                    <ItemIcon
+                      openMain
+                      icon={nav.icon}
+                      color={Default.color.blueLight}
+                    />
+                  </ContentICon>
                   <TextNav active={nav.route === activeRoute} openMain>
                     {nav.title}
                   </TextNav>
@@ -150,7 +161,7 @@ export default function Nav(): JSX.Element {
                   icon={faQuestion}
                   color={Default.color.blueLight}
                 />
-                <TextNav openMain>Faqs</TextNav>
+                <TextNav openMain>FAQs</TextNav>
               </ContainerTitle>
             </ContentItemText>
           </ItemNav>

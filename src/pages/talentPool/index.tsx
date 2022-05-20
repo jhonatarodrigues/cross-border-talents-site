@@ -220,7 +220,7 @@ export default function TalentPool(): JSX.Element {
           </Default.Row>
           <Default.Space h="2.5rem" />
           <Default.Row justifyContent="center">
-            <Link to="/for-employers">
+            <Link to="/jobs">
               <ButtonSite>Discover all opportunities</ButtonSite>
             </Link>
           </Default.Row>
@@ -293,7 +293,7 @@ export default function TalentPool(): JSX.Element {
               </Default.Row>
               <Default.Space h="3.125rem" />
               <Default.Row>
-                <Link to="/company-need">
+                <Link to="/talent-pool/preview">
                   <ButtonSite bgColor={Default.color.spotlight}>
                     Access the Talent Pool for free
                   </ButtonSite>

@@ -5,8 +5,8 @@ function SvgComponent(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={30.083}
-      height={30}
+      width={props.width || 30.083}
+      height={props.height || 30}
       {...props}
     >
       <path

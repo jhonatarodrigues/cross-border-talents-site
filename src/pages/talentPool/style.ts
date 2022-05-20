@@ -3,6 +3,7 @@ import Default from '../../default';
 
 import TopCandidates from '../../assets/images/forEmployers/topCandidates.jpg';
 import GetFreeAccess from '../../assets/images/forEmployers/getFreeAccess.jpg';
+import ImageBanner from '../../assets/images/forEmployers/banner.jpg';
 
 interface IWidth {
   width?: string;
@@ -13,7 +14,8 @@ export const Banner = styled.div`
   width: 100%;
   align-items: center;
   flex-direction: row;
-  background-color: ${Default.color.blueOriginal};
+  background: url(${ImageBanner}) no-repeat center center;
+  background-size: cover;
   padding-top: 6.25rem;
 `;
 export const Title = styled(Default.Title)`

@@ -13,6 +13,9 @@ import FilterIcon from '../../assets/svg/filter';
 import ImageExcellence1 from '../../assets/images/excellence1.png';
 import ImageExcellence2 from '../../assets/images/excellence2.png';
 import ImageExcellence3 from '../../assets/images/excellence3.png';
+import IconIct from '../../assets/svg/ict';
+import IconGear from '../../assets/svg/gear';
+import IconMultilingual from '../../assets/svg/multilingual';
 
 import { GetCountries, ICountrie } from '../../hooks/admin/useCountry';
 import { GetJobsPage, IJobs } from '../../hooks/admin/useJobs';
@@ -54,6 +57,7 @@ import {
   BestChoiceItemText,
   ExpertiseBlockImageBack,
   ExpertiseBlockImageFunny,
+  IconExpertiseContent,
 } from './style';
 
 export default function Dash(): JSX.Element {
@@ -149,13 +153,9 @@ export default function Dash(): JSX.Element {
           <TitleExpertise>Our expertise is your success</TitleExpertise>
           <div>
             <ExpertiseBlockType>
-              <Default.Column>
-                <FontAwesomeIcon
-                  icon={faLocationDot}
-                  color={Default.color.white}
-                  fontSize={30}
-                />
-              </Default.Column>
+              <IconExpertiseContent>
+                <IconIct />
+              </IconExpertiseContent>
               <Default.Column>
                 <TitleExpertiseBlockType>ICT</TitleExpertiseBlockType>
                 <TextExpertiseBlockType>
@@ -165,15 +165,11 @@ export default function Dash(): JSX.Element {
               </Default.Column>
             </ExpertiseBlockType>
             <ExpertiseBlockType>
+              <IconExpertiseContent>
+                <IconMultilingual />
+              </IconExpertiseContent>
               <Default.Column>
-                <FontAwesomeIcon
-                  icon={faLocationDot}
-                  color={Default.color.white}
-                  fontSize={30}
-                />
-              </Default.Column>
-              <Default.Column>
-                <TitleExpertiseBlockType>ICT</TitleExpertiseBlockType>
+                <TitleExpertiseBlockType>Multilingual</TitleExpertiseBlockType>
                 <TextExpertiseBlockType>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt
@@ -181,15 +177,11 @@ export default function Dash(): JSX.Element {
               </Default.Column>
             </ExpertiseBlockType>
             <ExpertiseBlockType>
+              <IconExpertiseContent>
+                <IconGear />
+              </IconExpertiseContent>
               <Default.Column>
-                <FontAwesomeIcon
-                  icon={faLocationDot}
-                  color={Default.color.white}
-                  fontSize={30}
-                />
-              </Default.Column>
-              <Default.Column>
-                <TitleExpertiseBlockType>ICT</TitleExpertiseBlockType>
+                <TitleExpertiseBlockType>Engineering</TitleExpertiseBlockType>
                 <TextExpertiseBlockType>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt
@@ -319,7 +311,7 @@ export default function Dash(): JSX.Element {
           </Default.Row>
           <Default.Space h="2.5rem" />
           <Default.Row justifyContent="center">
-            <Link to="/for-employers">
+            <Link to="/jobs">
               <ButtonSite>Discover all opportunities</ButtonSite>
             </Link>
           </Default.Row>

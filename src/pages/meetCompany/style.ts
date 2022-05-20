@@ -5,6 +5,7 @@ import About from '../../assets/images/about/about-interna.jpg';
 import BePart from '../../assets/images/about/bePart.jpg';
 import Map from '../../assets/images/about/map.jpg';
 import MapLegend from '../../assets/images/about/mapLegend.jpg';
+import ImagemBanner from '../../assets/images/about/banner.jpg';
 
 export const Banner = styled.div`
   height: 40.8125rem;
@@ -35,10 +36,10 @@ export const ImageBanner = styled.div`
   margin-left: -2.5rem;
   position: relative;
   z-index: 1;
-  background: #f0f;
+  background: url(${ImagemBanner}) no-repeat center center;
+  background-size: cover;
 `;
-export const IconImageBanner = styled.div`
-  background: #f0f;
+export const IconImageBanner = styled.img`
   width: 5rem;
   height: 4.0625rem;
   margin-right: 0.9375rem;

@@ -1,25 +1,25 @@
 import React, { useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-import Default from '../../default';
+import { AuthTypes } from '../../store/ducks/auth/types';
 import {
   ContainerHeader,
-  Logo,
   ButtonUser,
-  ContainerSanduich,
-  SanduichLine,
   Content,
   ContainerHeaderFull,
   ContentButton,
   NameUser,
   NameBusiness,
+  Dropdown,
+  DropdownItem,
 } from './styles';
 
 export default function Header(): JSX.Element {
-  const toogleNav = useCallback(() => {
-    console.log('aqui');
-  }, []);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     <ContainerHeaderFull>
@@ -36,6 +36,18 @@ export default function Header(): JSX.Element {
           <NameUser>Hello, Jhon Due</NameUser>
           <ButtonUser>
             <FontAwesomeIcon icon={faUser} />
+            <Dropdown className="dropdownUser">
+              <DropdownItem
+                onClick={() => {
+                  dispatch({
+                    type: AuthTypes.LOAD_LOGOUT,
+                  });
+                  navigate('/admin/login');
+                }}
+              >
+                Logout
+              </DropdownItem>
+            </Dropdown>
           </ButtonUser>
         </ContentButton>
       </ContainerHeader>

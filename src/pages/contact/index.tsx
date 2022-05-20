@@ -7,6 +7,7 @@ import { SubmitHandler, FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 
 import IconLock from '../../assets/svg/lock';
+import IconMultilingual from '../../assets/svg/multilingual';
 
 import Default from '../../default';
 import Input from '../../components/input';
@@ -105,11 +106,7 @@ export default function Contact(): JSX.Element {
                 <Default.Space h="1.875rem" />
                 <Default.Row justifyContent="flex-start">
                   <Default.Column>
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      fontSize={40}
-                      color={Default.color.white}
-                    />
+                    <IconMultilingual width={40} height={40} />
                     <Default.Space h="0.9375rem" />
                     <Default.Title2 color={Default.color.white}>
                       Contact <br />

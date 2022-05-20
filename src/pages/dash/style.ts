@@ -221,3 +221,6 @@ export const BestChoiceItem = styled.div`
 export const BestChoiceItemText = styled(Default.Text)`
   font-size: 0.75rem;
 `;
+export const IconExpertiseContent = styled.div`
+  width: 1.875rem;
+`;

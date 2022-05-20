@@ -306,5 +306,5 @@ export const BlockGetFreeItem = styled.div`
   }
 `;
 export const GetFreeContentIcon = styled.div`
-  width: 2.625rem;
+  width: 3.125rem;
 `;

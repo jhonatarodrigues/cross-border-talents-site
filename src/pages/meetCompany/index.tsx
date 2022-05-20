@@ -1,9 +1,15 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
-
 import { Link } from 'react-router-dom';
+
 import IconBookMark from '../../assets/svg/bookMark';
+import ImageExcellence1 from '../../assets/images/excellence1.png';
+import ImageExcellence2 from '../../assets/images/excellence2.png';
+import ImageExcellence3 from '../../assets/images/excellence3.png';
+import IconMultilingual from '../../assets/svg/multilingual';
+import IconFilter from '../../assets/svg/filter';
+import IconBell from '../../assets/svg/bell';
 
 import ContentSite from '../../components/ContentSite';
 import ContainerSite from '../../components/ContainerSite';
@@ -59,9 +65,9 @@ export default function MeetCompany(): JSX.Element {
                 Operating in over 102 countries
               </Default.Subtitle>
               <Default.Row>
-                <IconImageBanner />
-                <IconImageBanner />
-                <IconImageBanner />
+                <IconImageBanner src={ImageExcellence1} />
+                <IconImageBanner src={ImageExcellence2} />
+                <IconImageBanner src={ImageExcellence3} />
               </Default.Row>
             </BannerContentTitle>
             <ImageBanner />
@@ -91,11 +97,7 @@ export default function MeetCompany(): JSX.Element {
               </ImageContent>
               <ItemOrnament>
                 <IconItemOrnament>
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    color={Default.color.white}
-                    fontSize={18}
-                  />
+                  <IconBell />
                 </IconItemOrnament>
                 <Default.Title2 color={Default.color.blueOriginal}>
                   We never stop!
@@ -219,7 +221,7 @@ export default function MeetCompany(): JSX.Element {
                 cross-countries.
               </Default.Subtitle>
               <Default.Space h="2.5rem" />
-              <Link to="/for-employers">
+              <Link to="/jobs">
                 <ButtonSite bgColor={Default.color.blueOriginal}>
                   Join our team
                 </ButtonSite>
@@ -247,11 +249,7 @@ export default function MeetCompany(): JSX.Element {
           <Default.Row alignItens="stretch">
             <ExpertiseBlockType>
               <div>
-                <FontAwesomeIcon
-                  icon={faLocationDot}
-                  color={Default.color.white}
-                  fontSize={30}
-                />
+                <IconFilter />
               </div>
               <Default.Space w="1.25rem" />
               <Default.Column>
@@ -269,11 +267,7 @@ export default function MeetCompany(): JSX.Element {
             </ExpertiseBlockType>
             <ExpertiseBlockType>
               <div>
-                <FontAwesomeIcon
-                  icon={faLocationDot}
-                  color={Default.color.white}
-                  fontSize={30}
-                />
+                <IconMultilingual />
               </div>
               <Default.Space w="1.25rem" />
               <Default.Column>
