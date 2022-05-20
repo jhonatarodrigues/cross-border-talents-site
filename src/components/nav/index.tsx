@@ -14,11 +14,10 @@ import {
   faSuitcase,
   faUserTie,
 } from '@fortawesome/free-solid-svg-icons';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import Default from '../../default';
-import { AuthTypes } from '../../store/ducks/auth/types';
 import Logo from '../../assets/images/logo.png';
 import { ApplicationState } from '../../store';
 import {
@@ -34,7 +33,6 @@ import {
   LineActive,
   Divider,
   ContentDivider,
-  ButtonInvisible,
   ContentICon,
 } from './styles';
 
@@ -47,8 +45,6 @@ interface INavItens {
 export default function Nav(): JSX.Element {
   const location = useLocation();
   const activeRoute = location.pathname;
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { auth } = useSelector((state: ApplicationState) => state);
 
   const navItens: INavItens[] = [
@@ -93,11 +89,6 @@ export default function Nav(): JSX.Element {
             title: `Testimonials`,
             icon: faMessage,
             route: '/admin/testimonials',
-          },
-          {
-            title: `Approach`,
-            icon: faHand,
-            route: '/',
           },
         ]
       : []),
@@ -184,31 +175,6 @@ export default function Nav(): JSX.Element {
             </ContentItemText>
           </ItemNav>
         </Link>
-
-        <ContentDivider>
-          <Divider />
-        </ContentDivider>
-        <ButtonInvisible
-          onClick={() => {
-            dispatch({
-              type: AuthTypes.LOAD_LOGOUT,
-            });
-            navigate('/admin/login');
-          }}
-        >
-          <ItemNav key="logout" openMain>
-            <ContentItemText>
-              <ContainerTitle openMain>
-                <ItemIcon
-                  openMain
-                  icon={faQuestion}
-                  color={Default.color.blueLight}
-                />
-                <TextNav openMain>Logout</TextNav>
-              </ContainerTitle>
-            </ContentItemText>
-          </ItemNav>
-        </ButtonInvisible>
       </ContentNav>
     </ContainerNav>
   );

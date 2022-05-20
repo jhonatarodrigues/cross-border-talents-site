@@ -14,6 +14,10 @@ import {
   ITeamLeader,
   DeleteTeamLeader,
 } from '../../../hooks/admin/useTeamLeader';
+import {
+  GetInterestSkills,
+  IInterestSkills,
+} from '../../../hooks/admin/useInterestSkills';
 import LabelDestached from '../../../components/labelDestached';
 import ContentPage from '../../../components/contentPage';
 import Language from '../../../language';
@@ -24,16 +28,33 @@ import { InvisibleButton } from './style';
 export default function TeamLeader(): JSX.Element {
   const navigate = useNavigate();
   const [teamLeaders, setTeamLeaders] = useState<ITeamLeader[]>([]);
-  const rows: GridRowsProp = teamLeaders.map((user: ITeamLeader) => ({
-    id: user.id,
-    department: user.department,
-    lastName: user.user.lastName,
+  const [interestSkills, setInterestSkills] = useState<IInterestSkills[]>([]);
+  const rows: GridRowsProp = teamLeaders.map((user: ITeamLeader) => {
+    const departmentName = interestSkills.find(
+      (item: IInterestSkills) => item.id === user.department,
+    );
 
-    name: `${user.user.name} ${user.user.lastName || ''}`,
-    email: user.user.email,
-    phone: user.user.phone,
-    status: user.user.status,
-  }));
+    return {
+      id: user.id,
+      department: user.department,
+      departmentName: departmentName ? departmentName.name : '',
+      lastName: user.user.lastName,
+
+      name: `${user.user.name} ${user.user.lastName || ''}`,
+      email: user.user.email,
+      status: user.user.status,
+    };
+  });
+
+  const handleGetInterestSkills = useCallback(async () => {
+    const response = await GetInterestSkills();
+    if (response && response.interestSkills) {
+      setInterestSkills(response.interestSkills);
+    }
+  }, []);
+  useEffect(() => {
+    handleGetInterestSkills();
+  }, [handleGetInterestSkills]);
 
   const handleGetUser = useCallback(async () => {
     const response = await GetTeamLeaders();
@@ -110,7 +131,7 @@ export default function TeamLeader(): JSX.Element {
 
     { field: 'name', headerName: 'Name', flex: 1 },
     { field: 'email', headerName: 'Email', flex: 1 },
-    { field: 'phone', headerName: 'Phone', flex: 1 },
+    { field: 'departmentName', headerName: 'Department', flex: 1 },
     {
       field: 'status',
       headerName: 'Status',

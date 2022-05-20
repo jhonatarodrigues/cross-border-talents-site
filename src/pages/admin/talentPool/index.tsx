@@ -12,6 +12,7 @@ import {
   GetTalentPools,
   ITalentPools,
 } from '../../../hooks/admin/useTalentPool';
+import { GetCountries, ICountrie } from '../../../hooks/admin/useCountry';
 import ContentPage from '../../../components/contentPage';
 import Modal from '../../../components/modal';
 import Language from '../../../language';
@@ -29,8 +30,18 @@ export default function TalentPool(): JSX.Element {
   const [modalDetails, setModalDetails] = useState(false);
   const [selectedRow, setSelectedRow] = useState<ITalentPools>();
   const [checkTalentPoolInterest, setCheckTalentPoolInterest] = useState(false);
+  const [countries, setCountries] = useState<ICountrie[]>([]);
 
   const rows: GridRowsProp = talentPool.map((item: ITalentPools) => {
+    let countrie = '';
+    const countrieFilter = countries.filter(
+      (country: ICountrie) => country.code === item.candidate.country,
+    );
+
+    if (countrieFilter && countrieFilter[0]) {
+      countrie = countrieFilter[0].name;
+    }
+
     return {
       allRow: item,
 
@@ -39,8 +50,26 @@ export default function TalentPool(): JSX.Element {
       education: item.education,
       languages: item.languages,
       charge: item.charge,
+      country: countrie,
     };
   });
+
+  const handleGetCountries = useCallback(() => {
+    GetCountries()
+      .then(response => {
+        setCountries(response.countries);
+      })
+      .catch(() => {
+        Modal({
+          icon: 'error',
+          keyType: 'getCountries',
+        });
+      });
+  }, []);
+
+  useEffect(() => {
+    handleGetCountries();
+  }, [handleGetCountries]);
 
   const handleGetTalentPool = useCallback(async () => {
     const response = await GetTalentPools();
@@ -105,10 +134,10 @@ export default function TalentPool(): JSX.Element {
   const columns: GridColDef[] = [
     { field: 'allRow', hide: true, filterable: false },
 
+    { field: 'id', headerName: 'ID', width: 10 },
     { field: 'profile', headerName: 'Profile', flex: 1 },
-    { field: 'education', headerName: 'education', flex: 1 },
+    { field: 'country', headerName: 'Country of Residence', flex: 1 },
     { field: 'languages', headerName: 'Languages', flex: 1 },
-    { field: 'charge', headerName: 'Charge', flex: 1 },
 
     {
       field: 'actions',

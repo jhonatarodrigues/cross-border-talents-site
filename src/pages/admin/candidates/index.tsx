@@ -8,6 +8,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose, faEdit } from '@fortawesome/free-solid-svg-icons';
+import Moment from 'moment';
 
 import {
   GetListCandidates,
@@ -47,6 +48,8 @@ export default function Candidates(): JSX.Element {
       nativeLanguage: candidate.nativeLanguage,
       englishLevel: candidate.englishLevel,
       status: candidate.user.status,
+      approachedBy: `${candidate.userRecruiter.user.name} ${candidate.userRecruiter.user.lastName}`,
+      birthDate: Moment(candidate.birthDate).format('DD/MM/YYYY'),
     };
   });
 
@@ -120,11 +123,13 @@ export default function Candidates(): JSX.Element {
   const columns: GridColDef[] = [
     { field: 'allRow', hide: true, filterable: false },
 
+    { field: 'id', headerName: 'ID', width: 10 },
     { field: 'name', headerName: 'Name', flex: 1 },
     { field: 'email', headerName: 'Email', flex: 1 },
     { field: 'country', headerName: 'Country', flex: 1 },
     { field: 'nativeLanguage', headerName: 'Native Language', flex: 1 },
-    { field: 'englishLevel', headerName: 'English Level', flex: 1 },
+    { field: 'approachedBy', headerName: 'Approached By', flex: 1 },
+    { field: 'birthDate', headerName: 'Date', flex: 1 },
     {
       field: 'status',
       headerName: 'Status',
@@ -142,7 +147,7 @@ export default function Candidates(): JSX.Element {
     },
   ];
 
-  const hangleGetCountries = useCallback(() => {
+  const handleGetCountries = useCallback(() => {
     GetCountries()
       .then(response => {
         setCountries(response.countries);
@@ -156,8 +161,8 @@ export default function Candidates(): JSX.Element {
   }, []);
 
   useEffect(() => {
-    hangleGetCountries();
-  }, [hangleGetCountries]);
+    handleGetCountries();
+  }, [handleGetCountries]);
 
   useEffect(() => {
     handleGetUser();

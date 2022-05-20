@@ -14,6 +14,10 @@ import {
   GetRecruiters,
   IRecruiter,
 } from '../../../hooks/admin/useRecruiters';
+import {
+  GetInterestSkills,
+  IInterestSkills,
+} from '../../../hooks/admin/useInterestSkills';
 import LabelDestached from '../../../components/labelDestached';
 import ContentPage from '../../../components/contentPage';
 import Language from '../../../language';
@@ -24,18 +28,34 @@ import { InvisibleButton } from './style';
 export default function Recruiter(): JSX.Element {
   const navigate = useNavigate();
   const [recruiters, setRecruiters] = useState<IRecruiter[]>([]);
-  const rows: GridRowsProp = recruiters.map((recruiter: IRecruiter) => ({
-    id: recruiter.id,
-    department: recruiter.interestSkills,
-    teamleaderid: recruiter.userTeamLeader.id,
+  const [interestSkills, setInterestSkills] = useState<IInterestSkills[]>([]);
+  const rows: GridRowsProp = recruiters.map((recruiter: IRecruiter) => {
+    const departmentName = interestSkills.find(
+      (item: IInterestSkills) => item.id === recruiter.interestSkills,
+    );
+    return {
+      id: recruiter.id,
+      department: recruiter.interestSkills,
+      departmentName: departmentName ? departmentName.name : '',
+      teamleaderid: recruiter.userTeamLeader.id,
 
-    name: `${recruiter.user.name} ${recruiter.user.lastName || ''}`,
-    lastName: recruiter.user.lastName,
-    email: recruiter.user.email,
-    phone: recruiter.user.phone,
-    status: recruiter.user.status,
-    teamLeader: recruiter.userTeamLeader.user.name,
-  }));
+      name: `${recruiter.user.name} ${recruiter.user.lastName || ''}`,
+      lastName: recruiter.user.lastName,
+      email: recruiter.user.email,
+      phone: recruiter.user.phone,
+      status: recruiter.user.status,
+      teamLeader: recruiter.userTeamLeader.user.name,
+    };
+  });
+  const handleGetInterestSkills = useCallback(async () => {
+    const response = await GetInterestSkills();
+    if (response && response.interestSkills) {
+      setInterestSkills(response.interestSkills);
+    }
+  }, []);
+  useEffect(() => {
+    handleGetInterestSkills();
+  }, [handleGetInterestSkills]);
 
   const handleGetUser = useCallback(async () => {
     const response = await GetRecruiters();
@@ -113,7 +133,7 @@ export default function Recruiter(): JSX.Element {
 
     { field: 'name', headerName: 'Name', flex: 1 },
     { field: 'email', headerName: 'Email', flex: 1 },
-    { field: 'phone', headerName: 'Phone', flex: 1 },
+    { field: 'departmentName', headerName: 'Department', flex: 1 },
     { field: 'teamLeader', headerName: 'Team Leader', flex: 1 },
     {
       field: 'status',

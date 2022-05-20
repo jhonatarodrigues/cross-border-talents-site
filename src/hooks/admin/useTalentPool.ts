@@ -53,31 +53,35 @@ export interface IAddUserTalentPool {
 
 export function GetTalentPools(): Promise<IResponseUser> {
   const query = `
-    query{
-        talentPools{
+    query {
+        talentPools {
+        id
+        idCandidate
+        idUser
+        idTeamLeader
+        data
+        profile
+        observation
+        softwares
+        education
+        experience
+        languages
+        status
+        charge
+        candidate{
             id
-            idCandidate
-            idUser
-            idTeamLeader
-            data
-            profile
-            observation
-            softwares
-            education
-            experience
-            languages
-            status
-            charge
-            user{
-                id
-                name
-                lastName
-                email
-                phone
-            }
-            
+            country
+        }
+        user {
+            id
+            name
+            lastName
+            email
+            phone
+        }
         }
     }
+  
   `;
 
   return graphql(query)
