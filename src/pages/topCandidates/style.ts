@@ -15,6 +15,7 @@ export const Banner = styled.div`
   align-items: center;
   flex-direction: row;
   background: url(${TalentPool}) center no-repeat;
+  background-size: cover;
 `;
 export const Title = styled(Default.Title)`
   color: ${Default.color.white};

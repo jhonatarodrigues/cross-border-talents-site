@@ -59,6 +59,7 @@ export const Dropdown = styled.div`
   flex-direction: column;
   position: relative;
   align-items: center;
+  color: ${Default.color.blueOriginal};
   &:hover {
     .listDropdown {
       opacity: 1;

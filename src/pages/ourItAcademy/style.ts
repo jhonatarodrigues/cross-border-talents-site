@@ -55,6 +55,7 @@ export const Image = styled.div`
   height: 42.125rem;
   border-radius: 3.125rem;
   background: url(${LearCode}) center no-repeat;
+  background-size: cover;
   position: relative;
   margin-left: -60px;
   margin-top: -60px;
