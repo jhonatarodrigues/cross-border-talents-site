@@ -311,6 +311,75 @@ export default function CandidatesRegister(): JSX.Element {
     handleGetTalentPool();
   }, [handleGetTalentPool]);
 
+  const renderFieldTalentPool = useCallback(() => {
+    if (!params?.candidate.talentPoolVerify) {
+      return false;
+    }
+
+    return (
+      <Section label={Language.page.candidates.informationToTalentPool}>
+        <ContentInput>
+          <Input
+            name="profile"
+            label={`${Language.fields.profile} *`}
+            value={talentPool?.profile}
+          />
+        </ContentInput>
+        <ContentInput>
+          <Input
+            name="charge"
+            label={`${Language.fields.charge} *`}
+            value={talentPool?.charge}
+          />
+        </ContentInput>
+
+        <ContentInput>
+          <Input
+            name="softwares"
+            label={`${Language.fields.softwares} *`}
+            value={talentPool?.softwares}
+          />
+        </ContentInput>
+        <ContentInput>
+          <Input
+            name="education"
+            label={`${Language.fields.education} *`}
+            value={talentPool?.education}
+          />
+        </ContentInput>
+
+        <ContentInput>
+          <Input
+            name="languages"
+            label={`${Language.fields.languages} *`}
+            value={talentPool?.languages}
+          />
+        </ContentInput>
+        <ContentInput>
+          <Editor
+            name="observation"
+            label={Language.fields.skillsCompetences}
+            value={talentPool?.observation}
+          />
+        </ContentInput>
+        <ContentInput>
+          <Editor
+            name="experience"
+            label={Language.fields.workExperience}
+            value={talentPool?.experience}
+          />
+        </ContentInput>
+        <ContentInput>
+          <InputSwitch
+            label={Language.fields.status}
+            name="statusTalentPool"
+            valueDefault={talentPool?.status}
+          />
+        </ContentInput>
+      </Section>
+    );
+  }, [talentPool, params]);
+
   return (
     <ContentPage
       title={`${Language.page.candidates.candidates} > ${
@@ -447,74 +516,16 @@ export default function CandidatesRegister(): JSX.Element {
           </ContentInput>
         </Section>
 
-        {params?.candidate.talentPoolVerify && (
-          <Section label={Language.page.candidates.informationToTalentPool}>
-            <ContentInput>
-              <Input
-                name="profile"
-                label={`${Language.fields.profile} *`}
-                value={talentPool?.profile}
-              />
-            </ContentInput>
-            <ContentInput>
-              <Input
-                name="charge"
-                label={`${Language.fields.charge} *`}
-                value={talentPool?.charge}
-              />
-            </ContentInput>
-            <ContentInput>
-              <Input
-                name="observation"
-                label={`${Language.fields.skillsCompetences} *`}
-                value={talentPool?.observation}
-              />
-            </ContentInput>
-            <ContentInput>
-              <Input
-                name="softwares"
-                label={`${Language.fields.softwares} *`}
-                value={talentPool?.softwares}
-              />
-            </ContentInput>
-            <ContentInput>
-              <Input
-                name="education"
-                label={`${Language.fields.education} *`}
-                value={talentPool?.education}
-              />
-            </ContentInput>
-            <ContentInput>
-              <Editor
-                name="experience"
-                label={Language.fields.workExperience}
-                value={talentPool?.experience}
-              />
-            </ContentInput>
-            <ContentInput>
-              <Input
-                name="languages"
-                label={`${Language.fields.languages} *`}
-                value={talentPool?.languages}
-              />
-            </ContentInput>
-            <ContentInput>
-              <InputSwitch
-                label={Language.fields.status}
-                name="statusTalentPool"
-                valueDefault={talentPool?.status}
-              />
-            </ContentInput>
-          </Section>
-        )}
+        <ContentInput>
+          <InputSwitch
+            label={Language.fields.allowTalentPool}
+            name="allowTalentPool"
+            valueDefault={params?.candidate.allowTalentPool}
+          />
+        </ContentInput>
+        {renderFieldTalentPool()}
+
         <Section label={Language.page.candidates.permissions}>
-          <ContentInput>
-            <InputSwitch
-              label={Language.fields.allowTalentPool}
-              name="allowTalentPool"
-              valueDefault={params?.candidate.allowTalentPool}
-            />
-          </ContentInput>
           <ContentInput>
             <InputSwitch
               label={Language.fields.allowContactMe}

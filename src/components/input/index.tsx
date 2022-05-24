@@ -60,6 +60,13 @@ export default function Input({
   const inputRef = useRef(null);
   const { fieldName, defaultValue, registerField, error } = useField(name);
   const [inputValue, setInputValue] = useState<string>('');
+  let shrink = {};
+
+  if (inputValue || defaultValue) {
+    shrink = {
+      shrink: true,
+    };
+  }
 
   useEffect(() => {
     registerField({
@@ -109,11 +116,12 @@ export default function Input({
       <CssTextField
         ref={inputRef}
         id={fieldName}
-        {...rest}
         variant="outlined"
         value={inputValue || defaultValue}
+        InputLabelProps={shrink}
         onChange={(e: any) => handleMask(e.target.value)}
         size={typeSize}
+        {...rest}
       />
       {error && <TextError>{error}</TextError>}
     </ContentFiled>
