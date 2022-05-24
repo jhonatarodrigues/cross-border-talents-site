@@ -371,7 +371,7 @@ export default function CandidatesRegister(): JSX.Element {
         </ContentInput>
         <ContentInput>
           <InputSwitch
-            label={Language.fields.status}
+            label={Language.fields.sendToTalentPool}
             name="statusTalentPool"
             valueDefault={talentPool?.status}
           />

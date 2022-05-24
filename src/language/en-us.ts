@@ -69,6 +69,7 @@ const enUs = {
     education: 'Education',
     workExperience: 'Work Experience',
     languages: 'Languages',
+    sendToTalentPool: 'Send to Talent Pool',
   },
 
   page: {
