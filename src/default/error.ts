@@ -21,6 +21,7 @@ const error: { [key: string]: string } = {
   tokenTalentPool: 'Failed to verify token.',
   getTestimonials: 'Failed to get testimonials.',
   contactSuccess: 'Failed to send contact.',
+  addTeamLeaderCandidate: 'Failed to add team leader in candidate.',
 };
 
 export default function errorString(key: string): string {

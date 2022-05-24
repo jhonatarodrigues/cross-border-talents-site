@@ -36,6 +36,7 @@ export interface ICandidate {
       name: string;
       email: string;
       accessLevel: number;
+      lastName: string;
     };
   };
   user: {
@@ -260,6 +261,7 @@ export function GetListCandidates(): Promise<IResponseCandidates> {
                 id
                 user {
                     name
+                    lastName
                     email
                     accessLevel
                 }
@@ -323,4 +325,17 @@ export function GetCandidatesPage({
   return graphql(query).then(response => {
     return response.data as IResponseSearchCandidates;
   });
+}
+
+export function AddTeamLeaderToCandidate({
+  idCandidate,
+}: {
+  idCandidate: string;
+}): Promise<AxiosResponse> {
+  const query = `
+  mutation {
+      addTeamLeader(id: ${idCandidate})
+  }`;
+
+  return graphql(query);
 }

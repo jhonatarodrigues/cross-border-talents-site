@@ -7,13 +7,14 @@ import {
 } from '@mui/x-data-grid';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClose, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faClose, faEdit, faHand } from '@fortawesome/free-solid-svg-icons';
 import Moment from 'moment';
 
 import {
   GetListCandidates,
   ICandidate,
   DeleteCandidate,
+  AddTeamLeaderToCandidate,
 } from '../../../hooks/admin/useCandidates';
 import { GetCountries, ICountrie } from '../../../hooks/admin/useCountry';
 import LabelDestached from '../../../components/labelDestached';
@@ -48,7 +49,7 @@ export default function Candidates(): JSX.Element {
       nativeLanguage: candidate.nativeLanguage,
       englishLevel: candidate.englishLevel,
       status: candidate.user.status,
-      approachedBy: `${candidate.userRecruiter.user.name} ${candidate.userRecruiter.user.lastName}`,
+      approachedBy: `${candidate.userTeamLeader.user.name} ${candidate.userTeamLeader.user.lastName}`,
       birthDate: Moment(candidate.birthDate).format('DD/MM/YYYY'),
     };
   });
@@ -87,6 +88,29 @@ export default function Candidates(): JSX.Element {
     [handleGetUser],
   );
 
+  const handleSetTeamLeader = useCallback(
+    async (id: string) => {
+      const response = await AddTeamLeaderToCandidate({
+        idCandidate: id,
+      });
+
+      if (response.data.addTeamLeader) {
+        Modal({
+          keyType: 'addTeamLeaderCandidate',
+          icon: 'success',
+        });
+
+        handleGetUser();
+      } else {
+        Modal({
+          keyType: 'addTeamLeaderCandidate',
+          icon: 'error',
+        });
+      }
+    },
+    [handleGetUser],
+  );
+
   const renderActionCell = (e: GridCellParams) => {
     return (
       <>
@@ -115,6 +139,14 @@ export default function Candidates(): JSX.Element {
           }}
         >
           <FontAwesomeIcon icon={faEdit} color={Default.color.blue} />
+        </InvisibleButton>
+        <InvisibleButton
+          title="Approached By"
+          onClick={() => {
+            handleSetTeamLeader(e.row.allRow.id);
+          }}
+        >
+          <FontAwesomeIcon icon={faHand} color={Default.color.blue} />
         </InvisibleButton>
       </>
     );
