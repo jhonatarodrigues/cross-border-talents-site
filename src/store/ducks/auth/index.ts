@@ -4,7 +4,7 @@ import { IAuthState, AuthTypes } from './types';
 const INITIAL_STATE: IAuthState = {
   token: '',
   refreshToken: '',
-  user: { email: '', name: '', phone: '', accessLevel: 0 },
+  user: { id: '', email: '', name: '', phone: '', accessLevel: 0 },
   loading: false,
 };
 

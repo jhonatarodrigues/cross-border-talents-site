@@ -14,6 +14,7 @@ interface IUser {
   name: string;
   phone: string;
   accessLevel: number;
+  id: string;
 }
 export interface IAuth {
   token: string;

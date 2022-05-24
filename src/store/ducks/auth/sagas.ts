@@ -30,6 +30,7 @@ export function* load({ username, password }: IParams) {
           name
           email
           accessLevel
+          id
         }
         token
         refreshToken

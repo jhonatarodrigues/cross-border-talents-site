@@ -260,6 +260,7 @@ export function GetListCandidates(): Promise<IResponseCandidates> {
             userTeamLeader{
                 id
                 user {
+                    id
                     name
                     lastName
                     email

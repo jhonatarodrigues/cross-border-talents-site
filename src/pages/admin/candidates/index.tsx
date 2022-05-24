@@ -9,7 +9,9 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose, faEdit, faHand } from '@fortawesome/free-solid-svg-icons';
 import Moment from 'moment';
+import { useSelector } from 'react-redux';
 
+import { ApplicationState } from '../../../store';
 import {
   GetListCandidates,
   ICandidate,
@@ -28,6 +30,7 @@ export default function Candidates(): JSX.Element {
   const navigate = useNavigate();
   const [candidates, setCandidates] = useState<ICandidate[]>([]);
   const [countries, setCountries] = useState<ICountrie[]>([]);
+  const { auth } = useSelector((state: ApplicationState) => state);
 
   const rows: GridRowsProp = candidates.map((candidate: ICandidate) => {
     let countrie = '';
@@ -140,14 +143,17 @@ export default function Candidates(): JSX.Element {
         >
           <FontAwesomeIcon icon={faEdit} color={Default.color.blue} />
         </InvisibleButton>
-        <InvisibleButton
-          title="Approached By"
-          onClick={() => {
-            handleSetTeamLeader(e.row.allRow.id);
-          }}
-        >
-          <FontAwesomeIcon icon={faHand} color={Default.color.blue} />
-        </InvisibleButton>
+        {auth.user.accessLevel === 2 &&
+          e.row.allRow.userTeamLeader.user.id !== auth.user.id && (
+            <InvisibleButton
+              title="Approached By"
+              onClick={() => {
+                handleSetTeamLeader(e.row.allRow.id);
+              }}
+            >
+              <FontAwesomeIcon icon={faHand} color={Default.color.blue} />
+            </InvisibleButton>
+          )}
       </>
     );
   };
