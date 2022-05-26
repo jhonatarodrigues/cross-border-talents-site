@@ -30,6 +30,10 @@ const success: { [key: string]: string } = {
   tokenTalentPool: 'Token verify successfully.',
   contactSuccess: 'Contact sent successfully.',
   addTeamLeaderCandidate: 'Team leader added in candidate successfully.',
+  registerCandidate:
+    'Candidate registered successfully. Check your email to get your password.',
+  registerCompany:
+    'Company registered successfully. Check your email to get your password.',
 };
 
 export default function successString(key: string): string {

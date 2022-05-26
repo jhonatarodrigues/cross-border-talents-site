@@ -72,9 +72,11 @@ export default function Header({ transparent }: IProps): JSX.Element {
           </Content>
           <Content>
             <Button>Register</Button>
-            <Button variant="outlined" style={{ marginLeft: '0.625rem' }}>
-              Login
-            </Button>
+            <Link to="/admin/login">
+              <Button variant="outlined" style={{ marginLeft: '0.625rem' }}>
+                Login
+              </Button>
+            </Link>
           </Content>
         </ContentHeader>
       </ContainerSite>

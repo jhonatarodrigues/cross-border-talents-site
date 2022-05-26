@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { Form } from '@unform/web';
 import Default from '../../../default';
 
+import BannerLogin from '../../../assets/images/login/banner.jpg';
+
 interface IActive {
   active: boolean;
 }
@@ -51,7 +53,8 @@ export const ContentImage = styled.div`
   height: 100vh;
   width: 40.625rem;
   min-width: 40.625rem;
-  background: #0f0;
+  background: url(${BannerLogin}) no-repeat center;
+  background-size: cover;
   display: flex;
   align-items: center;
 `;

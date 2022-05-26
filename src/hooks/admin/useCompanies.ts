@@ -70,6 +70,15 @@ export interface ICompanySend {
   linkedin: string;
 }
 
+export interface ICompanySendLogin {
+  name: string;
+  lastName: string;
+  email: string;
+
+  companyName: string;
+  interestSkills: string;
+}
+
 interface ICompanyUpdate extends ICompanySend {
   id: string;
 }
@@ -192,6 +201,46 @@ export function AddCompany(data: ICompanySend): Promise<IResponseCompanySend> {
   }
   
   `;
+
+  return graphql(query)
+    .then(response => {
+      return response.data.createCompanie as IResponseCompanySend;
+    })
+    .catch(() => {
+      return {} as IResponseCompanySend;
+    });
+}
+
+export function AddCompanyLogin(
+  data: ICompanySendLogin,
+): Promise<IResponseCompanySend> {
+  const query = `
+    mutation {
+      createCompanie(
+        name: "${data.name}",
+        lastName: "${data.lastName}"
+        email: "${data.email}"
+        
+        status: true
+        companyName: "${data.companyName}"
+        idInterestSkills:"${data.interestSkills}"
+      ){
+        companie{
+          id
+          idUser
+          idInterestSkills
+          companyName
+        }
+        user{
+          id
+          name
+          lastName
+          email
+        }
+      }
+    }
+    
+    `;
 
   return graphql(query)
     .then(response => {

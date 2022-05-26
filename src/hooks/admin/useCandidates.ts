@@ -93,6 +93,16 @@ export interface ICandidateSend {
   interestSkills: string;
 }
 
+export interface ICandidateSendLogin {
+  name: string;
+  lastName: string;
+  email: string;
+  socialMedia: string;
+  allowTalentPool: boolean;
+  englishLevel: string;
+  interestSkills: string;
+}
+
 interface ICandidateUpdate extends ICandidateSend {
   id: string;
 }
@@ -216,6 +226,45 @@ export function AddCandidate(
     }
   
   `;
+
+  return graphql(query)
+    .then(response => {
+      return response.data.createCandidate as IResponseCandidateSend;
+    })
+    .catch(() => {
+      return {} as IResponseCandidateSend;
+    });
+}
+
+export function AddCandidateLogin(
+  data: ICandidateSendLogin,
+): Promise<IResponseCandidateSend> {
+  const query = `
+      mutation {
+          createCandidate(
+              name: "${data.name}"
+              lastName: "${data.lastName}"
+              email: "${data.email}"
+              status: true
+              socialMedia: "${data.socialMedia}"
+              englishLevel: "${data.englishLevel}"
+              allowTalentPool: ${data.allowTalentPool}
+              idInterestSkills: "${data.interestSkills}"
+          ) {
+              user {
+                  id
+                  name
+                  email
+                  accessLevel
+              }
+              candidate{
+                  id
+                  idUser
+              }
+          }
+      }
+    
+    `;
 
   return graphql(query)
     .then(response => {

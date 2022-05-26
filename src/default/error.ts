@@ -22,6 +22,10 @@ const error: { [key: string]: string } = {
   getTestimonials: 'Failed to get testimonials.',
   contactSuccess: 'Failed to send contact.',
   addTeamLeaderCandidate: 'Failed to add team leader in candidate.',
+  registerCandidate: 'Failed to register candidate.',
+  candidateExists: 'Candidate already exists.',
+  policyTerms: 'You need agree to terms and conditions to continue.',
+  registerCompany: 'Failed to register company.',
 };
 
 export default function errorString(key: string): string {
