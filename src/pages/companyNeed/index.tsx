@@ -15,6 +15,7 @@ import ContainerSite from '../../components/ContainerSite';
 import ContentInput from '../../components/contentInput';
 import { GetCountries, ICountrie } from '../../hooks/admin/useCountry';
 import { GetInterestSkills } from '../../hooks/admin/useInterestSkills';
+import { GetLanguages } from '../../hooks/admin/useLanguages';
 import {
   GetTalentPoolsPage,
   ITalentPools,
@@ -57,6 +58,14 @@ export default function CompanyNeed(): JSX.Element {
   const [country, setCountry] = useState<ICountrie[]>([]);
   const [terms, setTerms] = useState(false);
   const navigate = useNavigate();
+
+  const optionsNativeLanguage: IOptionsDropdown[] =
+    GetLanguages().languages.map(item => {
+      return {
+        value: item.code,
+        label: item.name,
+      };
+    });
 
   const getCountries = useCallback(async () => {
     const { countries } = await GetCountries();
@@ -368,7 +377,7 @@ export default function CompanyNeed(): JSX.Element {
                   <InputDropDown
                     name="language"
                     label={Language.fields.language}
-                    options={optionsInterestSkills}
+                    options={optionsNativeLanguage}
                   />
                 </ContentInput>
                 <ContentInput>

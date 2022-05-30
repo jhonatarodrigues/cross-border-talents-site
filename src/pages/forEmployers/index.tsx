@@ -10,6 +10,8 @@ import InputDropDown, {
 } from '../../components/inputDropdown';
 import { GetCountries, ICountrie } from '../../hooks/admin/useCountry';
 import { GetJobsPage, IJobs } from '../../hooks/admin/useJobs';
+import { GetLanguages } from '../../hooks/admin/useLanguages';
+import { GetContracts, IContract } from '../../hooks/admin/useContract';
 import ContentSite from '../../components/ContentSite';
 import ContainerSite from '../../components/ContainerSite';
 import ContentInput from '../../components/contentInput';
@@ -43,6 +45,23 @@ export default function ForEmployers(): JSX.Element {
     [] as IOptionsDropdown[],
   );
   const [country, setCountry] = useState<ICountrie[]>([]);
+  const [numberJobs, setNumberJobs] = useState<number>(0);
+  const [contracts, setContracts] = useState<IContract[]>([]);
+  const optionsNativeLanguage: IOptionsDropdown[] =
+    GetLanguages().languages.map(item => {
+      return {
+        value: item.code,
+        label: item.name,
+      };
+    });
+
+  const getContracts = useCallback(async () => {
+    const response = await GetContracts();
+    setContracts(response.typeContracts);
+  }, []);
+  useEffect(() => {
+    getContracts();
+  }, [getContracts]);
 
   const getInterestSkills = useCallback(async () => {
     const { interestSkills } = await GetInterestSkills();
@@ -91,6 +110,7 @@ export default function ForEmployers(): JSX.Element {
       });
 
       setJobs(response.jobsSearch.jobs);
+      setNumberJobs(response.jobsSearch.numberAllCandidates);
     } catch {
       Modal({ keyType: 'getJobs', icon: 'error' });
     }
@@ -123,10 +143,14 @@ export default function ForEmployers(): JSX.Element {
       <BlockForEmployers>
         <ContainerSite>
           <BlockFilter>
-            <Default.Title3 color={Default.color.blueLight}>
-              Find 332 jobs opportunities
-            </Default.Title3>
-            <Default.Space h="2.5rem" />
+            {numberJobs > 1 && (
+              <>
+                <Default.Title3 color={Default.color.blueLight}>
+                  Find {numberJobs} jobs opportunities
+                </Default.Title3>
+                <Default.Space h="2.5rem" />
+              </>
+            )}
             <Form
               ref={formRef}
               onSubmit={handleSubmit}
@@ -147,7 +171,12 @@ export default function ForEmployers(): JSX.Element {
                   <InputDropDown
                     name="typeOfContract"
                     label={Language.fields.typeOfContract}
-                    options={[]}
+                    options={contracts.map(item => {
+                      return {
+                        value: item.id,
+                        label: item.name,
+                      };
+                    })}
                   />
                   <InputDropDown
                     name="experienceLevel"
@@ -159,7 +188,7 @@ export default function ForEmployers(): JSX.Element {
                   <InputDropDown
                     name="language"
                     label={Language.fields.language}
-                    options={optionsInterestSkills}
+                    options={optionsNativeLanguage}
                   />
                   <Input
                     name="searchJobTitle"
@@ -175,36 +204,16 @@ export default function ForEmployers(): JSX.Element {
             </Form>
             <Default.Space h="1.875rem" />
             <Default.Row>
-              <ContainerTag>
-                <TagIcon color={Default.color.success} />
-                <Default.Text2 color={Default.color.gray}>
-                  Full-time
-                </Default.Text2>
-              </ContainerTag>
-              <ContainerTag>
-                <TagIcon color={Default.color.blueLight2} />
-                <Default.Text2 color={Default.color.gray}>
-                  Freelancer
-                </Default.Text2>
-              </ContainerTag>
-              <ContainerTag>
-                <TagIcon color={Default.color.blueBase} />
-                <Default.Text2 color={Default.color.gray}>
-                  Part-time
-                </Default.Text2>
-              </ContainerTag>
-              <ContainerTag>
-                <TagIcon color={Default.color.spotlight} />
-                <Default.Text2 color={Default.color.gray}>
-                  Eramus + Traineeship
-                </Default.Text2>
-              </ContainerTag>
-              <ContainerTag>
-                <TagIcon color={Default.color.greenLemon} />
-                <Default.Text2 color={Default.color.gray}>
-                  Internship
-                </Default.Text2>
-              </ContainerTag>
+              {contracts.map(item => {
+                return (
+                  <ContainerTag key={item.id}>
+                    <TagIcon color={item.color} />
+                    <Default.Text2 color={Default.color.gray}>
+                      {item.name}
+                    </Default.Text2>
+                  </ContainerTag>
+                );
+              })}
             </Default.Row>
           </BlockFilter>
 
@@ -222,7 +231,7 @@ export default function ForEmployers(): JSX.Element {
               }
 
               return (
-                <Box>
+                <Box key={job.id}>
                   <BoxTag>Job Opportunity</BoxTag>
                   <Default.Column>
                     <Default.Title4 color={Default.color.blue}>

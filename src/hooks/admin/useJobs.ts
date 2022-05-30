@@ -28,6 +28,7 @@ interface IResponseJobsPage {
       currentPage: number;
       maxPage: number;
     };
+    numberAllCandidates: number;
   };
 }
 
@@ -176,6 +177,7 @@ export function GetJobsPage({
                 currentPage
                 maxPage
             }
+            numberAllCandidates
         }
   
       }
@@ -187,7 +189,11 @@ export function GetJobsPage({
     })
     .catch(() => {
       return {
-        jobsSearch: { jobs: [], infoPage: { currentPage: 0, maxPage: 0 } },
+        jobsSearch: {
+          jobs: [],
+          infoPage: { currentPage: 0, maxPage: 0 },
+          numberAllCandidates: 0,
+        },
       };
     });
 }

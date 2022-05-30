@@ -42,6 +42,15 @@ export default function Candidates(): JSX.Element {
       countrie = countrieFilter[0].name;
     }
 
+    let approachedBy = '';
+    if (
+      candidate &&
+      candidate.userTeamLeader &&
+      candidate.userTeamLeader.user
+    ) {
+      approachedBy = `${candidate.userTeamLeader.user.name} ${candidate.userTeamLeader.user.lastName}`;
+    }
+
     return {
       allRow: candidate,
 
@@ -52,7 +61,7 @@ export default function Candidates(): JSX.Element {
       nativeLanguage: candidate.nativeLanguage,
       englishLevel: candidate.englishLevel,
       status: candidate.user.status,
-      approachedBy: `${candidate.userTeamLeader.user.name} ${candidate.userTeamLeader.user.lastName}`,
+      approachedBy,
       birthDate: Moment(candidate.birthDate).format('DD/MM/YYYY'),
     };
   });
