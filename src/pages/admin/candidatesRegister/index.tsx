@@ -379,7 +379,6 @@ export default function CandidatesRegister(): JSX.Element {
     );
   }, [talentPool, params]);
 
-  console.log('asda-- ', params?.candidate);
   return (
     <ContentPage
       title={`${Language.page.candidates.candidates} > ${

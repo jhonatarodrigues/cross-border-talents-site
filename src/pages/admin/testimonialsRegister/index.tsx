@@ -139,7 +139,6 @@ export default function TestimonialsRegister(): JSX.Element {
     getCountries();
   }, [getCountries]);
 
-  console.log(params);
   return (
     <ContentPage
       title={`${Language.page.testimonials.testimonials} > ${Language.page.testimonials.newTestimonials}`}

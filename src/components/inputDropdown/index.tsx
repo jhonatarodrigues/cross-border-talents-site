@@ -26,6 +26,8 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   options: IOptionsDropdown[];
   value?: string;
   typeSize?: 'small' | 'medium' | undefined;
+
+  onChangeCustom?: (value: string) => void;
 }
 
 type IProps = SelectProps & InputProps;
@@ -57,6 +59,8 @@ export default function InputDropdown({
   label,
   typeSize,
   value: valueProp,
+
+  onChangeCustom,
   ...rest
 }: IProps) {
   const inputRef = useRef(null);
@@ -79,9 +83,15 @@ export default function InputDropdown({
     });
   }, [fieldName, registerField, inputValue]);
 
-  const handleChange = useCallback((value: string) => {
-    setInputValue(value);
-  }, []);
+  const handleChange = useCallback(
+    (value: string) => {
+      setInputValue(value);
+      if (onChangeCustom) {
+        onChangeCustom(value);
+      }
+    },
+    [onChangeCustom],
+  );
 
   useEffect(() => {
     if (valueProp) {
@@ -118,4 +128,5 @@ export default function InputDropdown({
 InputDropdown.defaultProps = {
   value: '',
   typeSize: 'small',
+  onChangeCustom: () => null,
 };

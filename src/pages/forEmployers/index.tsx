@@ -45,6 +45,8 @@ export default function ForEmployers(): JSX.Element {
     [] as IOptionsDropdown[],
   );
   const [country, setCountry] = useState<ICountrie[]>([]);
+  const [selectedCountry, setSelectedCountry] = useState('');
+  const [regions, setRegions] = useState<IOptionsDropdown[]>([]);
   const [numberJobs, setNumberJobs] = useState<number>(0);
   const [contracts, setContracts] = useState<IContract[]>([]);
   const optionsNativeLanguage: IOptionsDropdown[] =
@@ -80,6 +82,26 @@ export default function ForEmployers(): JSX.Element {
   useEffect(() => {
     getInterestSkills();
   }, [getInterestSkills]);
+
+  useEffect(() => {
+    if (selectedCountry) {
+      formRef.current?.clearField('allRegions');
+
+      const regionSelected = country.find(
+        item => item.countryShortCode === selectedCountry,
+      );
+
+      if (regionSelected && regionSelected.regions) {
+        const options: IOptionsDropdown[] = regionSelected.regions.map(item => {
+          return {
+            value: item.shortCode,
+            label: item.name,
+          };
+        });
+        setRegions(options);
+      }
+    }
+  }, [country, selectedCountry]);
 
   const getCountries = useCallback(async () => {
     const { countries } = await GetCountries();
@@ -164,9 +186,17 @@ export default function ForEmployers(): JSX.Element {
                     options={optionsInterestSkills}
                   />
                   <InputDropDown
+                    name="country"
+                    label={Language.fields.country}
+                    options={optionsCountry}
+                    onChangeCustom={(value: string) => {
+                      setSelectedCountry(value);
+                    }}
+                  />
+                  <InputDropDown
                     name="allRegions"
                     label={Language.fields.allRegions}
-                    options={[]}
+                    options={regions}
                   />
                   <InputDropDown
                     name="typeOfContract"
