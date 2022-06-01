@@ -91,7 +91,6 @@ export default function CandidatesRegister(): JSX.Element {
     params?.candidate.profilePicture || '',
   );
   const [uploadCv, setUploadCV] = useState(params?.candidate.cvUpload || '');
-
   const optionsNativeLanguage: IOptionsDropdown[] =
     GetLanguages().languages.map(item => {
       return {
@@ -178,7 +177,7 @@ export default function CandidatesRegister(): JSX.Element {
           }
         }
 
-        if (params?.candidate.id) {
+        if (params?.candidate && params?.candidate.id) {
           const newInfoData = {
             ...infoData,
             id: params.candidate.id,
@@ -259,8 +258,8 @@ export default function CandidatesRegister(): JSX.Element {
     if (countries) {
       const options: IOptionsDropdown[] = countries.map(country => {
         return {
-          value: country.code,
-          label: country.name,
+          value: country.countryShortCode,
+          label: country.countryName,
         };
       });
       setOptionsCountry(options);
@@ -297,7 +296,7 @@ export default function CandidatesRegister(): JSX.Element {
   }, [getInterestSkills]);
 
   const handleGetTalentPool = useCallback(async () => {
-    if (!params?.candidate.id) {
+    if (!params?.candidate || !params?.candidate.id) {
       return;
     }
 
@@ -380,6 +379,7 @@ export default function CandidatesRegister(): JSX.Element {
     );
   }, [talentPool, params]);
 
+  console.log('asda-- ', params?.candidate);
   return (
     <ContentPage
       title={`${Language.page.candidates.candidates} > ${
@@ -486,13 +486,21 @@ export default function CandidatesRegister(): JSX.Element {
               name="teamLeader"
               label="Team Leader *"
               options={optionsTeamLeader}
-              value={params?.candidate.userTeamLeader.id}
+              value={
+                params?.candidate.userTeamLeader
+                  ? params?.candidate.userTeamLeader.id
+                  : ''
+              }
             />
             <InputDropDown
               name="recruiter"
               label="Approached by"
               options={optionsRecruiter}
-              value={params?.candidate.userRecruiter.id}
+              value={
+                params?.candidate.userRecruiter
+                  ? params?.candidate.userRecruiter.id
+                  : ''
+              }
             />
             {uploadCv && uploadCv !== 'undefined' ? (
               <ContentFile

@@ -35,11 +35,11 @@ export default function Candidates(): JSX.Element {
   const rows: GridRowsProp = candidates.map((candidate: ICandidate) => {
     let countrie = '';
     const countrieFilter = countries.filter(
-      (country: ICountrie) => country.code === candidate.country,
+      (country: ICountrie) => country.countryShortCode === candidate.country,
     );
 
     if (countrieFilter && countrieFilter[0]) {
-      countrie = countrieFilter[0].name;
+      countrie = countrieFilter[0].countryName;
     }
 
     let approachedBy = '';

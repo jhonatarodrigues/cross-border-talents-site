@@ -70,12 +70,6 @@ export default function CompanyNeed(): JSX.Element {
   const getCountries = useCallback(async () => {
     const { countries } = await GetCountries();
     if (countries) {
-      const options: IOptionsDropdown[] = countries.map(countryItem => {
-        return {
-          value: countryItem.code,
-          label: countryItem.name,
-        };
-      });
       setCountry(countries);
     } else {
       Modal({ keyType: 'getCountries', icon: 'error' });
@@ -404,8 +398,8 @@ export default function CompanyNeed(): JSX.Element {
                 countryDesc =
                   country.find(
                     (countryItem: ICountrie) =>
-                      countryItem.code === item.candidate.country,
-                  )?.name || '';
+                      countryItem.countryShortCode === item.candidate.country,
+                  )?.countryName || '';
               }
 
               return (

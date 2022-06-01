@@ -273,8 +273,8 @@ export default function Dash(): JSX.Element {
                 countryDesc =
                   country.find(
                     (countryItem: ICountrie) =>
-                      countryItem.code === job.country,
-                  )?.name || '';
+                      countryItem.countryShortCode === job.country,
+                  )?.countryName || '';
               }
 
               return (

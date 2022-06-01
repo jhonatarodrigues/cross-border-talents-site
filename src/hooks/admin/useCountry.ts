@@ -1,10 +1,13 @@
 import graphql from '../../services/graphql';
 
-export interface ICountrie {
-  code: string;
-  code3: string;
+export interface IRegion {
   name: string;
-  number: string;
+  shortCode: string;
+}
+export interface ICountrie {
+  countryName: string;
+  countryShortCode: string;
+  regions: IRegion[];
 }
 
 interface IResponseCountries {
@@ -13,14 +16,15 @@ interface IResponseCountries {
 
 export function GetCountries(): Promise<IResponseCountries> {
   const query = `
-    query {
-      countries {
-       code
-       code3
-       name
-       number
-       
-      }
+    query{
+        countries{
+            countryName
+            countryShortCode
+            regions{
+                name
+                shortCode
+            }
+        }
     }
   `;
 

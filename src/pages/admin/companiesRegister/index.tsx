@@ -184,8 +184,8 @@ export default function CompaniesRegister(): JSX.Element {
     if (countries) {
       const options: IOptionsDropdown[] = countries.map(country => {
         return {
-          value: country.code,
-          label: country.name,
+          value: country.countryShortCode,
+          label: country.countryName,
         };
       });
       setOptionsCountry(options);
@@ -349,7 +349,11 @@ export default function CompaniesRegister(): JSX.Element {
               name="teamLeader"
               label="Team Leader"
               options={optionsTeamLeader}
-              value={params?.company.userTeamLeader.id}
+              value={
+                params?.company.userTeamLeader
+                  ? params?.company.userTeamLeader.id
+                  : ''
+              }
             />
 
             <InputDropDown

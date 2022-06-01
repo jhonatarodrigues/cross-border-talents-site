@@ -91,8 +91,8 @@ export default function Testimonials(): JSX.Element {
                 countryDesc =
                   country.find(
                     (countryItem: ICountrie) =>
-                      countryItem.code === testimonial.country,
-                  )?.name || '';
+                      countryItem.countryShortCode === testimonial.country,
+                  )?.countryName || '';
               }
 
               return (

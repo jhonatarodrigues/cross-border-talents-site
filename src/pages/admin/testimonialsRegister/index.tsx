@@ -125,8 +125,8 @@ export default function TestimonialsRegister(): JSX.Element {
     if (countries) {
       const options: IOptionsDropdown[] = countries.map(country => {
         return {
-          value: country.code,
-          label: country.name,
+          value: country.countryShortCode,
+          label: country.countryName,
         };
       });
       setOptionsCountry(options);

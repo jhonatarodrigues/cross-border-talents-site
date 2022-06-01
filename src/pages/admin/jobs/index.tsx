@@ -25,11 +25,11 @@ export default function Jobs(): JSX.Element {
   const rows: GridRowsProp = jobs.map((item: IJobs) => {
     let countrie = '';
     const countrieFilter = countries.filter(
-      (country: ICountrie) => country.code === item.country,
+      (country: ICountrie) => country.countryShortCode === item.country,
     );
 
     if (countrieFilter && countrieFilter[0]) {
-      countrie = countrieFilter[0].name;
+      countrie = countrieFilter[0].countryName;
     }
 
     return {

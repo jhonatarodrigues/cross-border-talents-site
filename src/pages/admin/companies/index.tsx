@@ -30,11 +30,11 @@ export default function Companies(): JSX.Element {
   const rows: GridRowsProp = companies.map((company: ICompany) => {
     let countrie = '';
     const countrieFilter = countries.filter(
-      (country: ICountrie) => country.code === company.country,
+      (country: ICountrie) => country.countryShortCode === company.country,
     );
 
     if (countrieFilter && countrieFilter[0]) {
-      countrie = countrieFilter[0].name;
+      countrie = countrieFilter[0].countryName;
     }
 
     return {

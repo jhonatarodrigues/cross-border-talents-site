@@ -86,8 +86,8 @@ export default function ForEmployers(): JSX.Element {
     if (countries) {
       const options: IOptionsDropdown[] = countries.map(countryItem => {
         return {
-          value: countryItem.code,
-          label: countryItem.name,
+          value: countryItem.countryShortCode,
+          label: countryItem.countryName,
         };
       });
       setCountry(countries);
@@ -226,8 +226,8 @@ export default function ForEmployers(): JSX.Element {
                 countryDesc =
                   country.find(
                     (countryItem: ICountrie) =>
-                      countryItem.code === job.country,
-                  )?.name || '';
+                      countryItem.countryShortCode === job.country,
+                  )?.countryName || '';
               }
 
               return (

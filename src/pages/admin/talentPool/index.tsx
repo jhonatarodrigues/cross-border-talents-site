@@ -35,11 +35,12 @@ export default function TalentPool(): JSX.Element {
   const rows: GridRowsProp = talentPool.map((item: ITalentPools) => {
     let countrie = '';
     const countrieFilter = countries.filter(
-      (country: ICountrie) => country.code === item.candidate.country,
+      (country: ICountrie) =>
+        country.countryShortCode === item.candidate.country,
     );
 
     if (countrieFilter && countrieFilter[0]) {
-      countrie = countrieFilter[0].name;
+      countrie = countrieFilter[0].countryName;
     }
 
     return {

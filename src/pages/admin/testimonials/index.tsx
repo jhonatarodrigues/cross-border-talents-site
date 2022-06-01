@@ -32,11 +32,11 @@ export default function Testimonials(): JSX.Element {
 
     let countryName = '';
     const countryFilter = countries.filter(
-      (country: ICountrie) => country.code === item.country,
+      (country: ICountrie) => country.countryShortCode === item.country,
     );
 
     if (countryFilter && countryFilter[0]) {
-      countryName = countryFilter[0].name;
+      countryName = countryFilter[0].countryName;
     }
 
     return {
