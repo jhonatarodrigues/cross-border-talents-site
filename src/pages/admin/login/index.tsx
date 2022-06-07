@@ -116,7 +116,7 @@ export default function Login(): JSX.Element {
     }
 
     if (auth.token) {
-      navigate('/admin/user');
+      navigate('/admin/candidates');
     }
   }, [auth, handleOpenModal, dispatch, navigate]);
 

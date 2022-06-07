@@ -152,6 +152,7 @@ export const NameUser = styled.p`
   margin-right: 0.625rem;
   font-size: 0.9375rem;
   color: ${Default.color.blueLight};
+  text-transform: capitalize;
 `;
 export const NameBusiness = styled.p`
   font-size: 18px;

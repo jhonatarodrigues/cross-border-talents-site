@@ -1,5 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { ApplicationState } from './store';
+import RouteAccess from './components/routeAccess';
 
 // -- PAGES
 import Dash from './pages/dash';
@@ -36,6 +40,10 @@ import TestimonialsRegister from './pages/admin/testimonialsRegister';
 import TalentPoolAdmin from './pages/admin/talentPool';
 
 export default function Teste(): JSX.Element {
+  const { auth } = useSelector((state: ApplicationState) => state);
+
+  const { accessLevel } = auth.user || 0;
+
   return (
     <BrowserRouter>
       <Routes>
@@ -56,37 +64,165 @@ export default function Teste(): JSX.Element {
         <Route path="/admin">
           <Route path="login" element={<Login />} />
 
-          <Route path="user" element={<User />} />
-          <Route path="user/register" element={<UserRegister />} />
+          <Route
+            path="user"
+            element={
+              <RouteAccess authAccessLevel={accessLevel} accessLevel={[1]}>
+                <User />
+              </RouteAccess>
+            }
+          />
+          <Route
+            path="user/register"
+            element={
+              <RouteAccess authAccessLevel={accessLevel} accessLevel={[1]}>
+                <UserRegister />
+              </RouteAccess>
+            }
+          />
 
-          <Route path="teamLeader" element={<TeamLeader />} />
-          <Route path="teamLeader/register" element={<TeamLeaderRegister />} />
+          <Route
+            path="teamLeader"
+            element={
+              <RouteAccess authAccessLevel={accessLevel} accessLevel={[1]}>
+                <TeamLeader />
+              </RouteAccess>
+            }
+          />
+          <Route
+            path="teamLeader/register"
+            element={
+              <RouteAccess authAccessLevel={accessLevel} accessLevel={[1]}>
+                <TeamLeaderRegister />
+              </RouteAccess>
+            }
+          />
 
-          <Route path="recruiter" element={<Recruiter />} />
-          <Route path="recruiter/register" element={<RecruiterRegister />} />
+          <Route
+            path="recruiter"
+            element={
+              <RouteAccess authAccessLevel={accessLevel} accessLevel={[1]}>
+                <Recruiter />
+              </RouteAccess>
+            }
+          />
+          <Route
+            path="recruiter/register"
+            element={
+              <RouteAccess authAccessLevel={accessLevel} accessLevel={[1]}>
+                <RecruiterRegister />
+              </RouteAccess>
+            }
+          />
 
-          <Route path="companies" element={<Companies />} />
-          <Route path="companies/register" element={<CompaniesRegister />} />
+          <Route
+            path="companies"
+            element={
+              <RouteAccess authAccessLevel={accessLevel} accessLevel={[1, 2]}>
+                <Companies />
+              </RouteAccess>
+            }
+          />
+          <Route
+            path="companies/register"
+            element={
+              <RouteAccess authAccessLevel={accessLevel} accessLevel={[1, 2]}>
+                <CompaniesRegister />
+              </RouteAccess>
+            }
+          />
 
-          <Route path="candidates" element={<Candidates />} />
-          <Route path="candidates/register" element={<CandidatesRegister />} />
+          <Route
+            path="candidates"
+            element={
+              <RouteAccess
+                authAccessLevel={accessLevel}
+                accessLevel={[1, 2, 3, 4, 5]}
+              >
+                <Candidates />
+              </RouteAccess>
+            }
+          />
+          <Route
+            path="candidates/register"
+            element={
+              <RouteAccess
+                authAccessLevel={accessLevel}
+                accessLevel={[1, 2, 3]}
+              >
+                <CandidatesRegister />
+              </RouteAccess>
+            }
+          />
 
-          <Route path="departament" element={<InterestSkills />} />
+          <Route
+            path="departament"
+            element={
+              <RouteAccess authAccessLevel={accessLevel} accessLevel={[1]}>
+                <InterestSkills />
+              </RouteAccess>
+            }
+          />
           <Route
             path="departament/register"
-            element={<InterestSkillsRegister />}
+            element={
+              <RouteAccess authAccessLevel={accessLevel} accessLevel={[1]}>
+                <InterestSkillsRegister />
+              </RouteAccess>
+            }
           />
 
-          <Route path="jobs" element={<Jobs />} />
-          <Route path="jobs/register" element={<JobsRegister />} />
+          <Route
+            path="jobs"
+            element={
+              <RouteAccess authAccessLevel={accessLevel} accessLevel={[1]}>
+                <Jobs />
+              </RouteAccess>
+            }
+          />
+          <Route
+            path="jobs/register"
+            element={
+              <RouteAccess authAccessLevel={accessLevel} accessLevel={[1]}>
+                <JobsRegister />
+              </RouteAccess>
+            }
+          />
 
-          <Route path="testimonials" element={<Testimonials />} />
+          <Route
+            path="testimonials"
+            element={
+              <RouteAccess
+                authAccessLevel={accessLevel}
+                accessLevel={[1, 2, 3]}
+              >
+                <Testimonials />
+              </RouteAccess>
+            }
+          />
           <Route
             path="testimonials/register"
-            element={<TestimonialsRegister />}
+            element={
+              <RouteAccess
+                authAccessLevel={accessLevel}
+                accessLevel={[1, 2, 3]}
+              >
+                <TestimonialsRegister />
+              </RouteAccess>
+            }
           />
 
-          <Route path="talent-pool" element={<TalentPoolAdmin />} />
+          <Route
+            path="talent-pool"
+            element={
+              <RouteAccess
+                authAccessLevel={accessLevel}
+                accessLevel={[1, 2, 4]}
+              >
+                <TalentPoolAdmin />
+              </RouteAccess>
+            }
+          />
         </Route>
 
         <Route path="*" element={<NotFound />} />
