@@ -181,3 +181,32 @@ export function GetRecruiters(): Promise<IResponseRecruiter> {
       return { recruiters: [] };
     });
 }
+
+export function GetRecruitersIdUser({
+  idUser,
+}: {
+  idUser: string;
+}): Promise<IResponseRecruiter> {
+  const query = `
+      query {
+        recruiters(idUser: "${idUser}") {
+          id
+          idUser
+          user {
+            id
+            name
+            lastName
+            email
+          }
+        }
+      }
+    `;
+
+  return graphql(query)
+    .then(response => {
+      return response.data as IResponseRecruiter;
+    })
+    .catch(() => {
+      return { recruiters: [] };
+    });
+}

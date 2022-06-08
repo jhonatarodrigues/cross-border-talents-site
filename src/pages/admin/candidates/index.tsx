@@ -21,7 +21,10 @@ import Section from '../../../components/section';
 import ContentInput from '../../../components/contentInput';
 import { ApplicationState } from '../../../store';
 import { GetInterestSkills } from '../../../hooks/admin/useInterestSkills';
-import { GetRecruiters } from '../../../hooks/admin/useRecruiters';
+import {
+  GetRecruiters,
+  GetRecruitersIdUser,
+} from '../../../hooks/admin/useRecruiters';
 import {
   GetListCandidates,
   ICandidate,
@@ -51,15 +54,36 @@ export default function Candidates(): JSX.Element {
   const { auth } = useSelector((state: ApplicationState) => state);
   const formRef = useRef<FormHandles>(null);
   const [filter, setFilter] = useState<IFilter>({
-    recruiter: auth && auth.user.accessLevel === 3 ? auth.user.id : '',
     candidate: auth && auth.user.accessLevel === 5 ? auth.user.id : '',
   });
+  const [recruiterInitial, setRecruiterInitial] = useState('');
   const [optionsInterestSkills, setOptionsInterestSkills] = useState<
     IOptionsDropdown[]
   >([] as IOptionsDropdown[]);
   const [optionsRecruiter, setOptionsRecruiter] = useState<IOptionsDropdown[]>(
     [] as IOptionsDropdown[],
   );
+
+  const handleGetUserRecruiter = useCallback(async () => {
+    if (auth && auth.user.accessLevel === 3) {
+      const response = await GetRecruitersIdUser({
+        idUser: auth.user.id,
+      });
+
+      setRecruiterInitial(response.recruiters[0] && response.recruiters[0].id);
+    }
+  }, [auth]);
+  useEffect(() => {
+    handleGetUserRecruiter();
+  }, [handleGetUserRecruiter]);
+  useEffect(() => {
+    if (recruiterInitial) {
+      formRef.current?.setFieldValue('recruiter', recruiterInitial);
+      setFilter({
+        recruiter: recruiterInitial,
+      });
+    }
+  }, [recruiterInitial]);
 
   const rows: GridRowsProp = candidates.map((candidate: ICandidate) => {
     let countrie = '';
