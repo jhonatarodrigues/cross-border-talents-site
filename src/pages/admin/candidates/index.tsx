@@ -1,23 +1,34 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useCallback, useState, useRef } from 'react';
 import {
   DataGrid,
   GridRowsProp,
   GridColDef,
   GridCellParams,
 } from '@mui/x-data-grid';
+import { Form } from '@unform/web';
+import { SubmitHandler, FormHandles } from '@unform/core';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose, faEdit, faHand } from '@fortawesome/free-solid-svg-icons';
 import Moment from 'moment';
 import { useSelector } from 'react-redux';
 
+import Input from '../../../components/input';
+import InputDropDown, {
+  IOptionsDropdown,
+} from '../../../components/inputDropdown';
+import Section from '../../../components/section';
+import ContentInput from '../../../components/contentInput';
 import { ApplicationState } from '../../../store';
+import { GetInterestSkills } from '../../../hooks/admin/useInterestSkills';
+import { GetRecruiters } from '../../../hooks/admin/useRecruiters';
 import {
   GetListCandidates,
   ICandidate,
   DeleteCandidate,
   AddTeamLeaderToCandidate,
 } from '../../../hooks/admin/useCandidates';
+import Button from '../../../components/button';
 import { GetCountries, ICountrie } from '../../../hooks/admin/useCountry';
 import LabelDestached from '../../../components/labelDestached';
 import ContentPage from '../../../components/contentPage';
@@ -26,11 +37,27 @@ import Language from '../../../language';
 import Default from '../../../default';
 import { InvisibleButton } from './style';
 
+interface IFilter {
+  search?: string;
+  department?: string;
+  recruiter?: string;
+}
+
 export default function Candidates(): JSX.Element {
   const navigate = useNavigate();
   const [candidates, setCandidates] = useState<ICandidate[]>([]);
   const [countries, setCountries] = useState<ICountrie[]>([]);
   const { auth } = useSelector((state: ApplicationState) => state);
+  const formRef = useRef<FormHandles>(null);
+  const [filter, setFilter] = useState<IFilter>({
+    recruiter: auth && auth.user.accessLevel === 3 ? auth.user.id : '',
+  });
+  const [optionsInterestSkills, setOptionsInterestSkills] = useState<
+    IOptionsDropdown[]
+  >([] as IOptionsDropdown[]);
+  const [optionsRecruiter, setOptionsRecruiter] = useState<IOptionsDropdown[]>(
+    [] as IOptionsDropdown[],
+  );
 
   const rows: GridRowsProp = candidates.map((candidate: ICandidate) => {
     let countrie = '';
@@ -67,11 +94,11 @@ export default function Candidates(): JSX.Element {
   });
 
   const handleGetUser = useCallback(async () => {
-    const response = await GetListCandidates();
+    const response = await GetListCandidates(filter);
     if (response && response.candidates) {
       setCandidates(response.candidates);
     }
-  }, []);
+  }, [filter]);
 
   const handleDeleteCandidate = useCallback(
     async (id: string) => {
@@ -207,6 +234,45 @@ export default function Candidates(): JSX.Element {
       });
   }, []);
 
+  const getRecruiters = useCallback(async () => {
+    const { recruiters } = await GetRecruiters();
+
+    if (recruiters) {
+      const options: IOptionsDropdown[] = recruiters.map(recruiter => {
+        return {
+          value: recruiter.id,
+          label: recruiter.user.name,
+        };
+      });
+      setOptionsRecruiter(options);
+    } else {
+      Modal({ keyType: 'getRecruiter', icon: 'error' });
+    }
+  }, []);
+
+  const getInterestSkills = useCallback(async () => {
+    const { interestSkills } = await GetInterestSkills();
+    if (interestSkills) {
+      const options: IOptionsDropdown[] = interestSkills.map(item => {
+        return {
+          value: item.id,
+          label: item.name,
+        };
+      });
+      setOptionsInterestSkills(options);
+    } else {
+      Modal({ keyType: 'getInterestSkills', icon: 'error' });
+    }
+  }, []);
+
+  useEffect(() => {
+    getRecruiters();
+  }, [getRecruiters]);
+
+  useEffect(() => {
+    getInterestSkills();
+  }, [getInterestSkills]);
+
   useEffect(() => {
     handleGetCountries();
   }, [handleGetCountries]);
@@ -215,12 +281,53 @@ export default function Candidates(): JSX.Element {
     handleGetUser();
   }, [handleGetUser]);
 
+  const handleSubmit: SubmitHandler = useCallback(async data => {
+    setFilter({
+      search: data.search,
+      recruiter: data.recruiter,
+      department: data.interestSkills,
+    });
+  }, []);
+
   return (
     <ContentPage
       title={Language.page.candidates.listCandidates}
       buttonNewLabel={Language.page.candidates.newCandidates}
       buttonNewClick={() => navigate('/admin/candidates/register')}
     >
+      <Form
+        ref={formRef}
+        onSubmit={handleSubmit}
+        onClick={() => formRef.current?.setErrors({})}
+      >
+        <Section label={Language.page.candidates.personalInformation}>
+          <ContentInput>
+            <Input name="search" label={Language.fields.search} />
+          </ContentInput>
+          <ContentInput>
+            <InputDropDown
+              name="interestSkills"
+              label={Language.fields.department}
+              options={optionsInterestSkills}
+            />
+            <InputDropDown
+              name="recruiter"
+              label={Language.fields.recruiter}
+              options={optionsRecruiter}
+              value={auth && auth.user.accessLevel === 3 ? auth.user.id : ''}
+            />
+            <div>
+              <Button
+                variant="contained"
+                type="submit"
+                style={{ minWidth: '100px' }}
+              >
+                Search
+              </Button>
+            </div>
+          </ContentInput>
+        </Section>
+      </Form>
       <DataGrid rows={rows} columns={columns} autoHeight />
     </ContentPage>
   );

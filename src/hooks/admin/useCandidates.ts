@@ -275,10 +275,20 @@ export function AddCandidateLogin(
     });
 }
 
-export function GetListCandidates(): Promise<IResponseCandidates> {
+export function GetListCandidates({
+  search,
+  department,
+  recruiter,
+}: {
+  search?: string;
+  department?: string;
+  recruiter?: string;
+}): Promise<IResponseCandidates> {
   const query = `
     query{
-        candidates{
+        candidates(search: "${search || ''}", ${
+    department ? `department: "${department}"` : ''
+  }, ${recruiter ? `recruiter: "${recruiter}"` : ''}) {
             id
             idUser
             profilePicture
