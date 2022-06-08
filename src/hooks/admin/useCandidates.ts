@@ -279,16 +279,22 @@ export function GetListCandidates({
   search,
   department,
   recruiter,
+  candidate,
 }: {
   search?: string;
   department?: string;
   recruiter?: string;
+  candidate?: string;
 }): Promise<IResponseCandidates> {
   const query = `
     query{
-        candidates(search: "${search || ''}", ${
+        candidates(
+            search: "${search || ''}", ${
     department ? `department: "${department}"` : ''
-  }, ${recruiter ? `recruiter: "${recruiter}"` : ''}) {
+  }, ${recruiter ? `recruiter: "${recruiter}"` : ''}, 
+  ${candidate ? `candidate: "${candidate}"` : ''}
+
+  ) {
             id
             idUser
             profilePicture

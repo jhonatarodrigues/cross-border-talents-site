@@ -41,6 +41,7 @@ interface IFilter {
   search?: string;
   department?: string;
   recruiter?: string;
+  candidate?: string;
 }
 
 export default function Candidates(): JSX.Element {
@@ -51,6 +52,7 @@ export default function Candidates(): JSX.Element {
   const formRef = useRef<FormHandles>(null);
   const [filter, setFilter] = useState<IFilter>({
     recruiter: auth && auth.user.accessLevel === 3 ? auth.user.id : '',
+    candidate: auth && auth.user.accessLevel === 5 ? auth.user.id : '',
   });
   const [optionsInterestSkills, setOptionsInterestSkills] = useState<
     IOptionsDropdown[]
@@ -204,6 +206,7 @@ export default function Candidates(): JSX.Element {
     { field: 'nativeLanguage', headerName: 'Native Language', flex: 1 },
     { field: 'approachedBy', headerName: 'Approached By', flex: 1 },
     { field: 'birthDate', headerName: 'Date', flex: 1 },
+
     {
       field: 'status',
       headerName: 'Status',
@@ -215,6 +218,8 @@ export default function Candidates(): JSX.Element {
       ),
     },
     {
+      hide: auth && auth.user.accessLevel === 5,
+      filterable: false,
       field: 'actions',
       headerName: 'Actions',
       renderCell: renderActionCell,
@@ -295,39 +300,46 @@ export default function Candidates(): JSX.Element {
       buttonNewLabel={Language.page.candidates.newCandidates}
       buttonNewClick={() => navigate('/admin/candidates/register')}
     >
-      <Form
-        ref={formRef}
-        onSubmit={handleSubmit}
-        onClick={() => formRef.current?.setErrors({})}
-      >
-        <Section label={Language.page.candidates.personalInformation}>
-          <ContentInput>
-            <Input name="search" label={Language.fields.search} />
-          </ContentInput>
-          <ContentInput>
-            <InputDropDown
-              name="interestSkills"
-              label={Language.fields.department}
-              options={optionsInterestSkills}
-            />
-            <InputDropDown
-              name="recruiter"
-              label={Language.fields.recruiter}
-              options={optionsRecruiter}
-              value={auth && auth.user.accessLevel === 3 ? auth.user.id : ''}
-            />
-            <div>
-              <Button
-                variant="contained"
-                type="submit"
-                style={{ minWidth: '100px' }}
-              >
-                Search
-              </Button>
-            </div>
-          </ContentInput>
-        </Section>
-      </Form>
+      {auth && auth.user.accessLevel !== 5 ? (
+        <Form
+          ref={formRef}
+          onSubmit={handleSubmit}
+          onClick={() => formRef.current?.setErrors({})}
+        >
+          <Section label={Language.page.filter}>
+            <ContentInput>
+              <Input name="search" label={Language.fields.search} />
+            </ContentInput>
+            <ContentInput>
+              <InputDropDown
+                name="interestSkills"
+                label={Language.fields.department}
+                options={[
+                  { label: 'Select', value: '' },
+                  ...optionsInterestSkills,
+                ]}
+              />
+              <InputDropDown
+                name="recruiter"
+                label={Language.fields.recruiter}
+                options={[{ label: 'Select', value: '' }, ...optionsRecruiter]}
+                value={auth && auth.user.accessLevel === 3 ? auth.user.id : ''}
+              />
+              <div>
+                <Button
+                  variant="contained"
+                  type="submit"
+                  style={{ minWidth: '100px' }}
+                >
+                  Search
+                </Button>
+              </div>
+            </ContentInput>
+          </Section>
+        </Form>
+      ) : (
+        <div />
+      )}
       <DataGrid rows={rows} columns={columns} autoHeight />
     </ContentPage>
   );

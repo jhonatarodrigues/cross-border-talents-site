@@ -130,6 +130,7 @@ const enUs = {
     talentPool: {
       listTalentPool: 'List of talent pool',
     },
+    filter: 'Filter',
   },
 
   personalInformation: 'Personal information',
