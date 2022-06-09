@@ -339,9 +339,15 @@ export default function Login(): JSX.Element {
               value="true"
               onChange={() => setPolicyTerms(true)}
             />
-            <Default.Text2 color={Default.color.gray}>
-              I have read and agree to the Privacy Policy terms.
-            </Default.Text2>
+            <a
+              href="https://blog-cbtalents-com.cloud3.cloubox.com.br/privacy-policy/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Default.Text2 color={Default.color.gray}>
+                I have read and agree to the Privacy Policy terms.
+              </Default.Text2>
+            </a>
           </label>
         </Default.Row>
         <Default.Space h="0.3125rem" />

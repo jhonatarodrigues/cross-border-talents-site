@@ -161,10 +161,11 @@ export default function Nav(): JSX.Element {
             <ContentDivider>
               <Divider />
             </ContentDivider>
-            <Link
-              to="http://google.com"
-              key="linkFAQs"
+            <a
+              href="https://blog-cbtalents-com.cloud3.cloubox.com.br/faqs/"
+              target="_blank"
               style={{ textDecoration: 'none' }}
+              rel="noreferrer"
             >
               <ItemNav key="linkFAQsItem" openMain>
                 <ContentItemText>
@@ -178,11 +179,12 @@ export default function Nav(): JSX.Element {
                   </ContainerTitle>
                 </ContentItemText>
               </ItemNav>
-            </Link>
-            <Link
-              to="http://google.com"
-              key="linkHelpCenter"
+            </a>
+            <a
+              href="http://google.com"
+              target="_blank"
               style={{ textDecoration: 'none' }}
+              rel="noreferrer"
             >
               <ItemNav key="linkHelpCenterItem" openMain>
                 <ContentItemText>
@@ -196,7 +198,7 @@ export default function Nav(): JSX.Element {
                   </ContainerTitle>
                 </ContentItemText>
               </ItemNav>
-            </Link>
+            </a>
           </>
         )}
       </ContentNav>
