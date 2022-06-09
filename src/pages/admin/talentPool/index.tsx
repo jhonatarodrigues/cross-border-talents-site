@@ -17,13 +17,24 @@ import ContentPage from '../../../components/contentPage';
 import Modal from '../../../components/modal';
 import Language from '../../../language';
 import Default from '../../../default';
+import Button from '../../../components/button';
 import {
   AddTalentPoolInterest,
   CheckTalentPoolInterest,
 } from '../../../hooks/admin/useTalentPoolInterest';
 import CustomModal from '../../../components/CustomModal';
-import Section from '../../../components/section';
-import { InvisibleButton, ContentModal } from './style';
+import Logo from '../../../assets/images/logo.png';
+import {
+  InvisibleButton,
+  ContentModal,
+  ModalImage,
+  ModalScroll,
+  InformationModal,
+  TitleModal,
+  InfoModal,
+  ModalLine,
+  TitleSectionModal,
+} from './style';
 
 export default function TalentPool(): JSX.Element {
   const [talentPool, setTalentPool] = useState<ITalentPools[]>([]);
@@ -163,106 +174,129 @@ export default function TalentPool(): JSX.Element {
     const email = checkTalentPoolInterest ? selectedRow?.user.email : '******';
     const phone = checkTalentPoolInterest ? selectedRow?.user.phone : '******';
 
-    return (
-      <CustomModal onClose={() => setModalDetails(false)}>
-        <ContentModal>
-          <Section label={Language.informationCandidate}>
-            <Default.Column>
-              <Default.Row alignItens="center">
-                <Default.Title2 color={Default.color.blueOriginal}>
-                  Nome:&nbsp;
-                </Default.Title2>
-                <Default.Text color={Default.color.gray}>{name}</Default.Text>
-              </Default.Row>
-              <Default.Space h="0.5rem" />
-              <Default.Row alignItens="center">
-                <Default.Title2 color={Default.color.blueOriginal}>
-                  Last Name:&nbsp;
-                </Default.Title2>
-                <Default.Text color={Default.color.gray}>
-                  {lastName}
-                </Default.Text>
-              </Default.Row>
-              <Default.Space h="0.5rem" />
-              <Default.Row alignItens="center">
-                <Default.Title2 color={Default.color.blueOriginal}>
-                  Email:&nbsp;
-                </Default.Title2>
-                <Default.Text color={Default.color.gray}>{email}</Default.Text>
-              </Default.Row>
-              <Default.Space h="0.5rem" />
-              <Default.Row alignItens="center">
-                <Default.Title2 color={Default.color.blueOriginal}>
-                  Phone:&nbsp;
-                </Default.Title2>
-                <Default.Text color={Default.color.gray}>{phone}</Default.Text>
-              </Default.Row>
-              <Default.Space h="0.5rem" />
+    console.log('aaa --', selectedRow);
 
-              <Default.Row alignItens="center">
-                <Default.Title2 color={Default.color.blueOriginal}>
-                  Charge:&nbsp;
-                </Default.Title2>
-                <Default.Text color={Default.color.gray}>
-                  {selectedRow?.charge}
-                </Default.Text>
-              </Default.Row>
-              <Default.Space h="0.5rem" />
-              <Default.Row alignItens="center">
-                <Default.Title2 color={Default.color.blueOriginal}>
-                  Profile:&nbsp;
-                </Default.Title2>
-                <Default.Text color={Default.color.gray}>
-                  {selectedRow?.profile}
-                </Default.Text>
-              </Default.Row>
-              <Default.Space h="0.5rem" />
-              <Default.Row alignItens="center">
-                <Default.Title2 color={Default.color.blueOriginal}>
-                  Observation:&nbsp;
-                </Default.Title2>
-                <Default.Text color={Default.color.gray}>
-                  {selectedRow?.observation}
-                </Default.Text>
-              </Default.Row>
-              <Default.Space h="0.5rem" />
-              <Default.Row alignItens="center">
-                <Default.Title2 color={Default.color.blueOriginal}>
-                  Software:&nbsp;
-                </Default.Title2>
-                <Default.Text color={Default.color.gray}>
-                  {selectedRow?.softwares}
-                </Default.Text>
-              </Default.Row>
-              <Default.Space h="0.5rem" />
-              <Default.Row alignItens="center">
-                <Default.Title2 color={Default.color.blueOriginal}>
-                  Education:&nbsp;
-                </Default.Title2>
-                <Default.Text color={Default.color.gray}>
-                  {selectedRow?.education}
-                </Default.Text>
-              </Default.Row>
-              <Default.Space h="0.5rem" />
-              <Default.Row alignItens="center">
-                <Default.Title2 color={Default.color.blueOriginal}>
-                  Experience:&nbsp;
-                </Default.Title2>
-                <Default.Text color={Default.color.gray}>
-                  {selectedRow?.experience}
-                </Default.Text>
-              </Default.Row>
-              <Default.Space h="0.5rem" />
-              <Default.Row alignItens="center">
-                <Default.Title2 color={Default.color.blueOriginal}>
-                  Language:&nbsp;
-                </Default.Title2>
-                <Default.Text color={Default.color.gray}>
-                  {selectedRow?.languages}
-                </Default.Text>
-              </Default.Row>
-            </Default.Column>
-          </Section>
+    return (
+      <CustomModal noPadding onClose={() => setModalDetails(false)}>
+        <ContentModal>
+          <ModalScroll>
+            <ModalImage />
+            <InformationModal>
+              <Default.Column>
+                <Default.Row>
+                  <Default.Column style={{ minWidth: '70%' }}>
+                    <Default.Row>
+                      <TitleModal>Name</TitleModal>
+                      <InfoModal>{`${name} ${lastName}`}</InfoModal>
+                    </Default.Row>
+                    <Default.Space h="1.1875rem" />
+                    <Default.Row>
+                      <TitleModal>E-mail</TitleModal>
+                      <InfoModal>{email}</InfoModal>
+                    </Default.Row>
+                    <Default.Space h="1.1875rem" />
+                    <Default.Row>
+                      <TitleModal>Gender</TitleModal>
+                      <InfoModal>{name}</InfoModal>
+                    </Default.Row>
+                    <Default.Space h="1.1875rem" />
+                    <Default.Row>
+                      <TitleModal>Phone</TitleModal>
+                      <InfoModal>{phone}</InfoModal>
+                    </Default.Row>
+                    <Default.Space h="1.1875rem" />
+                  </Default.Column>
+                  <Default.Column alignItens="flex-end">
+                    <Button style={{ background: Default.color.success }}>
+                      See all information
+                    </Button>
+                  </Default.Column>
+                </Default.Row>
+
+                <ModalLine />
+                <Default.Row>
+                  <Default.Column>
+                    <TitleSectionModal>Personal information</TitleSectionModal>
+                    <Default.Space h="1.875rem" />
+                    <Default.Row>
+                      <TitleModal>Native Language</TitleModal>
+                      <InfoModal>{`${selectedRow?.candidate.nativeLanguage}`}</InfoModal>
+                    </Default.Row>
+                    <Default.Space h="1.1875rem" />
+                    <Default.Row>
+                      <TitleModal>Country of residence</TitleModal>
+                      <InfoModal>{`${selectedRow?.candidate.country}`}</InfoModal>
+                    </Default.Row>
+                    <Default.Space h="1.1875rem" />
+                    <Default.Row>
+                      <TitleModal>English level</TitleModal>
+                      <InfoModal>{`${selectedRow?.candidate.englishLevel}`}</InfoModal>
+                    </Default.Row>
+                    <Default.Space h="1.1875rem" />
+                    <Default.Row>
+                      <TitleModal>Observations</TitleModal>
+                      <InfoModal>{`${selectedRow?.observation}`}</InfoModal>
+                    </Default.Row>
+                  </Default.Column>
+                </Default.Row>
+
+                <ModalLine />
+                <Default.Row>
+                  <Default.Column>
+                    <TitleSectionModal>Business information</TitleSectionModal>
+                    <Default.Space h="1.875rem" />
+                    <Default.Row>
+                      <TitleModal>Profile:</TitleModal>
+                      <InfoModal>{`${selectedRow?.profile}`}</InfoModal>
+                    </Default.Row>
+                    <Default.Space h="1.1875rem" />
+                    <Default.Row>
+                      <TitleModal>Role</TitleModal>
+                      <InfoModal>{`${selectedRow?.charge}`}</InfoModal>
+                    </Default.Row>
+                    <Default.Space h="1.1875rem" />
+                    <Default.Row>
+                      <TitleModal>Softwares</TitleModal>
+                      <InfoModal>{`${selectedRow?.softwares}`}</InfoModal>
+                    </Default.Row>
+                    <Default.Space h="1.1875rem" />
+                    <Default.Row>
+                      <TitleModal>Education</TitleModal>
+                      <InfoModal>{`${selectedRow?.education}`}</InfoModal>
+                    </Default.Row>
+                    <Default.Space h="5rem" />
+
+                    <Default.Row>
+                      <TitleModal>Languages</TitleModal>
+                      <InfoModal>{`${selectedRow?.languages}`}</InfoModal>
+                    </Default.Row>
+                    <Default.Space h="1.1875rem" />
+                    <Default.Row>
+                      <TitleModal>Work experience</TitleModal>
+                      <InfoModal
+                        dangerouslySetInnerHTML={{
+                          __html: selectedRow?.experience,
+                        }}
+                      />
+                    </Default.Row>
+                  </Default.Column>
+                </Default.Row>
+                <ModalLine />
+                <Default.Row>
+                  <Default.Column>
+                    <Default.Title2 color={Default.color.blueOriginal}>
+                      Top candidates.
+                      <br />
+                      Exclusive for companies.
+                    </Default.Title2>
+                  </Default.Column>
+                  <Default.Column alignItens="flex-end">
+                    <img src={Logo} alt="Cross Border Talents" />
+                  </Default.Column>
+                </Default.Row>
+              </Default.Column>
+            </InformationModal>
+          </ModalScroll>
         </ContentModal>
       </CustomModal>
     );

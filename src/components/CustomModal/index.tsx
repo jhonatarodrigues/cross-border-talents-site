@@ -14,12 +14,15 @@ import {
 interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   textBlue?: React.ReactNode;
+  noPadding?: boolean;
+
   onClose: () => void;
 }
 
 export default function CustomModal({
   children,
   textBlue,
+  noPadding,
   onClose,
 }: IProps): JSX.Element {
   return (
@@ -28,8 +31,8 @@ export default function CustomModal({
         <ButtonClose onClick={() => onClose()}>
           <FontAwesomeIcon icon={faTimes} color={Default.color.gray} />
         </ButtonClose>
-        <Modal>{children}</Modal>
-        <Default.Space h="4.375rem" />
+        <Modal padding={!noPadding}>{children}</Modal>
+        {!noPadding && <Default.Space h="4.375rem" />}
         {textBlue && <ContentBlue>{textBlue}</ContentBlue>}
       </ContentModal>
     </BackgroundModal>
@@ -38,4 +41,5 @@ export default function CustomModal({
 
 CustomModal.defaultProps = {
   textBlue: null,
+  noPadding: false,
 };

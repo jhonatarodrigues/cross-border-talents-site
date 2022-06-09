@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import Default from '../../../default';
+import { color } from '../../../default/constants';
 
 export const LoginPageContainer = styled.div`
   width: 100%;
@@ -60,5 +61,45 @@ export const InvisibleButton = styled.button`
   }
 `;
 export const ContentModal = styled.div`
-  width: 60vw;
+  width: 80vw;
+  max-width: 56.25rem;
+  max-height: 80vh;
+  overflow-y: auto;
+`;
+
+export const ModalImage = styled.div`
+  width: 100%;
+  height: 33.8125rem;
+  min-height: 33.8125rem;
+  background: #f0f;
+`;
+export const ModalScroll = styled.div`
+  flex-direction: column;
+  width: 100%;
+`;
+export const InformationModal = styled.div`
+  padding: 6.25rem 5.3125rem;
+`;
+export const TitleModal = styled.div`
+  font-size: 1rem;
+  font-weight: bold;
+  color: ${color.gray};
+  min-width: 17.5rem;
+  max-width: 17.5rem;
+`;
+export const InfoModal = styled.div`
+  font-size: 1rem;
+  font-weight: 400;
+  color: ${color.gray};
+`;
+export const ModalLine = styled.div`
+  width: 100%;
+  height: 0.0625rem;
+  background: ${color.blueLight2};
+  margin: 2.5rem 0;
+`;
+export const TitleSectionModal = styled.div`
+  font-size: 1.5625rem;
+  font-weight: 600;
+  color: ${color.blueOriginal};
 `;

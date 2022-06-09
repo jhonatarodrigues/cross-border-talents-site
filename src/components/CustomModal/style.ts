@@ -2,6 +2,10 @@ import styled from 'styled-components';
 
 import Default from '../../default';
 
+interface IPadding {
+  padding?: boolean;
+}
+
 export const BackgroundModal = styled.div`
   position: fixed;
   top: 0;
@@ -25,8 +29,8 @@ export const ContentModal = styled.div`
   flex-direction: column;
   position: relative;
 `;
-export const Modal = styled.div`
-  padding: 4.375rem;
+export const Modal = styled.div<IPadding>`
+  padding: ${({ padding }) => (padding ? '4.375rem' : '0')};
   padding-bottom: 0;
   flex-direction: column;
   position: relative;

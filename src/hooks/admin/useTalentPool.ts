@@ -27,6 +27,8 @@ export interface ITalentPools {
     country: string;
     gender: string;
     observations: string;
+    nativeLanguage: string;
+    englishLevel: string;
   };
 }
 
@@ -71,6 +73,8 @@ export function GetTalentPools(): Promise<IResponseUser> {
         candidate{
             id
             country
+            nativeLanguage
+            englishLevel
         }
         user {
             id
