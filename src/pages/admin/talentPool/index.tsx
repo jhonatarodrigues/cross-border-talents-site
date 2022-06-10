@@ -6,7 +6,7 @@ import {
   GridCellParams,
 } from '@mui/x-data-grid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faPlus, faFilePdf } from '@fortawesome/free-solid-svg-icons';
 
 import {
   GetTalentPools,
@@ -23,7 +23,12 @@ import {
   CheckTalentPoolInterest,
 } from '../../../hooks/admin/useTalentPoolInterest';
 import CustomModal from '../../../components/CustomModal';
+import {
+  GetLanguages,
+  IResponseLanguages,
+} from '../../../hooks/admin/useLanguages';
 import Logo from '../../../assets/images/logo.png';
+import LogoBranco from '../../../assets/images/logoWhite.png';
 import {
   InvisibleButton,
   ContentModal,
@@ -42,6 +47,9 @@ export default function TalentPool(): JSX.Element {
   const [selectedRow, setSelectedRow] = useState<ITalentPools>();
   const [checkTalentPoolInterest, setCheckTalentPoolInterest] = useState(false);
   const [countries, setCountries] = useState<ICountrie[]>([]);
+  const [nativeLanguage, setNativeLanguage] = useState<IResponseLanguages>(
+    {} as IResponseLanguages,
+  );
 
   const rows: GridRowsProp = talentPool.map((item: ITalentPools) => {
     let countrie = '';
@@ -65,6 +73,11 @@ export default function TalentPool(): JSX.Element {
       country: countrie,
     };
   });
+
+  useEffect(() => {
+    const response = GetLanguages();
+    setNativeLanguage(response);
+  }, []);
 
   const handleGetCountries = useCallback(() => {
     GetCountries()
@@ -180,10 +193,43 @@ export default function TalentPool(): JSX.Element {
       <CustomModal noPadding onClose={() => setModalDetails(false)}>
         <ContentModal>
           <ModalScroll>
-            <ModalImage />
-            <InformationModal>
+            <ModalImage>
               <Default.Column>
                 <Default.Row>
+                  <Default.Column>
+                    <img
+                      src={LogoBranco}
+                      alt="Cross Border Talents"
+                      style={{ filter: 'brightness(0) invert(1)' }}
+                    />
+                  </Default.Column>
+                  <Default.Column alignItens="flex-end">
+                    <Button
+                      variant="outlined"
+                      style={{
+                        borderColor: Default.color.white,
+                        color: Default.color.white,
+                      }}
+                    >
+                      <FontAwesomeIcon
+                        icon={faFilePdf}
+                        color={Default.color.white}
+                      />
+                      &nbsp; Print Blind CV
+                    </Button>
+                  </Default.Column>
+                </Default.Row>
+                <Default.Space h="4.375rem" />
+                <Default.Row>
+                  <Default.TitleH3 color={Default.color.white}>
+                    {selectedRow?.profile}
+                  </Default.TitleH3>
+                </Default.Row>
+              </Default.Column>
+            </ModalImage>
+            <InformationModal>
+              <Default.Column>
+                {/* <Default.Row>
                   <Default.Column style={{ minWidth: '70%' }}>
                     <Default.Row>
                       <TitleModal>Name</TitleModal>
@@ -211,31 +257,52 @@ export default function TalentPool(): JSX.Element {
                       See all information
                     </Button>
                   </Default.Column>
-                </Default.Row>
+                </Default.Row> */}
 
-                <ModalLine />
                 <Default.Row>
                   <Default.Column>
-                    <TitleSectionModal>Personal information</TitleSectionModal>
+                    <TitleSectionModal>Professional profile</TitleSectionModal>
                     <Default.Space h="1.875rem" />
                     <Default.Row>
-                      <TitleModal>Native Language</TitleModal>
-                      <InfoModal>{`${selectedRow?.candidate.nativeLanguage}`}</InfoModal>
+                      <InfoModal
+                        dangerouslySetInnerHTML={{
+                          __html: selectedRow?.observation,
+                        }}
+                      />
+                    </Default.Row>
+                    <Default.Space h="3.125rem" />
+                    <Default.Row>
+                      <TitleModal>Nationality</TitleModal>
+                      <InfoModal>
+                        {selectedRow?.candidate.nativeLanguage &&
+                          nativeLanguage.languages.find(
+                            language =>
+                              language.code ===
+                              selectedRow?.candidate.nativeLanguage,
+                          )?.name}
+                      </InfoModal>
                     </Default.Row>
                     <Default.Space h="1.1875rem" />
                     <Default.Row>
                       <TitleModal>Country of residence</TitleModal>
-                      <InfoModal>{`${selectedRow?.candidate.country}`}</InfoModal>
+                      <InfoModal>
+                        {selectedRow?.candidate.country &&
+                          countries.find(
+                            country =>
+                              country.countryShortCode ===
+                              selectedRow?.candidate.country,
+                          )?.countryName}
+                      </InfoModal>
                     </Default.Row>
                     <Default.Space h="1.1875rem" />
                     <Default.Row>
-                      <TitleModal>English level</TitleModal>
-                      <InfoModal>{`${selectedRow?.candidate.englishLevel}`}</InfoModal>
+                      <TitleModal>Degree</TitleModal>
+                      <InfoModal>{`${selectedRow?.charge}`}</InfoModal>
                     </Default.Row>
                     <Default.Space h="1.1875rem" />
                     <Default.Row>
-                      <TitleModal>Observations</TitleModal>
-                      <InfoModal>{`${selectedRow?.observation}`}</InfoModal>
+                      <TitleModal>Languages</TitleModal>
+                      <InfoModal>{`${selectedRow?.languages}`}</InfoModal>
                     </Default.Row>
                   </Default.Column>
                 </Default.Row>
@@ -243,34 +310,22 @@ export default function TalentPool(): JSX.Element {
                 <ModalLine />
                 <Default.Row>
                   <Default.Column>
-                    <TitleSectionModal>Business information</TitleSectionModal>
+                    <TitleSectionModal>Education</TitleSectionModal>
                     <Default.Space h="1.875rem" />
-                    <Default.Row>
-                      <TitleModal>Profile:</TitleModal>
-                      <InfoModal>{`${selectedRow?.profile}`}</InfoModal>
-                    </Default.Row>
-                    <Default.Space h="1.1875rem" />
-                    <Default.Row>
-                      <TitleModal>Role</TitleModal>
-                      <InfoModal>{`${selectedRow?.charge}`}</InfoModal>
-                    </Default.Row>
-                    <Default.Space h="1.1875rem" />
-                    <Default.Row>
-                      <TitleModal>Softwares</TitleModal>
-                      <InfoModal>{`${selectedRow?.softwares}`}</InfoModal>
-                    </Default.Row>
-                    <Default.Space h="1.1875rem" />
                     <Default.Row>
                       <TitleModal>Education</TitleModal>
                       <InfoModal>{`${selectedRow?.education}`}</InfoModal>
                     </Default.Row>
-                    <Default.Space h="5rem" />
+                  </Default.Column>
+                </Default.Row>
 
-                    <Default.Row>
-                      <TitleModal>Languages</TitleModal>
-                      <InfoModal>{`${selectedRow?.languages}`}</InfoModal>
-                    </Default.Row>
-                    <Default.Space h="1.1875rem" />
+                <ModalLine />
+                <Default.Row>
+                  <Default.Column>
+                    <TitleSectionModal>
+                      Professional experience
+                    </TitleSectionModal>
+                    <Default.Space h="1.875rem" />
                     <Default.Row>
                       <TitleModal>Work experience</TitleModal>
                       <InfoModal
@@ -284,7 +339,7 @@ export default function TalentPool(): JSX.Element {
                 <ModalLine />
                 <Default.Row>
                   <Default.Column>
-                    <Default.Title2 color={Default.color.blueOriginal}>
+                    <Default.Title2 color={Default.color.gray}>
                       Top candidates.
                       <br />
                       Exclusive for companies.

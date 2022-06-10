@@ -26,8 +26,8 @@ export const ContentLogin = styled.div`
 `;
 
 export const IconLogin = styled.div`
-  width: 50px;
-  height: 50px;
+  width: 3.125rem;
+  height: 3.125rem;
   background: ${Default.color.blue};
   border-radius: 100%;
   font-size: 1.5rem;
@@ -69,9 +69,8 @@ export const ContentModal = styled.div`
 
 export const ModalImage = styled.div`
   width: 100%;
-  height: 33.8125rem;
-  min-height: 33.8125rem;
-  background: #f0f;
+  padding: 6.25rem 5.3125rem;
+  background: ${color.success};
 `;
 export const ModalScroll = styled.div`
   flex-direction: column;
