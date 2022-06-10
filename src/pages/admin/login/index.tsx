@@ -461,7 +461,7 @@ export default function Login(): JSX.Element {
         </BaseLoginContent>
         <BaseLoginCreateAccountLink>
           <Default.Text2 color={Default.color.white}>
-            Don’t have an account?{' '}
+            Already have an account?&nbsp;
             <BaseLoginCreateAccountLinkSpan
               onClick={() => setCreateAccount(false)}
             >
@@ -483,7 +483,9 @@ export default function Login(): JSX.Element {
       <ContentLogo>
         <ContentInitLogo>
           <IconLogin>
-            <Logo src={LogoImage} />
+            <Link to="/">
+              <Logo src={LogoImage} />
+            </Link>
           </IconLogin>
           <Default.TitleH3 color={Default.color.blueOriginal}>
             Welcome to the <br />

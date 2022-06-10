@@ -69,7 +69,7 @@ export const ContentLogo = styled.div`
 `;
 export const ContentInitLogo = styled.div``;
 export const BaseLogin = styled.div`
-  width: 28.1875rem;
+  width: 28.4375rem;
   background: ${Default.color.white};
   box-shadow: 0px 0px 50px #0000000d;
   border-radius: 1.25rem;

@@ -22,6 +22,10 @@ import ContentInput from '../../../components/contentInput';
 import { ApplicationState } from '../../../store';
 import { GetInterestSkills } from '../../../hooks/admin/useInterestSkills';
 import {
+  GetLanguages,
+  IResponseLanguages,
+} from '../../../hooks/admin/useLanguages';
+import {
   GetRecruiters,
   GetRecruitersIdUser,
 } from '../../../hooks/admin/useRecruiters';
@@ -56,6 +60,9 @@ export default function Candidates(): JSX.Element {
   const [filter, setFilter] = useState<IFilter>({
     candidate: auth && auth.user.accessLevel === 5 ? auth.user.id : '',
   });
+  const [nativeLanguage, setNativeLanguage] = useState<IResponseLanguages>(
+    {} as IResponseLanguages,
+  );
   const [recruiterInitial, setRecruiterInitial] = useState('');
   const [optionsInterestSkills, setOptionsInterestSkills] = useState<
     IOptionsDropdown[]
@@ -63,6 +70,10 @@ export default function Candidates(): JSX.Element {
   const [optionsRecruiter, setOptionsRecruiter] = useState<IOptionsDropdown[]>(
     [] as IOptionsDropdown[],
   );
+  useEffect(() => {
+    const response = GetLanguages();
+    setNativeLanguage(response);
+  }, []);
 
   const handleGetUserRecruiter = useCallback(async () => {
     if (auth && auth.user.accessLevel === 3) {
@@ -111,10 +122,15 @@ export default function Candidates(): JSX.Element {
       name: `${candidate.user.name} ${candidate.user.lastName || ''}`,
       email: candidate.user.email,
       country: countrie,
-      nativeLanguage: candidate.nativeLanguage,
+      nativeLanguage: candidate.nativeLanguage
+        ? nativeLanguage.languages.find(
+            language => language.code === candidate.nativeLanguage,
+          )?.name
+        : '',
       englishLevel: candidate.englishLevel,
       status: candidate.user.status,
       approachedBy,
+      talentPool: !!(candidate.allowTalentPool && candidate.talentPoolVerify),
       birthDate: Moment(candidate.birthDate).format('DD/MM/YYYY'),
     };
   });
@@ -230,6 +246,17 @@ export default function Candidates(): JSX.Element {
     { field: 'nativeLanguage', headerName: 'Native Language', flex: 1 },
     { field: 'approachedBy', headerName: 'Approached By', flex: 1 },
     { field: 'birthDate', headerName: 'Date', flex: 1 },
+
+    {
+      field: 'talentPool',
+      headerName: 'Talent Pool',
+      renderCell: ({ row }) => (
+        <LabelDestached
+          text={row.talentPool ? 'Active' : 'Inactive'}
+          type={row.talentPool ? 'default' : 'info'}
+        />
+      ),
+    },
 
     {
       field: 'status',

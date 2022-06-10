@@ -9,7 +9,9 @@ import { Form } from '@unform/web';
 import { SubmitHandler, FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
+import { GetLanguages } from '../../../hooks/admin/useLanguages';
 import ContentPicture from '../../../components/ContentPicture';
 import ContentFile from '../../../components/ContentFile';
 import Editor from '../../../components/editor';
@@ -18,7 +20,6 @@ import { GetTeamLeaders } from '../../../hooks/admin/useTeamLeader';
 import { GetRecruiters } from '../../../hooks/admin/useRecruiters';
 import { GetCountries } from '../../../hooks/admin/useCountry';
 import { GetInterestSkills } from '../../../hooks/admin/useInterestSkills';
-import { GetLanguages } from '../../../hooks/admin/useLanguages';
 import { GetGender } from '../../../hooks/admin/useGender';
 import InputDatePicker from '../../../components/inputDatePicker';
 import {
@@ -38,6 +39,7 @@ import { SimpleFileUpload } from '../../../hooks/admin/useUpload';
 import Button from '../../../components/button';
 import Section from '../../../components/section';
 import Language from '../../../language';
+import { ApplicationState } from '../../../store';
 import ButtonUpload from '../../../components/buttonUpload';
 import {
   GetUniqueTalentPools,
@@ -65,6 +67,7 @@ interface ICandidateRegister {
 export default function CandidatesRegister(): JSX.Element {
   const navigate = useNavigate();
   const formRef = useRef<FormHandles>(null);
+  const { auth } = useSelector((state: ApplicationState) => state);
   const [talentPool, setTalentPool] = useState<ITalentPools>(
     {} as ITalentPools,
   );
@@ -80,6 +83,7 @@ export default function CandidatesRegister(): JSX.Element {
   const [optionsInterestSkills, setOptionsInterestSkills] = useState<
     IOptionsDropdown[]
   >([] as IOptionsDropdown[]);
+
   const location = useLocation();
   const params = useMemo(() => {
     if (location?.state) {
@@ -555,9 +559,14 @@ export default function CandidatesRegister(): JSX.Element {
             />
           </ContentInput>
         </Section>
-        <Button variant="contained" type="submit">
-          Save
-        </Button>
+        {(params?.candidate &&
+          params?.candidate.id &&
+          auth.user.accessLevel < 3) ||
+          (!params?.candidate.id && (
+            <Button variant="contained" type="submit">
+              Save
+            </Button>
+          ))}
       </Form>
     </ContentPage>
   );
