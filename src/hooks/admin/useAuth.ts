@@ -17,3 +17,17 @@ export function ChangePassword(
 
   return graphql(query);
 }
+
+export function ForgotPassword({
+  email,
+}: {
+  email: string;
+}): Promise<AxiosResponse> {
+  const query = `
+    mutation{
+        forgotPassword(email: "${email}")
+    }
+ `;
+
+  return graphql(query);
+}

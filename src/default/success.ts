@@ -35,6 +35,7 @@ const success: { [key: string]: string } = {
   registerCompany:
     'Company registered successfully. Check your email to get your password.',
   passwordChanged: 'Password changed successfully.',
+  forgotPassword: 'Password reset your new password send to your email.',
 };
 
 export default function successString(key: string): string {

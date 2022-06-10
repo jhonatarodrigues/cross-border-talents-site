@@ -24,6 +24,7 @@ import { AuthTypes } from '../../../store/ducks/auth/types';
 import Input from '../../../components/input';
 import LogoImage from '../../../assets/images/logo.png';
 
+import { ForgotPassword } from '../../../hooks/admin/useAuth';
 import {
   AddCandidateLogin,
   ICandidateSendLogin,
@@ -58,12 +59,14 @@ interface IForm {
 
 export default function Login(): JSX.Element {
   const formRef = useRef<FormHandles>(null);
+  const formRefForgotPassword = useRef<FormHandles>(null);
   const formRefRegister = useRef<FormHandles>(null);
   const formRefRegisterCompany = useRef<FormHandles>(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { auth } = useSelector((state: ApplicationState) => state);
   const [createAccount, setCreateAccount] = useState(false);
+  const [forgotPassword, setForgotPassword] = useState(false);
   const [optionsInterestSkills, setOptionsInterestSkills] = useState<
     IOptionsDropdown[]
   >([] as IOptionsDropdown[]);
@@ -153,6 +156,36 @@ export default function Login(): JSX.Element {
     },
     [dispatch],
   );
+  const handleForgotPassword: SubmitHandler = useCallback(async data => {
+    try {
+      const schema = Yup.object().shape({
+        user: Yup.string().required(),
+      });
+
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+
+      await ForgotPassword({ email: data.user }).then(response => {
+        if (response.data.forgotPassword) {
+          Modal({ keyType: 'forgotPassword', icon: 'success' });
+          setForgotPassword(false);
+        }
+      });
+    } catch (err) {
+      const validationErrors: Record<string, string> = {};
+
+      if (err instanceof Yup.ValidationError) {
+        err.inner.forEach((error: Yup.ValidationError) => {
+          if (error.path) {
+            validationErrors[error.path] = error.message;
+          }
+        });
+
+        formRefForgotPassword.current?.setErrors(validationErrors);
+      }
+    }
+  }, []);
 
   const handleRegister: SubmitHandler = useCallback(
     async data => {
@@ -277,7 +310,12 @@ export default function Login(): JSX.Element {
             <Input name="password" label="Password" type="password" />
 
             <ContentButton>
-              <ButtonForgotPassword type="button">
+              <ButtonForgotPassword
+                type="button"
+                onClick={() => {
+                  setForgotPassword(true);
+                }}
+              >
                 Forgot your password?
               </ButtonForgotPassword>
               <ButtonSite type="submit" bgColor={Default.color.success}>
@@ -307,6 +345,49 @@ export default function Login(): JSX.Element {
       </>
     );
   }, [auth, handleLogin]);
+  const renderForgotPassword = useCallback(() => {
+    return (
+      <>
+        <BaseLoginContent>
+          <Default.Title2 color={Default.color.blueOriginal}>
+            Forgot Password
+          </Default.Title2>
+          <Default.Space h="1.25rem" />
+          <FormStyled
+            ref={formRefForgotPassword}
+            onSubmit={handleForgotPassword}
+            onClick={() => formRefForgotPassword.current?.setErrors({})}
+          >
+            <Input name="user" label="E-mail" />
+
+            <ContentButton>
+              <ButtonSite type="submit" bgColor={Default.color.success}>
+                Forgot
+              </ButtonSite>
+            </ContentButton>
+          </FormStyled>
+          {auth.loading && (
+            <>
+              <Default.Space h="1.875rem" />
+              <Default.Column style={{ textAlign: 'center' }}>
+                <CircularProgress />
+              </Default.Column>
+            </>
+          )}
+        </BaseLoginContent>
+        <BaseLoginCreateAccountLink>
+          <Default.Text2 color={Default.color.white}>
+            Already have an account?&nbsp;
+            <BaseLoginCreateAccountLinkSpan
+              onClick={() => setForgotPassword(false)}
+            >
+              Request your access here
+            </BaseLoginCreateAccountLinkSpan>
+          </Default.Text2>
+        </BaseLoginCreateAccountLink>
+      </>
+    );
+  }, [auth, handleForgotPassword]);
 
   const renderCreateAccountForm = useCallback(
     () => (
@@ -478,6 +559,22 @@ export default function Login(): JSX.Element {
     renderCreateAccountCompanyForm,
   ]);
 
+  const handleVisible = useCallback(() => {
+    if (createAccount) {
+      return renderCreateAccount();
+    }
+    if (forgotPassword) {
+      return renderForgotPassword();
+    }
+    return renderLogin();
+  }, [
+    createAccount,
+    renderCreateAccount,
+    renderLogin,
+    forgotPassword,
+    renderForgotPassword,
+  ]);
+
   return (
     <LoginPageContainer>
       <ContentLogo>
@@ -496,9 +593,7 @@ export default function Login(): JSX.Element {
       </ContentLogo>
 
       <ContentImage>
-        <BaseLogin>
-          {createAccount ? renderCreateAccount() : renderLogin()}
-        </BaseLogin>
+        <BaseLogin>{handleVisible()}</BaseLogin>
       </ContentImage>
     </LoginPageContainer>
   );
