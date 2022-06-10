@@ -26,6 +26,9 @@ const error: { [key: string]: string } = {
   candidateExists: 'Candidate already exists.',
   policyTerms: 'You need agree to terms and conditions to continue.',
   registerCompany: 'Failed to register company.',
+  passwordNotConfirmed: 'Password not confirmed.',
+  incorrectPassword: 'Incorrect password.',
+  passwordMinCharacters: 'Password must be at least 6 characters.',
 };
 
 export default function errorString(key: string): string {

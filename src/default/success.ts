@@ -34,6 +34,7 @@ const success: { [key: string]: string } = {
     'Candidate registered successfully. Check your email to get your password.',
   registerCompany:
     'Company registered successfully. Check your email to get your password.',
+  passwordChanged: 'Password changed successfully.',
 };
 
 export default function successString(key: string): string {

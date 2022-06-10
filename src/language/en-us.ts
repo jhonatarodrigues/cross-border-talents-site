@@ -72,6 +72,9 @@ const enUs = {
     workExperience: 'Work Experience',
     languages: 'Languages',
     sendToTalentPool: 'Send to Talent Pool',
+    newPassword: 'New Password',
+    confirmPassword: 'Confirm Password',
+    currentPassword: 'Current Password',
   },
 
   page: {

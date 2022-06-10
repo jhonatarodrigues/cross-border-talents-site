@@ -69,6 +69,7 @@ export const Dropdown = styled.div`
   opacity: 0;
   transition: all 0.2s ease;
   border-top-right-radius: 0;
+  flex-direction: column;
 `;
 export const DropdownItem = styled.button`
   font-size: 0.875rem;
@@ -80,8 +81,13 @@ export const DropdownItem = styled.button`
   padding: 0;
   background: transparent;
   cursor: pointer;
+  white-space: nowrap;
+  padding-bottom: 0.625rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   &:last-child {
     margin-bottom: 0;
+    padding-bottom: 0;
+    border: 0;
   }
   &:hover {
     transition: all 0.2s ease;
@@ -157,4 +163,8 @@ export const NameUser = styled.p`
 export const NameBusiness = styled.p`
   font-size: 18px;
   color: ${Default.color.blueLight};
+`;
+
+export const ChangePasswordContent = styled.div`
+  width: 350px;
 `;
