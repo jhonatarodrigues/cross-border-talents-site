@@ -7,6 +7,8 @@ import {
 } from '@mui/x-data-grid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faPlus, faFilePdf } from '@fortawesome/free-solid-svg-icons';
+import JsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 import {
   GetTalentPools,
@@ -28,7 +30,7 @@ import {
   IResponseLanguages,
 } from '../../../hooks/admin/useLanguages';
 import Logo from '../../../assets/images/logo.png';
-import LogoBranco from '../../../assets/images/logoWhite.png';
+import LogoBranco from '../../../assets/images/logoWhiteFull.png';
 import {
   InvisibleButton,
   ContentModal,
@@ -47,6 +49,7 @@ export default function TalentPool(): JSX.Element {
   const [selectedRow, setSelectedRow] = useState<ITalentPools>();
   const [checkTalentPoolInterest, setCheckTalentPoolInterest] = useState(false);
   const [countries, setCountries] = useState<ICountrie[]>([]);
+  const [hidePrintPdf, setHidePrintPdf] = useState(false);
   const [nativeLanguage, setNativeLanguage] = useState<IResponseLanguages>(
     {} as IResponseLanguages,
   );
@@ -180,182 +183,179 @@ export default function TalentPool(): JSX.Element {
       return <div />;
     }
 
-    const name = checkTalentPoolInterest ? selectedRow?.user.name : '******';
-    const lastName = checkTalentPoolInterest
-      ? selectedRow?.user.lastName
-      : '******';
-    const email = checkTalentPoolInterest ? selectedRow?.user.email : '******';
-    const phone = checkTalentPoolInterest ? selectedRow?.user.phone : '******';
-
-    console.log('aaa --', selectedRow);
-
     return (
       <CustomModal noPadding onClose={() => setModalDetails(false)}>
         <ContentModal>
           <ModalScroll>
-            <ModalImage>
-              <Default.Column>
-                <Default.Row>
-                  <Default.Column>
-                    <img
-                      src={LogoBranco}
-                      alt="Cross Border Talents"
-                      style={{ filter: 'brightness(0) invert(1)' }}
-                    />
-                  </Default.Column>
-                  <Default.Column alignItens="flex-end">
-                    <Button
-                      variant="outlined"
-                      style={{
-                        borderColor: Default.color.white,
-                        color: Default.color.white,
-                      }}
-                    >
-                      <FontAwesomeIcon
-                        icon={faFilePdf}
-                        color={Default.color.white}
-                      />
-                      &nbsp; Print Blind CV
-                    </Button>
-                  </Default.Column>
-                </Default.Row>
-                <Default.Space h="4.375rem" />
-                <Default.Row>
-                  <Default.TitleH3 color={Default.color.white}>
-                    {selectedRow?.profile}
-                  </Default.TitleH3>
-                </Default.Row>
-              </Default.Column>
-            </ModalImage>
-            <InformationModal>
-              <Default.Column>
-                {/* <Default.Row>
-                  <Default.Column style={{ minWidth: '70%' }}>
-                    <Default.Row>
-                      <TitleModal>Name</TitleModal>
-                      <InfoModal>{`${name} ${lastName}`}</InfoModal>
-                    </Default.Row>
-                    <Default.Space h="1.1875rem" />
-                    <Default.Row>
-                      <TitleModal>E-mail</TitleModal>
-                      <InfoModal>{email}</InfoModal>
-                    </Default.Row>
-                    <Default.Space h="1.1875rem" />
-                    <Default.Row>
-                      <TitleModal>Gender</TitleModal>
-                      <InfoModal>{name}</InfoModal>
-                    </Default.Row>
-                    <Default.Space h="1.1875rem" />
-                    <Default.Row>
-                      <TitleModal>Phone</TitleModal>
-                      <InfoModal>{phone}</InfoModal>
-                    </Default.Row>
-                    <Default.Space h="1.1875rem" />
-                  </Default.Column>
-                  <Default.Column alignItens="flex-end">
-                    <Button style={{ background: Default.color.success }}>
-                      See all information
-                    </Button>
-                  </Default.Column>
-                </Default.Row> */}
+            <Default.Column id="capturePdf">
+              <ModalImage>
+                <Default.Column>
+                  <Default.Row>
+                    <Default.Column>
+                      <img src={LogoBranco} alt="Cross Border Talents" />
+                    </Default.Column>
+                    <Default.Column alignItens="flex-end">
+                      {!hidePrintPdf && (
+                        <Button
+                          variant="outlined"
+                          style={{
+                            borderColor: Default.color.white,
+                            color: Default.color.white,
+                          }}
+                          onClick={() => {
+                            setHidePrintPdf(true);
+                            const documentHtml = document.querySelector(
+                              '#capturePdf',
+                            ) as HTMLElement;
 
-                <Default.Row>
-                  <Default.Column>
-                    <TitleSectionModal>Professional profile</TitleSectionModal>
-                    <Default.Space h="1.875rem" />
-                    <Default.Row>
-                      <InfoModal
-                        dangerouslySetInnerHTML={{
-                          __html: selectedRow?.observation,
-                        }}
-                      />
-                    </Default.Row>
-                    <Default.Space h="3.125rem" />
-                    <Default.Row>
-                      <TitleModal>Nationality</TitleModal>
-                      <InfoModal>
-                        {selectedRow?.candidate.nativeLanguage &&
-                          nativeLanguage.languages.find(
-                            language =>
-                              language.code ===
-                              selectedRow?.candidate.nativeLanguage,
-                          )?.name}
-                      </InfoModal>
-                    </Default.Row>
-                    <Default.Space h="1.1875rem" />
-                    <Default.Row>
-                      <TitleModal>Country of residence</TitleModal>
-                      <InfoModal>
-                        {selectedRow?.candidate.country &&
-                          countries.find(
-                            country =>
-                              country.countryShortCode ===
-                              selectedRow?.candidate.country,
-                          )?.countryName}
-                      </InfoModal>
-                    </Default.Row>
-                    <Default.Space h="1.1875rem" />
-                    <Default.Row>
-                      <TitleModal>Degree</TitleModal>
-                      <InfoModal>{`${selectedRow?.charge}`}</InfoModal>
-                    </Default.Row>
-                    <Default.Space h="1.1875rem" />
-                    <Default.Row>
-                      <TitleModal>Languages</TitleModal>
-                      <InfoModal>{`${selectedRow?.languages}`}</InfoModal>
-                    </Default.Row>
-                  </Default.Column>
-                </Default.Row>
+                            if (document) {
+                              setTimeout(() => {
+                                html2canvas(documentHtml).then(canvas => {
+                                  document.body.appendChild(canvas); // if you want see your screenshot in body.
+                                  const imgData = canvas.toDataURL('image/png');
 
-                <ModalLine />
-                <Default.Row>
-                  <Default.Column>
-                    <TitleSectionModal>Education</TitleSectionModal>
-                    <Default.Space h="1.875rem" />
-                    <Default.Row>
-                      <TitleModal>Education</TitleModal>
-                      <InfoModal>{`${selectedRow?.education}`}</InfoModal>
-                    </Default.Row>
-                  </Default.Column>
-                </Default.Row>
+                                  const pdfDOC = new JsPDF('p', 'pt', [
+                                    documentHtml.offsetWidth,
+                                    documentHtml.offsetHeight,
+                                  ]);
 
-                <ModalLine />
-                <Default.Row>
-                  <Default.Column>
-                    <TitleSectionModal>
-                      Professional experience
-                    </TitleSectionModal>
-                    <Default.Space h="1.875rem" />
-                    <Default.Row>
-                      <TitleModal>Work experience</TitleModal>
-                      <InfoModal
-                        dangerouslySetInnerHTML={{
-                          __html: selectedRow?.experience,
-                        }}
-                      />
-                    </Default.Row>
-                  </Default.Column>
-                </Default.Row>
-                <ModalLine />
-                <Default.Row>
-                  <Default.Column>
-                    <Default.Title2 color={Default.color.gray}>
-                      Top candidates.
-                      <br />
-                      Exclusive for companies.
-                    </Default.Title2>
-                  </Default.Column>
-                  <Default.Column alignItens="flex-end">
-                    <img src={Logo} alt="Cross Border Talents" />
-                  </Default.Column>
-                </Default.Row>
-              </Default.Column>
-            </InformationModal>
+                                  pdfDOC.addImage(
+                                    imgData,
+                                    'PNG',
+                                    0,
+                                    0,
+                                    documentHtml.offsetWidth,
+                                    documentHtml.offsetHeight,
+                                  );
+                                  pdfDOC.save('Blind-CV.pdf');
+                                  setHidePrintPdf(false);
+                                  canvas.remove();
+                                });
+                              }, 500);
+                            } else {
+                              setHidePrintPdf(false);
+                            }
+                          }}
+                        >
+                          <FontAwesomeIcon
+                            icon={faFilePdf}
+                            color={Default.color.white}
+                          />
+                          &nbsp; Print Blind CV
+                        </Button>
+                      )}
+                    </Default.Column>
+                  </Default.Row>
+                  <Default.Space h="4.375rem" />
+                  <Default.Row>
+                    <Default.TitleH3 color={Default.color.white}>
+                      {selectedRow?.profile}
+                    </Default.TitleH3>
+                  </Default.Row>
+                </Default.Column>
+              </ModalImage>
+              <InformationModal>
+                <Default.Column>
+                  <Default.Row>
+                    <Default.Column>
+                      <TitleSectionModal>
+                        Professional profile
+                      </TitleSectionModal>
+                      <Default.Space h="1.875rem" />
+                      <Default.Row>
+                        <InfoModal
+                          dangerouslySetInnerHTML={{
+                            __html: selectedRow?.observation,
+                          }}
+                        />
+                      </Default.Row>
+                      <Default.Space h="3.125rem" />
+                      <Default.Row>
+                        <TitleModal>Nationality</TitleModal>
+                        <InfoModal>
+                          {selectedRow?.candidate.nativeLanguage &&
+                            nativeLanguage.languages.find(
+                              language =>
+                                language.code ===
+                                selectedRow?.candidate.nativeLanguage,
+                            )?.name}
+                        </InfoModal>
+                      </Default.Row>
+                      <Default.Space h="1.1875rem" />
+                      <Default.Row>
+                        <TitleModal>Country of residence</TitleModal>
+                        <InfoModal>
+                          {selectedRow?.candidate.country &&
+                            countries.find(
+                              country =>
+                                country.countryShortCode ===
+                                selectedRow?.candidate.country,
+                            )?.countryName}
+                        </InfoModal>
+                      </Default.Row>
+                      <Default.Space h="1.1875rem" />
+                      <Default.Row>
+                        <TitleModal>Degree</TitleModal>
+                        <InfoModal>{`${selectedRow?.charge}`}</InfoModal>
+                      </Default.Row>
+                      <Default.Space h="1.1875rem" />
+                      <Default.Row>
+                        <TitleModal>Languages</TitleModal>
+                        <InfoModal>{`${selectedRow?.languages}`}</InfoModal>
+                      </Default.Row>
+                    </Default.Column>
+                  </Default.Row>
+
+                  <ModalLine />
+                  <Default.Row>
+                    <Default.Column>
+                      <TitleSectionModal>Education</TitleSectionModal>
+                      <Default.Space h="1.875rem" />
+                      <Default.Row>
+                        <TitleModal>Education</TitleModal>
+                        <InfoModal>{`${selectedRow?.education}`}</InfoModal>
+                      </Default.Row>
+                    </Default.Column>
+                  </Default.Row>
+
+                  <ModalLine />
+                  <Default.Row>
+                    <Default.Column>
+                      <TitleSectionModal>
+                        Professional experience
+                      </TitleSectionModal>
+                      <Default.Space h="1.875rem" />
+                      <Default.Row>
+                        <TitleModal>Work experience</TitleModal>
+                        <InfoModal
+                          dangerouslySetInnerHTML={{
+                            __html: selectedRow?.experience,
+                          }}
+                        />
+                      </Default.Row>
+                    </Default.Column>
+                  </Default.Row>
+                  <ModalLine />
+                  <Default.Row>
+                    <Default.Column>
+                      <Default.Title2 color={Default.color.gray}>
+                        Top candidates.
+                        <br />
+                        Exclusive for companies.
+                      </Default.Title2>
+                    </Default.Column>
+                    <Default.Column alignItens="flex-end">
+                      <img src={Logo} alt="Cross Border Talents" />
+                    </Default.Column>
+                  </Default.Row>
+                </Default.Column>
+              </InformationModal>
+            </Default.Column>
           </ModalScroll>
         </ContentModal>
       </CustomModal>
     );
-  }, [modalDetails, selectedRow, checkTalentPoolInterest]);
+  }, [modalDetails, selectedRow, hidePrintPdf, countries, nativeLanguage]);
 
   return (
     <ContentPage title={Language.page.talentPool.listTalentPool}>

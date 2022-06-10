@@ -78,6 +78,7 @@ export const ModalScroll = styled.div`
 `;
 export const InformationModal = styled.div`
   padding: 6.25rem 5.3125rem;
+  width: 100%;
 `;
 export const TitleModal = styled.div`
   font-size: 1rem;
