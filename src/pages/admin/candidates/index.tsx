@@ -21,6 +21,7 @@ import Section from '../../../components/section';
 import ContentInput from '../../../components/contentInput';
 import { ApplicationState } from '../../../store';
 import { GetInterestSkills } from '../../../hooks/admin/useInterestSkills';
+import { GetTeamLeaders } from '../../../hooks/admin/useTeamLeader';
 import {
   GetLanguages,
   IResponseLanguages,
@@ -49,6 +50,7 @@ interface IFilter {
   department?: string;
   recruiter?: string;
   candidate?: string;
+  teamLeader?: string;
 }
 
 export default function Candidates(): JSX.Element {
@@ -70,10 +72,31 @@ export default function Candidates(): JSX.Element {
   const [optionsRecruiter, setOptionsRecruiter] = useState<IOptionsDropdown[]>(
     [] as IOptionsDropdown[],
   );
+  const [optionsTeamLeader, setOptionsTeamLeader] = useState<
+    IOptionsDropdown[]
+  >([] as IOptionsDropdown[]);
   useEffect(() => {
     const response = GetLanguages();
     setNativeLanguage(response);
   }, []);
+
+  const getTeamLeaders = useCallback(async () => {
+    const { teamLeaders } = await GetTeamLeaders();
+    if (teamLeaders) {
+      const options: IOptionsDropdown[] = teamLeaders.map(teamLeader => {
+        return {
+          value: teamLeader.id,
+          label: teamLeader.user.name,
+        };
+      });
+      setOptionsTeamLeader(options);
+    } else {
+      Modal({ keyType: 'getTeamLeaders', icon: 'error' });
+    }
+  }, []);
+  useEffect(() => {
+    getTeamLeaders();
+  }, [getTeamLeaders]);
 
   const handleGetUserRecruiter = useCallback(async () => {
     if (auth && auth.user.accessLevel === 3) {
@@ -113,6 +136,8 @@ export default function Candidates(): JSX.Element {
       candidate.userTeamLeader.user
     ) {
       approachedBy = `${candidate.userTeamLeader.user.name} ${candidate.userTeamLeader.user.lastName}`;
+    } else if (candidate && candidate.userRecruiter) {
+      approachedBy = `${candidate.userRecruiter.user.name} ${candidate.userRecruiter.user.lastName}`;
     }
 
     return {
@@ -342,6 +367,7 @@ export default function Candidates(): JSX.Element {
       search: data.search,
       recruiter: data.recruiter,
       department: data.interestSkills,
+      teamLeader: data.teamLeader,
     });
   }, []);
 
@@ -369,6 +395,12 @@ export default function Candidates(): JSX.Element {
                   { label: 'Select', value: '' },
                   ...optionsInterestSkills,
                 ]}
+              />
+              <InputDropDown
+                name="teamLeader"
+                label={Language.fields.teamLeader}
+                options={[{ label: 'Select', value: '' }, ...optionsTeamLeader]}
+                value={auth && auth.user.accessLevel === 3 ? auth.user.id : ''}
               />
               <InputDropDown
                 name="recruiter"

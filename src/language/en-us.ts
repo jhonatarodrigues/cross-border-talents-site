@@ -13,6 +13,7 @@ const enUs = {
 
   fields: {
     recruiter: 'Recruiter',
+    teamLeader: 'Team Leader',
     search: 'Search',
     department: 'Department',
     name: 'Name',

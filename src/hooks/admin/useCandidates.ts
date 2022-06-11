@@ -280,11 +280,13 @@ export function GetListCandidates({
   department,
   recruiter,
   candidate,
+  teamLeader,
 }: {
   search?: string;
   department?: string;
   recruiter?: string;
   candidate?: string;
+  teamLeader?: string;
 }): Promise<IResponseCandidates> {
   const query = `
     query{
@@ -293,7 +295,7 @@ export function GetListCandidates({
     department ? `department: "${department}"` : ''
   }, ${recruiter ? `recruiter: "${recruiter}"` : ''}, 
   ${candidate ? `candidate: "${candidate}"` : ''}
-
+  ${teamLeader ? `teamLeader: "${teamLeader}"` : ''}
   ) {
             id
             idUser
