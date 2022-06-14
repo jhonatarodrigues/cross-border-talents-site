@@ -32,7 +32,7 @@ export interface ITalentPools {
   };
 }
 
-interface IResponseUser {
+export interface IResponseUser {
   talentPools: ITalentPools[];
 }
 interface IResponseUniqueTalentPool {
@@ -178,12 +178,20 @@ export function AddUserTalentPool(
 
 export function GetTalentPoolsPage({
   search,
+
+  limit,
 }: {
   search?: string;
+
+  limit?: number;
 }): Promise<IResponseUser> {
   const query = `
     query {
-        talentPools(search: "${search}") {
+        talentPools(
+            search: "${search || ''}",
+            
+            ${limit ? `limit: "${limit}"` : ''}
+        ) {
           id
           idCandidate
           idUser

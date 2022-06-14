@@ -148,18 +148,29 @@ export function GetJobs(): Promise<IResponseJobs> {
 
 export function GetJobsPage({
   search,
+  department,
+  country,
+
   page,
   itensPerPage,
 }: {
   search?: string;
+  department?: string;
+  country?: string;
+
   page?: number;
   itensPerPage?: number;
 }): Promise<IResponseJobsPage> {
   const query = `
       query {
-        jobsSearch (search: "${search || ''}",  ${
-    page ? `page: ${page},` : ''
-  } ${itensPerPage ? `itensPerPage: ${itensPerPage},` : ''}) {
+        jobsSearch (
+            search: "${search || ''}",
+            ${department ? `department: "${department}",` : ''}
+            ${country ? `country: "${country}",` : ''}
+            
+            ${page ? `page: ${page},` : ''} 
+            ${itensPerPage ? `itensPerPage: ${itensPerPage},` : ''}
+        ) {
             jobs{
                 id
                 idInterestSkills

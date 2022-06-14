@@ -27,6 +27,10 @@ import {
 import { GetCountries, ICountrie } from '../../hooks/admin/useCountry';
 import { GetInterestSkills } from '../../hooks/admin/useInterestSkills';
 import { GetJobsPage, IJobs } from '../../hooks/admin/useJobs';
+import {
+  GetTalentPoolsPage,
+  IResponseUser,
+} from '../../hooks/admin/useTalentPool';
 import ContentSite from '../../components/ContentSite';
 import ContainerSite from '../../components/ContainerSite';
 import ContentInput from '../../components/contentInput';
@@ -79,6 +83,7 @@ export default function TopCandidates(): JSX.Element {
     IOptionsDropdown[]
   >([] as IOptionsDropdown[]);
   const [jobs, setJobs] = useState<IJobs[]>([]);
+  const [talentPool, setTalentPool] = useState<IResponseUser>();
   const [country, setCountry] = useState<ICountrie[]>([]);
   const [testimonials, setTestimonials] = useState<ITestimonials[]>([]);
   const navigate = useNavigate();
@@ -100,6 +105,15 @@ export default function TopCandidates(): JSX.Element {
   useEffect(() => {
     getInterestSkills();
   }, [getInterestSkills]);
+
+  const getTalentPool = useCallback(async () => {
+    const response = await GetTalentPoolsPage({ limit: 4 });
+
+    setTalentPool(response);
+  }, []);
+  useEffect(() => {
+    getTalentPool();
+  }, [getTalentPool]);
 
   const handleSubmit: SubmitHandler = useCallback(
     async data => {
@@ -312,14 +326,14 @@ export default function TopCandidates(): JSX.Element {
           <Default.Space h="2.5rem" />
 
           <Default.Row>
-            {jobs.map(job => {
+            {talentPool?.talentPools.map(job => {
               let countryDesc = '';
 
               if (country.length > 0) {
                 countryDesc =
                   country.find(
                     (countryItem: ICountrie) =>
-                      countryItem.countryShortCode === job.country,
+                      countryItem.countryShortCode === job.candidate.country,
                   )?.countryName || '';
               }
 
@@ -327,7 +341,7 @@ export default function TopCandidates(): JSX.Element {
                 <NewJobItem>
                   <NewJobTagType>Candidate</NewJobTagType>
                   <Default.Title2 color={Default.color.blue}>
-                    {job.jobTitle}
+                    {job.user.name}
                   </Default.Title2>
                   <Default.Space h="0.625rem" />
                   <Default.Row>
@@ -352,9 +366,9 @@ export default function TopCandidates(): JSX.Element {
                     color={Default.color.gray}
                     dangerouslySetInnerHTML={{
                       __html:
-                        job.description.length > 50
-                          ? `${job.description.slice(0, 50)}...`
-                          : job.description,
+                        job.experience.length > 50
+                          ? `${job.experience.slice(0, 50)}...`
+                          : job.experience,
                     }}
                   />
                 </NewJobItem>

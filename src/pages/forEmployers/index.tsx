@@ -123,20 +123,26 @@ export default function ForEmployers(): JSX.Element {
     getCountries();
   }, [getCountries]);
 
-  const getJobs = useCallback(async (search?: string) => {
-    try {
-      const response = await GetJobsPage({
-        search,
-        // itensPerPage: 10,
-        // page: 1,
-      });
+  const getJobs = useCallback(
+    async (search?: string, department?: string, countryFilter?: string) => {
+      try {
+        const response = await GetJobsPage({
+          search,
+          department,
+          country: countryFilter,
 
-      setJobs(response.jobsSearch.jobs);
-      setNumberJobs(response.jobsSearch.numberAllCandidates);
-    } catch {
-      Modal({ keyType: 'getJobs', icon: 'error' });
-    }
-  }, []);
+          // itensPerPage: 10,
+          // page: 1,
+        });
+
+        setJobs(response.jobsSearch.jobs);
+        setNumberJobs(response.jobsSearch.numberAllCandidates);
+      } catch {
+        Modal({ keyType: 'getJobs', icon: 'error' });
+      }
+    },
+    [],
+  );
 
   useEffect(() => {
     getJobs();
@@ -144,14 +150,12 @@ export default function ForEmployers(): JSX.Element {
 
   const handleSubmit: SubmitHandler = useCallback(
     async data => {
-      if (data.searchJobTitle) {
-        getJobs(data.searchJobTitle);
-      } else {
-        getJobs();
-      }
+      getJobs(data.searchJobTitle, data.interestSkills, data.country);
     },
     [getJobs],
   );
+
+  console.log('contracts --', contracts);
 
   return (
     <ContentSite>
@@ -183,12 +187,15 @@ export default function ForEmployers(): JSX.Element {
                   <InputDropDown
                     name="interestSkills"
                     label={Language.fields.department}
-                    options={optionsInterestSkills}
+                    options={[
+                      { value: '', label: 'All' },
+                      ...optionsInterestSkills,
+                    ]}
                   />
                   <InputDropDown
                     name="country"
                     label={Language.fields.country}
-                    options={optionsCountry}
+                    options={[{ value: '', label: 'All' }, ...optionsCountry]}
                     onChangeCustom={(value: string) => {
                       setSelectedCountry(value);
                     }}
@@ -196,7 +203,7 @@ export default function ForEmployers(): JSX.Element {
                   <InputDropDown
                     name="allRegions"
                     label={Language.fields.allRegions}
-                    options={regions}
+                    options={[{ value: '', label: 'All' }, ...regions]}
                   />
                   <InputDropDown
                     name="typeOfContract"
@@ -249,69 +256,77 @@ export default function ForEmployers(): JSX.Element {
 
           <Default.Space h="8.125rem" />
           <ContentBox>
-            {jobs.map((job: IJobs) => {
-              let countryDesc = '';
+            {jobs && jobs.length > 0 ? (
+              jobs.map((job: IJobs) => {
+                let countryDesc = '';
 
-              if (country.length > 0) {
-                countryDesc =
-                  country.find(
-                    (countryItem: ICountrie) =>
-                      countryItem.countryShortCode === job.country,
-                  )?.countryName || '';
-              }
+                if (country.length > 0) {
+                  countryDesc =
+                    country.find(
+                      (countryItem: ICountrie) =>
+                        countryItem.countryShortCode === job.country,
+                    )?.countryName || '';
+                }
 
-              return (
-                <Box key={job.id}>
-                  <BoxTag>Job Opportunity</BoxTag>
-                  <Default.Column>
-                    <Default.Title4 color={Default.color.blue}>
-                      {job.jobTitle}
-                    </Default.Title4>
-                    <Default.Space h="1.25rem" />
-                    <Default.Row>
-                      <Default.Row alignItens="center">
-                        <FontAwesomeIcon
-                          icon={faLocationDot}
-                          color={Default.color.success}
-                          fontSize={21}
-                        />
-                        <NewJobItemContentIconText>
-                          {countryDesc}
-                        </NewJobItemContentIconText>
+                return (
+                  <Box key={job.id}>
+                    <BoxTag>Job Opportunity</BoxTag>
+                    <Default.Column>
+                      <Default.Title4 color={Default.color.blue}>
+                        {job.jobTitle}
+                      </Default.Title4>
+                      <Default.Space h="1.25rem" />
+                      <Default.Row>
+                        <Default.Row alignItens="center">
+                          <FontAwesomeIcon
+                            icon={faLocationDot}
+                            color={Default.color.success}
+                            fontSize={21}
+                          />
+                          <NewJobItemContentIconText>
+                            {countryDesc}
+                          </NewJobItemContentIconText>
+                        </Default.Row>
+                        <Default.Row justifyContent="flex-end">
+                          <TagNewJobItem color={Default.color.success}>
+                            Full-time
+                          </TagNewJobItem>
+                        </Default.Row>
                       </Default.Row>
-                      <Default.Row justifyContent="flex-end">
-                        <TagNewJobItem color={Default.color.success}>
-                          Full-time
-                        </TagNewJobItem>
+                      <Default.Space h="0.625rem" />
+                      <Default.Text2
+                        color={Default.color.gray}
+                        dangerouslySetInnerHTML={{
+                          __html:
+                            job.description.length > 50
+                              ? `${job.description.slice(0, 50)}...`
+                              : job.description,
+                        }}
+                      />
+                      <Default.Space h="0.9375rem" />
+                      <Default.Row>
+                        <ButtonSite bgColor={Default.color.success}>
+                          Apply Now
+                        </ButtonSite>
+                        <Default.Space w="0.625rem" />
+                        <ButtonSite
+                          bgColor={Default.color.gray}
+                          variant="outlined"
+                        >
+                          See More
+                        </ButtonSite>
                       </Default.Row>
-                    </Default.Row>
-                    <Default.Space h="0.625rem" />
-                    <Default.Text2
-                      color={Default.color.gray}
-                      dangerouslySetInnerHTML={{
-                        __html:
-                          job.description.length > 50
-                            ? `${job.description.slice(0, 50)}...`
-                            : job.description,
-                      }}
-                    />
-                    <Default.Space h="0.9375rem" />
-                    <Default.Row>
-                      <ButtonSite bgColor={Default.color.success}>
-                        Apply Now
-                      </ButtonSite>
-                      <Default.Space w="0.625rem" />
-                      <ButtonSite
-                        bgColor={Default.color.gray}
-                        variant="outlined"
-                      >
-                        See More
-                      </ButtonSite>
-                    </Default.Row>
-                  </Default.Column>
-                </Box>
-              );
-            })}
+                    </Default.Column>
+                  </Box>
+                );
+              })
+            ) : (
+              <Default.Row alignItens="center" justifyContent="center">
+                <Default.Title3 color={Default.color.blueLight}>
+                  we didn&apos;t find any jobs
+                </Default.Title3>
+              </Default.Row>
+            )}
           </ContentBox>
         </ContainerSite>
       </BlockForEmployers>
