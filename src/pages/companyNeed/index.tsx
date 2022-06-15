@@ -338,10 +338,14 @@ export default function CompanyNeed(): JSX.Element {
       <BlockForEmployers>
         <ContainerSite>
           <BlockFilter>
-            <Default.Title3 color={Default.color.blueLight}>
-              Find 367 Multilingual top candidates
-            </Default.Title3>
-            <Default.Space h="2.5rem" />
+            {candidates.length > 0 && (
+              <>
+                <Default.Title3 color={Default.color.blueLight}>
+                  Find {candidates.length} Multilingual top candidates
+                </Default.Title3>
+                <Default.Space h="2.5rem" />
+              </>
+            )}
             <Default.Title2 color={Default.color.blueOriginal}>
               Filter Top Profiles of the Week
             </Default.Title2>

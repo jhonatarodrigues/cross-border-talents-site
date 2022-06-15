@@ -105,18 +105,21 @@ export default function Header(): JSX.Element {
                     <Input
                       name="password"
                       label={`${Language.fields.currentPassword} *`}
+                      type="password"
                     />
                   </ContentInput>
                   <ContentInput>
                     <Input
                       name="newPassword"
                       label={`${Language.fields.newPassword} *`}
+                      type="password"
                     />
                   </ContentInput>
                   <ContentInput>
                     <Input
                       name="confirmNewPassword"
                       label={`${Language.fields.confirmPassword} *`}
+                      type="password"
                     />
                   </ContentInput>
                   <Button variant="contained" type="submit">
