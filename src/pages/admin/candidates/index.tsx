@@ -129,15 +129,22 @@ export default function Candidates(): JSX.Element {
       countrie = countrieFilter[0].countryName;
     }
 
-    let approachedBy = '';
+    let teamLeader = '';
     if (
-      candidate &&
       candidate.userTeamLeader &&
-      candidate.userTeamLeader.user
+      candidate.userTeamLeader.user &&
+      candidate.userTeamLeader.user.name
     ) {
-      approachedBy = `${candidate.userTeamLeader.user.name} ${candidate.userTeamLeader.user.lastName}`;
-    } else if (candidate && candidate.userRecruiter) {
-      approachedBy = `${candidate.userRecruiter.user.name} ${candidate.userRecruiter.user.lastName}`;
+      teamLeader = `${candidate.userTeamLeader.user.name} ${candidate.userTeamLeader.user.lastName}`;
+    }
+
+    let recruiter = '';
+    if (
+      candidate.userRecruiter &&
+      candidate.userRecruiter.user &&
+      candidate.userRecruiter.user.name
+    ) {
+      recruiter = `${candidate.userRecruiter.user.name} ${candidate.userRecruiter.user.lastName}`;
     }
 
     return {
@@ -154,7 +161,8 @@ export default function Candidates(): JSX.Element {
         : '',
       englishLevel: candidate.englishLevel,
       status: candidate.user.status,
-      approachedBy,
+      teamLeader,
+      recruiter,
       talentPool: !!(candidate.allowTalentPool && candidate.talentPoolVerify),
       birthDate: Moment(candidate.birthDate).format('DD/MM/YYYY'),
     };
@@ -218,6 +226,29 @@ export default function Candidates(): JSX.Element {
   );
 
   const renderActionCell = (e: GridCellParams) => {
+    let approched = <div />;
+
+    if (
+      auth &&
+      auth.user &&
+      auth.user.accessLevel === 2 &&
+      e.row &&
+      e.row.allRow.userTeamLeader &&
+      e.row.allRow.userTeamLeader.user &&
+      e.row.allRow.userTeamLeader.user.id !== auth.user.id
+    ) {
+      approched = (
+        <InvisibleButton
+          title="Approached By"
+          onClick={() => {
+            handleSetTeamLeader(e.row.allRow.id);
+          }}
+        >
+          <FontAwesomeIcon icon={faHand} color={Default.color.blue} />
+        </InvisibleButton>
+      );
+    }
+
     return (
       <>
         <InvisibleButton
@@ -246,22 +277,7 @@ export default function Candidates(): JSX.Element {
         >
           <FontAwesomeIcon icon={faEdit} color={Default.color.blue} />
         </InvisibleButton>
-        {auth &&
-          auth.user &&
-          auth.user.accessLevel === 2 &&
-          e.row &&
-          e.row.allRow.userTeamLeader &&
-          e.row.allRow.userTeamLeader.user &&
-          e.row.allRow.userTeamLeader.user.id !== auth.user.id && (
-            <InvisibleButton
-              title="Approached By"
-              onClick={() => {
-                handleSetTeamLeader(e.row.allRow.id);
-              }}
-            >
-              <FontAwesomeIcon icon={faHand} color={Default.color.blue} />
-            </InvisibleButton>
-          )}
+        {approched}
       </>
     );
   };
@@ -274,7 +290,8 @@ export default function Candidates(): JSX.Element {
     { field: 'email', headerName: 'Email', flex: 1 },
     { field: 'country', headerName: 'Country', flex: 1 },
     { field: 'nativeLanguage', headerName: 'Native Language', flex: 1 },
-    { field: 'approachedBy', headerName: 'Approached By', flex: 1 },
+    { field: 'teamLeader', headerName: 'Team Leader', flex: 1 },
+    { field: 'recruiter', headerName: 'Recruiter', flex: 1 },
     { field: 'birthDate', headerName: 'Date', flex: 1 },
 
     {
@@ -299,7 +316,7 @@ export default function Candidates(): JSX.Element {
       ),
     },
     {
-      hide: auth && auth.user.accessLevel === 5,
+      hide: auth && auth.user && auth.user.accessLevel === 5,
       filterable: false,
       field: 'actions',
       headerName: 'Actions',

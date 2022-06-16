@@ -143,7 +143,16 @@ export default function TalentPool(): JSX.Element {
             handleHaveInterest(e.row.allRow);
           }}
         >
-          <FontAwesomeIcon icon={faPlus} color={Default.color.blue} />
+          <Button
+            variant="contained"
+            type="submit"
+            size="small"
+            onClick={() => {
+              handleHaveInterest(e.row.allRow);
+            }}
+          >
+            Have Interest
+          </Button>
         </InvisibleButton>
         <InvisibleButton
           title="Information"
@@ -153,7 +162,9 @@ export default function TalentPool(): JSX.Element {
             handleOpenModalDetails();
           }}
         >
-          <FontAwesomeIcon icon={faEye} color={Default.color.blue} />
+          <Button variant="contained" type="submit" size="small">
+            Blind CV
+          </Button>
         </InvisibleButton>
       </>
     );
@@ -171,6 +182,7 @@ export default function TalentPool(): JSX.Element {
       field: 'actions',
       headerName: 'Actions',
       renderCell: renderActionCell,
+      flex: 1,
     },
   ];
 
@@ -259,7 +271,7 @@ export default function TalentPool(): JSX.Element {
                   <Default.Row>
                     <Default.Column>
                       <TitleSectionModal>
-                        Professional profile
+                        Personal information
                       </TitleSectionModal>
                       <Default.Space h="1.875rem" />
                       <Default.Row>
@@ -360,7 +372,13 @@ export default function TalentPool(): JSX.Element {
   return (
     <ContentPage title={Language.page.talentPool.listTalentPool}>
       {renderModalDetails()}
-      <DataGrid rows={rows} columns={columns} autoHeight />
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        autoHeight
+        disableSelectionOnClick
+        disableColumnSelector
+      />
     </ContentPage>
   );
 }

@@ -12,7 +12,7 @@ export default function DefaultButton({
   ...rest
 }: IProps): JSX.Element {
   return (
-    <ButtonMui variant="contained" {...rest}>
+    <ButtonMui variant="contained" size="medium" {...rest}>
       {children}
     </ButtonMui>
   );
