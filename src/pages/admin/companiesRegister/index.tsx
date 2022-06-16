@@ -170,7 +170,7 @@ export default function CompaniesRegister(): JSX.Element {
       const options: IOptionsDropdown[] = teamLeaders.map(teamLeader => {
         return {
           value: teamLeader.id,
-          label: teamLeader.user.name,
+          label: `${teamLeader.user.name} ${teamLeader.user.lastName}`,
         };
       });
       setOptionsTeamLeader(options);

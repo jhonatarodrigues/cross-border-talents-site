@@ -5,6 +5,7 @@ const success: { [key: string]: string } = {
   removeCompany: 'do you want to remove the company?',
   removeJobs: 'do you want to remove the job?',
   removeTestimonials: 'do you want to remove the testimonial?',
+  removeCandidate: 'do you want to remove the candidate?',
 };
 
 export default function infoString(key: string): string {

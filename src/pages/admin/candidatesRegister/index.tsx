@@ -233,7 +233,7 @@ export default function CandidatesRegister(): JSX.Element {
       const options: IOptionsDropdown[] = teamLeaders.map(teamLeader => {
         return {
           value: teamLeader.id,
-          label: teamLeader.user.name,
+          label: `${teamLeader.user.name} ${teamLeader.user.lastName}`,
         };
       });
       setOptionsTeamLeader(options);
@@ -248,7 +248,7 @@ export default function CandidatesRegister(): JSX.Element {
       const options: IOptionsDropdown[] = recruiters.map(recruiter => {
         return {
           value: recruiter.id,
-          label: recruiter.user.name,
+          label: `${recruiter.user.name} ${recruiter.user.lastName}`,
         };
       });
       setOptionsRecruiter(options);
@@ -382,6 +382,20 @@ export default function CandidatesRegister(): JSX.Element {
       </Section>
     );
   }, [talentPool, params]);
+
+  const renderButtonSave = useCallback(() => {
+    if (params?.candidate && params?.candidate.id) {
+      if (auth.user.accessLevel >= 3) {
+        return <div />;
+      }
+    }
+
+    return (
+      <Button variant="contained" type="submit">
+        Save
+      </Button>
+    );
+  }, [auth, params]);
 
   return (
     <ContentPage
@@ -559,14 +573,7 @@ export default function CandidatesRegister(): JSX.Element {
             />
           </ContentInput>
         </Section>
-        {(params?.candidate &&
-          params?.candidate.id &&
-          auth.user.accessLevel < 3) ||
-          (!params?.candidate.id && (
-            <Button variant="contained" type="submit">
-              Save
-            </Button>
-          ))}
+        {renderButtonSave()}
       </Form>
     </ContentPage>
   );

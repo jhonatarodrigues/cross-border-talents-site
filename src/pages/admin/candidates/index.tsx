@@ -224,7 +224,7 @@ export default function Candidates(): JSX.Element {
           title="Deletar"
           onClick={() => {
             Modal({
-              keyType: 'removeCompany',
+              keyType: 'removeCandidate',
               icon: 'info',
               cancelButtonText: 'No',
               confirmButtonText: 'Yes',

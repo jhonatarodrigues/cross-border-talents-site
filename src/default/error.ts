@@ -29,6 +29,8 @@ const error: { [key: string]: string } = {
   passwordNotConfirmed: 'Password not confirmed.',
   incorrectPassword: 'Incorrect password.',
   passwordMinCharacters: 'Password must be at least 6 characters.',
+  candidateHasRelations: 'You cannot exclude a candidate who is related.',
+  companieExists: 'Company already exists.',
 };
 
 export default function errorString(key: string): string {

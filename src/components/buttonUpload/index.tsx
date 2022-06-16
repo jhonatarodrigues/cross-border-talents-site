@@ -45,7 +45,6 @@ export default function ButtonUpload({ name, children }: InputProps) {
           <label htmlFor={fieldName}>
             <Input
               ref={inputRef}
-              accept="image/*"
               id={fieldName}
               multiple
               type="file"
