@@ -32,3 +32,18 @@ export const NameFIle = styled.p`
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 `;
+export const ButtonRemove = styled.button`
+  width: 1.5625rem;
+  height: 1.5625rem;
+  min-width: 1.5625rem;
+  min-height: 1.5625rem;
+  border: none;
+  background: ${Default.color.red};
+  border-radius: 50%;
+  color: ${Default.color.white};
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;

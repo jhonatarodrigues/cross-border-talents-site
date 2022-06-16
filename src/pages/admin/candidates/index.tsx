@@ -246,7 +246,12 @@ export default function Candidates(): JSX.Element {
         >
           <FontAwesomeIcon icon={faEdit} color={Default.color.blue} />
         </InvisibleButton>
-        {auth.user.accessLevel === 2 &&
+        {auth &&
+          auth.user &&
+          auth.user.accessLevel === 2 &&
+          e.row &&
+          e.row.allRow.userTeamLeader &&
+          e.row.allRow.userTeamLeader.user &&
           e.row.allRow.userTeamLeader.user.id !== auth.user.id && (
             <InvisibleButton
               title="Approached By"

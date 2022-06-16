@@ -3,8 +3,16 @@ import { useField } from '@unform/core';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { ContentFiled, TextError, NameFIle, ContentButton } from './style';
+import {
+  ContentFiled,
+  TextError,
+  NameFIle,
+  ContentButton,
+  ButtonRemove,
+} from './style';
 
 interface InputProps {
   name: string;
@@ -42,24 +50,35 @@ export default function ButtonUpload({ name, children }: InputProps) {
     <ContentFiled className="contentField">
       <Stack direction="row" alignItems="center" spacing={2}>
         <ContentButton>
-          <label htmlFor={fieldName}>
-            <Input
-              ref={inputRef}
-              id={fieldName}
-              multiple
-              type="file"
-              onChange={e => {
-                setInputValue(e.target);
-                if (e.target.files) {
-                  setFileName(e.target.files[0].name);
-                }
+          {inputValue ? (
+            <ButtonRemove
+              onClick={() => {
+                setInputValue(undefined);
+                setFileName('no file selected');
               }}
-            />
+            >
+              <FontAwesomeIcon icon={faTimes} />
+            </ButtonRemove>
+          ) : (
+            <label htmlFor={fieldName}>
+              <Input
+                ref={inputRef}
+                id={fieldName}
+                multiple
+                type="file"
+                onChange={e => {
+                  setInputValue(e.target);
+                  if (e.target.files) {
+                    setFileName(e.target.files[0].name);
+                  }
+                }}
+              />
 
-            <Button variant="contained" component="span">
-              {children}
-            </Button>
-          </label>
+              <Button variant="contained" component="span">
+                {children}
+              </Button>
+            </label>
+          )}
           {renderNameFile()}
         </ContentButton>
       </Stack>
