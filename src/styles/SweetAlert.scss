@@ -27,3 +27,17 @@
     background: #222b51;
     color: #fff;
 }
+
+.swal2-styled.swal2-confirm{
+    background: #222b51!important;
+    color: #fff!important;
+   &:hover{
+    background: #171e3a!important;
+   }
+}
+.swal2-actions button{
+    border: 0!important;
+    border-radius: 0.625rem!important;
+    padding: 0.61rem 1.5625rem !important;
+    font-size:  1rem !important;
+}
