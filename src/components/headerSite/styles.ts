@@ -7,23 +7,30 @@ interface ITransparent {
 }
 
 export const HeaderDefault = styled.header<ITransparent>`
-  padding: 1.875rem 0;
+  padding: 1.875rem 3.125rem;
   width: 100%;
   position: absolute;
   z-index: 200;
   background-color: ${({ transparent }) =>
     transparent ? 'transparent' : Default.color.white};
+  overflow: hidden;
+  align-items: center;
 `;
 
 export const ContentHeader = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 100%;
 `;
 
 export const Content = styled.div`
   flex-direction: row;
+`;
+
+export const ContentButtons = styled.div`
+  flex-direction: row;
+  position: absolute;
+  right: 3.125rem;
 `;
 
 export const ContentLogo = styled.div`
@@ -35,7 +42,10 @@ export const ContentLogoImage = styled.img``;
 export const Nav = styled.nav`
   display: flex;
   align-items: center;
-  margin-left: 9.375rem;
+
+  @media (max-width: 1400px) {
+    padding-left: 1.25rem;
+  }
 `;
 export const Ul = styled.ul`
   display: flex;

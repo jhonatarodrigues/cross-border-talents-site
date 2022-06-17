@@ -17,6 +17,7 @@ import {
   Dropdown,
   ListDropdown,
   ListDropdownItem,
+  ContentButtons,
 } from './styles';
 
 interface IProps {
@@ -26,14 +27,14 @@ interface IProps {
 export default function Header({ transparent }: IProps): JSX.Element {
   return (
     <HeaderDefault transparent={transparent}>
+      <ContentLogo>
+        <Link to="/">
+          <ContentLogoImage src={logo} alt="Logo" />
+        </Link>
+      </ContentLogo>
       <ContainerSite>
         <ContentHeader>
           <Content>
-            <ContentLogo>
-              <Link to="/">
-                <ContentLogoImage src={logo} alt="Logo" />
-              </Link>
-            </ContentLogo>
             <Nav>
               <Ul>
                 <Li>
@@ -72,25 +73,25 @@ export default function Header({ transparent }: IProps): JSX.Element {
               </Ul>
             </Nav>
           </Content>
-          <Content>
-            <Link
-              to={{
-                pathname: '/admin/login',
-              }}
-              state={{
-                register: true,
-              }}
-            >
-              <Button>Register</Button>
-            </Link>
-            <Link to="/admin/login">
-              <Button variant="outlined" style={{ marginLeft: '0.625rem' }}>
-                Login
-              </Button>
-            </Link>
-          </Content>
         </ContentHeader>
       </ContainerSite>
+      <ContentButtons>
+        <Link
+          to={{
+            pathname: '/admin/login',
+          }}
+          state={{
+            register: true,
+          }}
+        >
+          <Button>Register</Button>
+        </Link>
+        <Link to="/admin/login">
+          <Button variant="outlined" style={{ marginLeft: '0.625rem' }}>
+            Login
+          </Button>
+        </Link>
+      </ContentButtons>
     </HeaderDefault>
   );
 }
