@@ -420,7 +420,7 @@ export default function Login(): JSX.Element {
             <InputRadio
               id="privacyPolicy"
               name="privacyPolicy"
-              type="radio"
+              type="checkbox"
               value="true"
               onChange={() => setPolicyTerms(true)}
             />
@@ -441,7 +441,7 @@ export default function Login(): JSX.Element {
             <InputRadio
               id="allowTalentPool"
               name="allowTalentPool"
-              type="radio"
+              type="checkbox"
               value="true"
               onChange={() => setAllowTalentPool(true)}
             />

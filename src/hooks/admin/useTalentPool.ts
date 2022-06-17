@@ -1,5 +1,4 @@
 import { AxiosResponse } from 'axios';
-import api from '../../services/api';
 import graphql from '../../services/graphql';
 
 export interface ITalentPools {

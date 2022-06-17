@@ -14,7 +14,10 @@ import IconGear from '../../assets/svg/gear';
 import IconMultilingual from '../../assets/svg/multilingual';
 
 import { GetCountries, ICountrie } from '../../hooks/admin/useCountry';
-import { GetJobsPage, IJobs } from '../../hooks/admin/useJobs';
+import {
+  GetTalentPoolsPage,
+  IResponseUser,
+} from '../../hooks/admin/useTalentPool';
 import Modal from '../../components/modal';
 import Default from '../../default';
 import ContentSite from '../../components/ContentSite';
@@ -48,8 +51,8 @@ import {
 } from './style';
 
 export default function TalentPool(): JSX.Element {
-  const [jobs, setJobs] = useState<IJobs[]>([]);
   const [country, setCountry] = useState<ICountrie[]>([]);
+  const [talentPool, setTalentPool] = useState<IResponseUser>();
 
   const getCountries = useCallback(async () => {
     const { countries } = await GetCountries();
@@ -59,22 +62,16 @@ export default function TalentPool(): JSX.Element {
       Modal({ keyType: 'getCountries', icon: 'error' });
     }
   }, []);
-  const getJobs = useCallback(async (search?: string) => {
-    try {
-      const response = await GetJobsPage({
-        search,
-        itensPerPage: 4,
-        page: 1,
-      });
 
-      setJobs(response.jobsSearch.jobs);
-    } catch {
-      Modal({ keyType: 'getJobs', icon: 'error' });
-    }
+  const getTalentPool = useCallback(async () => {
+    const response = await GetTalentPoolsPage({ limit: 4 });
+
+    setTalentPool(response);
   }, []);
   useEffect(() => {
-    getJobs();
-  }, [getJobs]);
+    getTalentPool();
+  }, [getTalentPool]);
+
   useEffect(() => {
     getCountries();
   }, [getCountries]);
@@ -171,22 +168,23 @@ export default function TalentPool(): JSX.Element {
             </ExpertiseBLockContentText>
           </Default.Row>
           <Default.Space h="7.5rem" />
-          <Default.Row>
-            {jobs.map(job => {
+          <Default.Row alignItens="stretch">
+            {talentPool?.talentPools.map(talentPoolItem => {
               let countryDesc = '';
 
               if (country.length > 0) {
                 countryDesc =
                   country.find(
                     (countryItem: ICountrie) =>
-                      countryItem.countryShortCode === job.country,
+                      countryItem.countryShortCode ===
+                      talentPoolItem.candidate.country,
                   )?.countryName || '';
               }
 
               return (
                 <NewJobItem>
                   <Default.Title2 color={Default.color.blue}>
-                    {job.jobTitle}
+                    {talentPoolItem.user.name}
                   </Default.Title2>
                   <Default.Space h="0.625rem" />
                   <NewJobItemContentIcon>
@@ -209,9 +207,9 @@ export default function TalentPool(): JSX.Element {
                     color={Default.color.gray}
                     dangerouslySetInnerHTML={{
                       __html:
-                        job.description.length > 50
-                          ? `${job.description.slice(0, 50)}...`
-                          : job.description,
+                        talentPoolItem.experience.length > 50
+                          ? `${talentPoolItem.experience.slice(0, 50)}...`
+                          : talentPoolItem.experience,
                     }}
                   />
                 </NewJobItem>
