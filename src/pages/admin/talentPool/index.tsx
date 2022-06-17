@@ -120,19 +120,20 @@ export default function TalentPool(): JSX.Element {
     }
   }, []);
 
-  const handleOpenModalDetails = useCallback(async () => {
-    if (!selectedRow) {
+  const handleOpenModalDetails = useCallback(async (row: ITalentPools) => {
+    if (!row) {
       return;
     }
+    setSelectedRow(row);
     setCheckTalentPoolInterest(false);
 
     const response = await CheckTalentPoolInterest({
-      idTalentPool: selectedRow.id,
+      idTalentPool: row.id,
     });
 
     setCheckTalentPoolInterest(response.data.talentPoolInterests);
     setModalDetails(true);
-  }, [selectedRow]);
+  }, []);
 
   const renderActionCell = (e: GridCellParams) => {
     return (
@@ -157,9 +158,7 @@ export default function TalentPool(): JSX.Element {
         <InvisibleButton
           title="Information"
           onClick={() => {
-            setSelectedRow(e.row.allRow);
-
-            handleOpenModalDetails();
+            handleOpenModalDetails(e.row.allRow);
           }}
         >
           <Button variant="contained" type="submit" size="small">
@@ -378,6 +377,7 @@ export default function TalentPool(): JSX.Element {
         autoHeight
         disableSelectionOnClick
         disableColumnSelector
+        checkboxSelection={false}
       />
     </ContentPage>
   );
