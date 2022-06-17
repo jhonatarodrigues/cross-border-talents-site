@@ -15,6 +15,7 @@ export const Banner = styled.div`
   flex-direction: row;
   background: url(${ImageBanner}) no-repeat center center;
   background-size: cover;
+  max-height: 41rem;
 `;
 export const Title = styled(Default.Title)`
   color: ${Default.color.blueOriginal};

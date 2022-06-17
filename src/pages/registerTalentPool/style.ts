@@ -13,6 +13,7 @@ export const Banner = styled.div`
   align-items: center;
   flex-direction: row;
   background-color: ${Default.color.white};
+  max-height: 41rem;
 `;
 export const Title = styled(Default.Title)`
   color: ${Default.color.blueOriginal};

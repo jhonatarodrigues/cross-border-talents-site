@@ -385,7 +385,7 @@ export default function Login(): JSX.Element {
             <BaseLoginCreateAccountLinkSpan
               onClick={() => setForgotPassword(false)}
             >
-              Request your access here
+              Login here
             </BaseLoginCreateAccountLinkSpan>
           </Default.Text2>
         </BaseLoginCreateAccountLink>
@@ -550,7 +550,7 @@ export default function Login(): JSX.Element {
             <BaseLoginCreateAccountLinkSpan
               onClick={() => setCreateAccount(false)}
             >
-              Request your access here
+              Login here
             </BaseLoginCreateAccountLinkSpan>
           </Default.Text2>
         </BaseLoginCreateAccountLink>

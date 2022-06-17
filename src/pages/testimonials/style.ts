@@ -10,6 +10,7 @@ export const Banner = styled.div`
   flex-direction: row;
   background-color: ${Default.color.grayExtremeLight};
   padding-top: 6.25rem;
+  max-height: 41rem;
 `;
 export const Title = styled(Default.Title)`
   color: ${Default.color.blueOriginal};

@@ -53,7 +53,9 @@ export default function Header({ transparent }: IProps): JSX.Element {
                     <div>Institutional</div>
                     <ListDropdown className="listDropdown">
                       <ListDropdownItem>
-                        <Link to="/blog">Blog</Link>
+                        <a href="https://blog-cbtalents-com.cloud3.cloubox.com.br/">
+                          Blog
+                        </a>
                       </ListDropdownItem>
                       <ListDropdownItem>
                         <Link to="/about-us">About Us</Link>

@@ -16,6 +16,7 @@ export const Banner = styled.div`
   flex-direction: row;
   background: url(${TalentPool}) center no-repeat;
   background-size: cover;
+  max-height: 41rem;
 `;
 export const Title = styled(Default.Title)`
   color: ${Default.color.white};
@@ -77,7 +78,6 @@ export const TextExpertiseBlockType = styled.p`
 export const ExpertiseBLockImage = styled.div`
   width: 41.5625rem;
   height: 36.9375rem;
-  background: #0f0;
 `;
 export const ContentIconExpertise = styled.div``;
 export const ExpertiseArrow = styled.div`

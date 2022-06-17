@@ -11,6 +11,7 @@ export const Banner = styled.div`
   flex-direction: row;
   background: url(${BannerContact}) center no-repeat;
   background-size: cover;
+  max-height: 41rem;
 `;
 export const Title = styled(Default.Title)`
   color: ${Default.color.white};

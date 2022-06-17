@@ -66,7 +66,7 @@ export default function FooterSite(): JSX.Element {
                 CBT is a specialist recruitment consultancy with a network of
                 recruitment partners across the Globe. We provide permanent and
                 talent leasing recruitment solutions for the Engineering, ICT,
-                and Multilingual sectors. CBT is part of Group Venture.
+                and Multilingual sectors.
               </Description>
               <Row>
                 <div>

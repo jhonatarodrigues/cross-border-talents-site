@@ -17,6 +17,7 @@ export const Banner = styled.div`
   background: url(${ImageBanner}) no-repeat center center;
   background-size: cover;
   padding-top: 6.25rem;
+  max-height: 41rem;
 `;
 export const Title = styled(Default.Title)`
   color: ${Default.color.white};
