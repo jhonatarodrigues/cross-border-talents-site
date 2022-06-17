@@ -71,7 +71,16 @@ export default function Header({ transparent }: IProps): JSX.Element {
             </Nav>
           </Content>
           <Content>
-            <Button>Register</Button>
+            <Link
+              to={{
+                pathname: '/admin/login',
+              }}
+              state={{
+                register: true,
+              }}
+            >
+              <Button>Register</Button>
+            </Link>
             <Link to="/admin/login">
               <Button variant="outlined" style={{ marginLeft: '0.625rem' }}>
                 Login

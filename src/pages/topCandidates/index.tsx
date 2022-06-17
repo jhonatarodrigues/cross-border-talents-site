@@ -325,7 +325,7 @@ export default function TopCandidates(): JSX.Element {
           </Default.Row>
           <Default.Space h="2.5rem" />
 
-          <Default.Row>
+          <Default.Row alignItens="stretch">
             {talentPool?.talentPools.map(job => {
               let countryDesc = '';
 
@@ -374,6 +374,15 @@ export default function TopCandidates(): JSX.Element {
                 </NewJobItem>
               );
             })}
+          </Default.Row>
+
+          <Default.Space h="5rem" />
+          <Default.Row justifyContent="center">
+            <Link to="/talent-pool/preview">
+              <ButtonSite bgColor={Default.color.blueOriginal}>
+                See all Top Candidates
+              </ButtonSite>
+            </Link>
           </Default.Row>
         </ContainerSite>
       </NewJobBLock>

@@ -1,15 +1,11 @@
 import React, { useCallback, useRef, useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { useSelector, useDispatch } from 'react-redux';
-
 import { SubmitHandler, FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import CircularProgress from '@mui/material/CircularProgress';
-import { useNavigate, Link } from 'react-router-dom';
-import { setPriority } from 'os';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import Default from '../../../default';
 import ButtonSite from '../../../components/buttonSite';
 import InputDropDown, {
@@ -57,6 +53,10 @@ interface IForm {
   password: string;
 }
 
+interface IRequestState {
+  register: boolean;
+}
+
 export default function Login(): JSX.Element {
   const formRef = useRef<FormHandles>(null);
   const formRefForgotPassword = useRef<FormHandles>(null);
@@ -64,8 +64,12 @@ export default function Login(): JSX.Element {
   const formRefRegisterCompany = useRef<FormHandles>(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const stateRequest = useLocation().state as IRequestState;
+
   const { auth } = useSelector((state: ApplicationState) => state);
-  const [createAccount, setCreateAccount] = useState(false);
+  const [createAccount, setCreateAccount] = useState(
+    !!(stateRequest && stateRequest.register),
+  );
   const [forgotPassword, setForgotPassword] = useState(false);
   const [optionsInterestSkills, setOptionsInterestSkills] = useState<
     IOptionsDropdown[]

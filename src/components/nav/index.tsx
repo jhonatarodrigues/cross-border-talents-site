@@ -10,7 +10,6 @@ import {
   faStar,
   faQuestion,
   faComment,
-  faHand,
   faSuitcase,
   faUserTie,
 } from '@fortawesome/free-solid-svg-icons';
