@@ -412,14 +412,8 @@ export default function CompanyNeed(): JSX.Element {
                     ]}
                     // value={checkDepartmentState()}
                   />
-                  <InputDropDown
-                    name="language"
-                    label={Language.fields.language}
-                    options={[
-                      { value: '', label: 'All' },
-                      ...optionsNativeLanguage,
-                    ]}
-                  />
+
+                  <Input name="language" label={Language.fields.language} />
                 </ContentInput>
                 <ContentInput>
                   <Input
