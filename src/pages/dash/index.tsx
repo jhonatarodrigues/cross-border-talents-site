@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
@@ -64,6 +64,7 @@ export default function Dash(): JSX.Element {
   const [jobs, setJobs] = useState<IJobs[]>([]);
   const [country, setCountry] = useState<ICountrie[]>([]);
   const [testimonials, setTestimonials] = useState<ITestimonials[]>([]);
+  const navigate = useNavigate();
 
   const getCountries = useCallback(async () => {
     const { countries } = await GetCountries();

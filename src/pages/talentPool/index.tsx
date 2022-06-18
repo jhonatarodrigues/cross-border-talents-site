@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import ImageExcellence1 from '../../assets/images/excellence1.png';
 import ImageExcellence2 from '../../assets/images/excellence2.png';
@@ -53,6 +53,7 @@ import {
 export default function TalentPool(): JSX.Element {
   const [country, setCountry] = useState<ICountrie[]>([]);
   const [talentPool, setTalentPool] = useState<IResponseUser>();
+  const navigate = useNavigate();
 
   const getCountries = useCallback(async () => {
     const { countries } = await GetCountries();
