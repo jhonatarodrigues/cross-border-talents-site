@@ -48,6 +48,7 @@ export const ExpertiseBlockType = styled.div`
   flex-direction: row;
   align-items: flex-start;
   margin: 2.5rem 1rem 0;
+  cursor: pointer;
   &:last-child {
     margin-right: 0;
   }
@@ -157,6 +158,7 @@ export const BlockStopWorrying = styled(Default.BlockContent)`
 export const WastedIconContent = styled(Default.Column)`
   width: auto;
   margin-right: 70px;
+  cursor: pointer;
 `;
 export const BlockStopWorryingImageContent = styled(Default.Column)`
   margin-left: 8.25rem;

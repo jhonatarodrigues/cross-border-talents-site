@@ -171,4 +171,5 @@ export const WastedTextImage = styled(Default.Title2)`
 export const WastedIconContent = styled(Default.Column)`
   width: auto;
   margin-right: 70px;
+  cursor: pointer;
 `;

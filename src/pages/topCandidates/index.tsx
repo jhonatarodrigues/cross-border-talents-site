@@ -244,7 +244,15 @@ export default function TopCandidates(): JSX.Element {
             </Default.Title2>
           </Default.Column>
           <div>
-            <ExpertiseBlockType>
+            <ExpertiseBlockType
+              onClick={() => {
+                navigate('/talent-pool/preview', {
+                  state: {
+                    department: 'ICT',
+                  },
+                });
+              }}
+            >
               <ContentIconExpertise>
                 <IconIct />
               </ContentIconExpertise>
@@ -264,7 +272,15 @@ export default function TopCandidates(): JSX.Element {
                 />
               </ExpertiseArrow>
             </ExpertiseBlockType>
-            <ExpertiseBlockType>
+            <ExpertiseBlockType
+              onClick={() => {
+                navigate('/talent-pool/preview', {
+                  state: {
+                    department: 'Multilingual',
+                  },
+                });
+              }}
+            >
               <ContentIconExpertise>
                 <IconMultilingual />
               </ContentIconExpertise>
@@ -284,7 +300,15 @@ export default function TopCandidates(): JSX.Element {
                 />
               </ExpertiseArrow>
             </ExpertiseBlockType>
-            <ExpertiseBlockType>
+            <ExpertiseBlockType
+              onClick={() => {
+                navigate('/talent-pool/preview', {
+                  state: {
+                    department: 'Engineering',
+                  },
+                });
+              }}
+            >
               <ContentIconExpertise>
                 <IconGear />
               </ContentIconExpertise>
@@ -402,7 +426,15 @@ export default function TopCandidates(): JSX.Element {
               </Default.Subtitle>
               <Default.Space h="45px" />
               <Default.Row>
-                <WastedIconContent>
+                <WastedIconContent
+                  onClick={() => {
+                    navigate('/talent-pool/preview', {
+                      state: {
+                        department: 'ict',
+                      },
+                    });
+                  }}
+                >
                   <IconIct />
                   <Default.Space h="0.9375rem" />
                   <Default.Title2 color={Default.color.white}>
@@ -410,7 +442,15 @@ export default function TopCandidates(): JSX.Element {
                   </Default.Title2>
                 </WastedIconContent>
 
-                <WastedIconContent>
+                <WastedIconContent
+                  onClick={() => {
+                    navigate('/talent-pool/preview', {
+                      state: {
+                        department: 'Engineering',
+                      },
+                    });
+                  }}
+                >
                   <IconGear />
                   <Default.Space h="0.9375rem" />
                   <Default.Title2 color={Default.color.white}>
@@ -420,7 +460,15 @@ export default function TopCandidates(): JSX.Element {
               </Default.Row>
               <Default.Space h="2.5rem" />
               <Default.Row>
-                <WastedIconContent>
+                <WastedIconContent
+                  onClick={() => {
+                    navigate('/talent-pool/preview', {
+                      state: {
+                        department: 'multilingual',
+                      },
+                    });
+                  }}
+                >
                   <IconMultilingual />
                   <Default.Space h="0.9375rem" />
                   <Default.Title2 color={Default.color.white}>

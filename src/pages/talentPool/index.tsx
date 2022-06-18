@@ -267,21 +267,45 @@ export default function TalentPool(): JSX.Element {
               </Default.Subtitle>
               <Default.Space h="2.8125rem" />
               <Default.Row>
-                <WastedIconContent>
+                <WastedIconContent
+                  onClick={() => {
+                    navigate('/talent-pool/preview', {
+                      state: {
+                        department: 'ict',
+                      },
+                    });
+                  }}
+                >
                   <IconIct />
                   <Default.Space h="0.9375rem" />
                   <Default.Title2 color={Default.color.white}>
                     ICT
                   </Default.Title2>
                 </WastedIconContent>
-                <WastedIconContent>
+                <WastedIconContent
+                  onClick={() => {
+                    navigate('/talent-pool/preview', {
+                      state: {
+                        department: 'multilingual',
+                      },
+                    });
+                  }}
+                >
                   <IconMultilingual />
                   <Default.Space h="0.9375rem" />
                   <Default.Title2 color={Default.color.white}>
                     Multilingual
                   </Default.Title2>
                 </WastedIconContent>
-                <WastedIconContent>
+                <WastedIconContent
+                  onClick={() => {
+                    navigate('/talent-pool/preview', {
+                      state: {
+                        department: 'Engineering',
+                      },
+                    });
+                  }}
+                >
                   <IconGear />
                   <Default.Space h="0.9375rem" />
                   <Default.Title2 color={Default.color.white}>

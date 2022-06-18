@@ -52,6 +52,15 @@ export interface IAddUserTalentPool {
   charge: string;
 }
 
+export interface IFilter {
+  country?: string;
+  department?: string;
+  language?: string;
+  search?: string;
+
+  limit?: number;
+}
+
 export function GetTalentPools(): Promise<IResponseUser> {
   const query = `
     query {
@@ -177,17 +186,19 @@ export function AddUserTalentPool(
 
 export function GetTalentPoolsPage({
   search,
+  country,
+  department,
+  language,
 
   limit,
-}: {
-  search?: string;
-
-  limit?: number;
-}): Promise<IResponseUser> {
+}: IFilter): Promise<IResponseUser> {
   const query = `
     query {
         talentPools(
             search: "${search || ''}",
+            ${country ? `country: "${country}",` : ''}
+            ${department ? `department: "${department}",` : ''}
+            ${language ? `language: "${language}",` : ''}
             
             ${limit ? `limit: "${limit}"` : ''}
         ) {

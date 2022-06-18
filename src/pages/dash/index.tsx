@@ -152,7 +152,15 @@ export default function Dash(): JSX.Element {
         <ContainerSite>
           <TitleExpertise>Our expertise is your success</TitleExpertise>
           <div>
-            <ExpertiseBlockType>
+            <ExpertiseBlockType
+              onClick={() => {
+                navigate('/talent-pool/preview', {
+                  state: {
+                    department: 'ict',
+                  },
+                });
+              }}
+            >
               <IconExpertiseContent>
                 <IconIct />
               </IconExpertiseContent>
@@ -164,7 +172,15 @@ export default function Dash(): JSX.Element {
                 </TextExpertiseBlockType>
               </Default.Column>
             </ExpertiseBlockType>
-            <ExpertiseBlockType>
+            <ExpertiseBlockType
+              onClick={() => {
+                navigate('/talent-pool/preview', {
+                  state: {
+                    department: 'multilingual',
+                  },
+                });
+              }}
+            >
               <IconExpertiseContent>
                 <IconMultilingual />
               </IconExpertiseContent>
@@ -176,7 +192,15 @@ export default function Dash(): JSX.Element {
                 </TextExpertiseBlockType>
               </Default.Column>
             </ExpertiseBlockType>
-            <ExpertiseBlockType>
+            <ExpertiseBlockType
+              onClick={() => {
+                navigate('/talent-pool/preview', {
+                  state: {
+                    department: 'Engineering',
+                  },
+                });
+              }}
+            >
               <IconExpertiseContent>
                 <IconGear />
               </IconExpertiseContent>

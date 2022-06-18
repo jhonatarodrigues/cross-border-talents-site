@@ -3,7 +3,7 @@ import { Form } from '@unform/web';
 import { SubmitHandler, FormHandles } from '@unform/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faEye } from '@fortawesome/free-solid-svg-icons';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import Input from '../../components/input';
@@ -19,6 +19,7 @@ import { GetLanguages } from '../../hooks/admin/useLanguages';
 import {
   GetTalentPoolsPage,
   ITalentPools,
+  IFilter,
 } from '../../hooks/admin/useTalentPool';
 import ButtonSite from '../../components/buttonSite';
 import Default from '../../default';
@@ -46,6 +47,10 @@ import {
   InputCheck,
 } from './style';
 
+interface IRequestState {
+  department: string;
+}
+
 export default function CompanyNeed(): JSX.Element {
   const formRef = useRef<FormHandles>(null);
   const formRefContactUs = useRef<FormHandles>(null);
@@ -54,9 +59,11 @@ export default function CompanyNeed(): JSX.Element {
   const [optionsInterestSkills, setOptionsInterestSkills] = useState<
     IOptionsDropdown[]
   >([] as IOptionsDropdown[]);
+  const [filter, setFilter] = useState<IFilter>();
   const [candidates, setCandidates] = useState<ITalentPools[]>([]);
   const [country, setCountry] = useState<ICountrie[]>([]);
   const [terms, setTerms] = useState(false);
+  const stateRequest = useLocation().state as IRequestState;
   const navigate = useNavigate();
 
   const optionsNativeLanguage: IOptionsDropdown[] =
@@ -75,11 +82,6 @@ export default function CompanyNeed(): JSX.Element {
       Modal({ keyType: 'getCountries', icon: 'error' });
     }
   }, []);
-
-  useEffect(() => {
-    getCountries();
-  }, [getCountries]);
-
   const getInterestSkills = useCallback(async () => {
     const { interestSkills } = await GetInterestSkills();
     if (interestSkills) {
@@ -91,31 +93,36 @@ export default function CompanyNeed(): JSX.Element {
       });
       setOptionsInterestSkills(options);
     } else {
-      //   Modal({ keyType: 'getInterestSkills', icon: 'error' });
+      Modal({ keyType: 'getInterestSkills', icon: 'error' });
     }
   }, []);
+
   useEffect(() => {
     getInterestSkills();
   }, [getInterestSkills]);
 
-  const getCandidates = useCallback(async (search?: string) => {
+  useEffect(() => {
+    getCountries();
+  }, [getCountries]);
+
+  const getCandidates = useCallback(async () => {
     try {
-      const response = await GetTalentPoolsPage({
-        search: search || '',
-      });
+      const response = await GetTalentPoolsPage({ ...filter });
 
       setCandidates(response.talentPools);
     } catch {
       Modal({ keyType: 'getCandidates', icon: 'error' });
     }
-  }, []);
+  }, [filter]);
 
-  const handleSubmit: SubmitHandler = useCallback(
-    async data => {
-      getCandidates(data.typeCategory);
-    },
-    [getCandidates],
-  );
+  const handleSubmit: SubmitHandler = useCallback(async data => {
+    setFilter({
+      country: data.country,
+      department: data.multilingual,
+      language: data.language,
+      search: data.typeCategory,
+    });
+  }, []);
   const handleSubmitRegister: SubmitHandler = useCallback(
     async data => {
       if (!terms) {
@@ -324,6 +331,33 @@ export default function CompanyNeed(): JSX.Element {
     getCandidates();
   }, [getCandidates]);
 
+  const checkDepartmentState = useCallback(
+    (interestSkills: IOptionsDropdown[]) => {
+      if (
+        stateRequest.department &&
+        interestSkills &&
+        interestSkills.length > 0
+      ) {
+        const item = interestSkills.find(
+          itemState =>
+            itemState.label.toLocaleLowerCase() ===
+            stateRequest.department.toLocaleLowerCase(),
+        )?.value;
+
+        if (item) {
+          formRef.current?.setFieldValue('multilingual', item);
+          setTimeout(() => {
+            formRef.current?.submitForm();
+          }, 500);
+        }
+      }
+    },
+    [stateRequest],
+  );
+
+  useEffect(() => {
+    checkDepartmentState(optionsInterestSkills);
+  }, [checkDepartmentState, optionsInterestSkills]);
   return (
     <ContentSite>
       {renderModalRegister()}
@@ -358,24 +392,33 @@ export default function CompanyNeed(): JSX.Element {
               <Default.Column>
                 <ContentInput>
                   <InputDropDown
-                    name="residence"
-                    label={Language.fields.residence}
-                    options={optionsInterestSkills}
+                    name="country"
+                    label={Language.fields.country}
+                    options={[
+                      { value: '', label: 'All' },
+                      ...country.map(item => ({
+                        value: item.countryShortCode,
+                        label: item.countryName,
+                      })),
+                    ]}
                   />
-                  <InputDropDown
-                    name="academyBackground"
-                    label={Language.fields.academyBackground}
-                    options={optionsInterestSkills}
-                  />
+
                   <InputDropDown
                     name="multilingual"
                     label={Language.fields.multilingual}
-                    options={optionsInterestSkills}
+                    options={[
+                      { value: '', label: 'All' },
+                      ...optionsInterestSkills,
+                    ]}
+                    // value={checkDepartmentState()}
                   />
                   <InputDropDown
                     name="language"
                     label={Language.fields.language}
-                    options={optionsNativeLanguage}
+                    options={[
+                      { value: '', label: 'All' },
+                      ...optionsNativeLanguage,
+                    ]}
                   />
                 </ContentInput>
                 <ContentInput>
@@ -395,70 +438,78 @@ export default function CompanyNeed(): JSX.Element {
 
           <Default.Space h="7.1875rem" />
           <ContentBox>
-            {candidates.map(item => {
-              let countryDesc = '';
+            {candidates && candidates.length > 0 ? (
+              candidates.map(item => {
+                let countryDesc = '';
 
-              if (country.length > 0) {
-                countryDesc =
-                  country.find(
-                    (countryItem: ICountrie) =>
-                      countryItem.countryShortCode === item.candidate.country,
-                  )?.countryName || '';
-              }
+                if (country.length > 0) {
+                  countryDesc =
+                    country.find(
+                      (countryItem: ICountrie) =>
+                        countryItem.countryShortCode === item.candidate.country,
+                    )?.countryName || '';
+                }
 
-              return (
-                <Box key={item.id}>
-                  <TagBox>Candidate</TagBox>
-                  <Default.Column>
-                    <Default.Title4 color={Default.color.blue}>
-                      {item.user.name} {item.user.lastName}
-                    </Default.Title4>
-                    <Default.Space h="1.25rem" />
-                    <Default.Row>
-                      <Default.Row alignItens="center">
-                        <FontAwesomeIcon
-                          icon={faLocationDot}
-                          color={Default.color.success}
-                          fontSize={21}
-                        />
-                        <NewJobItemContentIconText>
-                          {countryDesc}
-                        </NewJobItemContentIconText>
+                return (
+                  <Box key={item.id}>
+                    <TagBox>Candidate</TagBox>
+                    <Default.Column>
+                      <Default.Title4 color={Default.color.blue}>
+                        {item.user.name} {item.user.lastName}
+                      </Default.Title4>
+                      <Default.Space h="1.25rem" />
+                      <Default.Row>
+                        <Default.Row alignItens="center">
+                          <FontAwesomeIcon
+                            icon={faLocationDot}
+                            color={Default.color.success}
+                            fontSize={21}
+                          />
+                          <NewJobItemContentIconText>
+                            {countryDesc}
+                          </NewJobItemContentIconText>
+                        </Default.Row>
+                        <Default.Row justifyContent="flex-end">
+                          <TagNewJobItem color={Default.color.blueBase}>
+                            ID 12345
+                          </TagNewJobItem>
+                        </Default.Row>
                       </Default.Row>
-                      <Default.Row justifyContent="flex-end">
-                        <TagNewJobItem color={Default.color.blueBase}>
-                          ID 12345
-                        </TagNewJobItem>
+                      <Default.Space h="0.625rem" />
+                      <Default.Text2
+                        color={Default.color.gray}
+                        dangerouslySetInnerHTML={{
+                          __html:
+                            item.profile && item.profile.length > 50
+                              ? `${item.profile.slice(0, 50)}...`
+                              : item.profile,
+                        }}
+                      />
+                      <Default.Space h="0.9375rem" />
+                      <Default.Row>
+                        <ButtonSite
+                          bgColor={Default.color.success}
+                          onClick={() => setModalRegister(true)}
+                        >
+                          <FontAwesomeIcon
+                            icon={faEye}
+                            color={Default.color.white}
+                          />
+                          &nbsp;&nbsp;Blind CV
+                        </ButtonSite>
+                        <Default.Space w="0.625rem" />
                       </Default.Row>
-                    </Default.Row>
-                    <Default.Space h="0.625rem" />
-                    <Default.Text2
-                      color={Default.color.gray}
-                      dangerouslySetInnerHTML={{
-                        __html:
-                          item.profile && item.profile.length > 50
-                            ? `${item.profile.slice(0, 50)}...`
-                            : item.profile,
-                      }}
-                    />
-                    <Default.Space h="0.9375rem" />
-                    <Default.Row>
-                      <ButtonSite
-                        bgColor={Default.color.success}
-                        onClick={() => setModalRegister(true)}
-                      >
-                        <FontAwesomeIcon
-                          icon={faEye}
-                          color={Default.color.white}
-                        />
-                        &nbsp;&nbsp;Blind CV
-                      </ButtonSite>
-                      <Default.Space w="0.625rem" />
-                    </Default.Row>
-                  </Default.Column>
-                </Box>
-              );
-            })}
+                    </Default.Column>
+                  </Box>
+                );
+              })
+            ) : (
+              <Default.Row alignItens="center" justifyContent="center">
+                <Default.TitleH3 color={Default.color.gray}>
+                  No candidates found
+                </Default.TitleH3>
+              </Default.Row>
+            )}
           </ContentBox>
         </ContainerSite>
       </BlockForEmployers>
