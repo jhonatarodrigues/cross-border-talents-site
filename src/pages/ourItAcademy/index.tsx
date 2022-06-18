@@ -21,35 +21,43 @@ import {
   Image,
   ImageOrnament,
   IconExcellence,
+  ImageBannerMen,
+  BackgroundBannerMen,
 } from './style';
 
 export default function OurItAcademy(): JSX.Element {
   return (
     <ContentSite>
       <Banner>
-        <ContainerSite>
-          <Title>
-            Code is for <br />
-            everyone and our <br />
-            Academy is for you
-          </Title>
-          <div>
-            <ButtonSite bgColor={Default.color.success}>
-              Take your opportunity here
-            </ButtonSite>
-          </div>
-          <Default.Space h="2rem" />
-          <div>
-            <IconSearch src={ImageExcellence1} />
-            <IconSearch src={ImageExcellence2} />
-            <IconSearch src={ImageExcellence3} />
-            <TextIconSearch>
-              <span>WE ARE GLOBAL</span>
-              <br />
-              Operating in over 102 countries
-            </TextIconSearch>
-          </div>
-        </ContainerSite>
+        <Default.Column>
+          <ContainerSite>
+            <Title>
+              Code is for <br />
+              everyone and our <br />
+              Academy is for you
+            </Title>
+            <div>
+              <ButtonSite bgColor={Default.color.success}>
+                Take your opportunity here
+              </ButtonSite>
+            </div>
+            <Default.Space h="2rem" />
+            <div>
+              <IconSearch src={ImageExcellence1} />
+              <IconSearch src={ImageExcellence2} />
+              <IconSearch src={ImageExcellence3} />
+              <TextIconSearch>
+                <span>WE ARE GLOBAL</span>
+                <br />
+                Operating in over 102 countries
+              </TextIconSearch>
+            </div>
+          </ContainerSite>
+          <ContainerSite>
+            <BackgroundBannerMen />
+            <ImageBannerMen />
+          </ContainerSite>
+        </Default.Column>
       </Banner>
       <BlockAcademy>
         <ContainerSite>

@@ -7,6 +7,7 @@ interface IRow {
 export const Container = styled.div<IRow>`
   width: 75rem;
   flex-direction: ${({ row }) => (row ? 'row' : 'column')};
+  position: relative;
 `;
 
 export const BaseContent = styled.div`

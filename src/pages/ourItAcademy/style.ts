@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import Default from '../../default';
 
 import LearCode from '../../assets/images/academy/learnCode.jpg';
-import ImageBanner from '../../assets/images/academy/banner.jpg';
+import ImageBanner from '../../assets/images/academy/img-top-academy.png';
+import BgImageBanner from '../../assets/images/academy/bg-top-academy.png';
 
 interface IWidth {
   width?: string;
@@ -13,9 +14,32 @@ export const Banner = styled.div`
   width: 100%;
   align-items: center;
   flex-direction: row;
-  background: url(${ImageBanner}) no-repeat center center;
+  background: ${Default.color.grayExtremeLight};
   background-size: cover;
   max-height: 41rem;
+  overflow: hidden;
+`;
+export const ImageBannerMen = styled.div`
+  width: 29.1875rem;
+  height: 35.8125rem;
+  background: url(${ImageBanner}) no-repeat top center;
+  background-size: contain;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translateY(-60%);
+  z-index: 2;
+`;
+export const BackgroundBannerMen = styled.div`
+  width: 50rem;
+  height: 43.25rem;
+  background: url(${BgImageBanner}) no-repeat top center;
+  background-size: contain;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translate(10%, -60%);
+  z-index: 1;
 `;
 export const Title = styled(Default.Title)`
   color: ${Default.color.blueOriginal};

@@ -48,6 +48,8 @@ import {
   WastedIconContent,
   ExpertiseBLockImageOrnament,
   ExpertiseBLockImageBack,
+  MenImage,
+  BackgroundBannerMen,
 } from './style';
 
 export default function TalentPool(): JSX.Element {
@@ -79,32 +81,38 @@ export default function TalentPool(): JSX.Element {
   return (
     <ContentSite>
       <Banner>
-        <ContainerSite>
-          <Title>
-            Top candidates,
-            <br /> exclusive for top
-            <br />
-            companies
-          </Title>
-          <div>
-            <ContentSearch>
-              <InputSearch placeholder="Your Name" />
-              <InputSearch placeholder="Email" />
-              <ButtonSearch>Send Request</ButtonSearch>
-            </ContentSearch>
-          </div>
-          <Default.Space h="2rem" />
-          <div>
-            <IconSearch src={ImageExcellence1} />
-            <IconSearch src={ImageExcellence2} />
-            <IconSearch src={ImageExcellence3} />
-            <TextIconSearch>
-              <span>WE ARE GLOBAL</span>
+        <Default.Column>
+          <ContainerSite>
+            <Title>
+              Top candidates,
+              <br /> exclusive for top
               <br />
-              Operating in over 102 countries
-            </TextIconSearch>
-          </div>
-        </ContainerSite>
+              companies
+            </Title>
+            <div>
+              <ContentSearch>
+                <InputSearch placeholder="Your Name" />
+                <InputSearch placeholder="Email" />
+                <ButtonSearch>Send Request</ButtonSearch>
+              </ContentSearch>
+            </div>
+            <Default.Space h="2rem" />
+            <div>
+              <IconSearch src={ImageExcellence1} />
+              <IconSearch src={ImageExcellence2} />
+              <IconSearch src={ImageExcellence3} />
+              <TextIconSearch>
+                <span>WE ARE GLOBAL</span>
+                <br />
+                Operating in over 102 countries
+              </TextIconSearch>
+            </div>
+          </ContainerSite>
+          <ContainerSite>
+            <MenImage />
+            <BackgroundBannerMen />
+          </ContainerSite>
+        </Default.Column>
       </Banner>
       <CandidatesWeek>
         <ContainerSite>

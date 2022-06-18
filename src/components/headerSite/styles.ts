@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import ContainerSite from '../ContainerSite';
 
 import Default from '../../default';
 
@@ -13,8 +14,22 @@ export const HeaderDefault = styled.header<ITransparent>`
   z-index: 200;
   background-color: ${({ transparent }) =>
     transparent ? 'transparent' : Default.color.white};
-  overflow: hidden;
   align-items: center;
+`;
+
+export const ContainerContentSite = styled.div`
+  width: 100%;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+`;
+export const ContentSite = styled.div`
+  width: 75rem;
+  position: relative;
+
+  @media (max-width: 1400px) {
+    max-width: 56.25rem;
+  }
 `;
 
 export const ContentHeader = styled.div`

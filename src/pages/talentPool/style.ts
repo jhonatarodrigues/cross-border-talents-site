@@ -3,7 +3,8 @@ import Default from '../../default';
 
 import TopCandidates from '../../assets/images/forEmployers/topCandidates.jpg';
 import GetFreeAccess from '../../assets/images/forEmployers/getFreeAccess.jpg';
-import ImageBanner from '../../assets/images/forEmployers/banner.jpg';
+import ImageMen from '../../assets/images/forEmployers/img-top-for-employers.png';
+import BGImageMen from '../../assets/images/forEmployers/bg-top-for-employers.png';
 
 interface IWidth {
   width?: string;
@@ -14,10 +15,33 @@ export const Banner = styled.div`
   width: 100%;
   align-items: center;
   flex-direction: row;
-  background: url(${ImageBanner}) no-repeat center center;
+  background: ${Default.color.blueOriginal};
   background-size: cover;
   padding-top: 6.25rem;
   max-height: 41rem;
+  overflow: hidden;
+`;
+export const MenImage = styled.div`
+  width: 25.125rem;
+  height: 36.1875rem;
+  background: url(${ImageMen}) no-repeat top center;
+  background-size: contain;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translateY(-70%);
+  z-index: 2;
+`;
+export const BackgroundBannerMen = styled.div`
+  width: 44.9375rem;
+  height: 56.25rem;
+  background: url(${BGImageMen}) no-repeat top center;
+  background-size: contain;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translate(20%, -60%);
+  z-index: 1;
 `;
 export const Title = styled(Default.Title)`
   color: ${Default.color.white};

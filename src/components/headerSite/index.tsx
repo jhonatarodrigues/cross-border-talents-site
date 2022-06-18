@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 import Button from '../buttonSite';
-import ContainerSite from '../ContainerSite';
 
 import logo from '../../assets/images/logo.png';
 import {
@@ -18,6 +17,8 @@ import {
   ListDropdown,
   ListDropdownItem,
   ContentButtons,
+  ContentSite,
+  ContainerContentSite,
 } from './styles';
 
 interface IProps {
@@ -32,49 +33,51 @@ export default function Header({ transparent }: IProps): JSX.Element {
           <ContentLogoImage src={logo} alt="Logo" />
         </Link>
       </ContentLogo>
-      <ContainerSite>
-        <ContentHeader>
-          <Content>
-            <Nav>
-              <Ul>
-                <Li>
-                  <Link to="/jobs">Jobs</Link>
-                </Li>
-                <Li>
-                  <Link to="/for-employers">For Employers</Link>
-                </Li>
-                <Li>
-                  <Link to="/talent-pool">Talent Pool</Link>
-                </Li>
-                <Li>
-                  <Link to="/academy">Academy</Link>
-                </Li>
-                <Li>
-                  <Dropdown>
-                    <div>Institutional</div>
-                    <ListDropdown className="listDropdown">
-                      <ListDropdownItem>
-                        <a href="https://blog-cbtalents-com.cloud3.cloubox.com.br/">
-                          Blog
-                        </a>
-                      </ListDropdownItem>
-                      <ListDropdownItem>
-                        <Link to="/about-us">About Us</Link>
-                      </ListDropdownItem>
-                      <ListDropdownItem>
-                        <Link to="/testimonials">Testimonials</Link>
-                      </ListDropdownItem>
-                      <ListDropdownItem>
-                        <Link to="/contact">Contact</Link>
-                      </ListDropdownItem>
-                    </ListDropdown>
-                  </Dropdown>
-                </Li>
-              </Ul>
-            </Nav>
-          </Content>
-        </ContentHeader>
-      </ContainerSite>
+      <ContainerContentSite>
+        <ContentSite>
+          <ContentHeader>
+            <Content>
+              <Nav>
+                <Ul>
+                  <Li>
+                    <Link to="/jobs">Jobs</Link>
+                  </Li>
+                  <Li>
+                    <Link to="/for-employers">For Employers</Link>
+                  </Li>
+                  <Li>
+                    <Link to="/talent-pool">Talent Pool</Link>
+                  </Li>
+                  <Li>
+                    <Link to="/academy">Academy</Link>
+                  </Li>
+                  <Li>
+                    <Dropdown>
+                      <div>Institutional</div>
+                      <ListDropdown className="listDropdown">
+                        <ListDropdownItem>
+                          <a href="https://blog-cbtalents-com.cloud3.cloubox.com.br/">
+                            Blog
+                          </a>
+                        </ListDropdownItem>
+                        <ListDropdownItem>
+                          <Link to="/about-us">About Us</Link>
+                        </ListDropdownItem>
+                        <ListDropdownItem>
+                          <Link to="/testimonials">Testimonials</Link>
+                        </ListDropdownItem>
+                        <ListDropdownItem>
+                          <Link to="/contact">Contact</Link>
+                        </ListDropdownItem>
+                      </ListDropdown>
+                    </Dropdown>
+                  </Li>
+                </Ul>
+              </Nav>
+            </Content>
+          </ContentHeader>
+        </ContentSite>
+      </ContainerContentSite>
       <ContentButtons>
         <Link
           to={{

@@ -9,7 +9,7 @@ export const Banner = styled.div`
   width: 100%;
   align-items: center;
   flex-direction: row;
-  background: url(${BannerContact}) center no-repeat;
+  background: url(${BannerContact}) top center no-repeat;
   background-size: cover;
   max-height: 41rem;
 `;

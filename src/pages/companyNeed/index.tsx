@@ -340,8 +340,9 @@ export default function CompanyNeed(): JSX.Element {
       ) {
         const item = interestSkills.find(
           itemState =>
-            itemState.label.toLocaleLowerCase() ===
-            stateRequest.department.toLocaleLowerCase(),
+            itemState.label
+              .toLocaleLowerCase()
+              .indexOf(stateRequest.department.toLocaleLowerCase()) > -1,
         )?.value;
 
         if (item) {

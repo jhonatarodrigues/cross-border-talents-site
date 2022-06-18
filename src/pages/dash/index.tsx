@@ -58,6 +58,8 @@ import {
   ExpertiseBlockImageBack,
   ExpertiseBlockImageFunny,
   IconExpertiseContent,
+  ImageBannerWoman,
+  BackgroundBannerWoman,
 } from './style';
 
 export default function Dash(): JSX.Element {
@@ -115,39 +117,45 @@ export default function Dash(): JSX.Element {
   return (
     <ContentSite headerTransparent>
       <Banner>
-        <ContainerSite>
-          <Title>
-            Your international <br /> job opportunity here
-          </Title>
-          <div>
-            <ContentSearch>
-              <InputSearch placeholder="Search job by title" />
-              <FontAwesomeIcon
-                icon={faLocationDot}
-                color={Default.color.success}
-                fontSize={30}
-              />
-              <InputDropDownSearch placeholder="Search job by title">
-                <option value="">All Regions</option>
-              </InputDropDownSearch>
-              <ButtonSearch>Find a job</ButtonSearch>
-            </ContentSearch>
-          </div>
-          <SubtitleSearchBanner>
-            It’s a company and need to hire talents?&nbsp;
-            <Link to="/"> Request your access here</Link>
-          </SubtitleSearchBanner>
-          <div>
-            <IconSearch src={ImageExcellence1} />
-            <IconSearch src={ImageExcellence2} />
-            <IconSearch src={ImageExcellence3} />
-            <TextIconSearch>
-              <span>WE ARE GLOBAL</span>
-              <br />
-              Operating in over 102 countries
-            </TextIconSearch>
-          </div>
-        </ContainerSite>
+        <Default.Column>
+          <ContainerSite>
+            <Title>
+              Your international <br /> job opportunity here
+            </Title>
+            <div>
+              <ContentSearch>
+                <InputSearch placeholder="Search job by title" />
+                <FontAwesomeIcon
+                  icon={faLocationDot}
+                  color={Default.color.success}
+                  fontSize={30}
+                />
+                <InputDropDownSearch placeholder="Search job by title">
+                  <option value="">All Regions</option>
+                </InputDropDownSearch>
+                <ButtonSearch>Find a job</ButtonSearch>
+              </ContentSearch>
+            </div>
+            <SubtitleSearchBanner>
+              It’s a company and need to hire talents?&nbsp;
+              <Link to="/"> Request your access here</Link>
+            </SubtitleSearchBanner>
+            <div>
+              <IconSearch src={ImageExcellence1} />
+              <IconSearch src={ImageExcellence2} />
+              <IconSearch src={ImageExcellence3} />
+              <TextIconSearch>
+                <span>WE ARE GLOBAL</span>
+                <br />
+                Operating in over 102 countries
+              </TextIconSearch>
+            </div>
+          </ContainerSite>
+          <ContainerSite>
+            <ImageBannerWoman />
+            <BackgroundBannerWoman />
+          </ContainerSite>
+        </Default.Column>
       </Banner>
       <ExpertiseBLock>
         <ContainerSite>

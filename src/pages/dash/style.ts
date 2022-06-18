@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import Default from '../../default';
 
-import image1 from '../../assets/images/home/ourExpertise.png';
+import image1 from '../../assets/images/home/ourExpertise.jpg';
 import imageNewJob from '../../assets/images/home/newJobs.jpg';
-import ImageBanner from '../../assets/images/home/banner.jpg';
+import ImageWoman from '../../assets/images/home/img-top-home.png';
+import BackgroundWoman from '../../assets/images/home/bg-top-home.png';
 
 interface IWidth {
   width?: string;
@@ -14,9 +15,33 @@ export const Banner = styled.div`
   width: 100%;
   align-items: center;
   flex-direction: row;
-  background: url(${ImageBanner}) no-repeat center;
+  background: ${Default.color.grayExtremeLight};
   background-size: cover;
   max-height: 35rem;
+  overflow: hidden;
+  position: relative;
+`;
+export const ImageBannerWoman = styled.div`
+  width: 31.625rem;
+  height: 39.125rem;
+  background: url(${ImageWoman}) no-repeat top center;
+  background-size: contain;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translateY(-70%);
+  z-index: 2;
+`;
+export const BackgroundBannerWoman = styled.div`
+  width: 34.75rem;
+  height: 43.25rem;
+  background: url(${BackgroundWoman}) no-repeat top center;
+  background-size: contain;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translate(10%, -60%);
+  z-index: 1;
 `;
 export const Title = styled(Default.Title)`
   color: ${Default.color.blue};
