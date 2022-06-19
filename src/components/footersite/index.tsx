@@ -103,52 +103,56 @@ export default function FooterSite(): JSX.Element {
             </ContentNav>
             <ContentNav>
               <TitleFooter>For employers </TitleFooter>
-              <Link to="/">
+              <Link to="/admin/login">
                 <LinkFooter>Login </LinkFooter>
               </Link>
-              <Link to="/">
+              <Link to="/admin/login">
                 <LinkFooter>Request your access </LinkFooter>
               </Link>
-              <Link to="/">
+              <Link to="/talent-pool">
                 <LinkFooter>Talent Pool </LinkFooter>
               </Link>
-              <Link to="/">
+              <a
+                href="https://blog-cbtalents-com.cloud3.cloubox.com.br/privacy-policy/"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <LinkFooter>Privacy Policy</LinkFooter>
-              </Link>
+              </a>
             </ContentNav>
             <ContentNav>
               <TitleFooter>For candidates </TitleFooter>
-              <Link to="/">
+              <Link to="/admin/login">
                 <LinkFooter>Login </LinkFooter>
               </Link>
-              <Link to="/">
+              <Link to="/admin/login">
                 <LinkFooter>Request your access </LinkFooter>
               </Link>
-              <Link to="/">
+              <Link to="/jobs">
                 <LinkFooter>See jobs </LinkFooter>
               </Link>
             </ContentNav>
             <ContentNav>
               <TitleFooter>Opportunities </TitleFooter>
-              <Link to="/">
+              <Link to="/jobs">
                 <LinkFooter>ICT Jobs </LinkFooter>
               </Link>
-              <Link to="/">
+              <Link to="/jobs">
                 <LinkFooter>Multilingual Jobs</LinkFooter>
               </Link>
-              <Link to="/">
+              <Link to="/jobs">
                 <LinkFooter>Engineering Jobs</LinkFooter>
               </Link>
             </ContentNav>
             <ContentNav>
               <TitleFooter>Institutional </TitleFooter>
-              <Link to="/">
+              <Link to="/about-us">
                 <LinkFooter>About Us</LinkFooter>
               </Link>
-              <Link to="/">
+              <a href="https://blog-cbtalents-com.cloud3.cloubox.com.br/">
                 <LinkFooter>Blog</LinkFooter>
-              </Link>
-              <Link to="/">
+              </a>
+              <Link to="/contact">
                 <LinkFooter>Contact</LinkFooter>
               </Link>
             </ContentNav>

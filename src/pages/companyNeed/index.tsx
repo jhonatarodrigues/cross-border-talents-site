@@ -377,7 +377,7 @@ export default function CompanyNeed(): JSX.Element {
             {candidates.length > 0 && (
               <>
                 <Default.Title3 color={Default.color.blueLight}>
-                  Find {candidates.length} Multilingual top candidates
+                  Find {candidates.length} top candidates on this category
                 </Default.Title3>
                 <Default.Space h="2.5rem" />
               </>
