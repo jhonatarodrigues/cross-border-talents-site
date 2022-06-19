@@ -407,3 +407,16 @@ export function AddTeamLeaderToCandidate({
 
   return graphql(query);
 }
+
+export function AddRecruiterToCandidate({
+  idCandidate,
+}: {
+  idCandidate: string;
+}): Promise<AxiosResponse> {
+  const query = `
+    mutation {
+        addRecruiter(id: ${idCandidate})
+    }`;
+
+  return graphql(query);
+}

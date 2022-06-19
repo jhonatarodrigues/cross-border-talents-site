@@ -36,6 +36,7 @@ const success: { [key: string]: string } = {
     'Company registered successfully. Check your email to get your password.',
   passwordChanged: 'Password changed successfully.',
   forgotPassword: 'Password reset your new password send to your email.',
+  addRecruiterCandidate: 'Recruiter added in candidate successfully.',
 };
 
 export default function successString(key: string): string {

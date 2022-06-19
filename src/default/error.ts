@@ -31,6 +31,7 @@ const error: { [key: string]: string } = {
   passwordMinCharacters: 'Password must be at least 6 characters.',
   candidateHasRelations: 'You cannot exclude a candidate who is related.',
   companieExists: 'Company already exists.',
+  addRecruiterCandidate: 'Failed to add recruiter in candidate.',
 };
 
 export default function errorString(key: string): string {

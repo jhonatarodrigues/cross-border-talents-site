@@ -35,6 +35,7 @@ import {
   ICandidate,
   DeleteCandidate,
   AddTeamLeaderToCandidate,
+  AddRecruiterToCandidate,
 } from '../../../hooks/admin/useCandidates';
 import Button from '../../../components/button';
 import { GetCountries, ICountrie } from '../../../hooks/admin/useCountry';
@@ -225,6 +226,29 @@ export default function Candidates(): JSX.Element {
     [handleGetUser],
   );
 
+  const handleSetRecruiter = useCallback(
+    async (id: string) => {
+      const response = await AddRecruiterToCandidate({
+        idCandidate: id,
+      });
+
+      if (response.data.addRecruiter) {
+        Modal({
+          keyType: 'addRecruiterCandidate',
+          icon: 'success',
+        });
+
+        handleGetUser();
+      } else {
+        Modal({
+          keyType: 'addRecruiterCandidate',
+          icon: 'error',
+        });
+      }
+    },
+    [handleGetUser],
+  );
+
   const renderActionCell = (e: GridCellParams) => {
     let approched = <div />;
 
@@ -233,15 +257,34 @@ export default function Candidates(): JSX.Element {
       auth.user &&
       auth.user.accessLevel === 2 &&
       e.row &&
-      e.row.allRow.userTeamLeader &&
-      e.row.allRow.userTeamLeader.user &&
-      e.row.allRow.userTeamLeader.user.id !== auth.user.id
+      !e.row.allRow.userTeamLeader &&
+      !e.row.allRow.userRecruiter
     ) {
       approched = (
         <InvisibleButton
           title="Approached By"
           onClick={() => {
             handleSetTeamLeader(e.row.allRow.id);
+          }}
+        >
+          <FontAwesomeIcon icon={faHand} color={Default.color.blue} />
+        </InvisibleButton>
+      );
+    }
+
+    if (
+      auth &&
+      auth.user &&
+      auth.user.accessLevel === 3 &&
+      e.row &&
+      !e.row.allRow.userTeamLeader &&
+      !e.row.allRow.userRecruiter
+    ) {
+      approched = (
+        <InvisibleButton
+          title="Approached By"
+          onClick={() => {
+            handleSetRecruiter(e.row.allRow.id);
           }}
         >
           <FontAwesomeIcon icon={faHand} color={Default.color.blue} />
