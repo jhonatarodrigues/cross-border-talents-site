@@ -127,7 +127,6 @@ export default function CandidatesRegister(): JSX.Element {
           country: Yup.string().required(),
           englishLevel: Yup.string().required(),
           interestSkills: Yup.string().required(),
-          teamLeader: Yup.string().required(),
         });
 
         await schema.validate(infoData, {
@@ -501,7 +500,7 @@ export default function CandidatesRegister(): JSX.Element {
           <ContentInput>
             <InputDropDown
               name="teamLeader"
-              label="Team Leader *"
+              label="Team Leader"
               options={optionsTeamLeader}
               value={
                 params?.candidate.userTeamLeader
@@ -511,7 +510,7 @@ export default function CandidatesRegister(): JSX.Element {
             />
             <InputDropDown
               name="recruiter"
-              label="Approached by"
+              label="Recruiter"
               options={optionsRecruiter}
               value={
                 params?.candidate.userRecruiter
