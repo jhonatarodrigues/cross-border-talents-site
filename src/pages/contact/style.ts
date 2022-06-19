@@ -119,4 +119,5 @@ export const CheckUnitItemImage = styled.div`
   min-width: 13.625rem;
   height: 14.875rem;
   border-radius: 1.25rem;
+  background-size: cover !important;
 `;

@@ -17,7 +17,7 @@ export const Banner = styled.div`
   flex-direction: row;
   background: ${Default.color.grayExtremeLight};
   background-size: cover;
-  max-height: 35rem;
+  max-height: 37.5rem;
   overflow: hidden;
   position: relative;
 `;

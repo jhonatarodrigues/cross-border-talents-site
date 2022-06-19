@@ -17,10 +17,11 @@ export const HeaderDefault = styled.header<ITransparent>`
 `;
 
 export const ContainerContentSite = styled.div`
-  width: 100%;
+  width: 60%;
   justify-content: center;
   position: absolute;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
 `;
 export const ContentSite = styled.div`
   width: 75rem;

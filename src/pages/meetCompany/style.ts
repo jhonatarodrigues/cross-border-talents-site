@@ -3,7 +3,7 @@ import Default from '../../default';
 
 import About from '../../assets/images/about/about-interna.jpg';
 import BePart from '../../assets/images/about/bePart.jpg';
-import Map from '../../assets/images/about/map.jpg';
+import Map from '../../assets/images/about/img-map.png';
 import MapLegend from '../../assets/images/about/mapLegend.jpg';
 import ImagemBanner from '../../assets/images/about/banner.jpg';
 
@@ -195,6 +195,7 @@ export const MapImage = styled.div`
   width: 100%;
   height: 41.875rem;
   background: url(${Map}) center no-repeat;
+  background-size: contain;
 `;
 export const MapImageLegend = styled.div`
   width: 100%;

@@ -1,13 +1,18 @@
-import React, { useRef, useState, useCallback } from 'react';
+import React, { useRef, useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import { Form } from '@unform/web';
 import { SubmitHandler, FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 
 import IconLock from '../../assets/svg/lock';
 import IconMultilingual from '../../assets/svg/multilingual';
+import ImageLisboa from '../../assets/images/contact/cbt-lisbon.jpg';
+import ImagePorto from '../../assets/images/contact/cbt-porto.jpg';
+import ImageEvora from '../../assets/images/contact/cbt-evora.jpg';
+import ImageBerlin from '../../assets/images/contact/cbt-berlin.jpg';
+import ImageLondon from '../../assets/images/contact/cbt-london.jpg';
+import ImageSP from '../../assets/images/contact/cbt-sao-paulo.jpg';
 
 import Default from '../../default';
 import Input from '../../components/input';
@@ -24,7 +29,6 @@ import {
   ContentTitle,
   BlockContactUs,
   BlockContactUsForm,
-  ContactBlockInfo,
   FormRender,
   BlockCheckUnits,
   CheckUnitItem,
@@ -187,7 +191,9 @@ export default function Contact(): JSX.Element {
           <Default.Row>
             <CheckUnitItem>
               <Default.Row alignItens="center">
-                <CheckUnitItemImage />
+                <CheckUnitItemImage
+                  style={{ background: `url(${ImageLisboa}) center no-repeat` }}
+                />
                 <Default.Space w="3.125rem" />
                 <Default.Column>
                   <Default.Row alignItens="center">
@@ -217,7 +223,9 @@ export default function Contact(): JSX.Element {
 
             <CheckUnitItem>
               <Default.Row alignItens="center">
-                <CheckUnitItemImage />
+                <CheckUnitItemImage
+                  style={{ background: `url(${ImagePorto}) center no-repeat` }}
+                />
                 <Default.Space w="3.125rem" />
                 <Default.Column>
                   <Default.Row alignItens="center">
@@ -249,7 +257,9 @@ export default function Contact(): JSX.Element {
           <Default.Row>
             <CheckUnitItem>
               <Default.Row alignItens="center">
-                <CheckUnitItemImage />
+                <CheckUnitItemImage
+                  style={{ background: `url(${ImageSP}) center no-repeat` }}
+                />
                 <Default.Space w="3.125rem" />
                 <Default.Column>
                   <Default.Row alignItens="center">
@@ -279,7 +289,9 @@ export default function Contact(): JSX.Element {
 
             <CheckUnitItem>
               <Default.Row alignItens="center">
-                <CheckUnitItemImage />
+                <CheckUnitItemImage
+                  style={{ background: `url(${ImageBerlin}) center no-repeat` }}
+                />
                 <Default.Space w="3.125rem" />
                 <Default.Column>
                   <Default.Row alignItens="center">
@@ -311,7 +323,9 @@ export default function Contact(): JSX.Element {
           <Default.Row>
             <CheckUnitItem>
               <Default.Row alignItens="center">
-                <CheckUnitItemImage />
+                <CheckUnitItemImage
+                  style={{ background: `url(${ImageLondon}) center no-repeat` }}
+                />
                 <Default.Space w="3.125rem" />
                 <Default.Column>
                   <Default.Row alignItens="center">
@@ -342,7 +356,9 @@ export default function Contact(): JSX.Element {
 
             <CheckUnitItem>
               <Default.Row alignItens="center">
-                <CheckUnitItemImage />
+                <CheckUnitItemImage
+                  style={{ background: `url(${ImageEvora}) center no-repeat` }}
+                />
                 <Default.Space w="3.125rem" />
                 <Default.Column>
                   <Default.Row alignItens="center">

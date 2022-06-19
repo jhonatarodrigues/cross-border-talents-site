@@ -53,6 +53,7 @@ export const TestimonialsItem = styled.div`
   position: relative;
   padding-top: 4.75rem;
   margin-bottom: 7.125rem;
+  border-radius: 1.25rem;
   &:nth-child(2n) {
     margin-right: 0;
   }
