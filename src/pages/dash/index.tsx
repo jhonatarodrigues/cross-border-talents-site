@@ -66,6 +66,8 @@ export default function Dash(): JSX.Element {
   const [jobs, setJobs] = useState<IJobs[]>([]);
   const [country, setCountry] = useState<ICountrie[]>([]);
   const [testimonials, setTestimonials] = useState<ITestimonials[]>([]);
+  const [searchText, setSearchText] = useState('');
+  const [searchCountry, setSearchCountry] = useState('');
   const navigate = useNavigate();
 
   const getCountries = useCallback(async () => {
@@ -114,6 +116,16 @@ export default function Dash(): JSX.Element {
   useEffect(() => {
     getJobs();
   }, [getJobs]);
+
+  const handleSearch = useCallback(() => {
+    navigate('/jobs', {
+      state: {
+        searchText,
+        searchCountry,
+      },
+    });
+  }, [searchText, searchCountry, navigate]);
+
   return (
     <ContentSite headerTransparent>
       <Banner>
@@ -124,16 +136,33 @@ export default function Dash(): JSX.Element {
             </Title>
             <div>
               <ContentSearch>
-                <InputSearch placeholder="Search job by title" />
+                <InputSearch
+                  placeholder="Search job by title"
+                  onChange={e => setSearchText(e.target.value)}
+                />
                 <FontAwesomeIcon
                   icon={faLocationDot}
                   color={Default.color.success}
                   fontSize={30}
                 />
-                <InputDropDownSearch placeholder="Search job by title">
+                <InputDropDownSearch
+                  placeholder="Search job by title"
+                  onChange={e => setSearchCountry(e.target.value)}
+                >
                   <option value="">All Regions</option>
+                  {country.map(countryItem => (
+                    <option
+                      key={countryItem.countryShortCode}
+                      value={countryItem.countryShortCode}
+                    >
+                      {countryItem.countryName}
+                    </option>
+                  ))}
                 </InputDropDownSearch>
-                <ButtonSearch>Find a job</ButtonSearch>
+
+                <ButtonSearch onClick={() => handleSearch()}>
+                  Find a job
+                </ButtonSearch>
               </ContentSearch>
             </div>
             <SubtitleSearchBanner>

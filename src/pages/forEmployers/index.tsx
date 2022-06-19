@@ -3,6 +3,7 @@ import { Form } from '@unform/web';
 import { SubmitHandler, FormHandles } from '@unform/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { useLocation } from 'react-router-dom';
 
 import Input from '../../components/input';
 import InputDropDown, {
@@ -35,6 +36,11 @@ import {
   BoxTag,
 } from './style';
 
+interface IRequestState {
+  searchText: string;
+  searchCountry: string;
+}
+
 export default function ForEmployers(): JSX.Element {
   const formRef = useRef<FormHandles>(null);
   const [optionsInterestSkills, setOptionsInterestSkills] = useState<
@@ -49,6 +55,7 @@ export default function ForEmployers(): JSX.Element {
   const [regions, setRegions] = useState<IOptionsDropdown[]>([]);
   const [numberJobs, setNumberJobs] = useState<number>(0);
   const [contracts, setContracts] = useState<IContract[]>([]);
+  const stateRequest = useLocation().state as IRequestState;
   const optionsNativeLanguage: IOptionsDropdown[] =
     GetLanguages().languages.map(item => {
       return {
@@ -155,7 +162,45 @@ export default function ForEmployers(): JSX.Element {
     [getJobs],
   );
 
-  console.log('contracts --', contracts);
+  const checkFilterState = useCallback(
+    (countryInterest: IOptionsDropdown[]) => {
+      if (
+        stateRequest &&
+        stateRequest.searchCountry &&
+        countryInterest &&
+        countryInterest.length > 0
+      ) {
+        const item = countryInterest.find(
+          itemState =>
+            itemState.label
+              .toLocaleLowerCase()
+              .indexOf(stateRequest.searchCountry.toLocaleLowerCase()) > -1,
+        )?.value;
+
+        formRef.current?.setFieldValue('country', item);
+      }
+
+      if (stateRequest && stateRequest.searchText) {
+        formRef.current?.setFieldValue(
+          'searchJobTitle',
+          stateRequest.searchText,
+        );
+      }
+      if (
+        stateRequest &&
+        (stateRequest.searchCountry || stateRequest.searchText)
+      ) {
+        setTimeout(() => {
+          formRef.current?.submitForm();
+        }, 500);
+      }
+    },
+    [stateRequest],
+  );
+
+  useEffect(() => {
+    checkFilterState(optionsCountry);
+  }, [checkFilterState, optionsCountry]);
 
   return (
     <ContentSite>

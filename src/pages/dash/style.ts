@@ -53,6 +53,8 @@ export const ContentSearch = styled.div<IWidth>`
   border-radius: 0.9375rem;
   align-items: center;
   width: ${props => props.width || '37.5rem'};
+  z-index: 3;
+  position: relative;
 `;
 export const InputSearch = styled.input`
   font-size: 0.875rem;

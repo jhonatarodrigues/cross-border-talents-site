@@ -334,6 +334,7 @@ export default function CompanyNeed(): JSX.Element {
   const checkDepartmentState = useCallback(
     (interestSkills: IOptionsDropdown[]) => {
       if (
+        stateRequest &&
         stateRequest.department &&
         interestSkills &&
         interestSkills.length > 0
