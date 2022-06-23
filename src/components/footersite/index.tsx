@@ -47,10 +47,18 @@ export default function FooterSite(): JSX.Element {
                 <ContentLogo src={LogoWhite} />
               </LeftContentFirst>
               <Nav>
-                <ItemNav>Jobs</ItemNav>
-                <ItemNav>For Employers</ItemNav>
-                <ItemNav>Talent Pool</ItemNav>
-                <ItemNav>Blog</ItemNav>
+                <Link to="/jobs">
+                  <ItemNav>Jobs</ItemNav>
+                </Link>
+                <Link to="/for-employers">
+                  <ItemNav>For Employers</ItemNav>
+                </Link>
+                <Link to="/talent-pool">
+                  <ItemNav>Talent Pool</ItemNav>
+                </Link>
+                <a href="https://blog-cbtalents-com.cloud3.cloubox.com.br/">
+                  <ItemNav>Blog</ItemNav>
+                </a>
               </Nav>
             </Content>
             <Content>

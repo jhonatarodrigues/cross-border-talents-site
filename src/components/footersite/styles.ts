@@ -41,18 +41,20 @@ export const ContentLogo = styled.img`
 
 export const Nav = styled.ul`
   margin-left: 3.75rem;
+  a {
+    margin: 0 10px;
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+  }
 `;
 
 export const ItemNav = styled.li`
   font-size: 0.875rem;
   color: ${Default.color.blueLight};
-  margin: 0 10px;
-  &:first-child {
-    margin-left: 0;
-  }
-  &:last-child {
-    margin-right: 0;
-  }
 `;
 
 export const Content = styled.div<IColumns>`

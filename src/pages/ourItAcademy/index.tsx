@@ -36,11 +36,11 @@ export default function OurItAcademy(): JSX.Element {
               everyone and our <br />
               Academy is for you
             </Title>
-            <div>
+            <Link to="/jobs">
               <ButtonSite bgColor={Default.color.success}>
                 Take your opportunity here
               </ButtonSite>
-            </div>
+            </Link>
             <Default.Space h="2rem" />
             <div>
               <IconSearch src={ImageExcellence1} />

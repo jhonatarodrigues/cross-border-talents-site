@@ -314,16 +314,32 @@ export default function Dash(): JSX.Element {
           <Default.Space h="2.5rem" />
           <div>
             <ContentSearch width="100%">
-              <InputSearch placeholder="Search job by title" />
+              <InputSearch
+                placeholder="Search job by title"
+                onChange={e => setSearchText(e.target.value)}
+              />
               <FontAwesomeIcon
                 icon={faLocationDot}
                 color={Default.color.success}
                 fontSize={30}
               />
-              <InputDropDownSearch placeholder="Search job by title">
+              <InputDropDownSearch
+                placeholder="Search job by title"
+                onChange={e => setSearchCountry(e.target.value)}
+              >
                 <option value="">All Regions</option>
+                {country.map(countryItem => (
+                  <option
+                    key={countryItem.countryShortCode}
+                    value={countryItem.countryShortCode}
+                  >
+                    {countryItem.countryName}
+                  </option>
+                ))}
               </InputDropDownSearch>
-              <ButtonSearch>Find a job</ButtonSearch>
+              <ButtonSearch onClick={() => handleSearch()}>
+                Find a job
+              </ButtonSearch>
             </ContentSearch>
           </div>
           <Default.Space h="1.875rem" />
