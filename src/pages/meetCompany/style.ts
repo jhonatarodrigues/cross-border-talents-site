@@ -55,7 +55,7 @@ export const ImageContent = styled.div`
 `;
 export const Image = styled.div`
   width: 36.9375rem;
-  height: 42.125rem;
+  height: 18.5rem;
   border-radius: 3.125rem;
   background: url(${About}) center no-repeat;
   background-size: cover;
@@ -67,7 +67,7 @@ export const Image = styled.div`
 `;
 export const ImageOrnament = styled.div`
   width: 36.9375rem;
-  height: 42.125rem;
+  height: 18.5rem;
   border-radius: 3.125rem;
   background: ${Default.color.blueOriginal};
   position: relative;

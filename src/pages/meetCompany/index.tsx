@@ -77,17 +77,15 @@ export default function MeetCompany(): JSX.Element {
       <BlockAcademy>
         <ContainerSite>
           <Default.TitleH3 color={Default.color.white} textAlignCenter>
-            Meet our company
+            About us
           </Default.TitleH3>
-          <Default.Space h="2.5rem" />
-          <TextInfoCompany>
-            Cross Border Talents is a specialist recruitment consultancy with a
-            network of recruitment partners across the globe. We provide
-            permanent recruitment solutions for the Engineering, ICT(Information
-            Technology), and Multilingual sectors.
-          </TextInfoCompany>
+          <Default.Space h="1.25rem" />
+          <Default.Title2 color={Default.color.whiteLight} textAlignCenter>
+            The only recruitment agency that has been awarded 3 seals of
+            excellence
+          </Default.Title2>
 
-          <Default.Space h="8.125rem" />
+          <Default.Space h="8.4375rem" />
 
           <Default.Row>
             <Default.Column>
@@ -95,7 +93,7 @@ export default function MeetCompany(): JSX.Element {
                 <Image />
                 <ImageOrnament />
               </ImageContent>
-              <ItemOrnament>
+              {/* <ItemOrnament>
                 <IconItemOrnament>
                   <IconBell />
                 </IconItemOrnament>
@@ -107,96 +105,37 @@ export default function MeetCompany(): JSX.Element {
                   These are just some of the things that make us continue to
                   improve the world of work and strive for diversity.
                 </Default.Text2>
-              </ItemOrnament>
+              </ItemOrnament> */}
             </Default.Column>
             <Default.Column>
               <Default.Row>
                 <Default.Space w="4.6875rem" />
                 <Default.Column>
                   <Default.Subtitle color={Default.color.gray}>
-                    Since 2013, our specialized international recruitment team
-                    has integrated more than 500 engineers from Central Europe
-                    (80% of European engineers). And for 9 years we have been
-                    building not only a structured company, but promoting a more
-                    human community of professionals from all over the world.
-                    <br />
-                    <br />
-                    The company has a team of international recruiters members
-                    across 35 countries. As a Cross Border Talents partner you
-                    will join a diverse, that facilitates opportunities
-                    regardless of race, nationality, gender or age. With
-                    experience in cross-border recruitment we are a
-                    multicultural team across 35 countries. We have over 1,000
-                    partners in 50 countries. <br />
-                    <br />
-                    As part of our team you will work in the only recruitment
-                    agency in the world awarded 3 seals of excellence by the
-                    European Union&apos;s Horizon 2000 research and innovation
-                    funding programme.
+                    For 9 years we have been building not only a structured
+                    company, but also fostering a more human community of
+                    professionals from all over the world. Since 2013, our
+                    specialized international recruitment team has integrated
+                    more than 500 engineers from Central Europe (80% of European
+                    engineers) and 5500 multilingual candidates. We have over
+                    1,000 partners in 50 countries. Always in accordance with
+                    the needs of our clients. <br />
+                    <br /> We offer permanent placement solutions in
+                    engineering, ICT (information technology) and multilingual.
+                    With a team of international recruiters from 35 countries,
+                    we promote a more human community of professionals from all
+                    over the world / we strive for diversity.
                   </Default.Subtitle>
-                  <Default.Space h="3.75rem" />
-                  <Default.TitleH3 color={Default.color.success}>
-                    Furthermore, we are:
-                  </Default.TitleH3>
-                  <Default.Space h="1.25rem" />
-                  <Default.Row>
-                    <ContentIconMark>
-                      <IconBookMark />
-                    </ContentIconMark>
-                    <Default.Space w="1.25rem" />
-                    <Default.Title2 color={Default.color.blueBase}>
-                      Committed to helping refugees with job opportunities over
-                      the last 2 years;
-                    </Default.Title2>
-                  </Default.Row>
-                  <Default.Space h="1.875rem" />
-                  <Default.Row>
-                    <ContentIconMark>
-                      <IconBookMark />
-                    </ContentIconMark>
-                    <Default.Space w="1.25rem" />
-                    <Default.Title2 color={Default.color.blueBase}>
-                      Helping people in need that are fleeing Ukraine offering
-                      International. Recruitment and Developers opportunities;
-                    </Default.Title2>
-                  </Default.Row>
-                  <Default.Space h="1.875rem" />
-                  <Default.Row>
-                    <ContentIconMark>
-                      <IconBookMark />
-                    </ContentIconMark>
-                    <Default.Space w="1.25rem" />
-                    <Default.Title2 color={Default.color.blueBase}>
-                      Webinar sessions to explain our career path with our
-                      Global Recruitment Managers;
-                    </Default.Title2>
-                  </Default.Row>
-                  <Default.Space h="1.875rem" />
-                  <Default.Row>
-                    <ContentIconMark>
-                      <IconBookMark />
-                    </ContentIconMark>
-                    <Default.Space w="1.25rem" />
-                    <Default.Title2 color={Default.color.blueBase}>
-                      With 3 Seals of Excellence we strive to solve the skills
-                      shortage by 2025;
-                    </Default.Title2>
-                  </Default.Row>
-                  <Default.Space h="1.875rem" />
-                  <Default.Row>
-                    <ContentIconMark>
-                      <IconBookMark />
-                    </ContentIconMark>
-                    <Default.Space w="1.25rem" />
-                    <Default.Title2 color={Default.color.blueBase}>
-                      Improving the world of work by facilitating employment
-                      transitions.
-                    </Default.Title2>
-                  </Default.Row>
-                  <Default.Space h="1.875rem" />
                 </Default.Column>
               </Default.Row>
             </Default.Column>
+          </Default.Row>
+
+          <Default.Space h="8.125rem" />
+          <Default.Row justifyContent="center">
+            <Default.TitleH3 color={Default.color.success} textAlignCenter>
+              Our goals
+            </Default.TitleH3>
           </Default.Row>
         </ContainerSite>
       </BlockAcademy>
