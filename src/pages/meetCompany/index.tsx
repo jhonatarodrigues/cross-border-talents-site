@@ -1,15 +1,17 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
-import IconBookMark from '../../assets/svg/bookMark';
 import ImageExcellence1 from '../../assets/images/excellence1.png';
 import ImageExcellence2 from '../../assets/images/excellence2.png';
 import ImageExcellence3 from '../../assets/images/excellence3.png';
 import IconMultilingual from '../../assets/svg/multilingual';
 import IconFilter from '../../assets/svg/filter';
 import IconBell from '../../assets/svg/bell';
+import IconIct from '../../assets/svg/ict';
+import IconGear from '../../assets/svg/gear';
+import IconStar from '../../assets/svg/star';
 
 import ContentSite from '../../components/ContentSite';
 import ContainerSite from '../../components/ContainerSite';
@@ -44,6 +46,13 @@ import {
   BlockBaseItem,
   ContentIconMark,
   MapImageLegend,
+  ContentIconExpertise,
+  TitleExpertiseBlockType,
+  TextExpertiseBlockType,
+  ImageWorkWith,
+  ImageWorkWithContent,
+  OrnamentContent,
+  OrnamentIconUser,
 } from './style';
 
 export default function MeetCompany(): JSX.Element {
@@ -137,151 +146,217 @@ export default function MeetCompany(): JSX.Element {
               Our goals
             </Default.TitleH3>
           </Default.Row>
-        </ContainerSite>
-      </BlockAcademy>
-      <BlockStopWorrying>
-        <ContainerSite>
-          <Default.TitleH3 color={Default.color.blueOriginal} textAlignCenter>
-            Keen to Join the Team?
-          </Default.TitleH3>
-          <Default.Space h="6.9375rem" />
+          <div>
+            <ExpertiseBlockType>
+              <ContentIconExpertise>
+                <IconIct />
+              </ContentIconExpertise>
+              <Default.Column>
+                <TitleExpertiseBlockType>Humanization</TitleExpertiseBlockType>
+                <TextExpertiseBlockType>
+                  We are a company that relies on and connects with people. We
+                  have built solid and genuine relationships that involve
+                  talent, customers and our partners.
+                </TextExpertiseBlockType>
+              </Default.Column>
+            </ExpertiseBlockType>
+            <ExpertiseBlockType>
+              <ContentIconExpertise>
+                <IconMultilingual />
+              </ContentIconExpertise>
+              <Default.Column>
+                <TitleExpertiseBlockType>Innovation</TitleExpertiseBlockType>
+                <TextExpertiseBlockType>
+                  Our company is committed to constant innovation and makes
+                  Every effort to represent a group with a creatine and positive
+                  attitude aimed at obtaining technically advanced solutions and
+                  future-oriented technologies.
+                </TextExpertiseBlockType>
+              </Default.Column>
+            </ExpertiseBlockType>
+            <ExpertiseBlockType>
+              <ContentIconExpertise>
+                <IconGear />
+              </ContentIconExpertise>
+              <Default.Column>
+                <TitleExpertiseBlockType>
+                  Sustainability
+                </TitleExpertiseBlockType>
+                <TextExpertiseBlockType>
+                  CBT engages in a conscious approach to all processes based on
+                  sustainable business practices, across the entire
+                  organization. We invest in society and culture and support
+                  social projects whose values we believe in.
+                </TextExpertiseBlockType>
+              </Default.Column>
+            </ExpertiseBlockType>
+          </div>
+          <Default.Space h="3.125rem" />
+          <Default.Row justifyContent="center">
+            <ButtonSite bgColor={Default.color.spotlight}>
+              Work with us
+            </ButtonSite>
+          </Default.Row>
+          <Default.Space h="3.125rem" />
           <Default.Row>
             <Default.Column>
-              <Default.TitleH3 color={Default.color.blueBase}>
-                Be part of this <br />
-                opportunity
+              <Default.TitleH3 color={Default.color.success}>
+                In addition, we are:
               </Default.TitleH3>
               <Default.Space h="1.25rem" />
-              <Default.Subtitle color={Default.color.gray}>
-                Cross Border Talents offers its team members the possibility of
-                working from anywhere in the world in the comfort of their
-                homes. Being a fully remote company allowed us to multiply
-                diversity, and at the same time provide opportunities
-                cross-countries.
-              </Default.Subtitle>
-              <Default.Space h="2.5rem" />
-              <Link to="/jobs">
-                <ButtonSite bgColor={Default.color.blueOriginal}>
-                  Join our team
-                </ButtonSite>
-              </Link>
-            </Default.Column>
-
-            <BlockStopWorryingImageContent>
-              <BlockStopWorryingImage />
-              <BlockStopWorryingImageBack />
-            </BlockStopWorryingImageContent>
-          </Default.Row>
-        </ContainerSite>
-      </BlockStopWorrying>
-      <BestPraticeBlock>
-        <ContainerSite>
-          <Default.TitleH3 color={Default.color.white} textAlignCenter>
-            Considered Best Patrice at Labour Mobility
-          </Default.TitleH3>
-          <Default.Space h="2.5rem" />
-          <Default.Title2 color={Default.color.success} textAlignCenter>
-            By the European Comission
-          </Default.Title2>
-
-          <Default.Space h="5rem" />
-          <Default.Row alignItens="stretch">
-            <ExpertiseBlockType>
-              <div>
-                <IconFilter />
-              </div>
-              <Default.Space w="1.25rem" />
-              <Default.Column>
-                <Default.Title2 color={Default.color.success}>
-                  Our mission
+              <Default.Row alignItens="center">
+                <Default.Row style={{ width: '42px', height: '42px' }}>
+                  <IconStar />
+                </Default.Row>
+                <Default.Space w="1.25rem" />
+                <Default.Title2 color={Default.color.blueBase}>
+                  For the past 2 years, we have been involved in helping
+                  refugees find jobs;
                 </Default.Title2>
-                <Default.Space h="0.9375rem" />
-                <Default.Text color={Default.color.white}>
-                  We work hard to improve the world of work. Our ambition is to
-                  contribute to solve the skills shortage challenge through
-                  consistently facilitating employment transitions in
-                  increasingly volatile and complex labor markets.
-                </Default.Text>
-              </Default.Column>
-            </ExpertiseBlockType>
-            <ExpertiseBlockType>
-              <div>
-                <IconMultilingual />
-              </div>
-              <Default.Space w="1.25rem" />
-              <Default.Column>
-                <Default.Title2 color={Default.color.success}>
-                  Our vision
+              </Default.Row>
+              <Default.Space h="1.25rem" />
+              <Default.Row alignItens="center">
+                <Default.Row style={{ width: '42px', height: '42px' }}>
+                  <IconStar />
+                </Default.Row>
+                <Default.Space w="1.25rem" />
+                <Default.Title2 color={Default.color.blueBase}>
+                  We help people in need fleeing Ukraine and provide
+                  International recruitment and development opportunities;
                 </Default.Title2>
-                <Default.Space h="0.9375rem" />
-                <Default.Text color={Default.color.white}>
-                  CBT is committed to the Europa 2020 targets specifically
-                  concerning employment (75% of the 20-64 years-old to be
-                  employed until 2020).
-                </Default.Text>
-              </Default.Column>
-            </ExpertiseBlockType>
-          </Default.Row>
-          <Default.Space h="8.125rem" />
-
-          <Default.Row>
-            <Default.Column>
-              <ImageContentBestPratice>
-                <ImageBestPratice />
-                <ImageOrnamentBestPratice />
-              </ImageContentBestPratice>
+              </Default.Row>
+              <Default.Space h="1.25rem" />
+              <Default.Row alignItens="center">
+                <Default.Row style={{ width: '42px', height: '42px' }}>
+                  <IconStar />
+                </Default.Row>
+                <Default.Space w="1.25rem" />
+                <Default.Title2 color={Default.color.blueBase}>
+                  Webinar sessions to explain our career path with our Global
+                  Recruitment Managers;
+                </Default.Title2>
+              </Default.Row>
+              <Default.Space h="1.25rem" />
+              <Default.Row alignItens="center">
+                <Default.Row style={{ width: '42px', height: '42px' }}>
+                  <IconStar />
+                </Default.Row>
+                <Default.Space w="1.25rem" />
+                <Default.Title2 color={Default.color.blueBase}>
+                  With 3 seals of excellence, we strive to solve the skills
+                  shortage by 2025;
+                </Default.Title2>
+              </Default.Row>
+              <Default.Space h="1.25rem" />
+              <Default.Row alignItens="center">
+                <Default.Row style={{ width: '42px', height: '42px' }}>
+                  <IconStar />
+                </Default.Row>
+                <Default.Space w="1.25rem" />
+                <Default.Title2 color={Default.color.blueBase}>
+                  Improving the world of work by facilitating employment
+                  transitions.
+                </Default.Title2>
+              </Default.Row>
             </Default.Column>
             <Default.Column>
               <Default.Row>
-                <Default.Space w="4.6875rem" />
                 <Default.Column>
-                  <Default.TitleH3 color={Default.color.blueBase}>
-                    3 Unique selling points
-                  </Default.TitleH3>
-                  <Default.Space h="2.5rem" />
-                  <Default.Column>
-                    <Default.Title2 color={Default.color.success}>
-                      Global Recruitment Partners
-                    </Default.Title2>
-                    <Default.Text color={Default.color.white}>
-                      More than 1000 recruitment partners across 50 countries.
-                    </Default.Text>
-                    <Default.Space h="1.875rem" />
+                  <Default.Space w="10rem" />
+                  <Default.Column alignItens="flex-end">
+                    <ImageWorkWith />
+                    <ImageWorkWithContent />
                   </Default.Column>
-                  <Default.Column>
-                    <Default.Title2 color={Default.color.success}>
-                      CB Talents Academy
-                    </Default.Title2>
-                    <Default.Text color={Default.color.white}>
-                      We “produce” the skills that you are looking for and not
-                      finding.
-                    </Default.Text>
-                    <Default.Space h="1.875rem" />
-                  </Default.Column>
-                  <Default.Column>
-                    <Default.Title2 color={Default.color.success}>
-                      IT Nearshore Outsourcing Solutions
-                    </Default.Title2>
-                    <Default.Text color={Default.color.white}>
-                      Our experts partners offers a high standard highly
-                      competitive service level.
-                    </Default.Text>
-                    <Default.Space h="1.875rem" />
+                  <Default.Space w="3.75rem" />
+                  <Default.Column alignItens="flex-end">
+                    <ItemOrnament>
+                      <IconItemOrnament>
+                        <IconBell />
+                      </IconItemOrnament>
+                      <Default.Title2 color={Default.color.blueOriginal}>
+                        We never stop!
+                      </Default.Title2>
+                      <Default.Space h="0.625rem" />
+                      <Default.Text2 color={Default.color.gray}>
+                        These are just some of the things that make us continue
+                        to improve the world of work and strive for diversity.
+                      </Default.Text2>
+                    </ItemOrnament>
                   </Default.Column>
                 </Default.Column>
               </Default.Row>
             </Default.Column>
           </Default.Row>
         </ContainerSite>
-      </BestPraticeBlock>
-      <MapImageBlock>
-        <Default.TitleH3 color={Default.color.blueOriginal} textAlignCenter>
-          Cross Border Talent Group
-        </Default.TitleH3>
-        <Default.Space h="4.0625rem" />
-        <MapImage />
-        <MapImageLegend />
-      </MapImageBlock>
+      </BlockAcademy>
+      <BlockStopWorrying>
+        <Default.Column>
+          <ContainerSite>
+            <Default.TitleH3 color={Default.color.blueOriginal} textAlignCenter>
+              Keen to Join the Team?
+            </Default.TitleH3>
+            <Default.Space h="6.9375rem" />
+            <Default.Row>
+              <Default.Column>
+                <Default.TitleH3 color={Default.color.blueBase}>
+                  Be part of this <br />
+                  opportunity
+                </Default.TitleH3>
+                <Default.Space h="1.25rem" />
+                <Default.Subtitle color={Default.color.gray}>
+                  Cross Border Talents offers its team members the possibility
+                  of working from anywhere in the world in the comfort of their
+                  homes. Being a fully remote company allowed us to multiply
+                  diversity, and at the same time provide opportunities
+                  cross-countries.
+                </Default.Subtitle>
+                <Default.Space h="2.5rem" />
+                <Link to="/jobs">
+                  <ButtonSite bgColor={Default.color.blueOriginal}>
+                    Join our team
+                  </ButtonSite>
+                </Link>
+              </Default.Column>
+
+              <BlockStopWorryingImageContent>
+                <BlockStopWorryingImage />
+                <BlockStopWorryingImageBack />
+              </BlockStopWorryingImageContent>
+            </Default.Row>
+          </ContainerSite>
+
+          <Default.Space h="8.75rem" />
+          {/* <MapImageBlock> */}
+          <Default.Row justifyContent="center">
+            <Default.TitleH3 color={Default.color.blueOriginal} textAlignCenter>
+              Cross Border Talent Group
+            </Default.TitleH3>
+          </Default.Row>
+          <Default.Space h="4.0625rem" />
+          <MapImage />
+          <MapImageLegend />
+          {/* </MapImageBlock> */}
+          <Default.Space h="4.875rem" />
+          <ContainerSite>
+            <OrnamentContent>
+              <OrnamentIconUser>
+                <FontAwesomeIcon icon={faUser} color={Default.color.white} />
+              </OrnamentIconUser>
+              <Default.Subtitle color={Default.color.gray}>
+                As a Cross Border Talents partner, you will become part of a
+                diverse team that creates opportunities regardless of race,
+                nationality, gender or age. With our experience in cross-border
+                recruitment, we are a multicultural team in 35 countries. We
+                have over 1,000 partners in 50 countries. As part of our team,
+                you will work in the only recruitment agency in the world that
+                has been awarded 3 seals of excellence from the European
+                Union&apos;s Horizon 2000 research and innovation funding
+                program.
+              </Default.Subtitle>
+            </OrnamentContent>
+          </ContainerSite>
+        </Default.Column>
+      </BlockStopWorrying>
       <BlockBaseHistory>
         <ContainerSite>
           <Default.Row>

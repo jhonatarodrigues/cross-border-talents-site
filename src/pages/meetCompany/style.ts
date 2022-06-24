@@ -6,6 +6,7 @@ import BePart from '../../assets/images/about/bePart.jpg';
 import Map from '../../assets/images/about/img-map.png';
 import MapLegend from '../../assets/images/about/mapLegend.jpg';
 import ImagemBanner from '../../assets/images/about/banner.jpg';
+import ImageWeNever from '../../assets/images/about/bg-top-talent-pool.jpg';
 
 export const Banner = styled.div`
   height: 40.8125rem;
@@ -229,4 +230,56 @@ export const BlockBaseItem = styled.div`
 `;
 export const ContentIconMark = styled.div`
   width: 1.875rem;
+`;
+export const ContentIconExpertise = styled.div``;
+
+export const TitleExpertiseBlockType = styled.p`
+  font-size: 1.125rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  color: ${Default.color.success};
+  padding-left: 0.9375rem;
+  margin-bottom: 0.3125rem;
+`;
+export const TextExpertiseBlockType = styled.p`
+  font-size: 0.875rem;
+  line-height: 1rem;
+  color: ${Default.color.white};
+  padding-left: 0.9375rem;
+`;
+
+export const ImageWorkWith = styled.div`
+  width: 23.5rem;
+  height: 16.5625rem;
+  border-radius: 3.125rem;
+  background: url(${ImageWeNever}) center no-repeat;
+  background-size: cover;
+  margin-right: 3.75rem;
+  position: absolute;
+`;
+export const ImageWorkWithContent = styled.div`
+  width: 23.5rem;
+  height: 16.5625rem;
+  border-radius: 3.125rem;
+  background: ${Default.color.blueLight};
+  margin-top: 3.75rem;
+`;
+
+export const OrnamentContent = styled.div`
+  border-radius: 3.125rem;
+  border: 1px solid ${Default.color.success};
+  padding: 3.125rem;
+`;
+
+export const OrnamentIconUser = styled.div`
+  width: 2.8125rem;
+  height: 2.8125rem;
+  background: ${Default.color.spotlight};
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  transform: translateY(-50%);
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
 `;
