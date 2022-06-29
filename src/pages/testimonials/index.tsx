@@ -127,6 +127,7 @@ export default function Testimonials(): JSX.Element {
                     dangerouslySetInnerHTML={{
                       __html: testimonial.testimonial,
                     }}
+                    style={{ flexDirection: 'column' }}
                   />
                   <Default.Space h="0.9375rem" />
                   <Default.Text2 color={Default.color.blueLight2}>

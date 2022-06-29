@@ -61,10 +61,22 @@ export interface IFilter {
   limit?: number;
 }
 
-export function GetTalentPools(): Promise<IResponseUser> {
+export function GetTalentPools({
+  department,
+  search,
+  teamLeader,
+}: {
+  department?: string;
+  search?: string;
+  teamLeader?: string;
+}): Promise<IResponseUser> {
   const query = `
     query {
-        talentPools {
+        talentPools(
+            search: "${search || ''}" 
+            ${department ? `department: "${department}"` : ''}
+            ${teamLeader ? `teamLeader: "${teamLeader}"` : ''}
+        ){
         id
         idCandidate
         idUser

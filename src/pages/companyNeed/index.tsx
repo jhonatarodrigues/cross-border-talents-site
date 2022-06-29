@@ -480,6 +480,7 @@ export default function CompanyNeed(): JSX.Element {
                               ? `${item.profile.slice(0, 50)}...`
                               : item.profile,
                         }}
+                        style={{ flexDirection: 'column' }}
                       />
                       <Default.Space h="0.9375rem" />
                       <Default.Row>

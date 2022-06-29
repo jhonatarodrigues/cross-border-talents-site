@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useCallback, useState, useRef } from 'react';
 import {
   DataGrid,
   GridRowsProp,
@@ -6,10 +6,25 @@ import {
   GridCellParams,
 } from '@mui/x-data-grid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faPlus, faFilePdf } from '@fortawesome/free-solid-svg-icons';
+import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
 import JsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { Form } from '@unform/web';
+import { SubmitHandler, FormHandles } from '@unform/core';
+import { useSelector } from 'react-redux';
 
+import {
+  GetTeamLeaders,
+  GetTeamLeader,
+} from '../../../hooks/admin/useTeamLeader';
+import { ApplicationState } from '../../../store';
+import { GetCompanie } from '../../../hooks/admin/useCompanies';
+import Input from '../../../components/input';
+import InputDropDown, {
+  IOptionsDropdown,
+} from '../../../components/inputDropdown';
+import Section from '../../../components/section';
+import ContentInput from '../../../components/contentInput';
 import {
   GetTalentPools,
   ITalentPools,
@@ -31,6 +46,7 @@ import {
 } from '../../../hooks/admin/useLanguages';
 import Logo from '../../../assets/images/logo.png';
 import LogoBranco from '../../../assets/images/logoWhiteFull.png';
+import { GetInterestSkills } from '../../../hooks/admin/useInterestSkills';
 import {
   InvisibleButton,
   ContentModal,
@@ -43,16 +59,30 @@ import {
   TitleSectionModal,
 } from './style';
 
+interface IFilter {
+  search?: string;
+  department?: string;
+  teamLeader?: string;
+}
+
 export default function TalentPool(): JSX.Element {
   const [talentPool, setTalentPool] = useState<ITalentPools[]>([]);
   const [modalDetails, setModalDetails] = useState(false);
   const [selectedRow, setSelectedRow] = useState<ITalentPools>();
-  const [checkTalentPoolInterest, setCheckTalentPoolInterest] = useState(false);
   const [countries, setCountries] = useState<ICountrie[]>([]);
   const [hidePrintPdf, setHidePrintPdf] = useState(false);
+  const [filter, setFilter] = useState<IFilter>();
+  const [optionsInterestSkills, setOptionsInterestSkills] = useState<
+    IOptionsDropdown[]
+  >([] as IOptionsDropdown[]);
+  const [optionsTeamLeader, setOptionsTeamLeader] = useState<
+    IOptionsDropdown[]
+  >([] as IOptionsDropdown[]);
   const [nativeLanguage, setNativeLanguage] = useState<IResponseLanguages>(
     {} as IResponseLanguages,
   );
+  const { auth } = useSelector((state: ApplicationState) => state);
+  const formRef = useRef<FormHandles>(null);
 
   const rows: GridRowsProp = talentPool.map((item: ITalentPools) => {
     let countrie = '';
@@ -77,6 +107,25 @@ export default function TalentPool(): JSX.Element {
     };
   });
 
+  const getInterestSkills = useCallback(async () => {
+    const { interestSkills } = await GetInterestSkills();
+    if (interestSkills) {
+      const options: IOptionsDropdown[] = interestSkills.map(item => {
+        return {
+          value: item.id,
+          label: item.name,
+        };
+      });
+      setOptionsInterestSkills(options);
+    } else {
+      Modal({ keyType: 'getInterestSkills', icon: 'error' });
+    }
+  }, []);
+
+  useEffect(() => {
+    getInterestSkills();
+  }, [getInterestSkills]);
+
   useEffect(() => {
     const response = GetLanguages();
     setNativeLanguage(response);
@@ -99,12 +148,30 @@ export default function TalentPool(): JSX.Element {
     handleGetCountries();
   }, [handleGetCountries]);
 
+  const getTeamLeaders = useCallback(async () => {
+    const { teamLeaders } = await GetTeamLeaders();
+    if (teamLeaders) {
+      const options: IOptionsDropdown[] = teamLeaders.map(teamLeader => {
+        return {
+          value: teamLeader.id,
+          label: teamLeader.user.name,
+        };
+      });
+      setOptionsTeamLeader(options);
+    } else {
+      Modal({ keyType: 'getTeamLeaders', icon: 'error' });
+    }
+  }, []);
+  useEffect(() => {
+    getTeamLeaders();
+  }, [getTeamLeaders]);
+
   const handleGetTalentPool = useCallback(async () => {
-    const response = await GetTalentPools();
+    const response = await GetTalentPools({ ...filter });
     if (response && response.talentPools) {
       setTalentPool(response.talentPools);
     }
-  }, []);
+  }, [filter]);
 
   const handleHaveInterest = useCallback(async (item: ITalentPools) => {
     const response = await AddTalentPoolInterest({
@@ -125,13 +192,10 @@ export default function TalentPool(): JSX.Element {
       return;
     }
     setSelectedRow(row);
-    setCheckTalentPoolInterest(false);
-
     const response = await CheckTalentPoolInterest({
       idTalentPool: row.id,
     });
 
-    setCheckTalentPoolInterest(response.data.talentPoolInterests);
     setModalDetails(true);
   }, []);
 
@@ -184,10 +248,6 @@ export default function TalentPool(): JSX.Element {
       flex: 1,
     },
   ];
-
-  useEffect(() => {
-    handleGetTalentPool();
-  }, [handleGetTalentPool]);
 
   const renderModalDetails = useCallback(() => {
     if (!modalDetails || !selectedRow) {
@@ -368,9 +428,101 @@ export default function TalentPool(): JSX.Element {
     );
   }, [modalDetails, selectedRow, hidePrintPdf, countries, nativeLanguage]);
 
+  const handleGetCompanie = useCallback(async () => {
+    const response = await GetCompanie({
+      idUser: auth.user.id,
+    });
+
+    if (response.companie && response.companie.interestSkills.id) {
+      formRef.current?.setFieldValue(
+        'interestSkills',
+        response.companie.interestSkills.id,
+      );
+      setTimeout(() => {
+        formRef.current?.submitForm();
+      }, 500);
+    }
+  }, [auth]);
+  useEffect(() => {
+    if (auth && auth.user.accessLevel === 4) {
+      handleGetCompanie();
+    }
+  }, [handleGetCompanie, auth]);
+
+  const handleSubmit: SubmitHandler = useCallback(async data => {
+    setFilter({
+      search: data.search,
+      department: data.interestSkills,
+      teamLeader: data.teamLeader,
+    });
+  }, []);
+
+  useEffect(() => {
+    handleGetTalentPool();
+  }, [handleGetTalentPool]);
+
+  const handleTeamLeaderUnique = useCallback(async () => {
+    const response = await GetTeamLeader({
+      idUser: auth.user.id,
+    });
+
+    if (response.teamLeader.id) {
+      formRef.current?.setFieldValue('teamLeader', response.teamLeader.id);
+      setTimeout(() => {
+        formRef.current?.submitForm();
+      }, 500);
+    }
+  }, [auth]);
+
+  useEffect(() => {
+    if (auth && auth.user.accessLevel === 2) {
+      handleTeamLeaderUnique();
+    }
+  }, [handleTeamLeaderUnique, auth]);
+
   return (
     <ContentPage title={Language.page.talentPool.listTalentPool}>
       {renderModalDetails()}
+
+      <Form
+        ref={formRef}
+        onSubmit={handleSubmit}
+        onClick={() => formRef.current?.setErrors({})}
+      >
+        <Section label={Language.page.filter}>
+          <ContentInput>
+            <Input name="search" label={Language.fields.search} />
+
+            <InputDropDown
+              name="teamLeader"
+              label={Language.fields.teamLeader}
+              options={[{ label: 'Select', value: '' }, ...optionsTeamLeader]}
+              value={auth && auth.user.accessLevel === 3 ? auth.user.id : ''}
+            />
+
+            <InputDropDown
+              name="interestSkills"
+              label={Language.fields.department}
+              options={[
+                { label: 'Select', value: '' },
+                ...optionsInterestSkills,
+              ]}
+              disabled={auth && auth.user.accessLevel === 4}
+            />
+
+            <div>
+              <Button
+                variant="contained"
+                type="submit"
+                style={{ minWidth: '100px' }}
+              >
+                Search
+              </Button>
+            </div>
+          </ContentInput>
+        </Section>
+      </Form>
+
       <DataGrid
         rows={rows}
         columns={columns}

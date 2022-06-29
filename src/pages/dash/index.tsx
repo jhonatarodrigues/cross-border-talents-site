@@ -382,6 +382,7 @@ export default function Dash(): JSX.Element {
                           ? `${job.description.slice(0, 50)}...`
                           : job.description,
                     }}
+                    style={{ flexDirection: 'column' }}
                   />
                 </NewJobItem>
               );
@@ -432,6 +433,7 @@ export default function Dash(): JSX.Element {
                               ? `${testimonial.testimonial.slice(0, 480)}...`
                               : testimonial.testimonial,
                         }}
+                        style={{ flexDirection: 'column' }}
                       />
                       <Default.Space h="30px" />
                       <BestChoiceItemText color={Default.color.whiteLight}>

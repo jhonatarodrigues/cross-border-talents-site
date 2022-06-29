@@ -394,6 +394,7 @@ export default function TopCandidates(): JSX.Element {
                           ? `${job.experience.slice(0, 50)}...`
                           : job.experience,
                     }}
+                    style={{ flexDirection: 'column' }}
                   />
                 </NewJobItem>
               );
@@ -663,6 +664,7 @@ export default function TopCandidates(): JSX.Element {
                               ? `${testimonial.testimonial.slice(0, 480)}...`
                               : testimonial.testimonial,
                         }}
+                        style={{ flexDirection: 'column' }}
                       />
                       <Default.Space h="30px" />
                       <BestChoiceItemText color={Default.color.whiteLight}>

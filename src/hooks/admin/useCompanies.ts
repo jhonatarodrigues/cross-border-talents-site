@@ -46,6 +46,10 @@ interface IResponseCompanies {
   companies: ICompany[];
 }
 
+interface IResponseCompanie {
+  companie: ICompany;
+}
+
 export interface ICompanySend {
   name: string;
   lastName: string;
@@ -348,4 +352,61 @@ export function AddCompanyModalPage({
   `;
 
   return graphql(query);
+}
+
+export function GetCompanie({
+  idUser,
+}: {
+  idUser: string;
+}): Promise<IResponseCompanie> {
+  const query = `
+  query {
+    companie ${idUser ? `(idUser: "${idUser}")` : ''}{
+      id
+      idUser
+      idInterestSkills
+      companyLogo
+      country
+      companyName
+      industry
+      site
+      size
+      address1
+      address2
+      city
+      facebook
+      instagram
+      linkedin
+      interestSkills {
+        id
+        name
+      }
+      userTeamLeader {
+        id
+        user {
+          id
+          name
+          lastName
+        }
+      }
+      user {
+        id
+        name
+        lastName
+        email
+        phone
+        status
+      }
+    }
+  }
+  
+    `;
+
+  return graphql(query)
+    .then(response => {
+      return response.data as IResponseCompanie;
+    })
+    .catch(() => {
+      return {} as IResponseCompanie;
+    });
 }

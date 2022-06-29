@@ -91,6 +91,7 @@ export const InfoModal = styled.div`
   font-size: 1rem;
   font-weight: 400;
   color: ${color.gray};
+  flex-direction: column;
 `;
 export const ModalLine = styled.div`
   width: 100%;

@@ -220,6 +220,7 @@ export default function TalentPool(): JSX.Element {
                           ? `${talentPoolItem.experience.slice(0, 50)}...`
                           : talentPoolItem.experience,
                     }}
+                    style={{ flexDirection: 'column' }}
                   />
                 </NewJobItem>
               );

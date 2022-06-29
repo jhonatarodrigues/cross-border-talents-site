@@ -347,6 +347,7 @@ export default function ForEmployers(): JSX.Element {
                               ? `${job.description.slice(0, 50)}...`
                               : job.description,
                         }}
+                        style={{ flexDirection: 'column' }}
                       />
                       <Default.Space h="0.9375rem" />
                       <Default.Row>

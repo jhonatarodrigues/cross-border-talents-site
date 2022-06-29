@@ -18,6 +18,9 @@ export interface ITeamLeader {
 interface IResponseTeamLeader {
   teamLeaders: ITeamLeader[];
 }
+interface IResponseTeamLeaderUnique {
+  teamLeader: ITeamLeader;
+}
 
 export interface ITeamLeaderSend {
   name: string;
@@ -150,5 +153,39 @@ export function DeleteTeamLeader(id: string): Promise<boolean> {
     })
     .catch(() => {
       return false;
+    });
+}
+
+export function GetTeamLeader({
+  idUser,
+}: {
+  idUser: string;
+}): Promise<IResponseTeamLeaderUnique> {
+  const query = `
+  query {
+    teamLeader ${idUser ? `(idUser: "${idUser}")` : ''} {
+      department
+      id
+      idUser
+      user {
+        id
+        name
+        lastName
+        email
+        accessLevel
+        status
+        phone
+      }
+    }
+  }
+  
+    `;
+
+  return graphql(query)
+    .then(response => {
+      return response.data as IResponseTeamLeaderUnique;
+    })
+    .catch(() => {
+      return {} as IResponseTeamLeaderUnique;
     });
 }
