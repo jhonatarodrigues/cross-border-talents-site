@@ -158,6 +158,10 @@ export default function CandidatesRegister(): JSX.Element {
           }
         }
 
+        if (infoData.allowTalentPool) {
+          infoData.talentPoolVerify = true;
+        }
+
         if (params?.candidate.talentPoolVerify) {
           const dataTalentPool: IAddUserTalentPool = {
             charge: data.charge,
@@ -197,6 +201,9 @@ export default function CandidatesRegister(): JSX.Element {
             }
           });
         } else {
+          if (infoData.allowTalentPool) {
+            infoData.talentPoolVerify = true;
+          }
           AddCandidate(infoData).then(response => {
             if (response.user.id) {
               Modal({

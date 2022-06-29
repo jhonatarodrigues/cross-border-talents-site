@@ -342,22 +342,35 @@ export default function Candidates(): JSX.Element {
       headerName: 'Talent Pool',
       renderCell: ({ row }) => (
         <LabelDestached
-          text={row.talentPool ? 'Approached' : 'Available'}
-          type={row.talentPool ? 'approached' : 'available'}
+          text={row.talentPool ? 'Active' : 'Inactive'}
+          type={row.talentPool ? 'default' : 'info'}
         />
       ),
     },
 
+    // {
+    //   field: 'status',
+    //   headerName: 'Status',
+    //   renderCell: ({ row }) => (
+    //     <LabelDestached
+    //       text={row.status ? 'Active' : 'Inactive'}
+    //       type={row.status ? 'default' : 'info'}
+    //     />
+    //   ),
+    // },
     {
       field: 'status',
       headerName: 'Status',
-      renderCell: ({ row }) => (
-        <LabelDestached
-          text={row.status ? 'Active' : 'Inactive'}
-          type={row.status ? 'default' : 'info'}
-        />
-      ),
+      renderCell: ({ row }) => {
+        return (
+          <LabelDestached
+            text={row.teamLeader || row.recruiter ? 'Approached' : 'Available'}
+            type={row.teamLeader || row.recruiter ? 'approached' : 'available'}
+          />
+        );
+      },
     },
+
     {
       hide: auth && auth.user && auth.user.accessLevel === 5,
       filterable: false,

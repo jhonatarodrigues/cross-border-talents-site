@@ -91,6 +91,8 @@ export interface ICandidateSend {
   recruiter: string;
   teamLeader: string;
   interestSkills: string;
+
+  talentPoolVerify?: boolean;
 }
 
 export interface ICandidateSendLogin {
@@ -211,6 +213,8 @@ export function AddCandidate(
             recruiter: "${data.recruiter}"
             teamLeader: "${data.teamLeader}"
             idInterestSkills: "${data.interestSkills}"
+
+            talentPoolVerify: ${data.talentPoolVerify || false}
         ) {
             user {
                 id
