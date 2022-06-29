@@ -342,8 +342,8 @@ export default function Candidates(): JSX.Element {
       headerName: 'Talent Pool',
       renderCell: ({ row }) => (
         <LabelDestached
-          text={row.talentPool ? 'Active' : 'Inactive'}
-          type={row.talentPool ? 'default' : 'info'}
+          text={row.talentPool ? 'Approached' : 'Available'}
+          type={row.talentPool ? 'approached' : 'available'}
         />
       ),
     },

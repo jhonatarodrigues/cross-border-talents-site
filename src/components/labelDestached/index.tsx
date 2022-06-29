@@ -5,7 +5,7 @@ import { LabelDiv, Content } from './style';
 interface IProps {
   text: string;
   background?: string;
-  type?: 'default' | 'info';
+  type?: 'default' | 'info' | 'approached' | 'available';
 }
 
 export default function LabelDestached({
@@ -15,8 +15,12 @@ export default function LabelDestached({
 }: IProps): JSX.Element {
   let backgroundStyle = background;
 
-  if (type === 'info' && !background) {
+  if (type === 'approached' && !background) {
+    backgroundStyle = Default.color.success;
+  } else if (type === 'info' && !background) {
     backgroundStyle = Default.color.grayLight;
+  } else if (type === 'available' && !background) {
+    backgroundStyle = Default.color.blueLight2;
   } else {
     backgroundStyle = Default.color.blue;
   }

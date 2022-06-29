@@ -56,7 +56,7 @@ export default function CompaniesRegister(): JSX.Element {
       return location?.state as ICompanyRegister;
     }
 
-    return null;
+    return { company: {} as ICompany };
   }, [location]);
   const [companyLogo, setCompanyLogo] = useState(
     params?.company.companyLogo || '',
@@ -78,16 +78,6 @@ export default function CompaniesRegister(): JSX.Element {
     {
       value: '201 + employees',
       label: '201 + employees',
-    },
-  ];
-  const optionsIndustry: IOptionsDropdown[] = [
-    {
-      value: 'option1',
-      label: 'option1',
-    },
-    {
-      value: 'option2',
-      label: 'option2',
     },
   ];
 
@@ -241,14 +231,13 @@ export default function CompaniesRegister(): JSX.Element {
             />
             <Input
               name="email"
-              label={`${Language.fields.email} *`}
+              label={`${Language.fields.companyEmail} *`}
               type="email"
               value={params?.company.user.email}
             />
-            <InputDropDown
+            <Input
               name="industry"
               label={`${Language.fields.industry} *`}
-              options={optionsIndustry}
               value={params?.company.industry}
             />
           </ContentInput>
@@ -360,7 +349,12 @@ export default function CompaniesRegister(): JSX.Element {
               name="interestSkills"
               label="Department"
               options={optionsInterestSkills}
-              value={params?.company.interestSkills.id}
+              value={
+                params?.company.interestSkills &&
+                params?.company.interestSkills.id
+                  ? params?.company.interestSkills.id
+                  : ''
+              }
             />
           </ContentInput>
         </Section>

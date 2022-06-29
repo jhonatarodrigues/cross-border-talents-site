@@ -22,6 +22,7 @@ const enUs = {
     companyName: 'Company Name',
     industry: 'Industry',
     email: 'Email',
+    companyEmail: 'Company Email',
     phone: 'Phone',
     status: 'Status',
     country: 'Country',
