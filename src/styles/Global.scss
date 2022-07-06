@@ -29,3 +29,11 @@ html{
         height: auto!important;
     }
 }
+
+
+@media only screen and (max-width: 750px) {
+   .hiddenMobile{
+        display: none !important;
+   }
+}
+

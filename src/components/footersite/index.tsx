@@ -46,7 +46,7 @@ export default function FooterSite(): JSX.Element {
               <LeftContentFirst>
                 <ContentLogo src={LogoWhite} />
               </LeftContentFirst>
-              <Nav>
+              <Nav className="hiddenMobile">
                 <Link to="/jobs">
                   <ItemNav>Jobs</ItemNav>
                 </Link>
@@ -76,18 +76,16 @@ export default function FooterSite(): JSX.Element {
                 talent leasing recruitment solutions for the Engineering, ICT,
                 and Multilingual sectors.
               </Description>
-              <Row>
-                <div>
-                  <ButtonSocial>
-                    <FontAwesomeIcon icon={faFacebookF} />
-                  </ButtonSocial>
-                  <ButtonSocial>
-                    <FontAwesomeIcon icon={faLinkedinIn} />
-                  </ButtonSocial>
-                  <ButtonSocial>
-                    <FontAwesomeIcon icon={faInstagram} />
-                  </ButtonSocial>
-                </div>
+              <Row row>
+                <ButtonSocial>
+                  <FontAwesomeIcon icon={faFacebookF} />
+                </ButtonSocial>
+                <ButtonSocial>
+                  <FontAwesomeIcon icon={faLinkedinIn} />
+                </ButtonSocial>
+                <ButtonSocial>
+                  <FontAwesomeIcon icon={faInstagram} />
+                </ButtonSocial>
               </Row>
             </Content>
             <ContentNav>
@@ -109,7 +107,7 @@ export default function FooterSite(): JSX.Element {
                 </LinkFooter>
               </Link>
             </ContentNav>
-            <ContentNav>
+            <ContentNav className="hiddenMobile">
               <TitleFooter>For employers </TitleFooter>
               <Link to="/admin/login">
                 <LinkFooter>Login </LinkFooter>
@@ -128,7 +126,7 @@ export default function FooterSite(): JSX.Element {
                 <LinkFooter>Privacy Policy</LinkFooter>
               </a>
             </ContentNav>
-            <ContentNav>
+            <ContentNav className="hiddenMobile">
               <TitleFooter>For candidates </TitleFooter>
               <Link to="/admin/login">
                 <LinkFooter>Login </LinkFooter>
@@ -140,7 +138,7 @@ export default function FooterSite(): JSX.Element {
                 <LinkFooter>See jobs </LinkFooter>
               </Link>
             </ContentNav>
-            <ContentNav>
+            <ContentNav className="hiddenMobile">
               <TitleFooter>Opportunities </TitleFooter>
               <Link to="/jobs">
                 <LinkFooter>ICT Jobs </LinkFooter>
@@ -152,7 +150,7 @@ export default function FooterSite(): JSX.Element {
                 <LinkFooter>Engineering Jobs</LinkFooter>
               </Link>
             </ContentNav>
-            <ContentNav>
+            <ContentNav className="hiddenMobile">
               <TitleFooter>Institutional </TitleFooter>
               <Link to="/about-us">
                 <LinkFooter>About Us</LinkFooter>
@@ -171,23 +169,22 @@ export default function FooterSite(): JSX.Element {
               <CopyrightText>
                 © Cross Border Talents - All rights reserved.
               </CopyrightText>
-              <div>
-                <Row>
-                  <CopyrightText>Privacy Policy</CopyrightText>
-                  <CopyrightText paddingLeft="1.875rem">
-                    Our Teams
-                  </CopyrightText>
+
+              <Row>
+                <CopyrightText>Privacy Policy</CopyrightText>
+                <CopyrightText paddingLeft="1.875rem">Our Teams</CopyrightText>
+                <div>
                   <CopyrightText paddingLeft="5.625rem">
                     Made with
                   </CopyrightText>{' '}
-                  <CopyrightText paddingLeft="0.3125rem">
+                  <CopyrightText paddingLeft="0.3125rem" marginMobile>
                     <FontAwesomeIcon icon={faHeart} color="#C7927F" />
                   </CopyrightText>
                   <CopyrightText paddingLeft="0.3125rem">
                     by MINARELLO
                   </CopyrightText>
-                </Row>
-              </div>
+                </div>
+              </Row>
             </ContentCopyright>
           </Row>
         </Footer>

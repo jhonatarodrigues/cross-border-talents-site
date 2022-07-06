@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Mobile } from '../styles/responsiveVariables';
 import { color as Color } from './constants';
 
 interface ISpace {
@@ -37,6 +38,12 @@ export const TitleH3 = styled.h3<ITitle>`
   display: flex;
   justify-content: ${({ textAlignCenter }) =>
     textAlignCenter ? 'center' : 'flex-start'};
+
+  ${Mobile(`
+    font-size: 2.5rem;
+    line-height: 2.8125rem;
+    text-align: center;
+  `)}
 `;
 export const Subtitle = styled.p<ITitle>`
   font-size: 1rem;
@@ -45,6 +52,12 @@ export const Subtitle = styled.p<ITitle>`
   text-align: ${({ textAlignCenter }) => (textAlignCenter ? 'center' : 'left')};
   justify-content: ${({ textAlignCenter }) =>
     textAlignCenter ? 'center' : 'flex-start'};
+
+  ${Mobile(`
+    font-size: 0.75rem;
+    line-height: 1.25rem;
+    text-align: center;
+  `)}
 `;
 export const Title2 = styled.p<ITitle>`
   font-size: 1.25rem;
@@ -88,12 +101,19 @@ export const Text2 = styled.p<ITitle>`
 
 export const BlockContent = styled.div`
   padding: 8.75rem 0;
+
+  ${Mobile(`
+    padding: 6.25rem 1.875rem;
+  `)}
 `;
 export const Row = styled.div<IAlignCenter>`
   flex-direction: row;
   width: 100%;
   align-items: ${({ alignItens }) => alignItens || 'flex-start'};
   justify-content: ${({ justifyContent }) => justifyContent || 'flex-start'};
+  ${Mobile(`
+    flex-direction: column;
+  `)}
 `;
 export const Column = styled.div<IAlignCenter>`
   flex-direction: column;

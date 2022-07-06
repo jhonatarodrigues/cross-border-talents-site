@@ -132,7 +132,8 @@ export default function Dash(): JSX.Element {
         <Default.Column>
           <ContainerSite>
             <Title>
-              Your international <br /> job opportunity here
+              Your international <br className="hiddenMobile" /> job opportunity
+              here
             </Title>
             <div>
               <ContentSearch>
@@ -189,7 +190,7 @@ export default function Dash(): JSX.Element {
       <ExpertiseBLock>
         <ContainerSite>
           <TitleExpertise>Our expertise is your success</TitleExpertise>
-          <div>
+          <Default.Row>
             <ExpertiseBlockType
               onClick={() => {
                 navigate('/talent-pool/preview', {
@@ -250,7 +251,7 @@ export default function Dash(): JSX.Element {
                 </TextExpertiseBlockType>
               </Default.Column>
             </ExpertiseBlockType>
-          </div>
+          </Default.Row>
           <Default.Space h="5.875rem" />
           <Default.Row>
             <ExpertiseBLockImage>
@@ -261,7 +262,7 @@ export default function Dash(): JSX.Element {
               <Default.Column>
                 <Default.TitleH3 color={Default.color.success}>
                   Benefits of using
-                  <br /> our system
+                  <br className="hiddenMobile" /> our system
                 </Default.TitleH3>
                 <Default.Space h="1rem" />
                 <Default.Subtitle>
@@ -312,7 +313,7 @@ export default function Dash(): JSX.Element {
             Newest Jobs Opportunities
           </Default.TitleH3>
           <Default.Space h="2.5rem" />
-          <div>
+          <div className="hiddenMobile">
             <ContentSearch width="100%">
               <InputSearch
                 placeholder="Search job by title"
@@ -342,7 +343,7 @@ export default function Dash(): JSX.Element {
               </ButtonSearch>
             </ContentSearch>
           </div>
-          <Default.Space h="1.875rem" />
+          <Default.Space h="1.875rem" className="hiddenMobile" />
           <Default.Row>
             {jobs.map(job => {
               let countryDesc = '';

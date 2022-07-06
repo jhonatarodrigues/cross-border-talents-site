@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+import { Mobile } from '../../styles/responsiveVariables';
 import Default from '../../default';
 
 interface ITransparent {
@@ -14,6 +15,10 @@ export const HeaderDefault = styled.header<ITransparent>`
   background-color: ${({ transparent }) =>
     transparent ? 'transparent' : Default.color.white};
   align-items: center;
+
+  ${Mobile(`
+    display: none!important;
+  `)}
 `;
 
 export const ContainerContentSite = styled.div`

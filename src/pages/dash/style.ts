@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Default from '../../default';
+import { Mobile } from '../../styles/responsiveVariables';
 
 import image1 from '../../assets/images/home/ourExpertise.jpg';
 import imageNewJob from '../../assets/images/home/newJobs.jpg';
@@ -120,6 +121,10 @@ export const TitleExpertise = styled(Default.TitleH3)`
   color: ${Default.color.white};
   display: flex;
   justify-content: center;
+
+  ${Mobile(`
+    text-align: center;
+  `)}
 `;
 export const ExpertiseBlockType = styled.div`
   border: 1px solid ${Default.color.blueBase};
@@ -135,6 +140,18 @@ export const ExpertiseBlockType = styled.div`
   &:first-child {
     margin-left: 0;
   }
+
+  ${Mobile(`
+    padding: 1.875rem 1.25rem;
+    margin: 0;
+    margin-bottom: 1.875rem;
+    &:last-child{
+        margin-bottom: 0;
+    }
+    &:first-child {
+        margin-top: 1.875rem;
+      }
+  `)}
 `;
 export const TitleExpertiseBlockType = styled.p`
   font-size: 1.125rem;
@@ -153,6 +170,11 @@ export const TextExpertiseBlockType = styled.p`
 export const ExpertiseBLockImage = styled.div`
   height: 36.9375rem;
   position: relative;
+
+  ${Mobile(`
+    width: 100%;
+    height: 17.5rem;
+  `)}
 `;
 
 export const ExpertiseBlockImageBack = styled.div`
@@ -164,6 +186,13 @@ export const ExpertiseBlockImageBack = styled.div`
   border-radius: 3.125rem;
   position: absolute;
   z-index: 1;
+
+  ${Mobile(`
+    width: 100%;
+    height: 15.625rem;
+    margin-top: 0;
+    position: relative
+  `)}
 `;
 export const ExpertiseBlockImageFunny = styled.div`
   width: 37.8125rem;
@@ -172,9 +201,18 @@ export const ExpertiseBlockImageFunny = styled.div`
   margin-left: 3.75rem;
   border-radius: 3.125rem;
   opacity: 0.4;
+
+  ${Mobile(`
+    width: 100%;
+    display: none;
+  `)}
 `;
 export const ExpertiseBLockContentText = styled.div`
   padding: 4.5625rem;
+
+  ${Mobile(`
+    padding: 0.9375rem 0;
+  `)}
 `;
 export const ExpertiseContentIcons = styled.div``;
 export const ExpertiseIcon = styled.div`
@@ -183,6 +221,13 @@ export const ExpertiseIcon = styled.div`
   flex-direction: column;
   text-align: left;
   align-items: flex-start;
+
+  ${Mobile(`
+      padding: 0 0.9375rem;
+      font-size: 1.875rem;
+      text-align: center;
+      align-items: center;
+  `)}
 `;
 export const ExpertiseIconTitle = styled.p`
   font-size: 1.25rem;
@@ -211,6 +256,13 @@ export const NewJobItem = styled.div`
   &:last-child {
     margin-right: 0;
   }
+  ${Mobile(`
+    margin: 0;
+    margin-bottom: 1.875rem;
+    &:last-child {
+        margin-bottom: 0;
+    }
+  `)}
 `;
 export const NewJobItemContentIcon = styled.div`
   flex-direction: row;
