@@ -21,6 +21,13 @@ export const Banner = styled.div`
   max-height: 37.5rem;
   overflow: hidden;
   position: relative;
+  ${Mobile(`
+    padding: 0 1.875rem;
+    height: 43.75rem;
+    max-height: 43.75rem;
+    padding-bottom: 11.25rem;
+    align-items: center;
+  `)}
 `;
 export const ImageBannerWoman = styled.div`
   width: 31.625rem;
@@ -32,6 +39,11 @@ export const ImageBannerWoman = styled.div`
   top: 0;
   transform: translateY(-70%);
   z-index: 2;
+  ${Mobile(`
+    width: 12.5rem;
+    height: 15.625rem;
+    transform: translateY(20%);
+  `)}
 `;
 export const BackgroundBannerWoman = styled.div`
   width: 34.75rem;
@@ -43,10 +55,21 @@ export const BackgroundBannerWoman = styled.div`
   top: 0;
   transform: translate(10%, -60%);
   z-index: 1;
+  ${Mobile(`
+    width: 13.75rem;
+    height: 16.25rem;
+    transform: translate(10%, 0%);
+  `)}
 `;
 export const Title = styled(Default.Title)`
   color: ${Default.color.blue};
   margin-bottom: 2.1875rem;
+  ${Mobile(`
+    text-align: center;
+    br{
+        display: none;
+    }
+  `)}
 `;
 export const ContentSearch = styled.div<IWidth>`
   padding: 1.125rem 1.875rem;
@@ -94,6 +117,14 @@ export const SubtitleSearchBanner = styled.p`
     text-decoration: underline;
     color: ${Default.color.blue};
   }
+  ${Mobile(`
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    a {
+        padding-top: 0.625rem;
+    }
+  `)}
 `;
 export const IconSearch = styled.img`
   width: 2.6875rem;
@@ -259,6 +290,7 @@ export const NewJobItem = styled.div`
   ${Mobile(`
     margin: 0;
     margin-bottom: 1.875rem;
+    align-items: center;
     &:last-child {
         margin-bottom: 0;
     }

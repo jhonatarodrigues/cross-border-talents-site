@@ -7,6 +7,10 @@ interface ITransparent {
   transparent?: boolean;
 }
 
+interface IOpenMenu {
+  openMenu?: boolean;
+}
+
 export const HeaderDefault = styled.header<ITransparent>`
   padding: 1.875rem 3.125rem;
   width: 100%;
@@ -17,16 +21,38 @@ export const HeaderDefault = styled.header<ITransparent>`
   align-items: center;
 
   ${Mobile(`
-    display: none!important;
+    padding: 1.875rem 1.875rem;
+    position: fixed;
+    top: 0;
+    justify-content: space-between;
   `)}
 `;
 
-export const ContainerContentSite = styled.div`
+export const ContainerContentSite = styled.div<IOpenMenu>`
   width: 60%;
   justify-content: center;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+
+  ${Mobile(`
+    width: 80%;
+    position: fixed;
+    height: 100vh;
+    background: ${Default.color.blueOriginal};
+    top: 0;
+    left: 0;
+    transform: translateX(-100%);
+    transition: all .2s ease;
+  `)}
+
+  ${({ openMenu }) =>
+    openMenu
+      ? Mobile(`
+    transform: translateX(0%);
+    transition: all .2s ease;
+  `)
+      : ''}
 `;
 export const ContentSite = styled.div`
   width: 75rem;
@@ -35,22 +61,36 @@ export const ContentSite = styled.div`
   @media (max-width: 1400px) {
     max-width: 56.25rem;
   }
+
+  ${Mobile(`
+    max-width: 100%;
+    width: 100%;
+  `)}
 `;
 
 export const ContentHeader = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  ${Mobile(`
+    width: 100%;
+  `)}
 `;
 
 export const Content = styled.div`
   flex-direction: row;
+  ${Mobile(`
+    width: 100%;
+  `)}
 `;
 
 export const ContentButtons = styled.div`
   flex-direction: row;
   position: absolute;
   right: 3.125rem;
+  ${Mobile(`
+    display: none;
+  `)}
 `;
 
 export const ContentLogo = styled.div`
@@ -66,10 +106,19 @@ export const Nav = styled.nav`
   @media (max-width: 1400px) {
     padding-left: 1.25rem;
   }
+
+  ${Mobile(`
+    width: 100%;
+    justify-content: center;
+    padding-left: 0;
+  `)}
 `;
 export const Ul = styled.ul`
   display: flex;
   flex-direction: row;
+  ${Mobile(`
+    flex-direction: column;
+  `)}
 `;
 export const Li = styled.li`
   font-size: 0.875rem;
@@ -84,6 +133,15 @@ export const Li = styled.li`
   &:last-child {
     margin-right: 0;
   }
+  ${Mobile(`
+    margin: 0;
+    text-align: center;
+    justify-content: center;
+    margin-bottom: 1.875rem;
+    a {
+        color: ${Default.color.white2};
+    }
+  `)}
 `;
 export const Dropdown = styled.div`
   flex-direction: column;
@@ -97,6 +155,10 @@ export const Dropdown = styled.div`
       transition: opacity 0.5s;
     }
   }
+
+  ${Mobile(`
+    color: ${Default.color.white2};
+  `)}
 `;
 export const ListDropdown = styled.div`
   background: ${Default.color.white};
@@ -121,4 +183,49 @@ export const ListDropdownItem = styled.div`
   a {
     color: ${Default.color.blueOriginal};
   }
+`;
+
+export const ContentSandwich = styled.button`
+  width: 1.875rem;
+  display: none;
+  border: none;
+  background: none;
+  padding: 0;
+
+  ${Mobile(`
+    display: block;
+  `)}
+`;
+
+export const SandwichLine = styled.div<IOpenMenu>`
+  width: 100%;
+  height: 0.1875rem;
+  background: ${Default.color.blueOriginal};
+  margin-bottom: 0.1875rem;
+  transition: all 0.2s ease;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  ${Mobile(`
+    display: block;
+  `)};
+
+  ${({ openMenu }) =>
+    openMenu
+      ? Mobile(`
+    display: none;
+    transition: all 0.2s ease;
+    &:first-child{
+        display: block;
+        transform: rotate(45deg);
+    }
+    &:last-child{
+        display: block;
+        transform: rotate(-45deg);
+        margin-top: -0.3125rem;
+    }
+  `)
+      : ''}
 `;

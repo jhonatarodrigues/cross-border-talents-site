@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Link } from 'react-router-dom';
 import Button from '../buttonSite';
@@ -19,6 +19,8 @@ import {
   ContentButtons,
   ContentSite,
   ContainerContentSite,
+  ContentSandwich,
+  SandwichLine,
 } from './styles';
 
 interface IProps {
@@ -26,6 +28,8 @@ interface IProps {
 }
 
 export default function Header({ transparent }: IProps): JSX.Element {
+  const [openMenu, setOpenMenu] = useState(false);
+
   return (
     <HeaderDefault transparent={transparent}>
       <ContentLogo>
@@ -33,7 +37,13 @@ export default function Header({ transparent }: IProps): JSX.Element {
           <ContentLogoImage src={logo} alt="Logo" />
         </Link>
       </ContentLogo>
-      <ContainerContentSite>
+      <ContentSandwich onClick={() => setOpenMenu(prev => !prev)}>
+        <SandwichLine openMenu={openMenu} />
+        <SandwichLine openMenu={openMenu} />
+        <SandwichLine openMenu={openMenu} />
+      </ContentSandwich>
+
+      <ContainerContentSite openMenu={openMenu}>
         <ContentSite>
           <ContentHeader>
             <Content>

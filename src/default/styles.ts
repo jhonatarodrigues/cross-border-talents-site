@@ -28,6 +28,12 @@ export const Title = styled.h1<ITitle>`
   display: flex;
   justify-content: ${({ textAlignCenter }) =>
     textAlignCenter ? 'center' : 'flex-start'};
+
+  ${Mobile(`
+    font-size: 2.5rem;
+    line-height: 2.8125rem;
+    text-align: center;
+  `)}
 `;
 export const TitleH3 = styled.h3<ITitle>`
   font-size: 3rem;

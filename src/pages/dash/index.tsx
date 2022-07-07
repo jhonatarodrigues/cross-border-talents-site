@@ -135,7 +135,7 @@ export default function Dash(): JSX.Element {
               Your international <br className="hiddenMobile" /> job opportunity
               here
             </Title>
-            <div>
+            <div className="hiddenMobile">
               <ContentSearch>
                 <InputSearch
                   placeholder="Search job by title"
@@ -413,7 +413,7 @@ export default function Dash(): JSX.Element {
               dots
               infinite
               speed={500}
-              slidesToShow={2}
+              slidesToShow={window.innerWidth > 768 ? 2 : 1}
               slidesToScroll={1}
               adaptiveHeight
               arrows

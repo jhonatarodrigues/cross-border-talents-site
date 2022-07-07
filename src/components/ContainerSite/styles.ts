@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Mobile } from '../../styles/responsiveVariables';
 
 // -- images
 interface IRow {
@@ -8,6 +9,9 @@ export const Container = styled.div<IRow>`
   width: 75rem;
   flex-direction: ${({ row }) => (row ? 'row' : 'column')};
   position: relative;
+  ${Mobile(`
+    width: 100%;
+  `)}
 `;
 
 export const BaseContent = styled.div`
