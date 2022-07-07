@@ -25,7 +25,7 @@ export const Banner = styled.div`
     padding: 0 1.875rem;
     height: 43.75rem;
     max-height: 43.75rem;
-    padding-bottom: 11.25rem;
+    padding-bottom: 9.375rem;
     align-items: center;
   `)}
 `;

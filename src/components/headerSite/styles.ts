@@ -89,7 +89,7 @@ export const ContentButtons = styled.div`
   position: absolute;
   right: 3.125rem;
   ${Mobile(`
-    display: none;
+    display: none!important;
   `)}
 `;
 
@@ -193,7 +193,7 @@ export const ContentSandwich = styled.button`
   padding: 0;
 
   ${Mobile(`
-    display: block;
+    display: block!important;
   `)}
 `;
 
@@ -215,14 +215,14 @@ export const SandwichLine = styled.div<IOpenMenu>`
   ${({ openMenu }) =>
     openMenu
       ? Mobile(`
-    display: none;
+    display: none!important;
     transition: all 0.2s ease;
     &:first-child{
-        display: block;
+        display: block!important;
         transform: rotate(45deg);
     }
     &:last-child{
-        display: block;
+        display: block!important;
         transform: rotate(-45deg);
         margin-top: -0.3125rem;
     }
