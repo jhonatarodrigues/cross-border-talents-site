@@ -223,8 +223,8 @@ export default function TopCandidates(): JSX.Element {
           <Default.Row>
             <ContentTitle>
               <Title>
-                The best <br />
-                candidates for the <br />
+                The best <br className="hiddenMobile" />
+                candidates for the <br className="hiddenMobile" />
                 best companies.
               </Title>
               <Default.Title2 color={Default.color.success}>
@@ -243,7 +243,7 @@ export default function TopCandidates(): JSX.Element {
               And make the perfect match
             </Default.Title2>
           </Default.Column>
-          <div>
+          <Default.Row>
             <ExpertiseBlockType
               onClick={() => {
                 navigate('/talent-pool/preview', {
@@ -328,7 +328,7 @@ export default function TopCandidates(): JSX.Element {
                 />
               </ExpertiseArrow>
             </ExpertiseBlockType>
-          </div>
+          </Default.Row>
         </ContainerSite>
       </ExpertiseBLock>
       <NewJobBLock>
@@ -379,6 +379,7 @@ export default function TopCandidates(): JSX.Element {
                         {countryDesc}
                       </NewJobItemContentIconText>
                     </Default.Row>
+                    <Default.Space h="15px" className="visibleMobile" />
                     <Default.Row justifyContent="flex-end">
                       <TagNewJobItem color={Default.color.blueBase}>
                         ID 12345
@@ -416,8 +417,8 @@ export default function TopCandidates(): JSX.Element {
           <Default.Row>
             <Default.Column>
               <Default.TitleH3 color={Default.color.white}>
-                Stop worrying <br />
-                about the next <br />
+                Stop worrying <br className="hiddenMobile" />
+                about the next <br className="hiddenMobile" />
                 interview
               </Default.TitleH3>
               <Default.Space h="1.25rem" />
@@ -485,19 +486,20 @@ export default function TopCandidates(): JSX.Element {
             </BlockStopWorryingImageContent>
           </Default.Row>
 
-          <Default.Space h="11.25rem" />
+          <Default.Space h="6.25rem" className="visibleMobile" />
+          <Default.Space h="11.25rem" className="hiddenMobile" />
           <Default.TitleH3 color={Default.color.white} textAlignCenter>
             We work hard to improve the world of work
           </Default.TitleH3>
           <Default.Space h="3.75rem" />
-          <div>
+          <Default.Row>
             <ExpertiseBlockType>
               <ContentIconExpertise>
                 <IconPlanet />
               </ContentIconExpertise>
               <Default.Column>
                 <TitleExpertiseBlockType>
-                  International <br />
+                  International <br className="hiddenMobile" />
                   Recruitment
                 </TitleExpertiseBlockType>
                 <TextExpertiseBlockType>
@@ -513,7 +515,7 @@ export default function TopCandidates(): JSX.Element {
               </ContentIconExpertise>
               <Default.Column>
                 <TitleExpertiseBlockType>
-                  Skilled <br />
+                  Skilled <br className="hiddenMobile" />
                   Professionals
                 </TitleExpertiseBlockType>
                 <TextExpertiseBlockType>
@@ -528,7 +530,7 @@ export default function TopCandidates(): JSX.Element {
               </ContentIconExpertise>
               <Default.Column>
                 <TitleExpertiseBlockType>
-                  3 Seals of <br /> Excellence
+                  3 Seals of <br className="hiddenMobile" /> Excellence
                 </TitleExpertiseBlockType>
                 <TextExpertiseBlockType>
                   We are the only recruitment company awarded with 3 Seals of
@@ -537,7 +539,7 @@ export default function TopCandidates(): JSX.Element {
                 </TextExpertiseBlockType>
               </Default.Column>
             </ExpertiseBlockType>
-          </div>
+          </Default.Row>
         </ContainerSite>
       </BlockStopWorrying>
       <BlockContactUs>
@@ -615,6 +617,7 @@ export default function TopCandidates(): JSX.Element {
                       >
                         Request Access
                       </ButtonSite>
+                      <Default.Space h="0.9375rem" className="visibleMobile" />
                       <TextHaveAccount>
                         Already have an account? &nbsp;
                         <Link to="/admin/login"> Login here</Link>
@@ -643,7 +646,7 @@ export default function TopCandidates(): JSX.Element {
               dots
               infinite
               speed={500}
-              slidesToShow={2}
+              slidesToShow={window.innerWidth > 768 ? 2 : 1}
               slidesToScroll={1}
               adaptiveHeight
               arrows

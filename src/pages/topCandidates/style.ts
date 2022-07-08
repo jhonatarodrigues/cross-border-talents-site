@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Form } from '@unform/web';
+import { Mobile } from '../../styles/responsiveVariables';
 
 import TalentPool from '../../assets/images/talentPool/talent-pool.jpg';
 import StopWorrying from '../../assets/images/talentPool/stop-worrying.jpg';
@@ -17,6 +18,10 @@ export const Banner = styled.div`
   background: url(${TalentPool}) center no-repeat;
   background-size: cover;
   max-height: 41rem;
+
+  ${Mobile(`
+    padding: 0 1.875rem;
+  `)}
 `;
 export const Title = styled(Default.Title)`
   color: ${Default.color.white};
@@ -30,6 +35,12 @@ export const ContentTitle = styled.div`
   opacity: 0.85;
   border-radius: 3.125rem;
   margin-top: 3.125rem;
+
+  ${Mobile(`
+    padding: 2.1875rem;
+    margin-left: 0;
+    width: 100%;
+  `)}
 `;
 export const ExpertiseBLock = styled(Default.BlockContent)`
   background: ${Default.color.blue};
@@ -61,6 +72,14 @@ export const ExpertiseBlockType = styled.div`
     background: #7fa0c733;
     transition: all 0.2s ease;
   }
+
+  ${Mobile(`
+    margin: 0 !important;
+    margin-bottom: 0.9375rem !important;
+    &:first-child {
+        margin-top: 1.875rem !important;
+    }
+  `)}
 `;
 export const TitleExpertiseBlockType = styled.p`
   font-size: 1.125rem;
@@ -69,6 +88,10 @@ export const TitleExpertiseBlockType = styled.p`
   color: ${Default.color.success};
   padding-left: 0.9375rem;
   margin-bottom: 0.3125rem;
+
+  ${Mobile(`
+    padding-left: 0.9375rem;
+  `)}
 `;
 export const TextExpertiseBlockType = styled.p`
   font-size: 0.875rem;
@@ -113,6 +136,10 @@ export const NewJobItem = styled.div`
     transition: all 0.2s ease;
     border: 1px solid ${Default.color.spotlight};
   }
+
+  ${Mobile(`
+    align-items: center;
+  `)}
 `;
 export const NewJobItemContentIcon = styled.div`
   flex-direction: row;
@@ -164,6 +191,11 @@ export const BlockStopWorryingImageContent = styled(Default.Column)`
   margin-left: 8.25rem;
   width: 45.375rem;
   position: relative;
+
+  ${Mobile(`
+    margin-left: 0;
+    width: 100%;
+  `)}
 `;
 export const BlockStopWorryingImage = styled.div`
   width: 41.625rem;
@@ -175,6 +207,12 @@ export const BlockStopWorryingImage = styled.div`
   margin-top: -3.75rem;
   right: 0;
   z-index: 1;
+
+  ${Mobile(`
+    width: 18.75rem;
+    height: 15.625rem;
+    margin-top: 30px;
+  `)}
 `;
 
 export const BlockStopWorryingImageBack = styled.div`
@@ -188,6 +226,12 @@ export const BlockStopWorryingImageBack = styled.div`
   right: 0;
   z-index: 0;
   opacity: 0.4;
+
+  ${Mobile(`
+    width: 18.75rem;
+    height: 15.625rem;
+    margin-top: 3.125rem;
+  `)}
 `;
 export const BlockContactUs = styled(Default.BlockContent)`
   background: ${Default.color.grayExtremeLight};
@@ -200,6 +244,12 @@ export const BlockContactUsForm = styled.div`
   margin-left: 7.375rem;
   position: relative;
   flex-direction: column;
+
+  ${Mobile(`
+    width: 100%;
+    padding: 4.375rem 2.5rem 3.125rem;
+    margin-left: 0;
+  `)}
 
   .css-uaehr5-MuiFormControl-root-MuiTextField-root:hover fieldset,
   .css-8l3ogp-MuiFormControl-root:hover fieldset {
@@ -251,6 +301,10 @@ export const ContactBlockInfo = styled.div`
   top: 0;
   left: 0;
   transform: translateY(-50%);
+
+  ${Mobile(`
+    padding: 1.875rem 3.125rem;
+  `)}
 `;
 export const FormRender = styled(Form)`
   width: 100%;
@@ -263,6 +317,13 @@ export const TextHaveAccount = styled.p`
     text-decoration: underline;
     color: ${Default.color.white};
   }
+
+  ${Mobile(`
+    flex-direction: column;
+    text-align: center;
+    margin-left: 0;
+    align-items: center;
+  `)}
 `;
 export const BestChoice = styled(Default.BlockContent)`
   background: ${Default.color.blueOriginal};
@@ -307,6 +368,14 @@ export const BlockGetFreeItem = styled.div`
   &:last-child {
     margin-right: 0;
   }
+  ${Mobile(`
+    padding: 1.875rem 3.125rem;
+    margin-right: 0;
+    margin-bottom: 3.125rem;
+    &:last-child{
+        margin-bottom: 0;
+    }
+  `)}
 `;
 export const GetFreeContentIcon = styled.div`
   width: 3.125rem;
