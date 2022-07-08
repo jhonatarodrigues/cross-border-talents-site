@@ -366,7 +366,7 @@ export default function CompanyNeed(): JSX.Element {
       <Banner>
         <ContainerSite>
           <Title>
-            We have what your <br />
+            We have what your <br className="hiddenMobile" />
             company need right here
           </Title>
         </ContainerSite>
@@ -453,6 +453,7 @@ export default function CompanyNeed(): JSX.Element {
                       <Default.Title4 color={Default.color.blue}>
                         {item.user.name} {item.user.lastName}
                       </Default.Title4>
+
                       <Default.Space h="1.25rem" />
                       <Default.Row>
                         <Default.Row alignItens="center">
@@ -465,6 +466,10 @@ export default function CompanyNeed(): JSX.Element {
                             {countryDesc}
                           </NewJobItemContentIconText>
                         </Default.Row>
+                        <Default.Space
+                          h="0.9375rem"
+                          className="visibleMobile"
+                        />
                         <Default.Row justifyContent="flex-end">
                           <TagNewJobItem color={Default.color.blueBase}>
                             ID 12345
@@ -585,6 +590,7 @@ export default function CompanyNeed(): JSX.Element {
                       >
                         Request Access
                       </ButtonSite>
+                      <Default.Space h="0.9375rem" className="visibleMobile" />
                       <TextHaveAccount>
                         Already have an account? &nbsp;
                         <Link to="/admin/login"> Login here</Link>

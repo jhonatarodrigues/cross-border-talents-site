@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Mobile } from '../../styles/responsiveVariables';
 import Default from '../../default';
 
 import LearCode from '../../assets/images/academy/learnCode.jpg';
@@ -18,6 +19,16 @@ export const Banner = styled.div`
   background-size: cover;
   max-height: 41rem;
   overflow: hidden;
+
+  ${Mobile(`
+    padding: 0 1.875rem;
+
+    height: 700px;
+    max-height: 1400rem;
+    a{
+        justify-content: center;
+    }
+  `)}
 `;
 export const ImageBannerMen = styled.div`
   width: 29.1875rem;
@@ -29,6 +40,12 @@ export const ImageBannerMen = styled.div`
   top: 0;
   transform: translateY(-60%);
   z-index: 2;
+
+  ${Mobile(`
+    width: 11.25rem;
+    height: 14.375rem;
+    transform: translateY(10%);
+  `)}
 `;
 export const BackgroundBannerMen = styled.div`
   width: 50rem;
@@ -40,6 +57,12 @@ export const BackgroundBannerMen = styled.div`
   top: 0;
   transform: translate(10%, -60%);
   z-index: 1;
+
+  ${Mobile(`
+    width: 300px;
+    height: 25rem;
+    transform: translate(10%, 10%);
+  `)}
 `;
 export const Title = styled(Default.Title)`
   color: ${Default.color.blueOriginal};
@@ -74,6 +97,11 @@ export const BlockAcademy = styled(Default.BlockContent)`
 export const ImageContent = styled.div`
   width: 36.9375rem;
   position: relative;
+
+  ${Mobile(`
+    width: 100%;
+    margin-bottom: 1.875rem;
+  `)}
 `;
 export const Image = styled.div`
   width: 36.9375rem;
@@ -86,6 +114,13 @@ export const Image = styled.div`
   margin-top: -60px;
   position: absolute;
   z-index: 1;
+
+  ${Mobile(`
+    width: 100%;
+    height: 260px;
+    margin-left: -30px;
+    margin-top: -30px;
+  `)}
 `;
 export const ImageOrnament = styled.div`
   width: 36.9375rem;
@@ -93,6 +128,11 @@ export const ImageOrnament = styled.div`
   border-radius: 3.125rem;
   background: ${Default.color.blueOriginal};
   position: relative;
+
+  ${Mobile(`
+    width: 100%;
+    height: 260px;
+  `)}
 `;
 export const IconExcellence = styled.img`
   width: 4.125rem;

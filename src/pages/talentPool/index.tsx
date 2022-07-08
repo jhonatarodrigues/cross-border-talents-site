@@ -90,7 +90,7 @@ export default function TalentPool(): JSX.Element {
               companies
             </Title>
             <div>
-              <ContentSearch>
+              <ContentSearch className="hiddenMobile">
                 <InputSearch placeholder="Your Name" />
                 <InputSearch placeholder="Email" />
                 <ButtonSearch>Send Request</ButtonSearch>
@@ -207,6 +207,7 @@ export default function TalentPool(): JSX.Element {
                         {countryDesc}
                       </NewJobItemContentIconText>
                     </Default.Row>
+                    <Default.Space h="0.9375rem" className="visibleMobile" />
                     <Default.Row justifyContent="flex-end" alignItens="center">
                       <TagItem>ID 12345</TagItem>
                     </Default.Row>
@@ -252,8 +253,10 @@ export default function TalentPool(): JSX.Element {
               <WastedImageContentAll>
                 <WastedImageContent />
                 <WastedTextImage color={Default.color.success}>
-                  The best team of recruiters working <br />
-                  to find top candidates to work in <br />
+                  The best team of recruiters working{' '}
+                  <br className="hiddenMobile" />
+                  to find top candidates to work in{' '}
+                  <br className="hiddenMobile" />
                   your company
                 </WastedTextImage>
                 <Default.Space h="2.1875rem" />
@@ -263,8 +266,8 @@ export default function TalentPool(): JSX.Element {
             </ContentWastedImage>
             <Default.Column>
               <Default.TitleH3 color={Default.color.success}>
-                Get free access <br />
-                to an exclusive list <br />
+                Get free access <br className="hiddenMobile" />
+                to an exclusive list <br className="hiddenMobile" />
                 of top candidates
               </Default.TitleH3>
               <Default.Space h="1.0625rem" />

@@ -32,8 +32,8 @@ export default function OurItAcademy(): JSX.Element {
         <Default.Column>
           <ContainerSite>
             <Title>
-              Code is for <br />
-              everyone and our <br />
+              Code is for <br className="hiddenMobile" />
+              everyone and our <br className="hiddenMobile" />
               Academy is for you
             </Title>
             <Link to="/jobs">
@@ -64,7 +64,8 @@ export default function OurItAcademy(): JSX.Element {
           <Default.TitleH3 color={Default.color.blueOriginal} textAlignCenter>
             Our IT Academy
           </Default.TitleH3>
-          <Default.Space h="7.5rem" />
+          <Default.Space h="7.5rem" className="hiddenMobile" />
+          <Default.Space h="3.125rem" className="visibleMobile" />
           <Default.Text color={Default.color.blueOriginal} textAlignCenter>
             We want to fill in the gap in the it market, the technology is
             growing in a fast pace, schools, universities <br />

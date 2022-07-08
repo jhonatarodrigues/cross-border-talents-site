@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Mobile } from '../../styles/responsiveVariables';
 
 import Default from '../../default';
 
@@ -21,6 +22,13 @@ export const BackgroundModal = styled.div`
   * {
     display: flex;
   }
+
+  ${Mobile(`
+    overflow: visible;
+    padding: 0 1.875rem;
+    height: auto;
+    position: absolute;
+  `)}
 `;
 export const ContentModal = styled.div`
   background: ${Default.color.white};
@@ -28,12 +36,21 @@ export const ContentModal = styled.div`
   overflow: hidden;
   flex-direction: column;
   position: relative;
+
+  ${Mobile(`
+    margin-top: 9.375rem;
+  `)}
 `;
 export const Modal = styled.div<IPadding>`
   padding: ${({ padding }) => (padding ? '4.375rem' : '0')};
   padding-bottom: 0;
   flex-direction: column;
   position: relative;
+
+  ${Mobile(`
+  
+    padding: 3.125rem;
+  `)}
 `;
 export const ContentBlue = styled.div`
   padding: 1.875rem 4.375rem;

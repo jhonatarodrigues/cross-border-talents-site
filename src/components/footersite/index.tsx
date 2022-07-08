@@ -95,7 +95,7 @@ export default function FooterSite(): JSX.Element {
                 Cais da Rocha Conde D’Óbidos Edifício LACS 1350-352 Lisbon,
                 Portugal
               </LinkFooter>
-              <Link to="mailto: info@cbtalents.com">
+              <a href="mailto: info@cbtalents.com">
                 <LinkFooter mail>
                   <FontAwesomeIcon
                     icon={faEnvelope}
@@ -105,7 +105,7 @@ export default function FooterSite(): JSX.Element {
                   />
                   info@cbtalents.com
                 </LinkFooter>
-              </Link>
+              </a>
             </ContentNav>
             <ContentNav className="hiddenMobile">
               <TitleFooter>For employers </TitleFooter>

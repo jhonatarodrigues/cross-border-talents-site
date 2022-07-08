@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Default from '../../default';
+import { Mobile } from '../../styles/responsiveVariables';
 
 import TopCandidates from '../../assets/images/forEmployers/topCandidates.jpg';
 import GetFreeAccess from '../../assets/images/forEmployers/getFreeAccess.jpg';
@@ -20,6 +21,12 @@ export const Banner = styled.div`
   padding-top: 6.25rem;
   max-height: 41rem;
   overflow: hidden;
+
+  ${Mobile(`
+    height: 700px;
+    max-height: 1000px;
+    padding: 0 1.875rem;
+  `)}
 `;
 export const MenImage = styled.div`
   width: 25.125rem;
@@ -31,6 +38,12 @@ export const MenImage = styled.div`
   top: 0;
   transform: translateY(-70%);
   z-index: 2;
+
+  ${Mobile(`
+    width: 12.5rem;
+    height: 15.625rem;
+    transform: translateY(0%);
+  `)}
 `;
 export const BackgroundBannerMen = styled.div`
   width: 44.9375rem;
@@ -42,6 +55,12 @@ export const BackgroundBannerMen = styled.div`
   top: 0;
   transform: translate(20%, -60%);
   z-index: 1;
+
+  ${Mobile(`
+    width: 220px;
+    height: 300px;
+    transform: translate(0%, 0%);
+  `)}
 `;
 export const Title = styled(Default.Title)`
   color: ${Default.color.white};
@@ -112,6 +131,11 @@ export const ExpertiseBLockImageOrnament = styled.div`
   margin-top: -3.125rem;
   border-radius: 3.125rem;
   border: 1px solid ${Default.color.spotlight};
+
+  ${Mobile(`
+    width: 18.75rem;
+    height: 17.5rem;
+  `)}
 `;
 export const ExpertiseBLockImageBack = styled.div`
   width: 34.9375rem;
@@ -121,6 +145,11 @@ export const ExpertiseBLockImageBack = styled.div`
   margin-left: 3.125rem;
   position: relative;
   z-index: 2;
+
+  ${Mobile(`
+    width: 20.625rem;
+    height: 18.75rem;
+  `)}
 `;
 export const ExpertiseBLockContentText = styled.div`
   padding: 0;
@@ -139,11 +168,19 @@ export const NewJobItem = styled.div`
   &:last-child {
     margin-right: 0;
   }
+
+  ${Mobile(`
+    text-align: center;
+    align-items: center;
+  `)}
 `;
 export const NewJobItemContentIcon = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  ${Mobile(`
+    flex-direction: column;
+  `)}
 `;
 export const NewJobItemContentIconText = styled.p`
   font-size: 0.75rem;
@@ -166,6 +203,11 @@ export const BlockWasted = styled(Default.BlockContent)`
 export const ContentWastedImage = styled.div`
   width: 29.3125rem;
   margin-right: 4.6875rem;
+
+  ${Mobile(`
+    width: 100%;
+    margin-right: 0;
+  `)}
 `;
 export const WastedImage = styled.div`
   background: url(${GetFreeAccess}) center no-repeat;
@@ -174,6 +216,12 @@ export const WastedImage = styled.div`
   border-radius: 3.125rem;
   position: relative;
   z-index: 10;
+
+  ${Mobile(`
+    width: 100%;
+    height: 16.25rem;
+    margin-bottom: 3.125rem;
+  `)}
 `;
 export const WastedImageContent = styled.div`
   width: 29.3125rem;
@@ -184,6 +232,14 @@ export const WastedImageContent = styled.div`
   left: -3.75rem;
   z-index: 0;
   top: -3.75rem;
+
+  ${Mobile(`
+    width: 100%;
+    height: 16.25rem;
+    top: 0;
+    left: 0;
+    display: none!important;
+  `)}
 `;
 export const WastedImageContentAll = styled(Default.Column)`
   position: relative;
@@ -191,9 +247,22 @@ export const WastedImageContentAll = styled(Default.Column)`
 export const WastedTextImage = styled(Default.Title2)`
   position: relative;
   z-index: 1;
+  ${Mobile(`
+    text-align: center;
+  `)}
 `;
 export const WastedIconContent = styled(Default.Column)`
   width: auto;
   margin-right: 70px;
   cursor: pointer;
+
+  ${Mobile(`
+    margin-right: 0px;
+    align-items: center;
+    margin-bottom: 15px;
+    
+    &:last-child{
+        margin-bottom: 0px;
+    }
+  `)}
 `;

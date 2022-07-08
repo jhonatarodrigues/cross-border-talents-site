@@ -333,6 +333,10 @@ export default function ForEmployers(): JSX.Element {
                           </NewJobItemContentIconText>
                         </Default.Row>
                         <Default.Row justifyContent="flex-end">
+                          <Default.Space
+                            h="0.9375rem"
+                            className="visibleMobile"
+                          />
                           <TagNewJobItem color={Default.color.success}>
                             Full-time
                           </TagNewJobItem>
@@ -355,6 +359,10 @@ export default function ForEmployers(): JSX.Element {
                           Apply Now
                         </ButtonSite>
                         <Default.Space w="0.625rem" />
+                        <Default.Space
+                          h="0.9375rem"
+                          className="visibleMobile"
+                        />
                         <ButtonSite
                           bgColor={Default.color.gray}
                           variant="outlined"

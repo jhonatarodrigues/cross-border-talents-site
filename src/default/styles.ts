@@ -73,6 +73,10 @@ export const Title2 = styled.p<ITitle>`
   text-align: ${({ textAlignCenter }) => (textAlignCenter ? 'center' : 'left')};
   justify-content: ${({ textAlignCenter }) =>
     textAlignCenter ? 'center' : 'flex-start'};
+
+  ${Mobile(`
+    text-align: center;
+  `)}
 `;
 
 export const Title3 = styled.p<IColor>`
@@ -80,12 +84,20 @@ export const Title3 = styled.p<IColor>`
   line-height: 2.875rem;
   font-weight: 600;
   color: ${({ color }) => color || Color.whiteLight};
+
+  ${Mobile(`
+    text-align: center;
+  `)}
 `;
 export const Title4 = styled.p<IColor>`
   font-size: 1.5625rem;
   line-height: 1.75rem;
   font-weight: 600;
   color: ${({ color }) => color || Color.whiteLight};
+
+  ${Mobile(`
+    text-align: center;
+  `)}
 `;
 
 export const Text = styled.p<ITitle>`
@@ -95,6 +107,10 @@ export const Text = styled.p<ITitle>`
   text-align: ${({ textAlignCenter }) => (textAlignCenter ? 'center' : 'left')};
   justify-content: ${({ textAlignCenter }) =>
     textAlignCenter ? 'center' : 'flex-start'};
+
+  ${Mobile(`
+        text-align: center;
+    `)}
 `;
 export const Text2 = styled.p<ITitle>`
   font-size: 0.75rem;
@@ -119,6 +135,7 @@ export const Row = styled.div<IAlignCenter>`
   justify-content: ${({ justifyContent }) => justifyContent || 'flex-start'};
   ${Mobile(`
     flex-direction: column;
+    align-items: center;
   `)}
 `;
 export const Column = styled.div<IAlignCenter>`
@@ -126,6 +143,10 @@ export const Column = styled.div<IAlignCenter>`
   width: 100%;
   align-items: ${({ alignItens }) => alignItens || 'flex-start'};
   justify-content: ${({ justifyContent }) => justifyContent || 'flex-start'};
+
+  ${Mobile(`
+     align-items: center;
+  `)}
 `;
 export const Space = styled.div<ISpace>`
   width: ${props => props.w || '100%'};

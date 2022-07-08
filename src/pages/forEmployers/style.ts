@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Mobile } from '../../styles/responsiveVariables';
 import Default from '../../default';
 
 interface IColor {
@@ -12,6 +13,10 @@ export const Banner = styled.div`
   flex-direction: row;
   background-color: ${Default.color.blueOriginal};
   max-height: 41rem;
+
+  ${Mobile(`
+        padding: 0 1.875rem;
+  `)}
 `;
 export const Title = styled(Default.Title)`
   color: ${Default.color.white};
@@ -36,11 +41,25 @@ export const BlockFilter = styled.div`
 `;
 export const ContentButtonSearch = styled.div`
   display: block;
-  min-width: 107px;
+  min-width: 6.6875rem;
+
+  ${Mobile(`
+    display: flex;
+    text-align: center;
+    justify-content: center;
+  `)}
 `;
 export const ContainerTag = styled.div`
   margin-right: 1.875rem;
   align-items: center;
+
+  ${Mobile(`
+    text-align: center;
+    margin-bottom: 0.625rem;
+    margin-right: 0;
+    justify-content: center;
+    width: 100%;
+  `)}
 `;
 export const TagIcon = styled.div<IColor>`
   width: 0.75rem;
@@ -88,6 +107,11 @@ export const Box = styled.div`
     border: 1px solid ${Default.color.blueBase};
     transition: all 0.2s ease;
   }
+
+  ${Mobile(`
+    width: 100%;
+    text-align: center;
+  `)}
 `;
 export const NewJobItemContentIconText = styled.p`
   font-size: 0.875rem;

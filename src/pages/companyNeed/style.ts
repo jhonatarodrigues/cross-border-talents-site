@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Form } from '@unform/web';
+import { Mobile } from '../../styles/responsiveVariables';
 
 import Default from '../../default';
 
@@ -39,6 +40,11 @@ export const BlockFilter = styled.div`
 export const ContentButtonSearch = styled.div`
   display: block;
   min-width: 7.3125rem;
+
+  ${Mobile(`
+    display: flex;
+    justify-content: center;
+  `)}
 `;
 
 export const ContentBox = styled.div`
@@ -65,6 +71,10 @@ export const Box = styled.div`
     transition: all 0.2s ease;
     border-color: ${Default.color.spotlight};
   }
+
+  ${Mobile(`
+    width: 100%;
+  `)}
 `;
 export const NewJobItemContentIconText = styled.p`
   font-size: 0.875rem;
@@ -101,6 +111,12 @@ export const BlockContactUsForm = styled.div`
   margin-left: 5.0625rem;
   position: relative;
   flex-direction: column;
+
+  ${Mobile(`
+    width: 100%;
+    padding: 4.375rem 2.5rem 3.125rem;
+    margin-left: 0;
+  `)}
 
   .css-uaehr5-MuiFormControl-root-MuiTextField-root:hover fieldset,
   .css-8l3ogp-MuiFormControl-root:hover fieldset {
@@ -152,6 +168,10 @@ export const ContactBlockInfo = styled.div`
   top: 0;
   left: 0;
   transform: translateY(-50%);
+
+  ${Mobile(`
+    padding: 1.875rem 3.125rem;
+  `)}
 `;
 export const FormRender = styled(Form)`
   width: 100%;
@@ -164,6 +184,13 @@ export const TextHaveAccount = styled.p`
     text-decoration: underline;
     color: ${Default.color.white};
   }
+
+  ${Mobile(`
+    flex-direction: column;
+    text-align: center;
+    margin-left: 0;
+    align-items: center;
+  `)}
 `;
 export const TextModal = styled(Default.Text2)`
   color: ${Default.color.white};
