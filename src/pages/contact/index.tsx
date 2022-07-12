@@ -87,8 +87,8 @@ export default function Contact(): JSX.Element {
           <Default.Row>
             <ContentTitle>
               <Title>
-                Our team is ready <br />
-                to help you for any <br />
+                Our team is ready <br className="hiddenMobile" />
+                to help you for any <br className="hiddenMobile" />
                 questions
               </Title>
               <Default.Title2 color={Default.color.success}>
@@ -194,7 +194,8 @@ export default function Contact(): JSX.Element {
                 <CheckUnitItemImage
                   style={{ background: `url(${ImageLisboa}) center no-repeat` }}
                 />
-                <Default.Space w="3.125rem" />
+                <Default.Space w="3.125rem" className="hiddenMobile" />
+                <Default.Space h="1.875rem" className="visibleMobile" />
                 <Default.Column>
                   <Default.Row alignItens="center">
                     <FontAwesomeIcon
@@ -226,7 +227,8 @@ export default function Contact(): JSX.Element {
                 <CheckUnitItemImage
                   style={{ background: `url(${ImagePorto}) center no-repeat` }}
                 />
-                <Default.Space w="3.125rem" />
+                <Default.Space w="3.125rem" className="hiddenMobile" />
+                <Default.Space h="1.875rem" className="visibleMobile" />
                 <Default.Column>
                   <Default.Row alignItens="center">
                     <FontAwesomeIcon
@@ -234,7 +236,8 @@ export default function Contact(): JSX.Element {
                       fontSize={17}
                       color={Default.color.success}
                     />
-                    <Default.Space w="0.5rem" />
+                    <Default.Space w="0.5rem" className="hiddenMobile" />
+                    <Default.Space h="0.5rem" className="visibleMobile" />
                     <Default.Title2 color={Default.color.blueOriginal}>
                       CBT Porto
                     </Default.Title2>
@@ -260,7 +263,8 @@ export default function Contact(): JSX.Element {
                 <CheckUnitItemImage
                   style={{ background: `url(${ImageSP}) center no-repeat` }}
                 />
-                <Default.Space w="3.125rem" />
+                <Default.Space w="3.125rem" className="hiddenMobile" />
+                <Default.Space h="1.875rem" className="visibleMobile" />
                 <Default.Column>
                   <Default.Row alignItens="center">
                     <FontAwesomeIcon
@@ -292,7 +296,8 @@ export default function Contact(): JSX.Element {
                 <CheckUnitItemImage
                   style={{ background: `url(${ImageBerlin}) center no-repeat` }}
                 />
-                <Default.Space w="3.125rem" />
+                <Default.Space w="3.125rem" className="hiddenMobile" />
+                <Default.Space h="1.875rem" className="visibleMobile" />
                 <Default.Column>
                   <Default.Row alignItens="center">
                     <FontAwesomeIcon
@@ -326,7 +331,8 @@ export default function Contact(): JSX.Element {
                 <CheckUnitItemImage
                   style={{ background: `url(${ImageLondon}) center no-repeat` }}
                 />
-                <Default.Space w="3.125rem" />
+                <Default.Space w="3.125rem" className="hiddenMobile" />
+                <Default.Space h="1.875rem" className="visibleMobile" />
                 <Default.Column>
                   <Default.Row alignItens="center">
                     <FontAwesomeIcon
@@ -359,7 +365,8 @@ export default function Contact(): JSX.Element {
                 <CheckUnitItemImage
                   style={{ background: `url(${ImageEvora}) center no-repeat` }}
                 />
-                <Default.Space w="3.125rem" />
+                <Default.Space w="3.125rem" className="hiddenMobile" />
+                <Default.Space h="1.875rem" className="visibleMobile" />
                 <Default.Column>
                   <Default.Row alignItens="center">
                     <FontAwesomeIcon

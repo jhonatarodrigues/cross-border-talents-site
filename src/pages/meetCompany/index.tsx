@@ -73,7 +73,7 @@ export default function MeetCompany(): JSX.Element {
               <Default.Subtitle color={Default.color.gray}>
                 Operating in over 102 countries
               </Default.Subtitle>
-              <Default.Row>
+              <Default.Row className="hiddenMobile">
                 <IconImageBanner src={ImageExcellence1} />
                 <IconImageBanner src={ImageExcellence2} />
                 <IconImageBanner src={ImageExcellence3} />
@@ -94,7 +94,8 @@ export default function MeetCompany(): JSX.Element {
             excellence
           </Default.Title2>
 
-          <Default.Space h="8.4375rem" />
+          <Default.Space h="8.4375rem" className="hiddenMobile" />
+          <Default.Space h="5rem" className="visibleMobile" />
 
           <Default.Row>
             <Default.Column>
@@ -102,19 +103,6 @@ export default function MeetCompany(): JSX.Element {
                 <Image />
                 <ImageOrnament />
               </ImageContent>
-              {/* <ItemOrnament>
-                <IconItemOrnament>
-                  <IconBell />
-                </IconItemOrnament>
-                <Default.Title2 color={Default.color.blueOriginal}>
-                  We never stop!
-                </Default.Title2>
-                <Default.Space h="0.625rem" />
-                <Default.Text2 color={Default.color.gray}>
-                  These are just some of the things that make us continue to
-                  improve the world of work and strive for diversity.
-                </Default.Text2>
-              </ItemOrnament> */}
             </Default.Column>
             <Default.Column>
               <Default.Row>
@@ -146,7 +134,7 @@ export default function MeetCompany(): JSX.Element {
               Our goals
             </Default.TitleH3>
           </Default.Row>
-          <div>
+          <Default.Row>
             <ExpertiseBlockType>
               <ContentIconExpertise>
                 <IconIct />
@@ -190,7 +178,7 @@ export default function MeetCompany(): JSX.Element {
                 </TextExpertiseBlockType>
               </Default.Column>
             </ExpertiseBlockType>
-          </div>
+          </Default.Row>
           <Default.Space h="3.125rem" />
           <Default.Row justifyContent="center">
             <ButtonSite bgColor={Default.color.spotlight}>
@@ -208,7 +196,8 @@ export default function MeetCompany(): JSX.Element {
                 <Default.Row style={{ width: '42px', height: '42px' }}>
                   <IconStar />
                 </Default.Row>
-                <Default.Space w="1.25rem" />
+                <Default.Space w="1.25rem" className="hiddenMobile" />
+                <Default.Space h="1.25rem" className="visibleMobile" />
                 <Default.Title2 color={Default.color.blueBase}>
                   For the past 2 years, we have been involved in helping
                   refugees find jobs;
@@ -219,7 +208,8 @@ export default function MeetCompany(): JSX.Element {
                 <Default.Row style={{ width: '42px', height: '42px' }}>
                   <IconStar />
                 </Default.Row>
-                <Default.Space w="1.25rem" />
+                <Default.Space w="1.25rem" className="hiddenMobile" />
+                <Default.Space h="1.25rem" className="visibleMobile" />
                 <Default.Title2 color={Default.color.blueBase}>
                   We help people in need fleeing Ukraine and provide
                   International recruitment and development opportunities;
@@ -230,7 +220,8 @@ export default function MeetCompany(): JSX.Element {
                 <Default.Row style={{ width: '42px', height: '42px' }}>
                   <IconStar />
                 </Default.Row>
-                <Default.Space w="1.25rem" />
+                <Default.Space w="1.25rem" className="hiddenMobile" />
+                <Default.Space h="1.25rem" className="visibleMobile" />
                 <Default.Title2 color={Default.color.blueBase}>
                   Webinar sessions to explain our career path with our Global
                   Recruitment Managers;
@@ -241,7 +232,8 @@ export default function MeetCompany(): JSX.Element {
                 <Default.Row style={{ width: '42px', height: '42px' }}>
                   <IconStar />
                 </Default.Row>
-                <Default.Space w="1.25rem" />
+                <Default.Space w="1.25rem" className="hiddenMobile" />
+                <Default.Space h="1.25rem" className="visibleMobile" />
                 <Default.Title2 color={Default.color.blueBase}>
                   With 3 seals of excellence, we strive to solve the skills
                   shortage by 2025;
@@ -252,7 +244,8 @@ export default function MeetCompany(): JSX.Element {
                 <Default.Row style={{ width: '42px', height: '42px' }}>
                   <IconStar />
                 </Default.Row>
-                <Default.Space w="1.25rem" />
+                <Default.Space w="1.25rem" className="hiddenMobile" />
+                <Default.Space h="1.25rem" className="visibleMobile" />
                 <Default.Title2 color={Default.color.blueBase}>
                   Improving the world of work by facilitating employment
                   transitions.
@@ -262,7 +255,7 @@ export default function MeetCompany(): JSX.Element {
             <Default.Column>
               <Default.Row>
                 <Default.Column>
-                  <Default.Space w="10rem" />
+                  <Default.Space w="10rem" className="hiddenMobile" />
                   <Default.Column alignItens="flex-end">
                     <ImageWorkWith />
                     <ImageWorkWithContent />
@@ -295,7 +288,8 @@ export default function MeetCompany(): JSX.Element {
             <Default.TitleH3 color={Default.color.blueOriginal} textAlignCenter>
               Keen to Join the Team?
             </Default.TitleH3>
-            <Default.Space h="6.9375rem" />
+            <Default.Space h="6.9375rem" className="hiddenMobile" />
+            <Default.Space h="3.125rem" className="visibleMobile" />
             <Default.Row>
               <Default.Column>
                 <Default.TitleH3 color={Default.color.blueBase}>
@@ -325,14 +319,16 @@ export default function MeetCompany(): JSX.Element {
             </Default.Row>
           </ContainerSite>
 
-          <Default.Space h="8.75rem" />
+          <Default.Space h="8.75rem" className="hiddenMobile" />
+          <Default.Space h="5rem" className="visibleMobile" />
           {/* <MapImageBlock> */}
           <Default.Row justifyContent="center">
             <Default.TitleH3 color={Default.color.blueOriginal} textAlignCenter>
               Cross Border Talent Group
             </Default.TitleH3>
           </Default.Row>
-          <Default.Space h="4.0625rem" />
+          <Default.Space h="4.0625rem" className="hiddenMobile" />
+          <Default.Space h="2.1875rem" className="visibleMobile" />
           <MapImage />
           <MapImageLegend />
           {/* </MapImageBlock> */}
@@ -379,7 +375,7 @@ export default function MeetCompany(): JSX.Element {
               </BlockBaseItem>
             </Default.Column>
 
-            <Default.Space w="100px" />
+            <Default.Space w="100px" className="hiddenMobile" />
 
             <Default.Column>
               <BlockBaseItem>

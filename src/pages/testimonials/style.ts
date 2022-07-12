@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Default from '../../default';
-
+import { Mobile } from '../../styles/responsiveVariables';
 import BannerTestimonials from '../../assets/images/testimonials/testimonials.jpg';
 
 export const Banner = styled.div`
@@ -11,6 +11,11 @@ export const Banner = styled.div`
   background-color: ${Default.color.grayExtremeLight};
   padding-top: 6.25rem;
   max-height: 41rem;
+
+  ${Mobile(`
+    height: 43.75rem;
+    max-height: 43.75rem;
+  `)}
 `;
 export const Title = styled(Default.Title)`
   color: ${Default.color.blueOriginal};
@@ -25,6 +30,13 @@ export const BannerContentTitle = styled.div`
   width: 37.5rem;
   position: relative;
   z-index: 2;
+
+  ${Mobile(`
+    margin-left: 0px;
+    width: 18.75rem;
+    padding: 1.875rem;
+    margin-bottom: 1.875rem;
+  `)}
 `;
 export const ImageBanner = styled.div`
   width: 43.75rem;
@@ -35,6 +47,12 @@ export const ImageBanner = styled.div`
   z-index: 1;
   background: url(${BannerTestimonials}) center no-repeat;
   background-size: cover;
+
+  ${Mobile(`
+    width: 18.75rem;
+    height: 12.5rem;
+    margin-left: 0;
+  `)}
 `;
 export const BlockTestimonials = styled(Default.BlockContent)`
   background: ${Default.color.grayBackground};
@@ -57,6 +75,15 @@ export const TestimonialsItem = styled.div`
   &:nth-child(2n) {
     margin-right: 0;
   }
+
+  ${Mobile(`
+    width: 100%;
+    margin-right: 0;
+    padding: 1.875rem;
+    margin-bottom: 3.75rem;
+    align-items: center;
+    text-align: center;
+  `)}
 `;
 export const ImageTestimonials = styled.div`
   position: absolute;
@@ -67,4 +94,10 @@ export const ImageTestimonials = styled.div`
   height: 6.1875rem;
   border-radius: 50%;
   background-size: cover !important;
+
+  ${Mobile(`
+    width: 3.75rem;
+    height: 3.75rem;
+    left: 1.875rem;
+  `)}
 `;

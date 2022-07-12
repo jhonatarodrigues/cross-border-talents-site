@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Form } from '@unform/web';
+import { Mobile } from '../../styles/responsiveVariables';
 
 import BannerContact from '../../assets/images/contact/bannerContact.jpg';
 import Default from '../../default';
@@ -12,6 +13,9 @@ export const Banner = styled.div`
   background: url(${BannerContact}) top center no-repeat;
   background-size: cover;
   max-height: 41rem;
+  ${Mobile(`
+    padding: 0 30px;
+  `)}
 `;
 export const Title = styled(Default.Title)`
   color: ${Default.color.white};
@@ -25,6 +29,12 @@ export const ContentTitle = styled.div`
   opacity: 0.85;
   border-radius: 3.125rem;
   margin-top: 3.125rem;
+
+  ${Mobile(`
+    padding: 1.875rem;
+    margin-left: 0px;
+    align-items: center;
+  `)}
 `;
 
 export const BlockContactUs = styled(Default.BlockContent)`
@@ -38,6 +48,13 @@ export const BlockContactUsForm = styled.div`
   margin-left: 5.0625rem;
   position: relative;
   flex-direction: column;
+
+  ${Mobile(`
+    width: 100%;
+    padding: 4.375rem 2.5rem 3.125rem;
+    margin-left: 0;
+    margin-top: 1.875rem;
+  `)}
 
   .css-1sqnrkk-MuiInputBase-input-MuiOutlinedInput-input {
     height: 100px !important;
@@ -112,6 +129,15 @@ export const CheckUnitItem = styled.div`
   &:last-child {
     margin-right: 0;
   }
+
+  ${Mobile(`
+    margin-right: 0;
+    margin-bottom: 30px;
+    padding: 1.875rem;
+    &:last-child{
+        margin-bottom: 0;
+    }
+  `)}
 `;
 export const CheckUnitItemImage = styled.div`
   background: ${Default.color.gray};
@@ -120,4 +146,10 @@ export const CheckUnitItemImage = styled.div`
   height: 14.875rem;
   border-radius: 1.25rem;
   background-size: cover !important;
+
+  ${Mobile(`
+    width: 11.25rem;
+    min-width: 11.25rem;
+    height: 12.5rem;
+  `)}
 `;

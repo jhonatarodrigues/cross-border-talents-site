@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Default from '../../default';
-
+import { Mobile } from '../../styles/responsiveVariables';
 import About from '../../assets/images/about/about-interna.jpg';
 import BePart from '../../assets/images/about/bePart.jpg';
 import Map from '../../assets/images/about/img-map.png';
@@ -16,6 +16,11 @@ export const Banner = styled.div`
   background-color: ${Default.color.grayExtremeLight};
   padding-top: 6.25rem;
   max-height: 41rem;
+
+  ${Mobile(`
+    height: 750px;
+    max-height: 750px;
+  `)}
 `;
 export const Title = styled(Default.Title)`
   color: ${Default.color.blueOriginal};
@@ -30,6 +35,14 @@ export const BannerContentTitle = styled.div`
   width: 37.5rem;
   position: relative;
   z-index: 2;
+
+  ${Mobile(`
+    width: 18.75rem;
+    padding: 1.875rem;
+    margin-left: 0;
+    align-items: center;
+    margin-bottom: 1.875rem;
+`)}
 `;
 export const ImageBanner = styled.div`
   width: 43.75rem;
@@ -40,6 +53,12 @@ export const ImageBanner = styled.div`
   z-index: 1;
   background: url(${ImagemBanner}) no-repeat center center;
   background-size: cover;
+
+  ${Mobile(`
+    width: 18.75rem;
+    height: 15.625rem;
+    margin-left: 0;
+  `)}
 `;
 export const IconImageBanner = styled.img`
   width: 5rem;
@@ -53,6 +72,12 @@ export const BlockAcademy = styled(Default.BlockContent)`
 export const ImageContent = styled.div`
   width: 36.9375rem;
   position: relative;
+  ${Mobile(`
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.875rem;
+  `)}
 `;
 export const Image = styled.div`
   width: 36.9375rem;
@@ -61,10 +86,17 @@ export const Image = styled.div`
   background: url(${About}) center no-repeat;
   background-size: cover;
   position: relative;
-  margin-left: -60px;
-  margin-top: -60px;
+  margin-left: -3.75rem;
+  margin-top: -3.75rem;
   position: absolute;
   z-index: 1;
+
+  ${Mobile(`
+    width: 300px;
+    height: 150px;
+    margin-left: -1.875rem;
+    margin-top: -1.875rem;
+  `)}
 `;
 export const ImageOrnament = styled.div`
   width: 36.9375rem;
@@ -72,6 +104,11 @@ export const ImageOrnament = styled.div`
   border-radius: 3.125rem;
   background: ${Default.color.blueOriginal};
   position: relative;
+
+  ${Mobile(`
+    width: 300px;
+    height: 150px;
+  `)}
 `;
 export const TextInfoCompany = styled(Default.Title2)`
   padding: 3.125rem 5.875rem;
@@ -89,6 +126,10 @@ export const ItemOrnament = styled.div`
   border-radius: 1.25rem;
   flex-direction: column;
   margin-top: 5rem;
+
+  ${Mobile(`
+    width: 100%;
+  `)}
 `;
 export const IconItemOrnament = styled.div`
   width: 2.8125rem;
@@ -111,6 +152,12 @@ export const BlockStopWorryingImageContent = styled(Default.Column)`
   width: 45.375rem;
   position: relative;
   justify-content: flex-end;
+
+  ${Mobile(`
+    margin-left: 0;
+    width: 100%;
+    margin-top: 1.875rem;
+  `)}
 `;
 export const BlockStopWorryingImage = styled.div`
   width: 34.9375rem;
@@ -122,6 +169,11 @@ export const BlockStopWorryingImage = styled.div`
   position: relative;
   right: 0;
   z-index: 1;
+
+  ${Mobile(`
+    width: 18.75rem;
+    height: 13.75rem;
+  `)}
 `;
 
 export const BlockStopWorryingImageBack = styled.div`
@@ -136,6 +188,13 @@ export const BlockStopWorryingImageBack = styled.div`
   right: 0;
   z-index: 0;
   opacity: 0.4;
+
+  ${Mobile(`
+    width: 18.75rem;
+    height: 13.75rem;
+    margin-right: 1.25rem;
+    margin-top: -1.25rem;
+  `)}
 `;
 
 export const BestPraticeBlock = styled(Default.BlockContent)`
@@ -161,6 +220,12 @@ export const ExpertiseBlockType = styled.div`
     background: #7fa0c733;
     transition: all 0.2s ease;
   }
+
+  ${Mobile(`
+    margin-left: 0px!important;
+    margin-right: 0px!important;
+    margin-top: 1.875rem;
+  `)}
 `;
 export const ImageContentBestPratice = styled.div`
   width: 40.6875rem;
@@ -197,6 +262,10 @@ export const MapImage = styled.div`
   height: 41.875rem;
   background: url(${Map}) center no-repeat;
   background-size: contain;
+
+  ${Mobile(`
+    height: 12.5rem;
+  `)}
 `;
 export const MapImageLegend = styled.div`
   width: 100%;
@@ -227,6 +296,16 @@ export const BlockBaseItem = styled.div`
     margin-right: -1.875rem;
     right: 0;
   }
+
+  ${Mobile(`
+    width: 100%;
+    height: 15.625rem;
+    margin-top: 1.875rem;
+
+    &:before{
+        display: none;
+    }
+  `)}
 `;
 export const ContentIconMark = styled.div`
   width: 1.875rem;
@@ -256,6 +335,12 @@ export const ImageWorkWith = styled.div`
   background-size: cover;
   margin-right: 3.75rem;
   position: absolute;
+
+  ${Mobile(`
+    width: 18.75rem;
+    height: 13.75rem;
+    margin-top: 1.875rem;
+  `)}
 `;
 export const ImageWorkWithContent = styled.div`
   width: 23.5rem;
@@ -263,6 +348,11 @@ export const ImageWorkWithContent = styled.div`
   border-radius: 3.125rem;
   background: ${Default.color.blueLight};
   margin-top: 3.75rem;
+
+  ${Mobile(`
+    width: 18.75rem;
+    height: 13.75rem;
+  `)}
 `;
 
 export const OrnamentContent = styled.div`
