@@ -446,12 +446,16 @@ export default function CompanyNeed(): JSX.Element {
                     )?.countryName || '';
                 }
 
+                if (!item.charge) {
+                  return <div />;
+                }
+
                 return (
                   <Box key={item.id}>
                     <TagBox>Candidate</TagBox>
                     <Default.Column>
                       <Default.Title4 color={Default.color.blue}>
-                        {item.user.name} {item.user.lastName}
+                        {item.charge}
                       </Default.Title4>
 
                       <Default.Space h="1.25rem" />
