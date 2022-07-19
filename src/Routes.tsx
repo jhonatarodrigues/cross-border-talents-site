@@ -16,6 +16,7 @@ import Contact from './pages/contact';
 import TestimonialsPage from './pages/testimonials';
 import MeetCompany from './pages/meetCompany';
 import RegisterTalentPool from './pages/registerTalentPool';
+import JobsInternal from './pages/jobsInternal';
 
 // -- admin pages
 import Login from './pages/admin/login';
@@ -49,6 +50,7 @@ export default function Teste(): JSX.Element {
       <Routes>
         <Route path="/" element={<Dash />} />
         <Route path="/jobs" element={<ForEmployers />} />
+        <Route path="/jobs/internal" element={<JobsInternal />} />
         <Route path="/for-employers" element={<TalentPool />} />
         <Route path="/talent-pool" element={<TopCandidates />} />
         <Route path="/talent-pool/preview" element={<CompanyNeed />} />

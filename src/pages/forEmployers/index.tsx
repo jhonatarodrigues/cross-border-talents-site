@@ -3,7 +3,7 @@ import { Form } from '@unform/web';
 import { SubmitHandler, FormHandles } from '@unform/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import Input from '../../components/input';
 import InputDropDown, {
@@ -42,6 +42,7 @@ interface IRequestState {
 }
 
 export default function ForEmployers(): JSX.Element {
+  const navigate = useNavigate();
   const formRef = useRef<FormHandles>(null);
   const [optionsInterestSkills, setOptionsInterestSkills] = useState<
     IOptionsDropdown[]
@@ -314,7 +315,17 @@ export default function ForEmployers(): JSX.Element {
                 }
 
                 return (
-                  <Box key={job.id}>
+                  <Box
+                    key={job.id}
+                    onClick={() => {
+                      navigate('/jobs/internal', {
+                        state: {
+                          item: job,
+                          countryDesc,
+                        },
+                      });
+                    }}
+                  >
                     <BoxTag>Job Opportunity</BoxTag>
                     <Default.Column>
                       <Default.Title4 color={Default.color.blue}>
@@ -357,17 +368,6 @@ export default function ForEmployers(): JSX.Element {
                       <Default.Row>
                         <ButtonSite bgColor={Default.color.success}>
                           Apply Now
-                        </ButtonSite>
-                        <Default.Space w="0.625rem" />
-                        <Default.Space
-                          h="0.9375rem"
-                          className="visibleMobile"
-                        />
-                        <ButtonSite
-                          bgColor={Default.color.gray}
-                          variant="outlined"
-                        >
-                          See More
                         </ButtonSite>
                       </Default.Row>
                     </Default.Column>
