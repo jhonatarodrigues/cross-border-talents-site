@@ -26,9 +26,11 @@ export default function InterestSkills(): JSX.Element {
   const rows: GridRowsProp = interestSkills.map((item: IInterestSkills) => ({
     id: item.id,
     name: item.name,
+    internal: item.internal,
   }));
   const handleGetInterestSkills = useCallback(async () => {
     const response = await GetInterestSkills();
+
     if (response && response.interestSkills) {
       setInterestSkills(response.interestSkills);
     }

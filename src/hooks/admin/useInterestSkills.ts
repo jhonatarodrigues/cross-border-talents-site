@@ -4,6 +4,7 @@ import graphql from '../../services/graphql';
 export interface IInterestSkills {
   id: string;
   name: string;
+  internal: boolean;
 }
 
 interface IResponseInterestSkills {
@@ -12,6 +13,7 @@ interface IResponseInterestSkills {
 
 export interface IInterestSkillsSend {
   name: string;
+  internal: boolean;
 }
 interface IInterestSkillsUpdate extends IInterestSkillsSend {
   id: string;
@@ -22,7 +24,7 @@ export function UpdateInterestSkills(
 ): Promise<IInterestSkills> {
   const query = `
       mutation {
-        updateInterestSkill(id: "${data.id}", name: "${data.name}"){
+        updateInterestSkill(id: "${data.id}", name: "${data.name}", internal:${data.internal}){
               id
               name
             }
@@ -43,7 +45,7 @@ export function AddInterestSkills(
 ): Promise<IInterestSkills> {
   const query = `
     mutation {
-        createInterestSkill(name: "${data.name}"){
+        createInterestSkill(name: "${data.name}", internal:${data.internal}){
             id
             name
           }
@@ -75,6 +77,7 @@ export function GetInterestSkills(): Promise<IResponseInterestSkills> {
         interestSkills{
             id
             name
+            internal
         }
     }
   `;

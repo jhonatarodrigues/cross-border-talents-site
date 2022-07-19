@@ -77,6 +77,7 @@ const enUs = {
     newPassword: 'New Password',
     confirmPassword: 'Confirm Password',
     currentPassword: 'Current Password',
+    internal: 'Internal',
   },
 
   page: {

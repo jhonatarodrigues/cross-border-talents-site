@@ -233,7 +233,7 @@ export default function CompaniesRegister(): JSX.Element {
               name="email"
               label={`${Language.fields.companyEmail} *`}
               type="email"
-              value={params?.company.user.email}
+              value={params?.company.user ? params?.company.user.email : ''}
             />
             <Input
               name="industry"
@@ -272,12 +272,12 @@ export default function CompaniesRegister(): JSX.Element {
             <Input
               name="name"
               label={`${Language.fields.fullName} *`}
-              value={params?.company.user.name}
+              value={params?.company.user ? params?.company.user.name : ''}
             />
             <Input
               name="lastName"
               label={`${Language.fields.lastName} *`}
-              value={params?.company.user.lastName}
+              value={params?.company.user ? params?.company.user.lastName : ''}
             />
           </ContentInput>
           <ContentInput>
@@ -302,7 +302,7 @@ export default function CompaniesRegister(): JSX.Element {
               name="phone"
               label={`${Language.fields.phone} *`}
               mask="phone"
-              value={params?.company.user.phone}
+              value={params?.company.user ? params?.company.user.phone : ''}
             />
             <InputDropDown
               name="country"
@@ -363,7 +363,9 @@ export default function CompaniesRegister(): JSX.Element {
             <InputSwitch
               label={Language.fields.status}
               name="status"
-              valueDefault={!!params?.company.user.status}
+              valueDefault={
+                params?.company.user ? !!params?.company.user.status : false
+              }
             />
           </ContentInput>
         </Section>

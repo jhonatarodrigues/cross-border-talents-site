@@ -4,6 +4,7 @@ import { SubmitHandler, FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import { useNavigate, useLocation } from 'react-router-dom';
 
+import InputSwitch from '../../../components/inputSwitch';
 import Modal from '../../../components/modal';
 import {
   AddInterestSkills,
@@ -21,6 +22,7 @@ interface IInterestSkillsRegister {
   departament: {
     id: string;
     name: string;
+    internal: boolean;
   };
 }
 
@@ -100,6 +102,12 @@ export default function InterestSkillsRegister(): JSX.Element {
               name="name"
               label={`${Language.fields.name} *`}
               value={params.departament.name}
+            />
+
+            <InputSwitch
+              label={Language.fields.internal}
+              name="internal"
+              valueDefault={params.departament.internal || false}
             />
           </ContentInput>
         </Section>
