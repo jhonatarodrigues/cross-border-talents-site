@@ -371,7 +371,7 @@ export default function TopCandidates(): JSX.Element {
                 <NewJobItem>
                   <NewJobTagType>Candidate</NewJobTagType>
                   <Default.Title2 color={Default.color.blue}>
-                    {job.user.name}
+                    {job.charge}
                   </Default.Title2>
                   <Default.Space h="0.625rem" />
                   <Default.Row>
