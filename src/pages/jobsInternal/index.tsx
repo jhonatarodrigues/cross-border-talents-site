@@ -37,10 +37,7 @@ export default function JobsInternal(): JSX.Element {
         <ContainerSite>
           <Default.Row justifyContent="space-between">
             <Default.Column>
-              <Title>
-                Backend Engineer <br />
-                Connectivity Team
-              </Title>
+              <Title>{stateRequest.item.jobTitle}</Title>
             </Default.Column>
             <Default.Column alignItens="flex-end" justifyContent="center">
               <Default.Title2

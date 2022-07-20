@@ -76,12 +76,19 @@ export default function ForEmployers(): JSX.Element {
   const getInterestSkills = useCallback(async () => {
     const { interestSkills } = await GetInterestSkills();
     if (interestSkills) {
-      const options: IOptionsDropdown[] = interestSkills.map(item => {
-        return {
-          value: item.id,
-          label: item.name,
-        };
+      const options: IOptionsDropdown[] = [];
+
+      interestSkills.map(item => {
+        if (!item.internal) {
+          options.push({
+            value: item.id,
+            label: item.name,
+          });
+        }
+
+        return item;
       });
+
       setOptionsInterestSkills(options);
     } else {
       Modal({ keyType: 'getInterestSkills', icon: 'error' });
