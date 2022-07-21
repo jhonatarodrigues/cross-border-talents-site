@@ -281,7 +281,7 @@ export default function MeetCompany(): JSX.Element {
         <Default.Column>
           <ContainerSite>
             <Default.TitleH3 color={Default.color.blueOriginal} textAlignCenter>
-              Learn more
+              Join our team!
             </Default.TitleH3>
             <Default.Space h="6.9375rem" className="hiddenMobile" />
             <Default.Space h="3.125rem" className="visibleMobile" />

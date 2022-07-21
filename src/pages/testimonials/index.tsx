@@ -64,9 +64,10 @@ export default function Testimonials(): JSX.Element {
           <Default.Row alignItens="center">
             <BannerContentTitle>
               <Title>
-                Proud to <br />
-                work in their <br />
-                dream job
+                They are proud to <br />
+                say that they work
+                <br />
+                in their dream job!
               </Title>
 
               <Default.Title2 color={Default.color.success}>
