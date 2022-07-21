@@ -200,12 +200,17 @@ export const BlockStopWorryingImageBack = styled.div`
 export const BestPraticeBlock = styled(Default.BlockContent)`
   background: ${Default.color.blueOriginal};
 `;
+export const ExpertiseBlockTypeContent = styled.div`
+  flex-direction: row;
+  justify-content: stretch;
+`;
 export const ExpertiseBlockType = styled.div`
   border: 1px solid ${Default.color.blueBase};
   padding: 2.875rem 2.5rem;
   border-radius: 1.25rem;
   flex-direction: row;
   width: 100%;
+  height: auto;
   align-items: flex-start;
   margin: 2.5rem 1rem 0;
   &:last-child {

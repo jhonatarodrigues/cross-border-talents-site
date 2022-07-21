@@ -549,7 +549,7 @@ export default function TopCandidates(): JSX.Element {
           <Default.Space h="6.25rem" className="visibleMobile" />
           <Default.Space h="11.25rem" className="hiddenMobile" />
           <Default.TitleH3 color={Default.color.white} textAlignCenter>
-            We work hard to improve the world of work
+            Get free access to an exclusive list of top candidates.
           </Default.TitleH3>
           <Default.Space h="3.75rem" />
           <Default.Row>
@@ -608,15 +608,18 @@ export default function TopCandidates(): JSX.Element {
             <div>
               <Default.Column>
                 <Default.TitleH3 color={Default.color.blueOriginal}>
-                  Are you ready <br />
-                  to improve the <br />
-                  world of work <br />
-                  with us?
+                  Register for <br />
+                  free, and access <br />
+                  our talent pool!
                 </Default.TitleH3>
                 <Default.Space h="1.875rem" />
                 <Default.Subtitle color={Default.color.gray}>
-                  The candidate you need in one place. <br />
-                  You just need to request.
+                  Access our Talent Pool today and find <br />
+                  exclusive candidates available for <br />
+                  relocation. <br />
+                  <br />
+                  Get free access to an exclusive list <br />
+                  of top candidates.
                 </Default.Subtitle>
               </Default.Column>
             </div>
@@ -690,6 +693,83 @@ export default function TopCandidates(): JSX.Element {
           </Default.Row>
         </ContainerSite>
       </BlockContactUs>
+      <BlockGetFree>
+        <ContainerSite>
+          <Default.Column justifyContent="center">
+            <Default.Row justifyContent="center">
+              <Default.TitleH3
+                color={Default.color.blueOriginal}
+                textAlignCenter
+              >
+                Get free access to an exclusive <br />
+                list of top candidates
+              </Default.TitleH3>
+            </Default.Row>
+            <Default.Space h="1.75rem" />
+            <Default.Row justifyContent="center">
+              <Default.Subtitle color={Default.color.success} textAlignCenter>
+                The best team of recruiters working to find top candidates for
+                your company.
+              </Default.Subtitle>
+            </Default.Row>
+
+            <Default.Space h="5rem" />
+
+            <Default.Row>
+              <BlockGetFreeItem>
+                <Default.Row>
+                  <GetFreeContentIcon>
+                    <IconFolder />
+                  </GetFreeContentIcon>
+                  <Default.Space w="2.1875rem" />
+                  <Default.Title2 color={Default.color.gray}>
+                    Free access to an exclusive list of experienced profiles
+                    available to your company.
+                  </Default.Title2>
+                </Default.Row>
+              </BlockGetFreeItem>
+
+              <BlockGetFreeItem>
+                <Default.Row>
+                  <GetFreeContentIcon>
+                    <IconProfile />
+                  </GetFreeContentIcon>
+                  <Default.Space w="2.1875rem" />
+                  <Default.Title2 color={Default.color.gray}>
+                    Do not waste time with another interview. We work hard to
+                    find the best fit foryour company.
+                  </Default.Title2>
+                </Default.Row>
+              </BlockGetFreeItem>
+            </Default.Row>
+
+            <Default.Space h="3.125rem" />
+            <Default.Row alignItens="stretch">
+              <BlockGetFreeItem>
+                <Default.Row>
+                  <GetFreeContentIcon>
+                    <IconDocument />
+                  </GetFreeContentIcon>
+                  <Default.Space w="2.1875rem" />
+                  <Default.Title2 color={Default.color.gray}>
+                    Top profiles available in Engineering, ICT and Multilingual
+                    fields. The best team of recruiters working to find top
+                    candidates for your company.
+                  </Default.Title2>
+                </Default.Row>
+              </BlockGetFreeItem>
+            </Default.Row>
+          </Default.Column>
+          <Default.Space h="5rem" />
+          <Default.Row justifyContent="center">
+            <Link to="/talent-pool/preview">
+              <ButtonSite bgColor={Default.color.blueOriginal}>
+                Access the Talent Pool for free
+              </ButtonSite>
+            </Link>
+          </Default.Row>
+        </ContainerSite>
+      </BlockGetFree>
       <BestChoice>
         <ContainerSite>
           <Default.TitleH3 color={Default.color.white} textAlignCenter>
@@ -750,86 +830,6 @@ export default function TopCandidates(): JSX.Element {
           </Default.Row>
         </ContainerSite>
       </BestChoice>
-      <BlockGetFree>
-        <ContainerSite>
-          <Default.Column justifyContent="center">
-            <Default.Row justifyContent="center">
-              <Default.TitleH3
-                color={Default.color.blueOriginal}
-                textAlignCenter
-              >
-                Get free access to an exclusive <br />
-                list of top candidates
-              </Default.TitleH3>
-            </Default.Row>
-
-            <Default.Space h="5rem" />
-
-            <Default.Row>
-              <BlockGetFreeItem>
-                <Default.Row>
-                  <GetFreeContentIcon>
-                    <IconFolder />
-                  </GetFreeContentIcon>
-                  <Default.Space w="2.1875rem" />
-                  <Default.Title2 color={Default.color.gray}>
-                    Free access to an exclusive list of experienced profiles
-                    available to join your company.
-                  </Default.Title2>
-                </Default.Row>
-              </BlockGetFreeItem>
-              <BlockGetFreeItem>
-                <Default.Row>
-                  <GetFreeContentIcon>
-                    <IconPaper />
-                  </GetFreeContentIcon>
-                  <Default.Space w="2.1875rem" />
-                  <Default.Title2 color={Default.color.gray}>
-                    The best team of recruiters working to find top candidates
-                    to work in your company.
-                  </Default.Title2>
-                </Default.Row>
-              </BlockGetFreeItem>
-            </Default.Row>
-
-            <Default.Space h="3.125rem" />
-            <Default.Row alignItens="stretch">
-              <BlockGetFreeItem>
-                <Default.Row>
-                  <GetFreeContentIcon>
-                    <IconDocument />
-                  </GetFreeContentIcon>
-                  <Default.Space w="2.1875rem" />
-                  <Default.Title2 color={Default.color.gray}>
-                    Top profiles available in the field of Engineering, ICT, and
-                    multilingual Tech.
-                  </Default.Title2>
-                </Default.Row>
-              </BlockGetFreeItem>
-              <BlockGetFreeItem>
-                <Default.Row>
-                  <GetFreeContentIcon>
-                    <IconProfile />
-                  </GetFreeContentIcon>
-                  <Default.Space w="2.1875rem" />
-                  <Default.Title2 color={Default.color.gray}>
-                    No time wasted with another interview. We work hard to find
-                    the best fit for your company.
-                  </Default.Title2>
-                </Default.Row>
-              </BlockGetFreeItem>
-            </Default.Row>
-          </Default.Column>
-          <Default.Space h="5rem" />
-          <Default.Row justifyContent="center">
-            <Link to="/talent-pool/preview">
-              <ButtonSite bgColor={Default.color.blueOriginal}>
-                Access the Talent Pool for free
-              </ButtonSite>
-            </Link>
-          </Default.Row>
-        </ContainerSite>
-      </BlockGetFree>
     </ContentSite>
   );
 }

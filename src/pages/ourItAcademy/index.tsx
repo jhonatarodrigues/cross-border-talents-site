@@ -23,6 +23,7 @@ import {
   IconExcellence,
   ImageBannerMen,
   BackgroundBannerMen,
+  ContentWhite,
 } from './style';
 
 export default function OurItAcademy(): JSX.Element {
@@ -37,21 +38,8 @@ export default function OurItAcademy(): JSX.Element {
               Academy is for you
             </Title>
             <Link to="/jobs">
-              <ButtonSite bgColor={Default.color.success}>
-                Take your opportunity here
-              </ButtonSite>
+              <ButtonSite bgColor={Default.color.success}>Apply now</ButtonSite>
             </Link>
-            <Default.Space h="2rem" />
-            <div>
-              <IconSearch src={ImageExcellence1} />
-              <IconSearch src={ImageExcellence2} />
-              <IconSearch src={ImageExcellence3} />
-              <TextIconSearch>
-                <span>WE ARE GLOBAL</span>
-                <br />
-                Operating in over 102 countries
-              </TextIconSearch>
-            </div>
           </ContainerSite>
           <ContainerSite>
             <BackgroundBannerMen />
@@ -61,27 +49,28 @@ export default function OurItAcademy(): JSX.Element {
       </Banner>
       <BlockAcademy>
         <ContainerSite>
-          <Default.TitleH3 color={Default.color.blueOriginal} textAlignCenter>
-            Our IT Academy
-          </Default.TitleH3>
-          <Default.Space h="7.5rem" className="hiddenMobile" />
-          <Default.Space h="3.125rem" className="visibleMobile" />
-          <Default.Text color={Default.color.blueOriginal} textAlignCenter>
-            We want to fill in the gap in the it market, the technology is
-            growing in a fast pace, schools, universities <br />
-            and other educational institutes are not enough to the huge and
-            emerging need of it specialist. <br />
-            <br />
-            We have identified the gap, and we want to be part of the change of
-            the digital labor, we want to <br />
-            contribute with talented people, creating the strong message that
-            &quot;code is for everyone&quot;.
-          </Default.Text>
-          <Default.Space h="1.25rem" />
+          <ContentWhite>
+            <Default.TitleH3 color={Default.color.blueOriginal} textAlignCenter>
+              How does it work?
+            </Default.TitleH3>
+            <Default.Space h="1.875rem" className="hiddenMobile" />
+            <Default.Space h="3.125rem" className="visibleMobile" />
+            <Default.Text color={Default.color.blueOriginal} textAlignCenter>
+              In our CBT IT Academy, we can teach IT skills such as Java, PHP,
+              Web Developer, and a variety of other digital languages. It&apos;s
+              quite simple to join. You enroll in a training program and,
+              following an assessment, are placed with one of our clients
+              companies to complete your training. Our coding academy does not
+              require any prior knowledge. We will get you up to speed and
+              familiarize you with the fundamentals of coding, whether you have
+              previously coded or are starting from scratch.
+            </Default.Text>
+          </ContentWhite>
+          <Default.Space h="3.125rem" />
           <Default.Row justifyContent="center">
             <Link to="/jobs">
               <ButtonSite bgColor={Default.color.spotlight}>
-                Take your opportunity here
+                Apply now
               </ButtonSite>
             </Link>
           </Default.Row>
@@ -103,37 +92,46 @@ export default function OurItAcademy(): JSX.Element {
                   </div>
                   <Default.Space h="2.8125rem" />
                   <Default.TitleH3 color={Default.color.blueBase}>
-                    Learn to code
+                    Equipping people <br />
+                    with the right <br />
+                    Tech Skills
                   </Default.TitleH3>
                   <Default.Space h="1.25rem" />
                   <Default.Subtitle color={Default.color.gray}>
-                    In our CBTalents IT Academy we will have the opportunity to
-                    train it skills ike java, web developer, php and na entire
-                    world of digital languages. <br />
+                    Our Academy is a part of the European Commission&apos;s
+                    Actions and part of a network of companies under the Cross
+                    Border Talents brand, named Horizon 2020 SME Champion by the
+                    European Commission with 3 Seals of Excellence. <br />
                     <br />
-                    We have identified the gap, and we want to be part of the
-                    change of the digital labor, we want to contitribute with
-                    talented people, creating the Strong message that &quot;code
-                    is for everyone&quot;. <br />
-                    <br />
-                    CBT IT Talents Academy is part of a network of companies
-                    under the Cross Border Talents trademark, which has been
-                    nominated a Horizon 2020 SME Champion by the European
-                    Commission with the Seal of Excellence. <br />
-                    <br />
-                    We have a strong relationship with a wide number of
-                    technological partners willing to provide training on how to
-                    operate on many software programming tools. <br />
-                    <br />
-                    Is this your dream, but don’t have the Java knowledge yet?
-                    SO, grab this opportunity! This is your opportunity to get
-                    into the ICT sector, you will be trained at no cost, and
-                    based on your performance will have the change to considered
-                    for a job opportunity as Junior Java Developer.
+                    Launched in 2016, the Digital Skills and Jobs Coalition
+                    brings together Member States, businesses, social partners,
+                    non-profit organizations, and education providers to address
+                    Europe&apos;s digital skills shortage. In less than a year,
+                    Members of the coalition have trained over seven million
+                    Europeans.
                   </Default.Subtitle>
                 </Default.Column>
               </Default.Row>
             </Default.Column>
+          </Default.Row>
+          <Default.Space h="1.875rem" />
+          <Default.Subtitle color={Default.color.gray}>
+            The demand for information and communications technology
+            professionals is rapidly increasing. At the same time, 169 million
+            Europeans aged 16 to 74 - 44 percent - lack basic digital skills.
+            <br />
+            <br />
+            Given that digital skills are required for 9 out of 10 jobs.
+            Companies have a difficult time finding qualified candidates. We
+            recognize this gap and want to be part of the change in the digital
+            workforce. We want to contribute with talented people to deliver the
+            strong message that &quot;Code is for everyone&quot;.
+          </Default.Subtitle>
+          <Default.Space h="2.125rem" />
+          <Default.Row justifyContent="center" alignItens="center">
+            <ButtonSite bgColor={Default.color.spotlight}>
+              Learn more
+            </ButtonSite>
           </Default.Row>
         </ContainerSite>
       </BlockAcademy>

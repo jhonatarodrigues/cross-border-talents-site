@@ -105,7 +105,7 @@ export const ImageContent = styled.div`
 `;
 export const Image = styled.div`
   width: 36.9375rem;
-  height: 42.125rem;
+  height: 28.875rem;
   border-radius: 3.125rem;
   background: url(${LearCode}) center no-repeat;
   background-size: cover;
@@ -124,7 +124,7 @@ export const Image = styled.div`
 `;
 export const ImageOrnament = styled.div`
   width: 36.9375rem;
-  height: 42.125rem;
+  height: 28.875rem;
   border-radius: 3.125rem;
   background: ${Default.color.blueOriginal};
   position: relative;
@@ -138,4 +138,10 @@ export const IconExcellence = styled.img`
   width: 4.125rem;
   height: 3.3125rem;
   margin-right: 0.625rem;
+`;
+export const ContentWhite = styled.div`
+  padding: 5rem 4.8125rem;
+  background: ${Default.color.white};
+  box-shadow: 0px 0px 30px #0000000d;
+  flex-direction: column;
 `;

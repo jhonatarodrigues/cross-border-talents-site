@@ -35,16 +35,10 @@ import {
   BlockStopWorryingImageContent,
   BlockStopWorryingImage,
   BlockStopWorryingImageBack,
-  BestPraticeBlock,
   ExpertiseBlockType,
-  ImageContentBestPratice,
-  ImageBestPratice,
-  ImageOrnamentBestPratice,
-  MapImageBlock,
   MapImage,
   BlockBaseHistory,
   BlockBaseItem,
-  ContentIconMark,
   MapImageLegend,
   ContentIconExpertise,
   TitleExpertiseBlockType,
@@ -53,6 +47,7 @@ import {
   ImageWorkWithContent,
   OrnamentContent,
   OrnamentIconUser,
+  ExpertiseBlockTypeContent,
 } from './style';
 
 export default function MeetCompany(): JSX.Element {
@@ -134,7 +129,7 @@ export default function MeetCompany(): JSX.Element {
               Our goals
             </Default.TitleH3>
           </Default.Row>
-          <Default.Row>
+          <ExpertiseBlockTypeContent>
             <ExpertiseBlockType>
               <ContentIconExpertise>
                 <IconIct />
@@ -178,7 +173,7 @@ export default function MeetCompany(): JSX.Element {
                 </TextExpertiseBlockType>
               </Default.Column>
             </ExpertiseBlockType>
-          </Default.Row>
+          </ExpertiseBlockTypeContent>
           <Default.Space h="3.125rem" />
           <Default.Row justifyContent="center">
             <ButtonSite bgColor={Default.color.spotlight}>

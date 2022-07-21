@@ -368,6 +368,7 @@ export const BestChoiceItemText = styled(Default.Text)`
 
 export const BlockGetFree = styled(Default.BlockContent)`
   background: ${Default.color.grayExtremeLight};
+  padding-top: 0;
 `;
 export const BlockGetFreeItem = styled.div`
   background: ${Default.color.white};
