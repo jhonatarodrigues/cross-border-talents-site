@@ -37,7 +37,10 @@ export default function Header({ transparent }: IProps): JSX.Element {
           <ContentLogoImage src={logo} alt="Logo" />
         </Link>
       </ContentLogo>
-      <ContentSandwich onClick={() => setOpenMenu(prev => !prev)}>
+      <ContentSandwich
+        className="visibleMobile"
+        onClick={() => setOpenMenu(prev => !prev)}
+      >
         <SandwichLine openMenu={openMenu} />
         <SandwichLine openMenu={openMenu} />
         <SandwichLine openMenu={openMenu} />

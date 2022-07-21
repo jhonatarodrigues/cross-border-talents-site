@@ -198,7 +198,7 @@ export const TagItem = styled.div`
   font-weight: 700;
 `;
 export const BlockWasted = styled(Default.BlockContent)`
-  background: ${Default.color.blueOriginal};
+  background: ${Default.color.white2};
 `;
 export const ContentWastedImage = styled.div`
   width: 29.3125rem;
@@ -226,7 +226,7 @@ export const WastedImage = styled.div`
 export const WastedImageContent = styled.div`
   width: 29.3125rem;
   border-radius: 3.125rem;
-  height: 38.0625rem;
+  height: 29.375rem;
   background: #374565;
   position: absolute;
   left: -3.75rem;

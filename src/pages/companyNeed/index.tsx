@@ -462,7 +462,7 @@ export default function CompanyNeed(): JSX.Element {
                     <TagBox>Candidate</TagBox>
                     <Default.Column>
                       <Default.Title4 color={Default.color.blue}>
-                        {item.charge}
+                        {item.profile}
                       </Default.Title4>
 
                       <Default.Space h="1.25rem" />

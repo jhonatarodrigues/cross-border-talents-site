@@ -18,6 +18,7 @@ import IconDocument from '../../assets/svg/document';
 import IconProfile from '../../assets/svg/profile';
 import IconMultilingual from '../../assets/svg/multilingual';
 import IconPaper from '../../assets/svg/paper';
+import IconFilter from '../../assets/svg/filter';
 
 import { AddCompanyModalPage } from '../../hooks/admin/useCompanies';
 import {
@@ -75,6 +76,14 @@ import {
   BlockGetFree,
   BlockGetFreeItem,
   GetFreeContentIcon,
+  CandidatesWeek,
+  ExpertiseBLockImageOrnament,
+  ExpertiseBLockImageBack,
+  ExpertiseBLockImage,
+  NewJobItemContentIcon,
+  ExpertiseBLockContentText,
+  TagItem,
+  NewJobItemTag,
 } from './style';
 
 export default function TopCandidates(): JSX.Element {
@@ -240,6 +249,7 @@ export default function TopCandidates(): JSX.Element {
           </Default.Row>
         </ContainerSite>
       </Banner>
+
       <ExpertiseBLock>
         <ContainerSite>
           <Default.Column justifyContent="center" alignItens="center">
@@ -337,69 +347,115 @@ export default function TopCandidates(): JSX.Element {
           </Default.Row>
         </ContainerSite>
       </ExpertiseBLock>
-      <NewJobBLock>
+      <CandidatesWeek>
         <ContainerSite>
-          <Default.Row justifyContent="center">
-            <NewJobTitleContent>
-              <Default.TitleH3 color={Default.color.blue} textAlignCenter>
-                Top candidates of the week
-              </Default.TitleH3>
-              <Default.Space h="1.25rem" />
-              <Default.Subtitle color={Default.color.gray} textAlignCenter>
-                Every week we highlight the best candidate to join your company.
-                Not what you need? Access top talent quickly through our
-                platform and interview today exclusive multilingual tech
-                profiles.
-              </Default.Subtitle>
-            </NewJobTitleContent>
-          </Default.Row>
-          <Default.Space h="2.5rem" />
+          <Default.TitleH3 color={Default.color.blueOriginal} textAlignCenter>
+            Top Candidates of the Week
+          </Default.TitleH3>
+          <Default.Space h="6.625rem" />
+          <Default.Row>
+            <ExpertiseBLockImage>
+              <ExpertiseBLockImageOrnament />
+              <ExpertiseBLockImageBack />
+            </ExpertiseBLockImage>
+            <ExpertiseBLockContentText>
+              <Default.Column>
+                <Default.TitleH3 color={Default.color.blueBase}>
+                  Top Candidates.
+                  <br />
+                  Every week.
+                </Default.TitleH3>
+                <Default.Space h="1rem" />
+                <Default.Subtitle color={Default.color.gray}>
+                  Every week we highlight the best candidate to join your
+                  company. Not what you need? Access top talent quickly through
+                  our platform and interview today exclusive multilingual tech
+                  profiles Access top talent quickly through our platform and
+                  interview today exclusive multilingual tech profiles.
+                </Default.Subtitle>
+                <Default.Row>
+                  <Default.Row>
+                    <Default.Column
+                      alignItens="flex-start"
+                      justifyContent="flex-start"
+                    >
+                      <Default.Space h="1.75rem" />
+                      <IconStar />
+                      <Default.Space h="1rem" />
+                      <Default.Title2 color={Default.color.blueOriginal}>
+                        Highlights to <br />
+                        you company
+                      </Default.Title2>
+                    </Default.Column>
+                    <Default.Space w="3.125rem" />
+                    <Default.Column
+                      alignItens="flex-start"
+                      justifyContent="flex-start"
+                    >
+                      <Default.Space h="1.75rem" />
+                      <IconFilter />
+                      <Default.Space h="1rem" />
+                      <Default.Title2 color={Default.color.blueOriginal}>
+                        Quickly <br />
+                        filter
+                      </Default.Title2>
+                    </Default.Column>
+                  </Default.Row>
+                  <Default.Space w="80%" />
+                </Default.Row>
 
+                <Default.Space h="1.875rem" />
+                <Default.Text color={Default.color.blueLight2}>
+                  Follow our hashtag #cbt_unicorn and stay tuned!
+                </Default.Text>
+              </Default.Column>
+            </ExpertiseBLockContentText>
+          </Default.Row>
+          <Default.Space h="5rem" />
           <Default.Row alignItens="stretch">
-            {talentPool?.talentPools.map(job => {
+            {talentPool?.talentPools.map(talentPoolItem => {
               let countryDesc = '';
 
               if (country.length > 0) {
                 countryDesc =
                   country.find(
                     (countryItem: ICountrie) =>
-                      countryItem.countryShortCode === job.candidate.country,
+                      countryItem.countryShortCode ===
+                      talentPoolItem.candidate.country,
                   )?.countryName || '';
               }
 
               return (
                 <NewJobItem>
-                  <NewJobTagType>Candidate</NewJobTagType>
+                  <NewJobItemTag>Candidate</NewJobItemTag>
                   <Default.Title2 color={Default.color.blue}>
-                    {job.charge}
+                    {talentPoolItem.profile}
                   </Default.Title2>
                   <Default.Space h="0.625rem" />
-                  <Default.Row>
+                  <NewJobItemContentIcon>
                     <Default.Row alignItens="center">
                       <FontAwesomeIcon
                         icon={faLocationDot}
                         color={Default.color.success}
-                        fontSize={21}
+                        fontSize={20}
                       />
                       <NewJobItemContentIconText>
                         {countryDesc}
                       </NewJobItemContentIconText>
                     </Default.Row>
-                    <Default.Space h="15px" className="visibleMobile" />
-                    <Default.Row justifyContent="flex-end">
-                      <TagNewJobItem color={Default.color.blueBase}>
-                        ID 12345
-                      </TagNewJobItem>
+                    <Default.Space h="0.9375rem" className="visibleMobile" />
+                    <Default.Row justifyContent="flex-end" alignItens="center">
+                      <TagItem>ID 12345</TagItem>
                     </Default.Row>
-                  </Default.Row>
+                  </NewJobItemContentIcon>
                   <Default.Space h="0.625rem" />
                   <Default.Subtitle
                     color={Default.color.gray}
                     dangerouslySetInnerHTML={{
                       __html:
-                        job.experience.length > 50
-                          ? `${job.experience.slice(0, 50)}...`
-                          : job.experience,
+                        talentPoolItem.experience.length > 50
+                          ? `${talentPoolItem.experience.slice(0, 50)}...`
+                          : talentPoolItem.experience,
                     }}
                     style={{ flexDirection: 'column' }}
                   />
@@ -407,17 +463,15 @@ export default function TopCandidates(): JSX.Element {
               );
             })}
           </Default.Row>
-
-          <Default.Space h="5rem" />
+          <Default.Space h="2.5rem" />
           <Default.Row justifyContent="center">
-            <Link to="/talent-pool/preview">
-              <ButtonSite bgColor={Default.color.blueOriginal}>
-                See all Top Candidates
-              </ButtonSite>
+            <Link to="/jobs">
+              <ButtonSite>Discover all opportunities</ButtonSite>
             </Link>
           </Default.Row>
         </ContainerSite>
-      </NewJobBLock>
+      </CandidatesWeek>
+
       <BlockStopWorrying>
         <ContainerSite>
           <Default.Row>
@@ -429,8 +483,8 @@ export default function TopCandidates(): JSX.Element {
               </Default.TitleH3>
               <Default.Space h="1.25rem" />
               <Default.Subtitle color={Default.color.whiteLight}>
-                Access our Talent Pool today and find exclusive candidates
-                available to relocate.
+                Candidates that don&apos;t fit your company&apos;s needs. A long
+                list of interviews to schedule.
               </Default.Subtitle>
               <Default.Space h="45px" />
               <Default.Row>

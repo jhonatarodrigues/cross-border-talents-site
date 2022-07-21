@@ -60,6 +60,9 @@ import {
   IconExpertiseContent,
   ImageBannerWoman,
   BackgroundBannerWoman,
+  JoinTeam,
+  ImageJoinTeam,
+  ImageJoinTeamOrnament,
 } from './style';
 
 export default function Dash(): JSX.Element {
@@ -307,6 +310,41 @@ export default function Dash(): JSX.Element {
           </Default.Row>
         </ContainerSite>
       </ExpertiseBLock>
+      <JoinTeam>
+        <ContainerSite>
+          <Default.TitleH3 color={Default.color.blue} textAlignCenter>
+            Keen to Join the Team?
+          </Default.TitleH3>
+          <Default.Space h="6.9375rem" />
+          <Default.Row>
+            <Default.Column>
+              <Default.Row>
+                <Default.Column>
+                  <Default.TitleH3 color={Default.color.blueBase}>
+                    Be part of this <br />
+                    opportunity
+                  </Default.TitleH3>
+                  <Default.Space h="1rem" />
+                  <Default.Subtitle color={Default.color.gray}>
+                    Cross Border Talents offers its team members the possibility
+                    of working from anywhere in the world in the comfort of
+                    their homes. Being a fully remote company allowed us to
+                    multiply diversity, and at the same time provide
+                    opportunities cross-countries.
+                  </Default.Subtitle>
+                  <Default.Space h="2.5rem" />
+                  <ButtonSite>Join our team</ButtonSite>
+                </Default.Column>
+                <Default.Space w="4.375rem" className="hiddenMobile" />
+              </Default.Row>
+            </Default.Column>
+            <Default.Column>
+              <ImageJoinTeamOrnament />
+              <ImageJoinTeam />
+            </Default.Column>
+          </Default.Row>
+        </ContainerSite>
+      </JoinTeam>
       <NewJobBLock>
         <ContainerSite>
           <Default.TitleH3 color={Default.color.blue} textAlignCenter>

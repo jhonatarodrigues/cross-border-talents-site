@@ -107,8 +107,8 @@ export const BlockContactUsForm = styled.div`
   background: ${Default.color.blue};
   padding: 6.625rem 5.25rem 4.4375rem;
   border-radius: 3.125rem;
-  width: 47.625rem;
-  margin-left: 5.0625rem;
+  width: 762px;
+  margin-left: 7.375rem;
   position: relative;
   flex-direction: column;
 
@@ -118,37 +118,35 @@ export const BlockContactUsForm = styled.div`
     margin-left: 0;
   `)}
 
-  .css-uaehr5-MuiFormControl-root-MuiTextField-root:hover fieldset,
-  .css-8l3ogp-MuiFormControl-root:hover fieldset {
+  .MuiTextField-root:hover fieldset,
+  .MuiFormControl-root:hover fieldset {
     border-color: ${Default.color.success};
   }
 
-  .css-uaehr5-MuiFormControl-root-MuiTextField-root
-    .MuiOutlinedInput-root.Mui-focused
-    fieldset,
-  .css-8l3ogp-MuiFormControl-root .MuiOutlinedInput-root.Mui-focused fieldset {
+  .MuiFormControl-root .MuiOutlinedInput-root.Mui-focused fieldset,
+  .MuiFormControl-root .MuiOutlinedInput-root.Mui-focused fieldset {
     border-color: ${Default.color.success};
   }
-  .css-1pysi21-MuiFormLabel-root-MuiInputLabel-root,
-  .css-bpeome-MuiSvgIcon-root-MuiSelect-icon,
-  .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root,
-  .css-1sumxir-MuiFormLabel-root-MuiInputLabel-root {
+  .MuiInputLabel-root,
+  .MuiSelect-icon,
+  .MuiInputLabel-root,
+  .MuiInputLabel-root {
     color: ${Default.color.white};
   }
-  .css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input {
+  .MuiOutlinedInput-input {
     color: ${Default.color.white};
     &::placeholder {
       color: ${Default.color.white};
     }
   }
-  .css-hfutr2-MuiSvgIcon-root-MuiSelect-icon {
+  .MuiSelect-icon {
     color: ${Default.color.white};
     opacity: 0.5;
     &:hover {
       border-color: ${Default.color.white};
     }
   }
-  .css-1d3z3hw-MuiOutlinedInput-notchedOutline {
+  .MuiOutlinedInput-notchedOutline {
     border-color: ${Default.color.white};
     &:hover {
       border-color: ${Default.color.white};
@@ -156,6 +154,10 @@ export const BlockContactUsForm = styled.div`
     legend span {
       color: ${Default.color.white};
     }
+  }
+
+  .MuiInputLabel-root {
+    color: #fff !important;
   }
 `;
 export const ContactBlockInfo = styled.div`

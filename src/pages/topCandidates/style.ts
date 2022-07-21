@@ -4,6 +4,7 @@ import { Mobile } from '../../styles/responsiveVariables';
 
 import TalentPool from '../../assets/images/talentPool/talent-pool.jpg';
 import StopWorrying from '../../assets/images/talentPool/stop-worrying.jpg';
+import TopCandidates from '../../assets/images/forEmployers/topCandidates.jpg';
 import Default from '../../default';
 
 interface IColor {
@@ -99,10 +100,7 @@ export const TextExpertiseBlockType = styled.p`
   color: ${Default.color.white};
   padding-left: 0.9375rem;
 `;
-export const ExpertiseBLockImage = styled.div`
-  width: 41.5625rem;
-  height: 36.9375rem;
-`;
+
 export const ContentIconExpertise = styled.div``;
 export const ExpertiseArrow = styled.div`
   position: relative;
@@ -140,6 +138,18 @@ export const NewJobItem = styled.div`
   ${Mobile(`
     align-items: center;
   `)}
+`;
+export const NewJobItemTag = styled.p`
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: ${Default.color.spotlight};
+  border-radius: 0.3125rem 0px 0.3125rem 0px;
+  padding: 0.5rem 1.125rem;
+  color: ${Default.color.white};
+  font-size: 0.625rem;
+  margin-left: -1px;
+  margin-top: -1px;
 `;
 export const NewJobItemContentIcon = styled.div`
   flex-direction: row;
@@ -381,4 +391,58 @@ export const BlockGetFreeItem = styled.div`
 `;
 export const GetFreeContentIcon = styled.div`
   width: 3.125rem;
+`;
+
+export const CandidatesWeek = styled(Default.BlockContent)`
+  background: ${Default.color.grayBackground};
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ExpertiseBLockImage = styled.div`
+  height: 23.6875rem;
+  margin-right: 3.75rem;
+  position: relative;
+`;
+
+export const ExpertiseBLockImageOrnament = styled.div`
+  width: 34.9375rem;
+  height: 23.6875rem;
+  position: absolute;
+  left: 0;
+  margin-top: -3.125rem;
+  border-radius: 3.125rem;
+  border: 1px solid ${Default.color.spotlight};
+
+  ${Mobile(`
+    width: 18.75rem;
+    height: 17.5rem;
+  `)}
+`;
+export const ExpertiseBLockImageBack = styled.div`
+  width: 34.9375rem;
+  height: 23.6875rem;
+  background: url(${TopCandidates}) center no-repeat;
+  border-radius: 3.125rem;
+  margin-left: 3.125rem;
+  position: relative;
+  z-index: 2;
+
+  ${Mobile(`
+    width: 20.625rem;
+    height: 18.75rem;
+  `)}
+`;
+export const ExpertiseBLockContentText = styled.div`
+  padding: 0;
+`;
+
+export const TagItem = styled.div`
+  padding: 0.375rem 0.9375rem;
+  font-size: 0.625rem;
+  color: ${Default.color.white};
+  text-transform: uppercase;
+  background: ${Default.color.blueBase};
+  border-radius: 1.25rem;
+  font-weight: 700;
 `;

@@ -108,6 +108,7 @@ export const ButtonSearch = styled.button`
   border-radius: 0.625rem;
   padding: 1.125rem;
   min-width: 5.9375rem;
+  cursor: pointer;
 `;
 export const SubtitleSearchBanner = styled.p`
   font-size: 0.75rem;
@@ -183,6 +184,13 @@ export const ExpertiseBlockType = styled.div`
         margin-top: 1.875rem;
       }
   `)}
+
+  background: transparent;
+  transition: all 0.2s ease;
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.2s ease;
+  }
 `;
 export const TitleExpertiseBlockType = styled.p`
   font-size: 1.125rem;
@@ -268,6 +276,13 @@ export const ExpertiseIconTitle = styled.p`
   padding-top: 0.3125rem;
 `;
 
+export const JoinTeam = styled(Default.BlockContent)`
+  background: ${Default.color.white2};
+  background-size: cover;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const NewJobBLock = styled(Default.BlockContent)`
   background: url(${imageNewJob}) no-repeat center;
   background-size: cover;
@@ -336,4 +351,24 @@ export const BestChoiceItemText = styled(Default.Text)`
 `;
 export const IconExpertiseContent = styled.div`
   width: 1.875rem;
+`;
+
+export const ImageJoinTeam = styled.div`
+  width: 34.9375rem;
+  height: 23.6875rem;
+  border-radius: 3.125rem;
+  background: #0f0;
+  margin-left: 3.125rem;
+  position: relative;
+  z-index: 1;
+`;
+
+export const ImageJoinTeamOrnament = styled.div`
+  width: 34.9375rem;
+  height: 23.6875rem;
+  border-radius: 3.125rem;
+  border: 1px solid ${Default.color.spotlight};
+  position: absolute;
+  margin-left: 0;
+  margin-top: -3.125rem;
 `;
