@@ -17,6 +17,7 @@ import TestimonialsPage from './pages/testimonials';
 import MeetCompany from './pages/meetCompany';
 import RegisterTalentPool from './pages/registerTalentPool';
 import JobsInternal from './pages/jobsInternal';
+import TalentAcquisition from './pages/talentAcquisition';
 
 // -- admin pages
 import Login from './pages/admin/login';
@@ -62,6 +63,7 @@ export default function Teste(): JSX.Element {
           path="/registerTalentPool/:token"
           element={<RegisterTalentPool />}
         />
+        {/* <Route path="/talentAcquisition" element={<TalentAcquisition />} /> */}
 
         <Route path="/admin">
           <Route path="login" element={<Login />} />
