@@ -144,4 +144,31 @@ export const ContentWhite = styled.div`
   background: ${Default.color.white};
   box-shadow: 0px 0px 30px #0000000d;
   flex-direction: column;
+  border-radius: 3.125rem;
+`;
+export const BlockNecessaryProgramming = styled(Default.BlockContent)`
+  background: ${Default.color.blueOriginal};
+`;
+export const ContentDescription = styled.div`
+  padding: 3.125rem;
+  background: ${Default.color.blue};
+  border-radius: 50px;
+  width: 36.8125rem;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+`;
+export const ContentDescriptionOrnament = styled.div`
+  height: 100%;
+  width: 36.8125rem;
+  position: absolute;
+  border: 1px solid ${Default.color.spotlight};
+  border-radius: 50px;
+  left: -3.125rem;
+  top: 3.125rem;
+  z-index: 0;
+`;
+
+export const Description = styled.div`
+  position: relative;
 `;

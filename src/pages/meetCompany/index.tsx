@@ -89,7 +89,7 @@ export default function MeetCompany(): JSX.Element {
             excellence
           </Default.Title2>
 
-          <Default.Space h="8.4375rem" className="hiddenMobile" />
+          <Default.Space h="4.6875rem" className="hiddenMobile" />
           <Default.Space h="5rem" className="visibleMobile" />
 
           <Default.Row>

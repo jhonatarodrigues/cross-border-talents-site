@@ -72,6 +72,7 @@ export const BlockAcademy = styled(Default.BlockContent)`
 export const ImageContent = styled.div`
   width: 36.9375rem;
   position: relative;
+  padding-top: 3.75rem;
   ${Mobile(`
     width: 100%;
     align-items: center;

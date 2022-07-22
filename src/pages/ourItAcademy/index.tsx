@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import ImageExcellence1 from '../../assets/images/excellence1.png';
 import ImageExcellence2 from '../../assets/images/excellence2.png';
 import ImageExcellence3 from '../../assets/images/excellence3.png';
+import Paper from '../../assets/svg/paper';
 
 import Default from '../../default';
 import ContentSite from '../../components/ContentSite';
@@ -24,6 +25,10 @@ import {
   ImageBannerMen,
   BackgroundBannerMen,
   ContentWhite,
+  BlockNecessaryProgramming,
+  ContentDescription,
+  ContentDescriptionOrnament,
+  Description,
 } from './style';
 
 export default function OurItAcademy(): JSX.Element {
@@ -135,6 +140,42 @@ export default function OurItAcademy(): JSX.Element {
           </Default.Row>
         </ContainerSite>
       </BlockAcademy>
+      <BlockNecessaryProgramming>
+        <ContainerSite>
+          <Default.Row>
+            <Default.Column>
+              <Default.TitleH3 color={Default.color.white}>
+                Do you not yet <br />
+                have the necessary <br />
+                programming skills?
+              </Default.TitleH3>
+              <Default.Space h="1.25rem" />
+              <Default.Title2 color={Default.color.success}>
+                Take advantage of this opportunity!
+              </Default.Title2>
+              <Default.Space h="2.5rem" />
+              <ButtonSite bgColor={Default.color.spotlight}>
+                I want to learn
+              </ButtonSite>
+            </Default.Column>
+            <Default.Column>
+              <Description>
+                <ContentDescriptionOrnament />
+                <ContentDescription>
+                  <Paper />
+                  <Default.Space h="0.9375rem" />
+                  <Default.Subtitle color={Default.color.white}>
+                    This is your chance to enter the field of information
+                    technology. In the academy you will be trained for free and,
+                    depending on your performance, you will have the opportunity
+                    to be considered for a position as a Junior Java Developer.
+                  </Default.Subtitle>
+                </ContentDescription>
+              </Description>
+            </Default.Column>
+          </Default.Row>
+        </ContainerSite>
+      </BlockNecessaryProgramming>
     </ContentSite>
   );
 }
