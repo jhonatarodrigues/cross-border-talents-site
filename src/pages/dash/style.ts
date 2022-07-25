@@ -357,7 +357,7 @@ export const ImageJoinTeam = styled.div`
   width: 34.9375rem;
   height: 23.6875rem;
   border-radius: 3.125rem;
-  background: #0f0;
+  background: #808080;
   margin-left: 3.125rem;
   position: relative;
   z-index: 1;
