@@ -259,7 +259,7 @@ export default function TopCandidates(): JSX.Element {
               And make the perfect match
             </Default.Title2>
           </Default.Column>
-          <Default.Row>
+          <Default.Row alignItens="stretch">
             <ExpertiseBlockType
               onClick={() => {
                 navigate('/talent-pool/preview', {
@@ -275,8 +275,7 @@ export default function TopCandidates(): JSX.Element {
               <Default.Column>
                 <TitleExpertiseBlockType>ICT</TitleExpertiseBlockType>
                 <TextExpertiseBlockType>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt
+                  ICT professionals available to work in your company
                 </TextExpertiseBlockType>
               </Default.Column>
 
@@ -303,8 +302,7 @@ export default function TopCandidates(): JSX.Element {
               <Default.Column>
                 <TitleExpertiseBlockType>Multilingual</TitleExpertiseBlockType>
                 <TextExpertiseBlockType>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt
+                  MULTILINGUAL professionals available to work in your company
                 </TextExpertiseBlockType>
               </Default.Column>
 
@@ -331,8 +329,7 @@ export default function TopCandidates(): JSX.Element {
               <Default.Column>
                 <TitleExpertiseBlockType>Engineering</TitleExpertiseBlockType>
                 <TextExpertiseBlockType>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt
+                  Engineering professionals available to work in your company
                 </TextExpertiseBlockType>
               </Default.Column>
 
@@ -445,7 +442,7 @@ export default function TopCandidates(): JSX.Element {
                     </Default.Row>
                     <Default.Space h="0.9375rem" className="visibleMobile" />
                     <Default.Row justifyContent="flex-end" alignItens="center">
-                      <TagItem>ID 12345</TagItem>
+                      <TagItem>ID {talentPoolItem.id}</TagItem>
                     </Default.Row>
                   </NewJobItemContentIcon>
                   <Default.Space h="0.625rem" />
@@ -453,9 +450,10 @@ export default function TopCandidates(): JSX.Element {
                     color={Default.color.gray}
                     dangerouslySetInnerHTML={{
                       __html:
-                        talentPoolItem.experience.length > 50
-                          ? `${talentPoolItem.experience.slice(0, 50)}...`
-                          : talentPoolItem.experience,
+                        talentPoolItem.observation &&
+                        talentPoolItem.observation.length > 50
+                          ? `${talentPoolItem.observation.slice(0, 50)}...`
+                          : talentPoolItem.observation,
                     }}
                     style={{ flexDirection: 'column' }}
                   />
@@ -465,8 +463,8 @@ export default function TopCandidates(): JSX.Element {
           </Default.Row>
           <Default.Space h="2.5rem" />
           <Default.Row justifyContent="center">
-            <Link to="/jobs">
-              <ButtonSite>Discover all opportunities</ButtonSite>
+            <Link to="/talent-pool/preview">
+              <ButtonSite>Discover all candidates</ButtonSite>
             </Link>
           </Default.Row>
         </ContainerSite>

@@ -41,7 +41,7 @@ export const BlockFilter = styled.div`
 `;
 export const ContentButtonSearch = styled.div`
   display: block;
-  min-width: 6.6875rem;
+  min-width: 7.6875rem;
 
   ${Mobile(`
     display: flex;

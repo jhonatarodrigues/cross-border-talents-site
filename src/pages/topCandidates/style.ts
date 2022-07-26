@@ -61,6 +61,10 @@ export const ExpertiseBlockType = styled.div`
   align-items: flex-start;
   margin: 2.5rem 1rem 0;
   cursor: pointer;
+
+  width: 100%;
+  justify-content: stretch;
+
   &:last-child {
     margin-right: 0;
   }

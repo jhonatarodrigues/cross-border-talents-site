@@ -107,7 +107,7 @@ export const ButtonSearch = styled.button`
   border: none;
   border-radius: 0.625rem;
   padding: 1.125rem;
-  min-width: 5.9375rem;
+  min-width: 6.25rem;
   cursor: pointer;
 `;
 export const SubtitleSearchBanner = styled.p`
@@ -166,6 +166,8 @@ export const ExpertiseBlockType = styled.div`
   align-items: flex-start;
   margin: 2.5rem 1rem 0;
   cursor: pointer;
+  width: 100%;
+
   &:last-child {
     margin-right: 0;
   }
@@ -296,6 +298,8 @@ export const NewJobItem = styled.div`
   border-radius: 1.25rem;
   margin: 0 0.625rem;
   width: 100%;
+  position: relative;
+  cursor: pointer;
   &:first-child {
     margin-left: 0;
   }
@@ -371,4 +375,15 @@ export const ImageJoinTeamOrnament = styled.div`
   position: absolute;
   margin-left: 0;
   margin-top: -3.125rem;
+`;
+export const BoxTag = styled.div`
+  position: absolute;
+  border-top-left-radius: 0.3125rem;
+  border-bottom-right-radius: 0.3125rem;
+  top: -1px;
+  left: -1px;
+  background: ${Default.color.blueBase};
+  padding: 0.5rem 1rem;
+  font-size: 0.625rem;
+  color: ${Default.color.white};
 `;

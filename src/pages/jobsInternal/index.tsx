@@ -121,6 +121,10 @@ export default function JobsInternal(): JSX.Element {
               dangerouslySetInnerHTML={{
                 __html: stateRequest.item.description,
               }}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+              }}
             />
 
             <Default.Space h="5rem" />

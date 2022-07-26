@@ -89,7 +89,9 @@ export const ButtonSearch = styled.button`
   border: none;
   border-radius: 0.625rem;
   padding: 1.125rem;
-  min-width: 7.5rem;
+  min-width: 8.125rem;
+  text-align: center;
+  justify-content: center;
 `;
 export const IconSearch = styled.img`
   width: 2.6875rem;

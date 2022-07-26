@@ -63,6 +63,7 @@ import {
   JoinTeam,
   ImageJoinTeam,
   ImageJoinTeamOrnament,
+  BoxTag,
 } from './style';
 
 export default function Dash(): JSX.Element {
@@ -209,8 +210,7 @@ export default function Dash(): JSX.Element {
               <Default.Column>
                 <TitleExpertiseBlockType>ICT</TitleExpertiseBlockType>
                 <TextExpertiseBlockType>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt
+                  ICT professionals available to work in your company
                 </TextExpertiseBlockType>
               </Default.Column>
             </ExpertiseBlockType>
@@ -229,8 +229,7 @@ export default function Dash(): JSX.Element {
               <Default.Column>
                 <TitleExpertiseBlockType>Multilingual</TitleExpertiseBlockType>
                 <TextExpertiseBlockType>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt
+                  MULTILINGUAL professionals available to work in your company
                 </TextExpertiseBlockType>
               </Default.Column>
             </ExpertiseBlockType>
@@ -249,8 +248,7 @@ export default function Dash(): JSX.Element {
               <Default.Column>
                 <TitleExpertiseBlockType>Engineering</TitleExpertiseBlockType>
                 <TextExpertiseBlockType>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt
+                  Engineering professionals available to work in your company
                 </TextExpertiseBlockType>
               </Default.Column>
             </ExpertiseBlockType>
@@ -382,7 +380,7 @@ export default function Dash(): JSX.Element {
             </ContentSearch>
           </div>
           <Default.Space h="1.875rem" className="hiddenMobile" />
-          <Default.Row>
+          <Default.Row alignItens="stretch">
             {jobs.map(job => {
               let countryDesc = '';
 
@@ -395,7 +393,17 @@ export default function Dash(): JSX.Element {
               }
 
               return (
-                <NewJobItem>
+                <NewJobItem
+                  onClick={() => {
+                    navigate('/jobs/internal', {
+                      state: {
+                        item: job,
+                        countryDesc,
+                      },
+                    });
+                  }}
+                >
+                  <BoxTag>Job Opportunity</BoxTag>
                   <Default.Title2 color={Default.color.blue}>
                     {job.jobTitle}
                   </Default.Title2>

@@ -70,7 +70,7 @@ export const TestimonialsItem = styled.div`
   width: calc(50% - 2rem);
   position: relative;
   padding-top: 4.75rem;
-  margin-bottom: 7.125rem;
+  margin-bottom: 3.75rem;
   border-radius: 1.25rem;
   &:nth-child(2n) {
     margin-right: 0;

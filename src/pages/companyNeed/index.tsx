@@ -483,7 +483,7 @@ export default function CompanyNeed(): JSX.Element {
                         />
                         <Default.Row justifyContent="flex-end">
                           <TagNewJobItem color={Default.color.blueBase}>
-                            ID 12345
+                            ID {item.id}
                           </TagNewJobItem>
                         </Default.Row>
                       </Default.Row>
@@ -492,9 +492,9 @@ export default function CompanyNeed(): JSX.Element {
                         color={Default.color.gray}
                         dangerouslySetInnerHTML={{
                           __html:
-                            item.profile && item.profile.length > 50
-                              ? `${item.profile.slice(0, 50)}...`
-                              : item.profile,
+                            item.observation && item.observation.length > 50
+                              ? `${item.observation.slice(0, 50)}...`
+                              : item.observation,
                         }}
                         style={{ flexDirection: 'column' }}
                       />

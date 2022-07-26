@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ApplicationState } from './store';
@@ -20,6 +20,7 @@ import JobsInternal from './pages/jobsInternal';
 import TalentAcquisition from './pages/talentAcquisition';
 
 // -- admin pages
+import Index from './pages/admin';
 import Login from './pages/admin/login';
 
 import User from './pages/admin/user';
@@ -227,6 +228,7 @@ export default function Teste(): JSX.Element {
               </RouteAccess>
             }
           />
+          <Route path="" element={<Index />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />
