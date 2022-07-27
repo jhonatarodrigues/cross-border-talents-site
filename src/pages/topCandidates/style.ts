@@ -127,6 +127,7 @@ export const NewJobItem = styled.div`
   border: 1px solid ${Default.color.white};
   box-shadow: 0px 0px 30px #0000000d;
   position: relative;
+  cursor: pointer;
   &:first-child {
     margin-left: 0;
   }
@@ -450,4 +451,16 @@ export const TagItem = styled.div`
   background: ${Default.color.blueBase};
   border-radius: 1.25rem;
   font-weight: 700;
+`;
+export const TextModal = styled(Default.Text2)`
+  color: ${Default.color.white};
+  a {
+    text-decoration: underline;
+    color: ${Default.color.white};
+  }
+`;
+
+export const InputCheck = styled.input`
+  margin-right: 0.4375rem;
+  margin-top: -0.1875rem;
 `;

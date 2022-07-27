@@ -20,6 +20,7 @@ import IconMultilingual from '../../assets/svg/multilingual';
 import IconPaper from '../../assets/svg/paper';
 import IconFilter from '../../assets/svg/filter';
 
+import CustomModal from '../../components/CustomModal';
 import { AddCompanyModalPage } from '../../hooks/admin/useCompanies';
 import {
   GetTestimonialsSearch,
@@ -49,12 +50,14 @@ import {
   ContentTitle,
   ExpertiseBLock,
   TitleExpertise,
+  InputCheck,
   ExpertiseBlockType,
   TitleExpertiseBlockType,
   TextExpertiseBlockType,
   ContentIconExpertise,
   ExpertiseArrow,
   NewJobBLock,
+  TextModal,
   NewJobItem,
   NewJobItemContentIconText,
   NewJobTitleContent,
@@ -95,6 +98,9 @@ export default function TopCandidates(): JSX.Element {
   const [talentPool, setTalentPool] = useState<IResponseUser>();
   const [country, setCountry] = useState<ICountrie[]>([]);
   const [testimonials, setTestimonials] = useState<ITestimonials[]>([]);
+  const [modalRegister, setModalRegister] = useState(false);
+  const formRefRegister = useRef<FormHandles>(null);
+  const [terms, setTerms] = useState(false);
   const navigate = useNavigate();
 
   const getInterestSkills = useCallback(async () => {
@@ -221,6 +227,160 @@ export default function TopCandidates(): JSX.Element {
     }
   }, []);
 
+  const handleSubmitRegister: SubmitHandler = useCallback(
+    async data => {
+      if (!terms) {
+        Modal({ keyType: 'acceptTerms', icon: 'error' });
+        return;
+      }
+
+      try {
+        const schema = Yup.object().shape({
+          name: Yup.string().required(),
+          lastName: Yup.string().required(),
+          email: Yup.string().required(),
+          phone: Yup.string().required(),
+          companyName: Yup.string().required(),
+          idInterestSkills: Yup.string().required(),
+        });
+
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        AddCompanyModalPage(data)
+          .then(response => {
+            if (response.data.createCompanie.user.id) {
+              Modal({
+                keyType: 'registerModalCompanySuccess',
+                icon: 'success',
+                onClick: () => {
+                  setModalRegister(false);
+                  navigate('/admin/login');
+                },
+              });
+            }
+          })
+          .catch(() => {
+            Modal({
+              keyType: 'registerModalCompany',
+              icon: 'error',
+            });
+          });
+      } catch (err) {
+        const validationErrors: Record<string, string> = {};
+
+        if (err instanceof Yup.ValidationError) {
+          err.inner.forEach((error: Yup.ValidationError) => {
+            if (error.path) {
+              validationErrors[error.path] = error.message;
+            }
+          });
+
+          formRefRegister.current?.setErrors(validationErrors);
+        }
+      }
+    },
+    [terms, navigate],
+  );
+
+  const renderModalRegister = useCallback(() => {
+    if (!modalRegister) {
+      return null;
+    }
+
+    return (
+      <CustomModal
+        textBlue={
+          <TextModal>
+            Already have an account?&nbsp;<Link to="/">Login here</Link>
+          </TextModal>
+        }
+        onClose={() => setModalRegister(false)}
+      >
+        <Default.Title2 color={Default.color.blueOriginal}>
+          You need to register or login to <br />
+          see the Blind CV
+        </Default.Title2>
+        <Default.Space h="1.875rem" />
+        <FormRender
+          ref={formRefRegister}
+          onSubmit={handleSubmitRegister}
+          onClick={() => formRefRegister.current?.setErrors({})}
+        >
+          <Default.Column>
+            <ContentInput>
+              <Input
+                name="name"
+                label={`${Language.fields.firstName} *`}
+                typeSize="medium"
+              />
+              <Input
+                name="lastName"
+                label={`${Language.fields.lastName} *`}
+                typeSize="medium"
+              />
+            </ContentInput>
+            <ContentInput>
+              <Input
+                name="email"
+                label={`${Language.fields.businessEmail} *`}
+                typeSize="medium"
+              />
+            </ContentInput>
+            <ContentInput>
+              <Input
+                name="phone"
+                label={`${Language.fields.phone} *`}
+                typeSize="medium"
+              />
+              <Input
+                name="companyName"
+                label={`${Language.fields.companyName} *`}
+                typeSize="medium"
+              />
+            </ContentInput>
+            <ContentInput>
+              <InputDropDown
+                name="idInterestSkills"
+                label={`${Language.fields.skillsRequired} *`}
+                typeSize="medium"
+                options={optionsInterestSkills}
+              />
+            </ContentInput>
+            <Default.Space h="1.875rem" />
+            <Default.Row alignItens="center">
+              <InputCheck
+                type="radio"
+                name="terms"
+                onChange={item => setTerms(item.target.checked)}
+              />
+              <Default.Text2 color={Default.color.gray}>
+                I have read and agree to the &nbsp;
+                <Link to="/">
+                  <Default.Text2 color={Default.color.blueOriginal}>
+                    Privacy Policy
+                  </Default.Text2>
+                </Link>{' '}
+                &nbsp; terms.
+              </Default.Text2>
+            </Default.Row>
+
+            <Default.Space h="2.5rem" />
+            <Default.Row justifyContent="flex-end">
+              <ButtonSite bgColor={Default.color.success}>Register</ButtonSite>
+            </Default.Row>
+          </Default.Column>
+        </FormRender>
+      </CustomModal>
+    );
+  }, [
+    formRefRegister,
+    optionsInterestSkills,
+    handleSubmitRegister,
+    modalRegister,
+  ]);
+
   useEffect(() => {
     getTestimonials();
   }, [getTestimonials]);
@@ -233,6 +393,7 @@ export default function TopCandidates(): JSX.Element {
 
   return (
     <ContentSite>
+      {renderModalRegister()}
       <Banner>
         <ContainerSite>
           <Default.Row>
@@ -423,7 +584,7 @@ export default function TopCandidates(): JSX.Element {
               }
 
               return (
-                <NewJobItem>
+                <NewJobItem onClick={() => setModalRegister(true)}>
                   <NewJobItemTag>Candidate</NewJobItemTag>
                   <Default.Title2 color={Default.color.blue}>
                     {talentPoolItem.profile}

@@ -60,6 +60,7 @@ export const Box = styled.div`
   width: calc(33.33% - 1.25rem);
   border: 1px solid ${Default.color.white};
   position: relative;
+  cursor: pointer;
   &:nth-child(3n) {
     margin-right: 0;
   }

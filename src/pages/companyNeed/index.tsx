@@ -458,7 +458,7 @@ export default function CompanyNeed(): JSX.Element {
                 }
 
                 return (
-                  <Box key={item.id}>
+                  <Box key={item.id} onClick={() => setModalRegister(true)}>
                     <TagBox>Candidate</TagBox>
                     <Default.Column>
                       <Default.Title4 color={Default.color.blue}>
@@ -500,10 +500,7 @@ export default function CompanyNeed(): JSX.Element {
                       />
                       <Default.Space h="0.9375rem" />
                       <Default.Row>
-                        <ButtonSite
-                          bgColor={Default.color.success}
-                          onClick={() => setModalRegister(true)}
-                        >
+                        <ButtonSite bgColor={Default.color.success}>
                           <FontAwesomeIcon
                             icon={faEye}
                             color={Default.color.white}
