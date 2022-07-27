@@ -67,6 +67,7 @@ export default function Candidates(): JSX.Element {
     {} as IResponseLanguages,
   );
   const [recruiterInitial, setRecruiterInitial] = useState('');
+  const [recruiterTeamLeader, setRecruiterTeamLeader] = useState('');
   const [optionsInterestSkills, setOptionsInterestSkills] = useState<
     IOptionsDropdown[]
   >([] as IOptionsDropdown[]);
@@ -84,7 +85,22 @@ export default function Candidates(): JSX.Element {
   const getTeamLeaders = useCallback(async () => {
     const { teamLeaders } = await GetTeamLeaders();
 
-    if (auth && auth.user && auth.user.accessLevel === 2) {
+    if (recruiterTeamLeader) {
+      const options: IOptionsDropdown[] = [];
+
+      teamLeaders.map(teamLeader => {
+        if (teamLeader.id === recruiterTeamLeader) {
+          options.push({
+            value: teamLeader.id,
+            label: teamLeader.user.name,
+          });
+        }
+
+        return teamLeader;
+      });
+
+      setOptionsTeamLeader(options);
+    } else if (auth && auth.user && auth.user.accessLevel === 2) {
       const options: IOptionsDropdown[] = [];
 
       teamLeaders.map(teamLeader => {
@@ -111,7 +127,7 @@ export default function Candidates(): JSX.Element {
     } else {
       Modal({ keyType: 'getTeamLeaders', icon: 'error' });
     }
-  }, [auth]);
+  }, [auth, recruiterTeamLeader]);
   useEffect(() => {
     getTeamLeaders();
   }, [getTeamLeaders]);
@@ -122,9 +138,14 @@ export default function Candidates(): JSX.Element {
         idUser: auth.user.id,
       });
 
+      setRecruiterTeamLeader(
+        response.recruiters[0] && response.recruiters[0].userTeamLeader.id,
+      );
+
       setRecruiterInitial(response.recruiters[0] && response.recruiters[0].id);
     }
   }, [auth]);
+
   useEffect(() => {
     handleGetUserRecruiter();
   }, [handleGetUserRecruiter]);
@@ -136,6 +157,14 @@ export default function Candidates(): JSX.Element {
       });
     }
   }, [recruiterInitial]);
+  useEffect(() => {
+    if (recruiterTeamLeader) {
+      formRef.current?.setFieldValue('teamLeader', recruiterTeamLeader);
+      setFilter({
+        teamLeader: recruiterTeamLeader,
+      });
+    }
+  }, [recruiterTeamLeader]);
 
   const rows: GridRowsProp = candidates.map((candidate: ICandidate) => {
     let countrie = '';
@@ -413,7 +442,19 @@ export default function Candidates(): JSX.Element {
   const getRecruiters = useCallback(async () => {
     const { recruiters } = await GetRecruiters();
 
-    if (recruiters) {
+    if (recruiterInitial) {
+      const options: IOptionsDropdown[] = [];
+      recruiters.map(recruiter => {
+        if (recruiter.id === recruiterInitial) {
+          options.push({
+            value: recruiter.id,
+            label: recruiter.user.name,
+          });
+        }
+        return recruiter;
+      });
+      setOptionsRecruiter(options);
+    } else if (recruiters) {
       const options: IOptionsDropdown[] = recruiters.map(recruiter => {
         return {
           value: recruiter.id,
@@ -424,7 +465,7 @@ export default function Candidates(): JSX.Element {
     } else {
       Modal({ keyType: 'getRecruiter', icon: 'error' });
     }
-  }, []);
+  }, [recruiterInitial]);
 
   const getInterestSkills = useCallback(async () => {
     const { interestSkills } = await GetInterestSkills();
@@ -465,6 +506,35 @@ export default function Candidates(): JSX.Element {
       teamLeader: data.teamLeader,
     });
   }, []);
+
+  //   const handleSelectTeamLeaderOfRecruiter = useCallback(
+  //     async itemRecruiterTeamLeader => {
+  //       const { teamLeaders } = await GetTeamLeaders();
+  //       console.log('item', itemRecruiterTeamLeader);
+
+  //       console.log('aaa', itemRecruiterTeamLeader);
+  //       if (itemRecruiterTeamLeader) {
+  //         const options: IOptionsDropdown[] = [];
+
+  //         teamLeaders.map(teamLeader => {
+  //           if (teamLeader.idUser === itemRecruiterTeamLeader) {
+  //             options.push({
+  //               value: teamLeader.id,
+  //               label: teamLeader.user.name,
+  //             });
+  //           }
+
+  //           return teamLeader;
+  //         });
+
+  //         setOptionsTeamLeader(options);
+  //       }
+  //     },
+  //     [],
+  //   );
+  //   useEffect(() => {
+  //     handleSelectTeamLeaderOfRecruiter(recruiterTeamLeader);
+  //   }, [recruiterTeamLeader, handleSelectTeamLeaderOfRecruiter]);
 
   return (
     <ContentPage

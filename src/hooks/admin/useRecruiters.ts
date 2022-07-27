@@ -198,6 +198,10 @@ export function GetRecruitersIdUser({
             lastName
             email
           }
+          userTeamLeader{
+            id
+            idUser
+          }
         }
       }
     `;
