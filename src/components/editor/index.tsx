@@ -73,9 +73,11 @@ export default function Editor({ name, value: valueUser }: IProps) {
           [AlignLeft, AlignCenter, AlignRight],
           [OrderedList, UnorderedList, Indent, Outdent],
         ]}
-        contentStyle={{ height: 250 }}
+        defaultEditMode="div"
+        contentStyle={{ height: 250, fontFamily: 'Open Sans' }}
         value={inputValue}
         onChange={e => setInputValue(e.html)}
+        style={{ fontFamily: 'Open Sans' }}
       />
 
       {error && <TextError>{error}</TextError>}

@@ -66,7 +66,7 @@ const enUs = {
     yourEmail: 'Your Email',
     subject: 'Subject',
     yourMessage: 'Your Message',
-    charge: 'Charge',
+    charge: 'Degree',
     profile: 'Profile',
     skillsCompetences: 'Skills & Competences',
     softwares: 'Softwares',

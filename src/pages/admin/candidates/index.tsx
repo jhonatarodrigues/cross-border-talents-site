@@ -83,18 +83,35 @@ export default function Candidates(): JSX.Element {
 
   const getTeamLeaders = useCallback(async () => {
     const { teamLeaders } = await GetTeamLeaders();
-    if (teamLeaders) {
+
+    if (auth && auth.user && auth.user.accessLevel === 2) {
+      const options: IOptionsDropdown[] = [];
+
+      teamLeaders.map(teamLeader => {
+        if (teamLeader.idUser === auth.user.id) {
+          options.push({
+            value: teamLeader.id,
+            label: teamLeader.user.name,
+          });
+        }
+
+        return teamLeader;
+      });
+
+      setOptionsTeamLeader(options);
+    } else if (teamLeaders) {
       const options: IOptionsDropdown[] = teamLeaders.map(teamLeader => {
         return {
           value: teamLeader.id,
           label: teamLeader.user.name,
         };
       });
+
       setOptionsTeamLeader(options);
     } else {
       Modal({ keyType: 'getTeamLeaders', icon: 'error' });
     }
-  }, []);
+  }, [auth]);
   useEffect(() => {
     getTeamLeaders();
   }, [getTeamLeaders]);

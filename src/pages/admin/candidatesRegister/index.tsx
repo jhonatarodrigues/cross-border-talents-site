@@ -508,7 +508,7 @@ export default function CandidatesRegister(): JSX.Element {
             <InputDropDown
               name="teamLeader"
               label="Team Leader"
-              options={optionsTeamLeader}
+              options={[{ label: 'Select', value: '' }, ...optionsTeamLeader]}
               value={
                 params?.candidate.userTeamLeader
                   ? params?.candidate.userTeamLeader.id
@@ -518,7 +518,7 @@ export default function CandidatesRegister(): JSX.Element {
             <InputDropDown
               name="recruiter"
               label="Recruiter"
-              options={optionsRecruiter}
+              options={[{ label: 'Select', value: '' }, ...optionsRecruiter]}
               value={
                 params?.candidate.userRecruiter
                   ? params?.candidate.userRecruiter.id

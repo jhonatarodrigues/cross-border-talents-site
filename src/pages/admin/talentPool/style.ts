@@ -97,7 +97,7 @@ export const ModalLine = styled.div`
   width: 100%;
   height: 0.0625rem;
   background: ${color.blueLight2};
-  margin: 2.5rem 0;
+  margin: 3.125rem 0;
 `;
 export const TitleSectionModal = styled.div`
   font-size: 1.5625rem;
