@@ -228,6 +228,8 @@ export function AddCompanyLogin(
         status: false
         companyName: "${data.companyName}"
         idInterestSkills:"${data.interestSkills}"
+
+        sendMailAdmins: true
       ){
         companie{
           id
