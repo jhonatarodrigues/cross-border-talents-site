@@ -225,7 +225,7 @@ export function AddCompanyLogin(
         lastName: "${data.lastName}"
         email: "${data.email}"
         
-        status: true
+        status: false
         companyName: "${data.companyName}"
         idInterestSkills:"${data.interestSkills}"
       ){
