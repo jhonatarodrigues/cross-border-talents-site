@@ -10,6 +10,7 @@ export interface ITestimonials {
   testimonial: string;
   observations: string;
   country: string;
+  status: boolean;
 }
 
 interface IResponseTestimonials {
@@ -24,6 +25,7 @@ export interface ITestimonialSend {
   observations: string;
   country: string;
   upload?: HTMLInputElement;
+  status: boolean;
 }
 
 interface IResponseTestimonialsSearch {
@@ -63,6 +65,7 @@ export function UpdateTestimonial(
               testimonial: "${data.testimonial}",
               observations: "${data.observations}",
               country: "${data.country}"
+              status: ${data.status}
           ){
               id
               name
@@ -95,6 +98,7 @@ export function AddTestimonial(data: ITestimonialSend): Promise<ITestimonials> {
             testimonial: "${data.testimonial}",
             observations: "${data.observations}",
             country: "${data.country}"
+            status: ${data.status}
         ){
             id
             name
@@ -128,6 +132,7 @@ export function GetTestimonials(): Promise<IResponseTestimonials> {
             testimonial
             observations
             country
+            status
         }
     
     }

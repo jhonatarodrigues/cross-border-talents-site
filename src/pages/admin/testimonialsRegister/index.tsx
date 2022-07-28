@@ -11,6 +11,7 @@ import * as Yup from 'yup';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import Modal from '../../../components/modal';
+import InputSwitch from '../../../components/inputSwitch';
 import { GetCountries } from '../../../hooks/admin/useCountry';
 import {
   AddTestimonial,
@@ -77,6 +78,8 @@ export default function TestimonialsRegister(): JSX.Element {
             infoData.picture = upload;
           }
         }
+
+        console.log('infoDate', infoData);
 
         if (params?.testimonial.id) {
           const newInfoDate = {
@@ -187,6 +190,12 @@ export default function TestimonialsRegister(): JSX.Element {
               name="observations"
               label={Language.fields.observations}
               value={params?.testimonial.observations}
+            />
+
+            <InputSwitch
+              label={Language.fields.status}
+              name="status"
+              valueDefault={params?.testimonial.status}
             />
           </ContentInput>
           <ContentInput>

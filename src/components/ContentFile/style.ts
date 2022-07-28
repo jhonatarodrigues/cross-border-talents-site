@@ -37,6 +37,7 @@ export const FileName = styled.p`
   text-overflow: ellipsis;
   padding-left: 0.3125rem;
   text-align: right;
+  color: ${Default.color.blue};
 `;
 export const ContentFileGeneral = styled.div`
   display: flex;
