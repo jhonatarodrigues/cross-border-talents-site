@@ -68,6 +68,8 @@ export default function CandidatesRegister(): JSX.Element {
   const navigate = useNavigate();
   const formRef = useRef<FormHandles>(null);
   const { auth } = useSelector((state: ApplicationState) => state);
+  const [recruiterInitial, setRecruiterInitial] = useState('');
+  const [recruiterTeamLeader, setRecruiterTeamLeader] = useState('');
   const [talentPool, setTalentPool] = useState<ITalentPools>(
     {} as ITalentPools,
   );
@@ -237,6 +239,10 @@ export default function CandidatesRegister(): JSX.Element {
     const { teamLeaders } = await GetTeamLeaders();
     if (teamLeaders) {
       const options: IOptionsDropdown[] = teamLeaders.map(teamLeader => {
+        if (teamLeader.idUser === auth.user.id) {
+          setRecruiterTeamLeader(teamLeader.id);
+        }
+
         return {
           value: teamLeader.id,
           label: `${teamLeader.user.name} ${teamLeader.user.lastName}`,
@@ -246,12 +252,16 @@ export default function CandidatesRegister(): JSX.Element {
     } else {
       Modal({ keyType: 'getTeamLeaders', icon: 'error' });
     }
-  }, []);
+  }, [auth]);
   const getRecruiters = useCallback(async () => {
     const { recruiters } = await GetRecruiters();
 
     if (recruiters) {
       const options: IOptionsDropdown[] = recruiters.map(recruiter => {
+        if (recruiter.user.id === auth.user.id) {
+          setRecruiterInitial(recruiter.id);
+        }
+
         return {
           value: recruiter.id,
           label: `${recruiter.user.name} ${recruiter.user.lastName}`,
@@ -261,7 +271,7 @@ export default function CandidatesRegister(): JSX.Element {
     } else {
       Modal({ keyType: 'getRecruiter', icon: 'error' });
     }
-  }, []);
+  }, [auth]);
 
   const getCountries = useCallback(async () => {
     const { countries } = await GetCountries();
@@ -402,6 +412,17 @@ export default function CandidatesRegister(): JSX.Element {
       </Button>
     );
   }, [auth, params]);
+
+  useEffect(() => {
+    if (recruiterInitial) {
+      formRef.current?.setFieldValue('recruiter', recruiterInitial);
+    }
+  }, [recruiterInitial]);
+  useEffect(() => {
+    if (recruiterTeamLeader) {
+      formRef.current?.setFieldValue('teamLeader', recruiterTeamLeader);
+    }
+  }, [recruiterTeamLeader]);
 
   return (
     <ContentPage

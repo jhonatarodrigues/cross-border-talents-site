@@ -32,6 +32,7 @@ const error: { [key: string]: string } = {
   candidateHasRelations: 'You cannot exclude a candidate who is related.',
   companieExists: 'Company already exists.',
   addRecruiterCandidate: 'Failed to add recruiter in candidate.',
+  tokenBusinessAccept: 'Failed to accepted business.',
 };
 
 export default function errorString(key: string): string {

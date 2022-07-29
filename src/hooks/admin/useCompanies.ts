@@ -412,3 +412,17 @@ export function GetCompanie({
       return {} as IResponseCompanie;
     });
 }
+
+export function SetAcceptBusiness({
+  token,
+}: {
+  token: string;
+}): Promise<AxiosResponse> {
+  const query = `
+  mutation {
+    AcceptBusiness(token: "${token}")
+  }
+    `;
+
+  return graphql(query);
+}

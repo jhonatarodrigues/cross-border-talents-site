@@ -18,6 +18,7 @@ import MeetCompany from './pages/meetCompany';
 import RegisterTalentPool from './pages/registerTalentPool';
 import JobsInternal from './pages/jobsInternal';
 import TalentAcquisition from './pages/talentAcquisition';
+import AcceptBusiness from './pages/acceptBusiness';
 
 // -- admin pages
 import Index from './pages/admin';
@@ -64,6 +65,7 @@ export default function Teste(): JSX.Element {
           path="/registerTalentPool/:token"
           element={<RegisterTalentPool />}
         />
+        <Route path="/AcceptBusiness/:token" element={<AcceptBusiness />} />
         {/* <Route path="/talentAcquisition" element={<TalentAcquisition />} /> */}
 
         <Route path="/admin">
