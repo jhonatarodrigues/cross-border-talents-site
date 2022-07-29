@@ -204,6 +204,10 @@ export const BestPraticeBlock = styled(Default.BlockContent)`
 export const ExpertiseBlockTypeContent = styled.div`
   flex-direction: row;
   justify-content: stretch;
+
+  ${Mobile(`
+    flex-direction: column;
+  `)}
 `;
 export const ExpertiseBlockType = styled.div`
   border: 1px solid ${Default.color.blueBase};

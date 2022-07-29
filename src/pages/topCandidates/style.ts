@@ -165,6 +165,10 @@ export const NewJobItemContentIconText = styled.p`
   font-size: 0.75rem;
   color: ${Default.color.gray};
   padding-left: 0.625rem;
+
+  ${Mobile(`
+    padding-left: 0;
+  `)}
 `;
 export const NewJobTitleContent = styled.div`
   flex-direction: column;

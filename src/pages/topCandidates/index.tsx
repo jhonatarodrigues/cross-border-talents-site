@@ -602,7 +602,11 @@ export default function TopCandidates(): JSX.Element {
                       </NewJobItemContentIconText>
                     </Default.Row>
                     <Default.Space h="0.9375rem" className="visibleMobile" />
-                    <Default.Row justifyContent="flex-end" alignItens="center">
+                    <Default.Row
+                      justifyContent="flex-end"
+                      alignItens="center"
+                      className="hiddenMobile"
+                    >
                       <TagItem>ID {talentPoolItem.id}</TagItem>
                     </Default.Row>
                   </NewJobItemContentIcon>

@@ -365,6 +365,12 @@ export const ImageJoinTeam = styled.div`
   margin-left: 3.125rem;
   position: relative;
   z-index: 1;
+
+  ${Mobile(`
+    width: 17.5rem;
+    height: 12.5rem;
+    margin-top: 4.375rem;
+  `)}
 `;
 
 export const ImageJoinTeamOrnament = styled.div`
@@ -375,6 +381,12 @@ export const ImageJoinTeamOrnament = styled.div`
   position: absolute;
   margin-left: 0;
   margin-top: -3.125rem;
+
+  ${Mobile(`
+    width: 17.5rem;
+    height: 12.5rem;
+    margin-top: 1.875rem
+  `)}
 `;
 export const BoxTag = styled.div`
   position: absolute;

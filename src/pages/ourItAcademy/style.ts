@@ -145,6 +145,10 @@ export const ContentWhite = styled.div`
   box-shadow: 0px 0px 30px #0000000d;
   flex-direction: column;
   border-radius: 3.125rem;
+
+  ${Mobile(`
+    padding: 3.125rem 1.875rem;
+  `)}
 `;
 export const BlockNecessaryProgramming = styled(Default.BlockContent)`
   background: ${Default.color.blueOriginal};
@@ -152,11 +156,16 @@ export const BlockNecessaryProgramming = styled(Default.BlockContent)`
 export const ContentDescription = styled.div`
   padding: 3.125rem;
   background: ${Default.color.blue};
-  border-radius: 50px;
+  border-radius: 3.125rem;
   width: 36.8125rem;
   flex-direction: column;
   position: relative;
   z-index: 1;
+
+  ${Mobile(`
+    width: 100%;
+    margin-top: 1.875rem;
+  `)}
 `;
 export const ContentDescriptionOrnament = styled.div`
   height: 100%;
@@ -167,6 +176,11 @@ export const ContentDescriptionOrnament = styled.div`
   left: -3.125rem;
   top: 3.125rem;
   z-index: 0;
+
+  ${Mobile(`
+    width: 100%;
+    top: 5rem;
+  `)}
 `;
 
 export const Description = styled.div`
