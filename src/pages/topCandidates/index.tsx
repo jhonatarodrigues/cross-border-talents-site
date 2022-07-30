@@ -715,7 +715,7 @@ export default function TopCandidates(): JSX.Element {
             Get free access to an exclusive list of top candidates.
           </Default.TitleH3>
           <Default.Space h="3.75rem" />
-          <Default.Row>
+          <Default.Row alignItens="stretch">
             <ExpertiseBlockType>
               <ContentIconExpertise>
                 <IconPlanet />

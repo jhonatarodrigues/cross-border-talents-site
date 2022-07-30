@@ -331,7 +331,16 @@ export default function Dash(): JSX.Element {
                     opportunities cross-countries.
                   </Default.Subtitle>
                   <Default.Space h="2.5rem" />
-                  <ButtonSite>Join our team</ButtonSite>
+                  <Link
+                    to={{
+                      pathname: '/admin/login',
+                    }}
+                    state={{
+                      register: true,
+                    }}
+                  >
+                    <ButtonSite>Join our team</ButtonSite>
+                  </Link>
                 </Default.Column>
                 <Default.Space w="4.375rem" className="hiddenMobile" />
               </Default.Row>
