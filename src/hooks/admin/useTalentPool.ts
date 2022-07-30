@@ -15,6 +15,13 @@ export interface ITalentPools {
   languages: string;
   status: boolean;
   charge: string;
+  teamLeader: {
+    user: {
+      name: string;
+      lastName: string;
+      email: string;
+    };
+  };
   user: {
     name: string;
     lastName: string;
@@ -90,6 +97,14 @@ export function GetTalentPools({
         languages
         status
         charge
+        teamLeader{
+            user{
+              name
+              lastName
+              email
+              
+            }
+          }
         candidate{
             id
             country

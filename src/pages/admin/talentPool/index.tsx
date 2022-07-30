@@ -104,6 +104,10 @@ export default function TalentPool(): JSX.Element {
       languages: item.languages,
       charge: item.charge,
       country: countrie,
+      teamLeader:
+        item.teamLeader && item.teamLeader.user && item.teamLeader.user.name
+          ? `${item.teamLeader.user.name} ${item.teamLeader.user.lastName}`
+          : '',
     };
   });
 
@@ -168,6 +172,7 @@ export default function TalentPool(): JSX.Element {
 
   const handleGetTalentPool = useCallback(async () => {
     const response = await GetTalentPools({ ...filter });
+
     if (response && response.talentPools) {
       setTalentPool(response.talentPools);
     }
@@ -238,6 +243,7 @@ export default function TalentPool(): JSX.Element {
 
     { field: 'id', headerName: 'ID', width: 10 },
     { field: 'profile', headerName: 'Profile', flex: 1 },
+    { field: 'teamLeader', headerName: 'Team Leader', flex: 1 },
     { field: 'country', headerName: 'Country of Residence', flex: 1 },
     { field: 'languages', headerName: 'Languages', flex: 1 },
 

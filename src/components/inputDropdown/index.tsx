@@ -100,7 +100,7 @@ export default function InputDropdown({
   }, [valueProp]);
 
   return (
-    <ContentFiled className="contentField">
+    <ContentFiled className="contentField inputDropDown">
       <FormControlS style={{ width: '100%' }} size={typeSize}>
         <InputLabel id={`${fieldName}-label`}>{label}</InputLabel>
         <SelectField

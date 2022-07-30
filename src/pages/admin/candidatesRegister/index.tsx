@@ -489,7 +489,7 @@ export default function CandidatesRegister(): JSX.Element {
               dateOnly
               name="birthDate"
               label={Language.fields.birthDate}
-              value={new Date(params?.candidate.birthDate || new Date())}
+              value={new Date(params?.candidate.birthDate || '')}
             />
             <InputDropDown
               name="gender"
