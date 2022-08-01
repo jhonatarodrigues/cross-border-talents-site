@@ -61,6 +61,8 @@ export default function Teste(): JSX.Element {
         <Route path="/contact" element={<Contact />} />
         <Route path="/testimonials" element={<TestimonialsPage />} />
         <Route path="/about-us" element={<MeetCompany />} />
+
+        <Route path="/jobs/internal/:item" element={<JobsInternal />} />
         <Route
           path="/registerTalentPool/:token"
           element={<RegisterTalentPool />}

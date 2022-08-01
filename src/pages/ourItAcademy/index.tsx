@@ -42,9 +42,13 @@ export default function OurItAcademy(): JSX.Element {
               everyone and our <br className="hiddenMobile" />
               Academy is for you
             </Title>
-            <Link to="/jobs">
+            <a
+              href="http://www.cbtalentsacademy.com/en"
+              target="_blank"
+              rel="noreferrer"
+            >
               <ButtonSite bgColor={Default.color.success}>Apply now</ButtonSite>
-            </Link>
+            </a>
           </ContainerSite>
           <ContainerSite>
             <BackgroundBannerMen />
@@ -73,11 +77,15 @@ export default function OurItAcademy(): JSX.Element {
           </ContentWhite>
           <Default.Space h="3.125rem" />
           <Default.Row justifyContent="center">
-            <Link to="/jobs">
+            <a
+              href="http://www.cbtalentsacademy.com/en"
+              target="_blank"
+              rel="noreferrer"
+            >
               <ButtonSite bgColor={Default.color.spotlight}>
                 Apply now
               </ButtonSite>
-            </Link>
+            </a>
           </Default.Row>
           <Default.Space h="12.0625rem" />
 
@@ -134,9 +142,15 @@ export default function OurItAcademy(): JSX.Element {
           </Default.Subtitle>
           <Default.Space h="2.125rem" />
           <Default.Row justifyContent="center" alignItens="center">
-            <ButtonSite bgColor={Default.color.spotlight}>
-              Learn more
-            </ButtonSite>
+            <a
+              href="http://www.cbtalentsacademy.com/en"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <ButtonSite bgColor={Default.color.spotlight}>
+                Learn more
+              </ButtonSite>
+            </a>
           </Default.Row>
         </ContainerSite>
       </BlockAcademy>
@@ -154,9 +168,15 @@ export default function OurItAcademy(): JSX.Element {
                 Take advantage of this opportunity!
               </Default.Title2>
               <Default.Space h="2.5rem" />
-              <ButtonSite bgColor={Default.color.spotlight}>
-                I want to learn
-              </ButtonSite>
+              <a
+                href="http://www.cbtalentsacademy.com/en"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <ButtonSite bgColor={Default.color.spotlight}>
+                  I want to learn
+                </ButtonSite>
+              </a>
             </Default.Column>
             <Default.Column>
               <Description>

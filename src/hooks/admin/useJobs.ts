@@ -208,3 +208,27 @@ export function GetJobsPage({
       };
     });
 }
+
+export function GetJob({ id }: { id: string }): Promise<IJobs> {
+  const query = `
+    query{
+        job(id: "${id}") {
+          id
+          idInterestSkills
+          jobTitle
+          level
+          country
+          description
+          interestSkills{
+            id
+            name
+          }
+          date
+        }
+      }
+      `;
+
+  return graphql(query).then(response => {
+    return response.data.job as IJobs;
+  });
+}

@@ -174,16 +174,22 @@ export default function Dash(): JSX.Element {
               It’s a company and need to hire talents?&nbsp;
               <Link to="/"> Request your access here</Link>
             </SubtitleSearchBanner>
-            <div>
-              <IconSearch src={ImageExcellence1} />
-              <IconSearch src={ImageExcellence2} />
-              <IconSearch src={ImageExcellence3} />
-              <TextIconSearch>
-                <span>WE ARE GLOBAL</span>
-                <br />
-                Operating in over 102 countries
-              </TextIconSearch>
-            </div>
+            <a
+              href="https://pledgeviewer.eu/pledge/initiative/216"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <div>
+                <IconSearch src={ImageExcellence1} />
+                <IconSearch src={ImageExcellence2} />
+                <IconSearch src={ImageExcellence3} />
+                <TextIconSearch>
+                  <span>WE ARE GLOBAL</span>
+                  <br />
+                  Operating in over 102 countries
+                </TextIconSearch>
+              </div>
+            </a>
           </ContainerSite>
           <ContainerSite>
             <ImageBannerWoman />
@@ -333,10 +339,7 @@ export default function Dash(): JSX.Element {
                   <Default.Space h="2.5rem" />
                   <Link
                     to={{
-                      pathname: '/admin/login',
-                    }}
-                    state={{
-                      register: true,
+                      pathname: '/jobs',
                     }}
                   >
                     <ButtonSite>Join our team</ButtonSite>

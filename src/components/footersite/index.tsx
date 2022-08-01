@@ -62,9 +62,27 @@ export default function FooterSite(): JSX.Element {
               </Nav>
             </Content>
             <Content>
-              <Selo src={ImageExcellence1} />
-              <Selo src={ImageExcellence2} />
-              <Selo src={ImageExcellence3} />
+              <a
+                href="https://old.cbtalents.com/seal_excellence.png"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Selo src={ImageExcellence1} />
+              </a>
+              <a
+                href="https://old.cbtalents.com/Seal_of_Excellence_2.pdf"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Selo src={ImageExcellence2} />
+              </a>
+              <a
+                href="https://old.cbtalents.com/Seal_of_Excellence_3.pdf"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Selo src={ImageExcellence3} />
+              </a>
             </Content>
           </Row>
           <LineDivider />

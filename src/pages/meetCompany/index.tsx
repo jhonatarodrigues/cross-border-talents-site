@@ -176,9 +176,11 @@ export default function MeetCompany(): JSX.Element {
           </ExpertiseBlockTypeContent>
           <Default.Space h="3.125rem" />
           <Default.Row justifyContent="center">
-            <ButtonSite bgColor={Default.color.spotlight}>
-              Work with us
-            </ButtonSite>
+            <Link to="/jobs">
+              <ButtonSite bgColor={Default.color.spotlight}>
+                Work with us
+              </ButtonSite>
+            </Link>
           </Default.Row>
           <Default.Space h="3.125rem" />
           <Default.Row>

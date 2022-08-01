@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faLocationDot,
@@ -6,9 +6,10 @@ import {
   faArrowLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { faFacebookF, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
+import { FacebookShareButton, LinkedinShareButton } from 'react-share';
 
-import { IJobs } from '../../hooks/admin/useJobs';
+import { IJobs, GetJob } from '../../hooks/admin/useJobs';
 import ContentSite from '../../components/ContentSite';
 import ContainerSite from '../../components/ContainerSite';
 import ButtonSite from '../../components/buttonSite';
@@ -29,7 +30,27 @@ interface IRequestState {
 }
 
 export default function JobsInternal(): JSX.Element {
-  const stateRequest = useLocation().state as IRequestState;
+  const params = useParams();
+  const [job, setJob] = useState<IJobs>();
+  const stateRequest =
+    params && params.item
+      ? ({ item: {} as IJobs, countryDesc: '' } as IRequestState)
+      : // eslint-disable-next-line react-hooks/rules-of-hooks
+        (useLocation().state as IRequestState);
+
+  const HandleGetJobs = useCallback(async () => {
+    if (!params || !params.item) {
+      return;
+    }
+    const newId = params.item.split('--').pop();
+    const response = await GetJob({ id: newId || '' });
+
+    setJob(response);
+  }, [params]);
+
+  useEffect(() => {
+    HandleGetJobs();
+  }, [HandleGetJobs]);
 
   return (
     <ContentSite>
@@ -37,7 +58,11 @@ export default function JobsInternal(): JSX.Element {
         <ContainerSite>
           <Default.Row justifyContent="space-between">
             <Default.Column>
-              <Title>{stateRequest.item.jobTitle}</Title>
+              <Title>
+                {params && params.item
+                  ? job?.jobTitle
+                  : stateRequest.item.jobTitle}
+              </Title>
             </Default.Column>
             <Default.Column alignItens="flex-end" justifyContent="center">
               <Default.Title2
@@ -48,13 +73,40 @@ export default function JobsInternal(): JSX.Element {
                 Job Opportunity
               </Default.Title2>
               <Default.Row justifyContent="flex-end">
-                <ButtonSocial>
-                  <FontAwesomeIcon icon={faFacebookF} />
-                </ButtonSocial>
+                <FacebookShareButton
+                  url={`http://beta.cbtalents.com/jobs/internal/${
+                    params && params.item
+                      ? job?.jobTitle
+                      : stateRequest.item.jobTitle
+                  }--${params && params.item ? job?.id : stateRequest.item.id}`} // eg. https://www.example.com
+                  title={`${
+                    params && params.item
+                      ? job?.jobTitle
+                      : stateRequest.item.jobTitle
+                  } - Cross Border Talents`}
+                  hashtag="#cbt" // #hashTag
+                >
+                  <ButtonSocial>
+                    <FontAwesomeIcon icon={faFacebookF} />
+                  </ButtonSocial>
+                </FacebookShareButton>
                 <Default.Space w="0.625rem" />
-                <ButtonSocial>
-                  <FontAwesomeIcon icon={faLinkedinIn} />
-                </ButtonSocial>
+                <LinkedinShareButton
+                  url={`http://beta.cbtalents.com/jobs/internal/${
+                    params && params.item
+                      ? job?.jobTitle
+                      : stateRequest.item.jobTitle
+                  }--${params && params.item ? job?.id : stateRequest.item.id}`} // eg. https://www.example.com
+                  title={`${
+                    params && params.item
+                      ? job?.jobTitle
+                      : stateRequest.item.jobTitle
+                  } - Cross Border Talents`}
+                >
+                  <ButtonSocial>
+                    <FontAwesomeIcon icon={faLinkedinIn} />
+                  </ButtonSocial>
+                </LinkedinShareButton>
               </Default.Row>
             </Default.Column>
           </Default.Row>
@@ -65,7 +117,9 @@ export default function JobsInternal(): JSX.Element {
           <BlockFilter>
             <Default.Row justifyContent="space-between">
               <Default.Title3 color={Default.color.blueOriginal}>
-                {stateRequest.item.jobTitle}
+                {params && params.item
+                  ? job?.jobTitle
+                  : stateRequest.item.jobTitle}
               </Default.Title3>
               <div>
                 <ButtonSite bgColor={Default.color.gray}>
@@ -94,7 +148,9 @@ export default function JobsInternal(): JSX.Element {
                 />
                 <Default.Space w="0.3125rem" />
                 <Default.Text color={Default.color.gray}>
-                  {stateRequest.countryDesc}
+                  {params && params.item
+                    ? job?.country
+                    : stateRequest.countryDesc || ''}
                 </Default.Text>
               </div>
               <Default.Space w="1.5625rem" />
@@ -119,7 +175,10 @@ export default function JobsInternal(): JSX.Element {
             <Default.Subtitle
               color={Default.color.gray}
               dangerouslySetInnerHTML={{
-                __html: stateRequest.item.description,
+                __html:
+                  params && params.item
+                    ? job?.description || ''
+                    : stateRequest.item.description,
               }}
               style={{
                 display: 'flex',
