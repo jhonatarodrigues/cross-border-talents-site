@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { Form } from '@unform/web';
+
 import { Mobile } from '../../styles/responsiveVariables';
 import Default from '../../default';
 
@@ -147,4 +149,19 @@ export const ButtonSocial = styled.button`
   color: ${Default.color.blue};
   margin-right: 0.3125rem;
   margin-top: 0.9375rem;
+`;
+export const TextModal = styled(Default.Text2)`
+  color: ${Default.color.white};
+  a {
+    text-decoration: underline;
+    color: ${Default.color.white};
+  }
+`;
+
+export const InputCheck = styled.input`
+  margin-right: 0.4375rem;
+  margin-top: -0.1875rem;
+`;
+export const FormRender = styled(Form)`
+  width: 100%;
 `;

@@ -1,5 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Form } from '@unform/web';
+import { SubmitHandler, FormHandles } from '@unform/core';
 import {
   faLocationDot,
   faFlask,
@@ -8,7 +10,13 @@ import {
 import { faFacebookF, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { FacebookShareButton, LinkedinShareButton } from 'react-share';
+import * as Yup from 'yup';
 
+import Language from '../../language';
+import Modal from '../../components/modal';
+import CustomModal from '../../components/CustomModal';
+import ContentInput from '../../components/contentInput';
+import Input from '../../components/input';
 import { IJobs, GetJob } from '../../hooks/admin/useJobs';
 import ContentSite from '../../components/ContentSite';
 import ContainerSite from '../../components/ContainerSite';
@@ -22,6 +30,9 @@ import {
   ContainerTag,
   TagIcon,
   ButtonSocial,
+  TextModal,
+  InputCheck,
+  FormRender,
 } from './style';
 
 interface IRequestState {
@@ -30,8 +41,11 @@ interface IRequestState {
 }
 
 export default function JobsInternal(): JSX.Element {
+  const formRefRegister = useRef<FormHandles>(null);
   const params = useParams();
   const [job, setJob] = useState<IJobs>();
+  const [url, setUrl] = useState('');
+  const [modalRegister, setModalRegister] = useState(false);
   const stateRequest =
     params && params.item
       ? ({ item: {} as IJobs, countryDesc: '' } as IRequestState)
@@ -48,12 +62,106 @@ export default function JobsInternal(): JSX.Element {
     setJob(response);
   }, [params]);
 
+  const handleSubmitRegister: SubmitHandler = useCallback(async data => {
+    try {
+      const schema = Yup.object().shape({
+        name: Yup.string().required(),
+        lastName: Yup.string().required(),
+        email: Yup.string().required(),
+        phone: Yup.string().required(),
+        companyName: Yup.string().required(),
+        idInterestSkills: Yup.string().required(),
+      });
+
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+
+      console.log('aquiii');
+    } catch (err) {
+      const validationErrors: Record<string, string> = {};
+
+      if (err instanceof Yup.ValidationError) {
+        err.inner.forEach((error: Yup.ValidationError) => {
+          if (error.path) {
+            validationErrors[error.path] = error.message;
+          }
+        });
+
+        formRefRegister.current?.setErrors(validationErrors);
+      }
+    }
+  }, []);
+
+  const renderModalRegister = useCallback(() => {
+    if (!modalRegister) {
+      return null;
+    }
+
+    return (
+      <CustomModal onClose={() => setModalRegister(false)}>
+        <Default.Title2 color={Default.color.blueOriginal}>
+          Register in the job
+        </Default.Title2>
+        <Default.Space h="1.875rem" />
+        <FormRender
+          ref={formRefRegister}
+          onSubmit={handleSubmitRegister}
+          onClick={() => formRefRegister.current?.setErrors({})}
+        >
+          <Default.Column>
+            <ContentInput>
+              <Input
+                name="name"
+                label={`${Language.fields.firstName} *`}
+                typeSize="medium"
+              />
+              <Input
+                name="lastName"
+                label={`${Language.fields.lastName} *`}
+                typeSize="medium"
+              />
+            </ContentInput>
+            <ContentInput>
+              <Input
+                name="email"
+                label={`${Language.fields.businessEmail} *`}
+                typeSize="medium"
+              />
+            </ContentInput>
+            <ContentInput>
+              <Input
+                name="phone"
+                label={`${Language.fields.phone} *`}
+                typeSize="medium"
+              />
+            </ContentInput>
+
+            <Default.Space h="2.5rem" />
+            <Default.Row justifyContent="flex-end">
+              <ButtonSite bgColor={Default.color.success}>Register</ButtonSite>
+            </Default.Row>
+          </Default.Column>
+        </FormRender>
+      </CustomModal>
+    );
+  }, [formRefRegister, handleSubmitRegister, modalRegister]);
+
   useEffect(() => {
     HandleGetJobs();
   }, [HandleGetJobs]);
 
+  useEffect(() => {
+    setUrl(
+      `http://beta.cbtalents.com/jobs/internal/${
+        params && params.item ? job?.jobTitle : stateRequest.item.jobTitle
+      }--${params && params.item ? job?.id : stateRequest.item.id}`,
+    );
+  }, [params, stateRequest, job]);
+
   return (
     <ContentSite>
+      {renderModalRegister()}
       <Banner>
         <ContainerSite>
           <Default.Row justifyContent="space-between">
@@ -74,11 +182,7 @@ export default function JobsInternal(): JSX.Element {
               </Default.Title2>
               <Default.Row justifyContent="flex-end">
                 <FacebookShareButton
-                  url={`http://beta.cbtalents.com/jobs/internal/${
-                    params && params.item
-                      ? job?.jobTitle
-                      : stateRequest.item.jobTitle
-                  }--${params && params.item ? job?.id : stateRequest.item.id}`} // eg. https://www.example.com
+                  url={url}
                   title={`${
                     params && params.item
                       ? job?.jobTitle
@@ -92,11 +196,7 @@ export default function JobsInternal(): JSX.Element {
                 </FacebookShareButton>
                 <Default.Space w="0.625rem" />
                 <LinkedinShareButton
-                  url={`http://beta.cbtalents.com/jobs/internal/${
-                    params && params.item
-                      ? job?.jobTitle
-                      : stateRequest.item.jobTitle
-                  }--${params && params.item ? job?.id : stateRequest.item.id}`} // eg. https://www.example.com
+                  url={url}
                   title={`${
                     params && params.item
                       ? job?.jobTitle
@@ -122,7 +222,28 @@ export default function JobsInternal(): JSX.Element {
                   : stateRequest.item.jobTitle}
               </Default.Title3>
               <div>
-                <ButtonSite bgColor={Default.color.gray}>
+                <ButtonSite
+                  bgColor={Default.color.blueOriginal}
+                  onClick={() => {
+                    setModalRegister(true);
+                  }}
+                >
+                  register for the vacancy
+                </ButtonSite>
+                <Default.Space w="0.9375rem" />
+                <ButtonSite
+                  bgColor={Default.color.gray}
+                  onClick={() => {
+                    navigator.clipboard.writeText(url);
+                    Modal({
+                      keyType: 'copyUrlSendToAFriend',
+                      icon: 'success',
+                      onClick: () => {
+                        setModalRegister(false);
+                      },
+                    });
+                  }}
+                >
                   Send to a friend
                 </ButtonSite>
                 <Default.Space w="0.9375rem" />
@@ -221,6 +342,18 @@ export default function JobsInternal(): JSX.Element {
               Netherlands. Willingness to fulfill a hands-on technician job for
               at least 2 years.
             </Default.Subtitle>
+            <Default.Space h="3.75rem" />
+            <Default.Row>
+              <a
+                href="https://apply.workable.com/crossbordertalents/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <ButtonSite bgColor={Default.color.blueOriginal}>
+                  see more opportunities
+                </ButtonSite>
+              </a>
+            </Default.Row>
 
             <Default.Space h="3.75rem" />
 

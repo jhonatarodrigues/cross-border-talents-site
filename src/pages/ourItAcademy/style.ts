@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Mobile } from '../../styles/responsiveVariables';
 import Default from '../../default';
 
-import LearCode from '../../assets/images/academy/learnCode.jpg';
+import LearCode from '../../assets/images/academy/equippingPeople.jpg';
 import ImageBanner from '../../assets/images/academy/img-top-academy.png';
 import BgImageBanner from '../../assets/images/academy/bg-top-academy.png';
 

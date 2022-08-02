@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Default from '../../default';
 import { Mobile } from '../../styles/responsiveVariables';
 
+import imageBePart from '../../assets/images/home/bePart.jpg';
 import image1 from '../../assets/images/home/ourExpertise.jpg';
 import imageNewJob from '../../assets/images/home/newJobs.jpg';
 import ImageWoman from '../../assets/images/home/img-top-home.png';
@@ -361,7 +362,7 @@ export const ImageJoinTeam = styled.div`
   width: 34.9375rem;
   height: 23.6875rem;
   border-radius: 3.125rem;
-  background: #808080;
+  background: url(${imageBePart}) center no-repeat;
   margin-left: 3.125rem;
   position: relative;
   z-index: 1;

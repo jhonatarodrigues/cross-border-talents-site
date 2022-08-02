@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Form } from '@unform/web';
 import { Mobile } from '../../styles/responsiveVariables';
 
-import TalentPool from '../../assets/images/talentPool/talent-pool.jpg';
+import TalentPool from '../../assets/images/talentPool/bannerTalentPool.jpg';
 import StopWorrying from '../../assets/images/talentPool/stop-worrying.jpg';
 import TopCandidates from '../../assets/images/forEmployers/topCandidates.jpg';
 import Default from '../../default';
