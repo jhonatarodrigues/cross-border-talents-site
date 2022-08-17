@@ -43,6 +43,10 @@ export default function Jobs(): JSX.Element {
       level: item.level,
       country: countrie,
       department: item.interestSkills.name,
+
+      requirements: item.requirements,
+      benefits: item.benefits,
+      userRecruiter: item?.userRecruiter || '',
     };
   });
 

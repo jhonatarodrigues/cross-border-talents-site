@@ -10,6 +10,7 @@ import { SubmitHandler, FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import { useNavigate, useLocation } from 'react-router-dom';
 
+import { GetRecruiters } from '../../../hooks/admin/useRecruiters';
 import Modal from '../../../components/modal';
 import Editor from '../../../components/editor';
 import { GetInterestSkills } from '../../../hooks/admin/useInterestSkills';
@@ -45,6 +46,9 @@ export default function JobsRegister(): JSX.Element {
   const [optionsCountry, setOptionsCountry] = useState<IOptionsDropdown[]>(
     [] as IOptionsDropdown[],
   );
+  const [optionsRecruiter, setOptionsRecruiter] = useState<IOptionsDropdown[]>(
+    [] as IOptionsDropdown[],
+  );
   const location = useLocation();
   //   const params = (location.state as IJobsRegister) || null;
 
@@ -59,6 +63,30 @@ export default function JobsRegister(): JSX.Element {
     }
     return null;
   }, [location]);
+
+  const getRecruiters = useCallback(async () => {
+    const { recruiters } = await GetRecruiters();
+
+    if (recruiters) {
+      const options: IOptionsDropdown[] = recruiters.map(recruiter => {
+        // if (recruiter.user.id === auth.user.id) {
+        //   setRecruiterInitial(recruiter.id);
+        // }
+
+        return {
+          value: recruiter.id,
+          label: `${recruiter.user.name} ${recruiter.user.lastName}`,
+        };
+      });
+      setOptionsRecruiter(options);
+    } else {
+      Modal({ keyType: 'getRecruiter', icon: 'error' });
+    }
+  }, []);
+
+  useEffect(() => {
+    getRecruiters();
+  }, [getRecruiters]);
 
   const handleSubmit: SubmitHandler<IJobsSend> = useCallback(
     async (data: IJobsSend) => {
@@ -197,6 +225,18 @@ export default function JobsRegister(): JSX.Element {
               label={`${Language.fields.country} *`}
               options={optionsCountry}
               value={params?.jobs.countryId}
+            />
+            <InputDropDown
+              name="recruiter"
+              label="Recruiter"
+              options={[{ label: 'Select', value: '' }, ...optionsRecruiter]}
+              value={
+                params?.jobs &&
+                params?.jobs.userRecruiter &&
+                params?.jobs.userRecruiter.id
+                  ? params?.jobs.userRecruiter.id
+                  : ''
+              }
             />
           </ContentInput>
           <ContentInput>
