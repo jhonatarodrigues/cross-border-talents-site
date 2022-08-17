@@ -12,6 +12,8 @@ const enUs = {
   },
 
   fields: {
+    requirements: 'Requirements',
+    benefits: 'Benefits',
     recruiter: 'Recruiter',
     teamLeader: 'Team Leader',
     search: 'Search',

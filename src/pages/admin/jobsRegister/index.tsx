@@ -206,6 +206,20 @@ export default function JobsRegister(): JSX.Element {
               value={params?.jobs.description}
             />
           </ContentInput>
+          <ContentInput>
+            <Editor
+              name="requirements"
+              label={Language.fields.requirements}
+              value={params?.jobs.requirements}
+            />
+          </ContentInput>
+          <ContentInput>
+            <Editor
+              name="benefits"
+              label={Language.fields.benefits}
+              value={params?.jobs.benefits}
+            />
+          </ContentInput>
         </Section>
         <Button variant="contained" type="submit">
           Save

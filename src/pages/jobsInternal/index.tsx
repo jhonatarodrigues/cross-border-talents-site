@@ -313,17 +313,15 @@ export default function JobsInternal(): JSX.Element {
               Requirements
             </Default.Title2>
             <Default.Space h="1.25rem" />
-            <Default.Subtitle color={Default.color.gray}>
-              You have a vocational level technical degree (Level 6/Level 7) or
-              technical experience. Preferable technical background: mechanical,
-              mechatronics or manufacturing engineering. You have affinity with
-              technology. You are a team player and communicative strong. You
-              are proactive and think along with the development of the
-              department. Hands-on experience is preferred (mechanical mounting
-              on machines or cars). You would like to relocate to the
-              Netherlands. Willingness to fulfill a hands-on technician job for
-              at least 2 years.
-            </Default.Subtitle>
+            <Default.Subtitle
+              color={Default.color.gray}
+              dangerouslySetInnerHTML={{
+                __html:
+                  params && params.item
+                    ? job?.requirements || ''
+                    : stateRequest.item.requirements || '',
+              }}
+            />
 
             <Default.Space h="5rem" />
 
@@ -331,17 +329,16 @@ export default function JobsInternal(): JSX.Element {
               Benefits
             </Default.Title2>
             <Default.Space h="1.25rem" />
-            <Default.Subtitle color={Default.color.gray}>
-              You have a vocational level technical degree (Level 6/Level 7) or
-              technical experience. Preferable technical background: mechanical,
-              mechatronics or manufacturing engineering. You have affinity with
-              technology. You are a team player and communicative strong. You
-              are proactive and think along with the development of the
-              department. Hands-on experience is preferred (mechanical mounting
-              on machines or cars). You would like to relocate to the
-              Netherlands. Willingness to fulfill a hands-on technician job for
-              at least 2 years.
-            </Default.Subtitle>
+            <Default.Subtitle
+              color={Default.color.gray}
+              dangerouslySetInnerHTML={{
+                __html:
+                  params && params.item
+                    ? job?.benefits || ''
+                    : stateRequest.item.benefits || '',
+              }}
+            />
+
             <Default.Space h="3.75rem" />
             <Default.Row>
               <a

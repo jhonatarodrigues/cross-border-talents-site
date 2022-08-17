@@ -11,6 +11,8 @@ export interface IJobs {
   description: string;
   date: string;
   countryId?: string;
+  requirements?: string;
+  benefits?: string;
   interestSkills: {
     id: string;
     name: string;
@@ -39,6 +41,8 @@ export interface IJobsSend {
   country: string;
   description: string;
   date: string;
+  requirements: string;
+  benefits: string;
 }
 
 interface IJobsUpdate extends IJobsSend {
@@ -66,6 +70,8 @@ export function UpdateJobs(data: IJobsUpdate): Promise<IJobs> {
               country: "${data.country}",
               description: "${data.description}",
               date: "${Moment(data.date).format('YYYY-MM-DD HH:mm')}"
+              requirements: "${data.requirements}",
+              benefits: "${data.benefits}",
           ){
               id
               idInterestSkills
@@ -96,6 +102,8 @@ export function AddJobs(data: IJobsSend): Promise<IJobs> {
             country: "${data.country}",
             description: "${data.description}",
             date: "${Moment(data.date).format('YYYY-MM-DD HH:mm')}"
+            requirements: "${data.requirements}",
+            benefits: "${data.benefits}",
         ){
             id
             idInterestSkills
@@ -128,6 +136,8 @@ export function GetJobs(): Promise<IResponseJobs> {
             country
             description
             date
+            requirements
+            benefits
             interestSkills{
                 id
                 name
@@ -179,6 +189,8 @@ export function GetJobsPage({
                 country
                 description
                 date
+                requirements
+                benefits
                 interestSkills{
                     id
                     name
@@ -219,6 +231,8 @@ export function GetJob({ id }: { id: string }): Promise<IJobs> {
           level
           country
           description
+          requirements
+          benefits
           interestSkills{
             id
             name
