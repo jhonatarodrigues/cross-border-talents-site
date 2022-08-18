@@ -82,6 +82,7 @@ export const ContentLogo = styled.div`
   align-items: center;
   width: 100%;
   padding: 0.9375rem 1.875rem;
+  cursor: pointer;
 `;
 export const LogoImage = styled.img`
   width: 7.375rem;

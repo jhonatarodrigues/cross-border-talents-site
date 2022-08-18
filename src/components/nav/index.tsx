@@ -13,7 +13,7 @@ import {
   faSuitcase,
   faUserTie,
 } from '@fortawesome/free-solid-svg-icons';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import Default from '../../default';
@@ -45,6 +45,7 @@ interface INavItens {
 export default function Nav(): JSX.Element {
   const location = useLocation();
   const activeRoute = location.pathname;
+  const navigate = useNavigate();
   const { auth } = useSelector((state: ApplicationState) => state);
 
   /* access level
@@ -113,7 +114,11 @@ export default function Nav(): JSX.Element {
 
   return (
     <ContainerNav openMain>
-      <ContentLogo>
+      <ContentLogo
+        onClick={() => {
+          navigate('/');
+        }}
+      >
         <LogoImage src={Logo} />
       </ContentLogo>
       <ContentNav>
