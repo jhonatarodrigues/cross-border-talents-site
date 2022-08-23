@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -34,9 +34,15 @@ import {
   ButtonSocial,
   ContentCopyright,
   CopyrightText,
+  ButtonFooter,
 } from './styles';
 
 export default function FooterSite(): JSX.Element {
+  const navigate = useNavigate();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <ContentFooter>
       <ContainerSite>
@@ -95,15 +101,33 @@ export default function FooterSite(): JSX.Element {
                 and Multilingual sectors.
               </Description>
               <Row row>
-                <ButtonSocial>
-                  <FontAwesomeIcon icon={faFacebookF} />
-                </ButtonSocial>
-                <ButtonSocial>
-                  <FontAwesomeIcon icon={faLinkedinIn} />
-                </ButtonSocial>
-                <ButtonSocial>
-                  <FontAwesomeIcon icon={faInstagram} />
-                </ButtonSocial>
+                <a
+                  href="https://web.facebook.com/CBTalents/?_rdc=1&_rdr"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <ButtonSocial>
+                    <FontAwesomeIcon icon={faFacebookF} />
+                  </ButtonSocial>
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/crossbordertalents/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <ButtonSocial>
+                    <FontAwesomeIcon icon={faLinkedinIn} />
+                  </ButtonSocial>
+                </a>
+                <a
+                  href="https://www.instagram.com/crossbordertalents/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <ButtonSocial>
+                    <FontAwesomeIcon icon={faInstagram} />
+                  </ButtonSocial>
+                </a>
               </Row>
             </Content>
             <ContentNav>
@@ -158,15 +182,39 @@ export default function FooterSite(): JSX.Element {
             </ContentNav>
             <ContentNav className="hiddenMobile">
               <TitleFooter>Opportunities </TitleFooter>
-              <Link to="/jobs">
+              <ButtonFooter
+                onClick={() => {
+                  navigate('/jobs', {
+                    state: {
+                      department: 'ict',
+                    },
+                  });
+                }}
+              >
                 <LinkFooter>ICT Jobs </LinkFooter>
-              </Link>
-              <Link to="/jobs">
+              </ButtonFooter>
+              <ButtonFooter
+                onClick={() => {
+                  navigate('/jobs', {
+                    state: {
+                      department: 'multilingual',
+                    },
+                  });
+                }}
+              >
                 <LinkFooter>Multilingual Jobs</LinkFooter>
-              </Link>
-              <Link to="/jobs">
+              </ButtonFooter>
+              <ButtonFooter
+                onClick={() => {
+                  navigate('/jobs', {
+                    state: {
+                      department: 'engineering',
+                    },
+                  });
+                }}
+              >
                 <LinkFooter>Engineering Jobs</LinkFooter>
-              </Link>
+              </ButtonFooter>
             </ContentNav>
             <ContentNav className="hiddenMobile">
               <TitleFooter>Institutional </TitleFooter>

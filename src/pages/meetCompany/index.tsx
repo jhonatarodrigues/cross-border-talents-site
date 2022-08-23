@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
+import BenNoteboom from '../../assets/images/benNoteboom.jpg';
 import ImageExcellence1 from '../../assets/images/excellence1.png';
 import ImageExcellence2 from '../../assets/images/excellence2.png';
 import ImageExcellence3 from '../../assets/images/excellence3.png';
@@ -48,6 +49,7 @@ import {
   OrnamentContent,
   OrnamentIconUser,
   ExpertiseBlockTypeContent,
+  ImageOwner,
 } from './style';
 
 export default function MeetCompany(): JSX.Element {
@@ -376,6 +378,10 @@ export default function MeetCompany(): JSX.Element {
 
             <Default.Column>
               <BlockBaseItem>
+                <ImageOwner
+                  style={{ background: `url(${BenNoteboom}) center no-repeat` }}
+                />
+
                 <Default.Column>
                   <Default.Title2 color={Default.color.success}>
                     Ben Noteboom

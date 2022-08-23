@@ -172,6 +172,8 @@ export const ButtonSocial = styled.button`
   color: ${Default.color.blue};
   margin-right: 0.3125rem;
   margin-top: 1.125rem;
+
+  cursor: pointer;
 `;
 
 export const ContentCopyright = styled.div`
@@ -182,4 +184,10 @@ export const ContentCopyright = styled.div`
   ${Mobile(`
     flex-direction: column;
   `)}
+`;
+
+export const ButtonFooter = styled.div`
+  background: none;
+  border: none;
+  cursor: pointer;
 `;

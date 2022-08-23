@@ -39,6 +39,7 @@ import {
 interface IRequestState {
   searchText: string;
   searchCountry: string;
+  department: string;
 }
 
 export default function ForEmployers(): JSX.Element {
@@ -117,6 +118,36 @@ export default function ForEmployers(): JSX.Element {
       }
     }
   }, [country, selectedCountry]);
+
+  const checkDepartmentState = useCallback(
+    (interestSkills: IOptionsDropdown[]) => {
+      if (
+        stateRequest &&
+        stateRequest.department &&
+        interestSkills &&
+        interestSkills.length > 0
+      ) {
+        const item = interestSkills.find(
+          itemState =>
+            itemState.label
+              .toLocaleLowerCase()
+              .indexOf(stateRequest.department.toLocaleLowerCase()) > -1,
+        )?.value;
+
+        if (item) {
+          formRef.current?.setFieldValue('interestSkills', item);
+          setTimeout(() => {
+            formRef.current?.submitForm();
+          }, 500);
+        }
+      }
+    },
+    [stateRequest],
+  );
+
+  useEffect(() => {
+    checkDepartmentState(optionsInterestSkills);
+  }, [checkDepartmentState, optionsInterestSkills]);
 
   const getCountries = useCallback(async () => {
     const { countries } = await GetCountries();

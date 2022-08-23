@@ -383,3 +383,21 @@ export const OrnamentIconUser = styled.div`
   align-items: center;
   font-size: 1rem;
 `;
+
+export const ImageOwner = styled.div`
+  width: 20.1875rem;
+  height: 16.8125rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-top-right-radius: 1.25rem;
+  border-bottom-left-radius: 1.25rem;
+  background-size: cover !important;
+
+  ${Mobile(`
+    width: 100%;
+    height: 160px;
+    border-bottom-left-radius: 0rem;
+    border-top-left-radius: 1.25rem;
+  `)}
+`;
