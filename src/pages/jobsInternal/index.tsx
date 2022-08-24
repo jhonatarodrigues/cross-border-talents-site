@@ -321,6 +321,10 @@ export default function JobsInternal(): JSX.Element {
                     ? job?.requirements || ''
                     : stateRequest.item.requirements || '',
               }}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+              }}
             />
 
             <Default.Space h="5rem" />
@@ -336,6 +340,10 @@ export default function JobsInternal(): JSX.Element {
                   params && params.item
                     ? job?.benefits || ''
                     : stateRequest.item.benefits || '',
+              }}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
               }}
             />
 

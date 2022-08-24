@@ -18,6 +18,7 @@ export interface ICandidate {
   observations: string;
   idInterestSkills: string;
   talentPoolVerify: boolean;
+  createdAt: string;
 
   userRecruiter: {
     id: string;
@@ -317,6 +318,7 @@ export function GetListCandidates({
             idInterestSkills
             observations
             talentPoolVerify
+            createdAt
             
             userRecruiter{
                 id

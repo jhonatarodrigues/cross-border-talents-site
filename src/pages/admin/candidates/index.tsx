@@ -166,6 +166,8 @@ export default function Candidates(): JSX.Element {
     }
   }, [recruiterTeamLeader]);
 
+  console.log('candidate', candidates);
+
   const rows: GridRowsProp = candidates.map((candidate: ICandidate) => {
     let countrie = '';
     const countrieFilter = countries.filter(
@@ -194,6 +196,8 @@ export default function Candidates(): JSX.Element {
       recruiter = `${candidate.userRecruiter.user.name} ${candidate.userRecruiter.user.lastName}`;
     }
 
+    const timeStamp: number = parseInt(candidate.createdAt, 10);
+
     return {
       allRow: candidate,
 
@@ -211,7 +215,7 @@ export default function Candidates(): JSX.Element {
       teamLeader,
       recruiter,
       talentPool: !!(candidate.allowTalentPool && candidate.talentPoolVerify),
-      birthDate: Moment(candidate.birthDate).format('DD/MM/YYYY'),
+      birthDate: Moment(timeStamp).format('DD/MM/YYYY'),
     };
   });
 

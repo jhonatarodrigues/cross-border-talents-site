@@ -114,13 +114,11 @@ export default function Nav(): JSX.Element {
 
   return (
     <ContainerNav openMain>
-      <ContentLogo
-        onClick={() => {
-          navigate('/');
-        }}
-      >
-        <LogoImage src={Logo} />
-      </ContentLogo>
+      <a href="/" target="_blank">
+        <ContentLogo>
+          <LogoImage src={Logo} />
+        </ContentLogo>
+      </a>
       <ContentNav>
         {navItens.map((nav, index) => {
           if (!nav.accessLevel.includes(auth.user.accessLevel)) {
