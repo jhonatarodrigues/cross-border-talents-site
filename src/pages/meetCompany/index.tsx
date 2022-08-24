@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 import BenNoteboom from '../../assets/images/benNoteboom.jpg';
+import RicardoNober from '../../assets/images/ricardo-nobre.png';
 import ImageExcellence1 from '../../assets/images/excellence1.png';
 import ImageExcellence2 from '../../assets/images/excellence2.png';
 import ImageExcellence3 from '../../assets/images/excellence3.png';
@@ -363,6 +364,11 @@ export default function MeetCompany(): JSX.Element {
             </Default.Column>
             <Default.Column>
               <BlockBaseItem>
+                <ImageOwner
+                  style={{
+                    background: `url(${RicardoNober}) center no-repeat`,
+                  }}
+                />
                 <Default.Column>
                   <Default.Title2 color={Default.color.success}>
                     Ricardo Nobre

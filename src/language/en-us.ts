@@ -42,6 +42,7 @@ const enUs = {
     description: 'Description',
     sendPicture: 'Send Picture',
     observations: 'Observations',
+    aboutCandidate: 'About the candidate',
     testimonial: 'Testimonial',
     date: 'Date',
     webSiteUrl: 'Website URL',

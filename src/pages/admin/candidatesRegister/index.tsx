@@ -562,7 +562,7 @@ export default function CandidatesRegister(): JSX.Element {
           <ContentInput>
             <Editor
               name="observations"
-              label={Language.fields.observations}
+              label={Language.fields.aboutCandidate}
               value={params?.candidate.observations}
             />
           </ContentInput>

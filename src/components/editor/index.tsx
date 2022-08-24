@@ -12,6 +12,7 @@ import { ContentFiled, TextError, Title } from './style';
 
 interface InputProps extends EditorProps {
   name: string;
+  label: string;
   value?: string;
 }
 
@@ -34,7 +35,7 @@ const {
   Unlink,
 } = EditorTools;
 
-export default function Editor({ name, value: valueUser }: IProps) {
+export default function Editor({ name, label, value: valueUser }: IProps) {
   const inputRef = useRef(null);
   const { fieldName, registerField, error } = useField(name);
   const [inputValue, setInputValue] = useState<string>('');
@@ -63,7 +64,7 @@ export default function Editor({ name, value: valueUser }: IProps) {
 
   return (
     <ContentFiled className="contentField">
-      <Title>{fieldName}</Title>
+      <Title>{label}</Title>
       <EditorKendo
         ref={inputRef}
         tools={[
