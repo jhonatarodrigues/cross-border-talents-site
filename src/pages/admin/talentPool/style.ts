@@ -92,6 +92,7 @@ export const InfoModal = styled.div`
   font-weight: 400;
   color: ${color.gray};
   flex-direction: column;
+  line-height: 1.5625rem;
 `;
 export const ModalLine = styled.div`
   width: 100%;

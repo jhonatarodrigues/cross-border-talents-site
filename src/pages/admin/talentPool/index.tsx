@@ -382,6 +382,11 @@ export default function TalentPool(): JSX.Element {
                         <TitleModal>Languages</TitleModal>
                         <InfoModal>{`${selectedRow?.languages}`}</InfoModal>
                       </Default.Row>
+                      <Default.Space h="1.1875rem" />
+                      <Default.Row>
+                        <TitleModal>Software</TitleModal>
+                        <InfoModal>{`${selectedRow?.softwares}`}</InfoModal>
+                      </Default.Row>
                     </Default.Column>
                   </Default.Row>
 
