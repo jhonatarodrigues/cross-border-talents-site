@@ -1,5 +1,7 @@
 import { AxiosResponse } from 'axios';
 import Moment from 'moment';
+import { htmlToText } from '../../util/format';
+
 import graphql from '../../services/graphql';
 
 export interface IJobs {

@@ -7,6 +7,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import Input from '../../components/input';
+import { htmlURIDecode } from '../../util/format';
 import InputDropDown, {
   IOptionsDropdown,
 } from '../../components/inputDropdown';
@@ -490,11 +491,15 @@ export default function CompanyNeed(): JSX.Element {
                       <Default.Space h="0.625rem" />
                       <Default.Text2
                         color={Default.color.gray}
+                        className="textEditor"
                         dangerouslySetInnerHTML={{
                           __html:
                             item.observation && item.observation.length > 50
-                              ? `${item.observation.slice(0, 50)}...`
-                              : item.observation,
+                              ? `${htmlURIDecode(item.observation).slice(
+                                  0,
+                                  50,
+                                )}...`
+                              : htmlURIDecode(item.observation),
                         }}
                         style={{ flexDirection: 'column' }}
                       />

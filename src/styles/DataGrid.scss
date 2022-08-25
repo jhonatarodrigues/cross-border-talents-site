@@ -54,3 +54,6 @@
 .inputDatePicker label[data-shrink="false"]{
     margin-top: -5px;
 }
+.textEditor *{
+    flex-direction: column;
+}

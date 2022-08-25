@@ -10,6 +10,7 @@ import { SubmitHandler, FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import { useNavigate, useLocation } from 'react-router-dom';
 
+import { htmlURIDecode } from '../../../util/format';
 import { GetRecruiters } from '../../../hooks/admin/useRecruiters';
 import Modal from '../../../components/modal';
 import Editor from '../../../components/editor';

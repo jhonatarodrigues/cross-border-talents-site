@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 
 import { GetCountries, ICountrie } from '../../hooks/admin/useCountry';
+import { htmlURIDecode } from '../../util/format';
 import {
   GetTestimonialsSearch,
   ITestimonials,
@@ -125,8 +126,9 @@ export default function Testimonials(): JSX.Element {
                   <Default.Space h="0.9375rem" />
                   <Default.Text
                     color={Default.color.gray}
+                    className="textEditor"
                     dangerouslySetInnerHTML={{
-                      __html: testimonial.testimonial,
+                      __html: htmlURIDecode(testimonial.testimonial),
                     }}
                     style={{ flexDirection: 'column' }}
                   />

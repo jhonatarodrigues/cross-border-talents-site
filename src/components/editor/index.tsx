@@ -8,6 +8,7 @@ import {
   EditorProps,
 } from '@progress/kendo-react-editor';
 
+import { htmlURIDecode, htmlToText } from '../../util/format';
 import { ContentFiled, TextError, Title } from './style';
 
 interface InputProps extends EditorProps {
@@ -76,8 +77,8 @@ export default function Editor({ name, label, value: valueUser }: IProps) {
         ]}
         defaultEditMode="div"
         contentStyle={{ height: 250, fontFamily: 'Open Sans' }}
-        value={inputValue}
-        onChange={e => setInputValue(e.html)}
+        value={htmlURIDecode(inputValue)}
+        onChange={e => setInputValue(htmlToText(e.html))}
         style={{ fontFamily: 'Open Sans' }}
       />
 

@@ -20,6 +20,7 @@ import IconMultilingual from '../../assets/svg/multilingual';
 import IconPaper from '../../assets/svg/paper';
 import IconFilter from '../../assets/svg/filter';
 
+import { htmlURIDecode } from '../../util/format';
 import CustomModal from '../../components/CustomModal';
 import { AddCompanyModalPage } from '../../hooks/admin/useCompanies';
 import {
@@ -613,12 +614,16 @@ export default function TopCandidates(): JSX.Element {
                   <Default.Space h="0.625rem" />
                   <Default.Subtitle
                     color={Default.color.gray}
+                    className="textEditor"
                     dangerouslySetInnerHTML={{
                       __html:
                         talentPoolItem.observation &&
                         talentPoolItem.observation.length > 50
-                          ? `${talentPoolItem.observation.slice(0, 50)}...`
-                          : talentPoolItem.observation,
+                          ? `${htmlURIDecode(talentPoolItem.observation).slice(
+                              0,
+                              50,
+                            )}...`
+                          : htmlURIDecode(talentPoolItem.observation),
                     }}
                     style={{ flexDirection: 'column' }}
                   />
@@ -964,11 +969,15 @@ export default function TopCandidates(): JSX.Element {
                       <Default.Space h="15px" />
                       <Default.Text
                         color={Default.color.white}
+                        className="textEditor"
                         dangerouslySetInnerHTML={{
                           __html:
                             testimonial.testimonial.length > 480
-                              ? `${testimonial.testimonial.slice(0, 480)}...`
-                              : testimonial.testimonial,
+                              ? `${htmlURIDecode(testimonial.testimonial).slice(
+                                  0,
+                                  480,
+                                )}...`
+                              : htmlURIDecode(testimonial.testimonial),
                         }}
                         style={{ flexDirection: 'column' }}
                       />

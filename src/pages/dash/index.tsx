@@ -6,6 +6,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 
+import { htmlURIDecode } from '../../util/format';
 import SearchIcon from '../../assets/svg/iconSearch';
 import MetricsIcon from '../../assets/svg/metrics';
 import LockIcon from '../../assets/svg/lock';
@@ -435,11 +436,12 @@ export default function Dash(): JSX.Element {
                   <Default.Space h="0.625rem" />
                   <Default.Subtitle
                     color={Default.color.gray}
+                    className="textEditor"
                     dangerouslySetInnerHTML={{
                       __html:
                         job.description.length > 50
-                          ? `${job.description.slice(0, 50)}...`
-                          : job.description,
+                          ? `${htmlURIDecode(job.description).slice(0, 50)}...`
+                          : htmlURIDecode(job.description),
                     }}
                     style={{ flexDirection: 'column' }}
                   />
@@ -486,11 +488,15 @@ export default function Dash(): JSX.Element {
                       <Default.Space h="15px" />
                       <Default.Text
                         color={Default.color.white}
+                        className="textEditor"
                         dangerouslySetInnerHTML={{
                           __html:
                             testimonial.testimonial.length > 480
-                              ? `${testimonial.testimonial.slice(0, 480)}...`
-                              : testimonial.testimonial,
+                              ? `${htmlURIDecode(testimonial.testimonial).slice(
+                                  0,
+                                  480,
+                                )}...`
+                              : htmlURIDecode(testimonial.testimonial),
                         }}
                         style={{ flexDirection: 'column' }}
                       />

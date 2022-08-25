@@ -2,6 +2,17 @@
 /* eslint-disable prefer-template */
 /* eslint-disable operator-assignment */
 
+export const htmlToText = (html: string) => {
+  const text = encodeURI(html);
+
+  return text;
+};
+export const htmlURIDecode = (html: string) => {
+  const text = decodeURI(html);
+
+  return text;
+};
+
 export function formatPhone(phone: string): string {
   if (!phone) {
     return '';

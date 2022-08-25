@@ -6,6 +6,7 @@ import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import Input from '../../components/input';
+import { htmlURIDecode } from '../../util/format';
 import InputDropDown, {
   IOptionsDropdown,
 } from '../../components/inputDropdown';
@@ -394,11 +395,15 @@ export default function ForEmployers(): JSX.Element {
                       <Default.Space h="0.625rem" />
                       <Default.Text2
                         color={Default.color.gray}
+                        className="textEditor"
                         dangerouslySetInnerHTML={{
                           __html:
                             job.description.length > 50
-                              ? `${job.description.slice(0, 50)}...`
-                              : job.description,
+                              ? `${htmlURIDecode(job.description).slice(
+                                  0,
+                                  50,
+                                )}...`
+                              : htmlURIDecode(job.description),
                         }}
                         style={{ flexDirection: 'column' }}
                       />

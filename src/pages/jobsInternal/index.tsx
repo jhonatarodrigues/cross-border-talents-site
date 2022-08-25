@@ -12,6 +12,7 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import { FacebookShareButton, LinkedinShareButton } from 'react-share';
 import * as Yup from 'yup';
 
+import { htmlURIDecode } from '../../util/format';
 import Language from '../../language';
 import Modal from '../../components/modal';
 import CustomModal from '../../components/CustomModal';
@@ -295,11 +296,12 @@ export default function JobsInternal(): JSX.Element {
             <Default.Space h="1.25rem" />
             <Default.Subtitle
               color={Default.color.gray}
+              className="textEditor"
               dangerouslySetInnerHTML={{
                 __html:
                   params && params.item
-                    ? job?.description || ''
-                    : stateRequest.item.description,
+                    ? htmlURIDecode(job?.description || '')
+                    : htmlURIDecode(stateRequest.item.description),
               }}
               style={{
                 display: 'flex',
@@ -315,11 +317,12 @@ export default function JobsInternal(): JSX.Element {
             <Default.Space h="1.25rem" />
             <Default.Subtitle
               color={Default.color.gray}
+              className="textEditor"
               dangerouslySetInnerHTML={{
                 __html:
                   params && params.item
-                    ? job?.requirements || ''
-                    : stateRequest.item.requirements || '',
+                    ? htmlURIDecode(job?.requirements || '')
+                    : htmlURIDecode(stateRequest.item.requirements || ''),
               }}
               style={{
                 display: 'flex',
@@ -335,11 +338,12 @@ export default function JobsInternal(): JSX.Element {
             <Default.Space h="1.25rem" />
             <Default.Subtitle
               color={Default.color.gray}
+              className="textEditor"
               dangerouslySetInnerHTML={{
                 __html:
                   params && params.item
-                    ? job?.benefits || ''
-                    : stateRequest.item.benefits || '',
+                    ? htmlURIDecode(job?.benefits || '')
+                    : htmlURIDecode(stateRequest.item.benefits || ''),
               }}
               style={{
                 display: 'flex',

@@ -13,6 +13,7 @@ import { Form } from '@unform/web';
 import { SubmitHandler, FormHandles } from '@unform/core';
 import { useSelector } from 'react-redux';
 
+import { htmlURIDecode } from '../../../util/format';
 import {
   GetTeamLeaders,
   GetTeamLeader,
@@ -341,8 +342,9 @@ export default function TalentPool(): JSX.Element {
                       <Default.Space h="1.875rem" />
                       <Default.Row>
                         <InfoModal
+                          className="textEditor"
                           dangerouslySetInnerHTML={{
-                            __html: selectedRow?.observation,
+                            __html: htmlURIDecode(selectedRow?.observation),
                           }}
                         />
                       </Default.Row>
@@ -405,8 +407,9 @@ export default function TalentPool(): JSX.Element {
                       <Default.Row>
                         <TitleModal>Work experience</TitleModal>
                         <InfoModal
+                          className="textEditor"
                           dangerouslySetInnerHTML={{
-                            __html: selectedRow?.experience,
+                            __html: htmlURIDecode(selectedRow?.experience),
                           }}
                         />
                       </Default.Row>
