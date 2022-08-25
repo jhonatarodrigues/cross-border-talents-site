@@ -608,7 +608,9 @@ export default function TopCandidates(): JSX.Element {
                       alignItens="center"
                       className="hiddenMobile"
                     >
-                      <TagItem>ID {talentPoolItem.id}</TagItem>
+                      <TagItem>
+                        ID {String(talentPoolItem.id).padStart(5, '0')}
+                      </TagItem>
                     </Default.Row>
                   </NewJobItemContentIcon>
                   <Default.Space h="0.625rem" />

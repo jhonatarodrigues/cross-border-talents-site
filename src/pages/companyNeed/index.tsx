@@ -432,7 +432,7 @@ export default function CompanyNeed(): JSX.Element {
                   />
                   <ContentButtonSearch>
                     <ButtonSite bgColor={Default.color.spotlight}>
-                      Search Job
+                      Find Candidate
                     </ButtonSite>
                   </ContentButtonSearch>
                 </ContentInput>
@@ -484,7 +484,7 @@ export default function CompanyNeed(): JSX.Element {
                         />
                         <Default.Row justifyContent="flex-end">
                           <TagNewJobItem color={Default.color.blueBase}>
-                            ID {item.id}
+                            ID {String(item.id).padStart(5, '0')}
                           </TagNewJobItem>
                         </Default.Row>
                       </Default.Row>
