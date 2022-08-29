@@ -12,13 +12,16 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import { FacebookShareButton, LinkedinShareButton } from 'react-share';
 import * as Yup from 'yup';
 
+import { ApplyNow, IJobs, GetJob } from '../../hooks/admin/useJobs';
+import { SimpleFileUpload } from '../../hooks/admin/useUpload';
+import ContentFile from '../../components/ContentFile';
+import ButtonUpload from '../../components/buttonUpload';
 import { htmlURIDecode } from '../../util/format';
 import Language from '../../language';
 import Modal from '../../components/modal';
 import CustomModal from '../../components/CustomModal';
 import ContentInput from '../../components/contentInput';
 import Input from '../../components/input';
-import { IJobs, GetJob } from '../../hooks/admin/useJobs';
 import ContentSite from '../../components/ContentSite';
 import ContainerSite from '../../components/ContainerSite';
 import ButtonSite from '../../components/buttonSite';
@@ -47,6 +50,7 @@ export default function JobsInternal(): JSX.Element {
   const [job, setJob] = useState<IJobs>();
   const [url, setUrl] = useState('');
   const [modalRegister, setModalRegister] = useState(false);
+  const [uploadCv, setUploadCV] = useState('');
   const stateRequest =
     params && params.item
       ? ({ item: {} as IJobs, countryDesc: '' } as IRequestState)
@@ -63,36 +67,58 @@ export default function JobsInternal(): JSX.Element {
     setJob(response);
   }, [params]);
 
-  const handleSubmitRegister: SubmitHandler = useCallback(async data => {
-    try {
-      const schema = Yup.object().shape({
-        name: Yup.string().required(),
-        lastName: Yup.string().required(),
-        email: Yup.string().required(),
-        phone: Yup.string().required(),
-        companyName: Yup.string().required(),
-        idInterestSkills: Yup.string().required(),
-      });
-
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-
-      console.log('aquiii');
-    } catch (err) {
-      const validationErrors: Record<string, string> = {};
-
-      if (err instanceof Yup.ValidationError) {
-        err.inner.forEach((error: Yup.ValidationError) => {
-          if (error.path) {
-            validationErrors[error.path] = error.message;
-          }
+  const handleSubmitRegister: SubmitHandler = useCallback(
+    async data => {
+      try {
+        const infoData = data;
+        const schema = Yup.object().shape({
+          name: Yup.string().required(),
+          lastName: Yup.string().required(),
+          email: Yup.string().required(),
         });
 
-        formRefRegister.current?.setErrors(validationErrors);
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        infoData.cvUpload = '';
+        if (uploadCv) {
+          infoData.cvUpload = uploadCv;
+        }
+
+        if (infoData.uploadCv) {
+          const upload = await SimpleFileUpload(infoData.uploadCv);
+          if (upload) {
+            infoData.cvUpload = upload;
+          }
+        }
+
+        infoData.idJob = stateRequest.item.id;
+
+        const response = await ApplyNow(infoData);
+        if (response.data.applyNow) {
+          Modal({ keyType: 'getCountries', icon: 'success' });
+          setModalRegister(false);
+        } else {
+          Modal({ keyType: 'applyNow', icon: 'error' });
+          setModalRegister(false);
+        }
+      } catch (err) {
+        const validationErrors: Record<string, string> = {};
+
+        if (err instanceof Yup.ValidationError) {
+          err.inner.forEach((error: Yup.ValidationError) => {
+            if (error.path) {
+              validationErrors[error.path] = error.message;
+            }
+          });
+
+          formRefRegister.current?.setErrors(validationErrors);
+        }
       }
-    }
-  }, []);
+    },
+    [uploadCv, stateRequest],
+  );
 
   const renderModalRegister = useCallback(() => {
     if (!modalRegister) {
@@ -126,17 +152,22 @@ export default function JobsInternal(): JSX.Element {
             <ContentInput>
               <Input
                 name="email"
-                label={`${Language.fields.businessEmail} *`}
+                label={`${Language.fields.email} *`}
                 typeSize="medium"
               />
             </ContentInput>
-            <ContentInput>
-              <Input
-                name="phone"
-                label={`${Language.fields.phone} *`}
-                typeSize="medium"
+            {uploadCv && uploadCv !== 'undefined' ? (
+              <ContentFile
+                fileName={uploadCv}
+                onRemove={() => {
+                  setUploadCV('');
+                }}
               />
-            </ContentInput>
+            ) : (
+              <ButtonUpload name="uploadCv">
+                {Language.page.candidates.cvUpload}
+              </ButtonUpload>
+            )}
 
             <Default.Space h="2.5rem" />
             <Default.Row justifyContent="flex-end">
@@ -146,7 +177,7 @@ export default function JobsInternal(): JSX.Element {
         </FormRender>
       </CustomModal>
     );
-  }, [formRefRegister, handleSubmitRegister, modalRegister]);
+  }, [formRefRegister, handleSubmitRegister, modalRegister, uploadCv]);
 
   useEffect(() => {
     HandleGetJobs();
@@ -154,7 +185,7 @@ export default function JobsInternal(): JSX.Element {
 
   useEffect(() => {
     setUrl(
-      `http://beta.cbtalents.com/jobs/internal/${
+      `http://cbtalents.com/jobs/internal/${
         params && params.item ? job?.jobTitle : stateRequest.item.jobTitle
       }--${params && params.item ? job?.id : stateRequest.item.id}`,
     );

@@ -3,6 +3,7 @@ import Moment from 'moment';
 import { htmlToText } from '../../util/format';
 
 import graphql from '../../services/graphql';
+import api from '../../services/api';
 
 export interface IJobs {
   id: string;
@@ -255,5 +256,35 @@ export function GetJob({ id }: { id: string }): Promise<IJobs> {
 
   return graphql(query).then(response => {
     return response.data.job as IJobs;
+  });
+}
+
+interface IApplyNow {
+  idJob: string;
+  name: string;
+  lastName: string;
+  email: string;
+  cv: string;
+}
+export function ApplyNow({
+  idJob,
+  name,
+  lastName,
+  email,
+  cv,
+}: IApplyNow): Promise<AxiosResponse> {
+  const query = `
+    mutation{
+        applyNow(
+            idJob: "${idJob}"
+            name: "${name} ${lastName}"
+            email: "${email}"
+            cv: "${cv}"
+          )
+      }
+      `;
+
+  return graphql(query).then(response => {
+    return response;
   });
 }

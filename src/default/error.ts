@@ -33,6 +33,7 @@ const error: { [key: string]: string } = {
   companieExists: 'Company already exists.',
   addRecruiterCandidate: 'Failed to add recruiter in candidate.',
   tokenBusinessAccept: 'Failed to accepted business.',
+  applyNow: 'Failed to apply now job',
 };
 
 export default function errorString(key: string): string {

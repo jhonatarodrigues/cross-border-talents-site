@@ -39,6 +39,7 @@ const success: { [key: string]: string } = {
   addRecruiterCandidate: 'Recruiter added in candidate successfully.',
   tokenBusinessAccept: 'Business accepted successfully.',
   copyUrlSendToAFriend: 'Copied url, paste to your friends',
+  applyNow: 'Success apply now job!',
 };
 
 export default function successString(key: string): string {
