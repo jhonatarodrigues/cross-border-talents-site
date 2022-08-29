@@ -143,10 +143,12 @@ export function AddRecruiter(
     });
 }
 
-export function GetRecruiters(): Promise<IResponseRecruiter> {
+export function GetRecruiters(
+  alphabeticalOrder?: boolean,
+): Promise<IResponseRecruiter> {
   const query = `
     query {
-      recruiters {
+      recruiters${alphabeticalOrder ? `(alphabeticalOrder: true)` : ''} {
         id
         idUser
         teamLeader

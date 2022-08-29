@@ -154,7 +154,7 @@ export default function TalentPool(): JSX.Element {
   }, [handleGetCountries]);
 
   const getTeamLeaders = useCallback(async () => {
-    const { teamLeaders } = await GetTeamLeaders();
+    const { teamLeaders } = await GetTeamLeaders(true);
     if (teamLeaders) {
       const options: IOptionsDropdown[] = teamLeaders.map(teamLeader => {
         return {

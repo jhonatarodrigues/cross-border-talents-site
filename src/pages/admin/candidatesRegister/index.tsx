@@ -236,7 +236,7 @@ export default function CandidatesRegister(): JSX.Element {
   );
 
   const getTeamLeaders = useCallback(async () => {
-    const { teamLeaders } = await GetTeamLeaders();
+    const { teamLeaders } = await GetTeamLeaders(true);
     if (teamLeaders) {
       const options: IOptionsDropdown[] = teamLeaders.map(teamLeader => {
         if (teamLeader.idUser === auth.user.id) {
@@ -254,7 +254,7 @@ export default function CandidatesRegister(): JSX.Element {
     }
   }, [auth]);
   const getRecruiters = useCallback(async () => {
-    const { recruiters } = await GetRecruiters();
+    const { recruiters } = await GetRecruiters(true);
 
     if (recruiters) {
       const options: IOptionsDropdown[] = recruiters.map(recruiter => {

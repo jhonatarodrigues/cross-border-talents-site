@@ -66,7 +66,7 @@ export default function JobsRegister(): JSX.Element {
   }, [location]);
 
   const getRecruiters = useCallback(async () => {
-    const { recruiters } = await GetRecruiters();
+    const { recruiters } = await GetRecruiters(true);
 
     if (recruiters) {
       const options: IOptionsDropdown[] = recruiters.map(recruiter => {

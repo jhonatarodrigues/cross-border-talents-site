@@ -155,7 +155,7 @@ export default function CompaniesRegister(): JSX.Element {
   );
 
   const getTeamLeaders = useCallback(async () => {
-    const { teamLeaders } = await GetTeamLeaders();
+    const { teamLeaders } = await GetTeamLeaders(true);
     if (teamLeaders) {
       const options: IOptionsDropdown[] = teamLeaders.map(teamLeader => {
         return {

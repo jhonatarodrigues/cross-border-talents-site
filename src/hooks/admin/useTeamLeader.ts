@@ -111,10 +111,12 @@ export function UpdateTeamLeader(
     });
 }
 
-export function GetTeamLeaders(): Promise<IResponseTeamLeader> {
+export function GetTeamLeaders(
+  alphabeticalOrder?: boolean,
+): Promise<IResponseTeamLeader> {
   const query = `
     query {
-        teamLeaders{
+        teamLeaders${alphabeticalOrder ? `(alphabeticalOrder: true)` : ''}{
             department
             id
             idUser

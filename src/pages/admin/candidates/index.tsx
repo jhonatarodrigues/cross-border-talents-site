@@ -83,7 +83,7 @@ export default function Candidates(): JSX.Element {
   }, []);
 
   const getTeamLeaders = useCallback(async () => {
-    const { teamLeaders } = await GetTeamLeaders();
+    const { teamLeaders } = await GetTeamLeaders(true);
 
     if (recruiterTeamLeader) {
       const options: IOptionsDropdown[] = [];
@@ -444,7 +444,7 @@ export default function Candidates(): JSX.Element {
   }, []);
 
   const getRecruiters = useCallback(async () => {
-    const { recruiters } = await GetRecruiters();
+    const { recruiters } = await GetRecruiters(true);
 
     if (recruiterInitial) {
       const options: IOptionsDropdown[] = [];
