@@ -65,14 +65,22 @@ export default function OurItAcademy(): JSX.Element {
             <Default.Space h="1.875rem" className="hiddenMobile" />
             <Default.Space h="3.125rem" className="visibleMobile" />
             <Default.Text color={Default.color.blueOriginal} textAlignCenter>
-              In our CBT IT Academy, we can teach IT skills such as Java, PHP,
-              Web Developer, and a variety of other digital languages. It&apos;s
-              quite simple to join. You enroll in a training program and,
-              following an assessment, are placed with one of our clients
-              companies to complete your training. Our coding academy does not
-              require any prior knowledge. We will get you up to speed and
-              familiarize you with the fundamentals of coding, whether you have
-              previously coded or are starting from scratch.
+              In our CBT IT Academy, we teach IT skills such as Java, PHP, Web
+              Developer, and a variety of other digital languages. It&apos;s
+              quite simple to join:
+              <br />
+              1. You enroll in a training program
+              <br />
+              2. Complete an assessment
+              <br />
+              3. If successful, we provide a placement with one of our clients
+              companies to complete your training
+              <br />
+              <br />
+              Our coding academy does not require any prior knowledge. We will
+              get you up to speed and familiarize you with the fundamentals of
+              coding, whether you have previously coded or are starting from
+              scratch.
             </Default.Text>
           </ContentWhite>
           <Default.Space h="3.125rem" />
@@ -130,15 +138,15 @@ export default function OurItAcademy(): JSX.Element {
           <Default.Space h="1.875rem" />
           <Default.Subtitle color={Default.color.gray}>
             The demand for information and communications technology
-            professionals is rapidly increasing. At the same time, 169 million
-            Europeans aged 16 to 74 - 44 percent - lack basic digital skills.
+            professionals is rapidly increasing. At the same time, amongst 169
+            million Europeans aged 16 to 74, 44% lack basic digital skills.
             <br />
             <br />
             Given that digital skills are required for 9 out of 10 jobs.
             Companies have a difficult time finding qualified candidates. We
             recognize this gap and want to be part of the change in the digital
-            workforce. We want to contribute with talented people to deliver the
-            strong message that &quot;Code is for everyone&quot;.
+            workforce. We aim to contribute with talented individuals to deliver
+            the strong message that &quot;Code is for everyone&quot;.
           </Default.Subtitle>
           <Default.Space h="2.125rem" />
           <Default.Row justifyContent="center" alignItens="center">
@@ -159,9 +167,9 @@ export default function OurItAcademy(): JSX.Element {
           <Default.Row>
             <Default.Column>
               <Default.TitleH3 color={Default.color.white}>
-                Do you not yet <br />
-                have the necessary <br />
-                programming skills?
+                Do you lack <br />
+                the necessary programming
+                <br /> skills?
               </Default.TitleH3>
               <Default.Space h="1.25rem" />
               <Default.Title2 color={Default.color.success}>

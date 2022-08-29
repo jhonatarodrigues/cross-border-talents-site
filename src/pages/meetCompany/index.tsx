@@ -107,19 +107,21 @@ export default function MeetCompany(): JSX.Element {
                 <Default.Space w="4.6875rem" />
                 <Default.Column>
                   <Default.Subtitle color={Default.color.gray}>
-                    For 9 years we have been building not only a structured
-                    company, but also fostering a more human community of
-                    professionals from all over the world. Since 2013, our
+                    For 9 years we have focused on not only building a
+                    structured company, but also on fostering a more
+                    humanized/humane community of professionals. Since 2013, our
                     specialized international recruitment team has integrated
                     more than 500 engineers from Central Europe (80% of European
-                    engineers) and 5500 multilingual candidates. We have over
-                    1,000 partners in 50 countries. Always in accordance with
-                    the needs of our clients. <br />
+                    engineers) and 5500 multilingual candidates. Always
+                    working/providing in accordance with the needs of our
+                    clients.
+                    <br />
                     <br /> We offer permanent placement solutions in
                     engineering, ICT (information technology) and multilingual.
                     With a team of international recruiters from 35 countries,
-                    we promote a more human community of professionals from all
-                    over the world / we strive for diversity.
+                    We promote a more humanized/humane community of
+                    professionals from all over the world whilst striving for
+                    diversity.
                   </Default.Subtitle>
                 </Default.Column>
               </Default.Row>
@@ -153,10 +155,10 @@ export default function MeetCompany(): JSX.Element {
               <Default.Column>
                 <TitleExpertiseBlockType>Innovation</TitleExpertiseBlockType>
                 <TextExpertiseBlockType>
-                  Our company is committed to constant innovation and makes
-                  Every effort to represent a group with a creatine and positive
-                  attitude aimed at obtaining technically advanced solutions and
-                  future-oriented technologies.
+                  Our company is committed to constant innovation. We make every
+                  effort to represent a group/groups with a creative and
+                  positive attitude, aimed at obtaining technically advanced
+                  solutions and future-oriented technologies.
                 </TextExpertiseBlockType>
               </Default.Column>
             </ExpertiseBlockType>
@@ -189,7 +191,7 @@ export default function MeetCompany(): JSX.Element {
           <Default.Row>
             <Default.Column>
               <Default.TitleH3 color={Default.color.success}>
-                In addition, we are:
+                Our Contribution
               </Default.TitleH3>
               <Default.Space h="1.25rem" />
               <Default.Row alignItens="center">
@@ -271,8 +273,8 @@ export default function MeetCompany(): JSX.Element {
                       </Default.Title2>
                       <Default.Space h="0.625rem" />
                       <Default.Text2 color={Default.color.gray}>
-                        These are just some of the things that make us continue
-                        to improve the world of work and strive for diversity.
+                        These are just some of the things that motivate us to
+                        improve the world of work and strive for diversity.
                       </Default.Text2>
                     </ItemOrnament>
                   </Default.Column>

@@ -257,7 +257,7 @@ export default function ForEmployers(): JSX.Element {
             {numberJobs > 1 && (
               <>
                 <Default.Title3 color={Default.color.blueLight}>
-                  Find {numberJobs} jobs opportunities
+                  Find {numberJobs} job opportunities
                 </Default.Title3>
                 <Default.Space h="2.5rem" />
               </>

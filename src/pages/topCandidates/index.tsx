@@ -654,7 +654,7 @@ export default function TopCandidates(): JSX.Element {
               <Default.Space h="1.25rem" />
               <Default.Subtitle color={Default.color.whiteLight}>
                 Candidates that don&apos;t fit your company&apos;s needs. A long
-                list of interviews to schedule.
+                list of interviews to schedule. We&apos;ll take care of that.
               </Default.Subtitle>
               <Default.Space h="45px" />
               <Default.Row>

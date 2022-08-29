@@ -172,7 +172,7 @@ export default function Dash(): JSX.Element {
               </ContentSearch>
             </div>
             <SubtitleSearchBanner>
-              It’s a company and need to hire talents?&nbsp;
+              Are you a company looking to hire talent?&nbsp;
               <Link to="/"> Request your access here</Link>
             </SubtitleSearchBanner>
             <a
@@ -217,7 +217,7 @@ export default function Dash(): JSX.Element {
               <Default.Column>
                 <TitleExpertiseBlockType>ICT</TitleExpertiseBlockType>
                 <TextExpertiseBlockType>
-                  ICT professionals available to work in your company
+                  ICT professionals available to work for your company
                 </TextExpertiseBlockType>
               </Default.Column>
             </ExpertiseBlockType>
@@ -326,7 +326,7 @@ export default function Dash(): JSX.Element {
               <Default.Row>
                 <Default.Column>
                   <Default.TitleH3 color={Default.color.blueBase}>
-                    Be part of this <br />
+                    Be a part of this <br />
                     opportunity
                   </Default.TitleH3>
                   <Default.Space h="1rem" />
