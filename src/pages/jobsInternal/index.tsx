@@ -81,15 +81,15 @@ export default function JobsInternal(): JSX.Element {
           abortEarly: false,
         });
 
-        infoData.cvUpload = '';
+        infoData.cv = '';
         if (uploadCv) {
-          infoData.cvUpload = uploadCv;
+          infoData.cv = uploadCv;
         }
 
         if (infoData.uploadCv) {
           const upload = await SimpleFileUpload(infoData.uploadCv);
           if (upload) {
-            infoData.cvUpload = upload;
+            infoData.cv = upload;
           }
         }
 
