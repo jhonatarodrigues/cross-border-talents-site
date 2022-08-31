@@ -25,13 +25,16 @@ export default function InputDatePicker({
 }: IProps) {
   const inputRef = useRef(null);
   const { fieldName, registerField, error } = useField(name);
-  const [inputValue, setInputValue] = useState<Date | null>(new Date());
+  const [inputValue, setInputValue] = useState<Date | null | ''>(null);
 
   useEffect(() => {
     registerField({
       name: fieldName,
       ref: inputRef,
       getValue: () => {
+        if (!inputValue) {
+          return '';
+        }
         return inputValue;
       },
       setValue: (_, value) => {

@@ -127,7 +127,6 @@ export default function CandidatesRegister(): JSX.Element {
           email: Yup.string().required(),
           nativeLanguage: Yup.string().required(),
           country: Yup.string().required(),
-          englishLevel: Yup.string().required(),
           interestSkills: Yup.string().required(),
         });
 
@@ -489,7 +488,11 @@ export default function CandidatesRegister(): JSX.Element {
               dateOnly
               name="birthDate"
               label={Language.fields.birthDate}
-              value={new Date(params?.candidate.birthDate || '')}
+              value={
+                params?.candidate && params?.candidate.birthDate
+                  ? new Date(params?.candidate.birthDate)
+                  : undefined
+              }
             />
             <InputDropDown
               name="gender"
@@ -514,7 +517,7 @@ export default function CandidatesRegister(): JSX.Element {
             />
             <InputDropDown
               name="englishLevel"
-              label={`${Language.fields.englishLevel} *`}
+              label={`${Language.fields.englishLevel}`}
               options={optionsEnglishLevel}
               value={String(params?.candidate.englishLevel)}
             />
