@@ -237,9 +237,21 @@ export default function FooterSite(): JSX.Element {
               </CopyrightText>
 
               <Row>
-                <CopyrightText>Privacy Policy</CopyrightText>
-                <CopyrightText paddingLeft="1.875rem">Our Teams</CopyrightText>
+                <div className="visibleMobile">
+                  <Default.Space h="0.1875rem" />
+                  <CopyrightText>Privacy Policy</CopyrightText>
+                  <CopyrightText paddingLeft="1.875rem">
+                    Our Teams
+                  </CopyrightText>
+                  <Default.Space h="0.3125rem" />
+                </div>
                 <div>
+                  <div className="hiddenMobile">
+                    <CopyrightText>Privacy Policy</CopyrightText>
+                    <CopyrightText paddingLeft="1.875rem">
+                      Our Teams
+                    </CopyrightText>
+                  </div>
                   <CopyrightText paddingLeft="5.625rem">
                     Made with
                   </CopyrightText>{' '}

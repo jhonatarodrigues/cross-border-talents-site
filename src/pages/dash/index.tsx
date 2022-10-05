@@ -137,8 +137,8 @@ export default function Dash(): JSX.Element {
         <Default.Column>
           <ContainerSite>
             <Title>
-              Your international <br className="hiddenMobile" /> job opportunity
-              here
+              More than 2.548
+              <br className="hiddenMobile" /> international jobs here
             </Title>
             <div className="hiddenMobile">
               <ContentSearch>

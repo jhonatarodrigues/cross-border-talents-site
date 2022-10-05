@@ -84,7 +84,7 @@ export default function Nav(): JSX.Element {
       title: `Candidates`,
       icon: faUserCheck,
       route: '/admin/candidates',
-      accessLevel: [1, 2, 3, 4, 5],
+      accessLevel: [1, 2, 3, 5],
     },
     {
       title: `Department`,
