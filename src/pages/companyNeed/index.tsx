@@ -415,7 +415,7 @@ export default function CompanyNeed(): JSX.Element {
 
                   <InputDropDown
                     name="multilingual"
-                    label={Language.fields.multilingual}
+                    label={Language.fields.department}
                     options={[
                       { value: '', label: 'All' },
                       ...optionsInterestSkills,
