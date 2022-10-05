@@ -35,6 +35,14 @@ export interface ITalentPools {
     observations: string;
     nativeLanguage: string;
     englishLevel: string;
+    userTeamLeader: {
+      id: string;
+      idUser: string;
+      user: {
+        name: string;
+        lastName: string;
+      };
+    };
   };
 }
 
@@ -110,6 +118,14 @@ export function GetTalentPools({
             country
             nativeLanguage
             englishLevel
+            userTeamLeader{
+                id
+                idUser
+                user {
+                    name
+                    lastName
+                }
+            }
         }
         user {
             id

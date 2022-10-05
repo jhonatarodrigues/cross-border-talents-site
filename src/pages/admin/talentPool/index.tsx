@@ -106,8 +106,10 @@ export default function TalentPool(): JSX.Element {
       charge: item.charge,
       country: countrie,
       teamLeader:
-        item.teamLeader && item.teamLeader.user && item.teamLeader.user.name
-          ? `${item.teamLeader.user.name} ${item.teamLeader.user.lastName}`
+        item.candidate &&
+        item.candidate.userTeamLeader &&
+        item.candidate.userTeamLeader.user
+          ? `${item.candidate.userTeamLeader.user.name} ${item.candidate.userTeamLeader.user.lastName}`
           : '',
     };
   });
