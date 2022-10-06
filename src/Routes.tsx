@@ -68,7 +68,7 @@ export default function Teste(): JSX.Element {
           element={<RegisterTalentPool />}
         />
         <Route path="/AcceptBusiness/:token" element={<AcceptBusiness />} />
-        {/* <Route path="/talentAcquisition" element={<TalentAcquisition />} /> */}
+        <Route path="/talent-acquisition" element={<TalentAcquisition />} />
 
         <Route path="/admin">
           <Route path="login" element={<Login />} />

@@ -1,85 +1,21 @@
 import React, { useRef, useCallback } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
-import { SubmitHandler, FormHandles } from '@unform/core';
-import * as Yup from 'yup';
-
-import IconLock from '../../assets/svg/lock';
-import IconMultilingual from '../../assets/svg/multilingual';
-import ImageLisboa from '../../assets/images/contact/cbt-lisbon.jpg';
-import ImagePorto from '../../assets/images/contact/cbt-porto.jpg';
-import ImageEvora from '../../assets/images/contact/cbt-evora.jpg';
-import ImageBerlin from '../../assets/images/contact/cbt-berlin.jpg';
-import ImageLondon from '../../assets/images/contact/cbt-london.jpg';
-import ImageSP from '../../assets/images/contact/cbt-sao-paulo.jpg';
 
 import Default from '../../default';
-import Input from '../../components/input';
-import { SendContact } from '../../hooks/admin/useContact';
+
 import ContentSite from '../../components/ContentSite';
 import ContainerSite from '../../components/ContainerSite';
-import ContentInput from '../../components/contentInput';
-import ButtonSite from '../../components/buttonSite';
-import Language from '../../language';
-import Modal from '../../components/modal';
+
 import {
   Banner,
   Title,
   ContentTitle,
-  BlockContactUs,
-  BlockContactUsForm,
-  FormRender,
-  BlockCheckUnits,
-  CheckUnitItem,
-  CheckUnitItemImage,
+  BlockHowWeWork,
+  ImageHowWork,
+  OrnamentImageHowWork,
+  ContentImageHowWork,
 } from './style';
 
 export default function TalentAcquisition(): JSX.Element {
-  const formRef = useRef<FormHandles>(null);
-
-  const handleSubmit: SubmitHandler = useCallback(async data => {
-    try {
-      const schema = Yup.object().shape({
-        name: Yup.string().required(),
-        email: Yup.string().required(),
-        subject: Yup.string().required(),
-        message: Yup.string().required(),
-      });
-
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-
-      const response = await SendContact(data);
-
-      if (response.data.sendContact) {
-        Modal({
-          icon: 'success',
-          keyType: 'contactSuccess',
-        });
-        formRef.current?.reset();
-      } else {
-        Modal({
-          icon: 'error',
-          keyType: 'contactSuccess',
-        });
-      }
-    } catch (err) {
-      const validationErrors: Record<string, string> = {};
-
-      if (err instanceof Yup.ValidationError) {
-        err.inner.forEach((error: Yup.ValidationError) => {
-          if (error.path) {
-            validationErrors[error.path] = error.message;
-          }
-        });
-
-        formRef.current?.setErrors(validationErrors);
-      }
-    }
-  }, []);
-
   return (
     <ContentSite>
       <Banner>
@@ -98,304 +34,46 @@ export default function TalentAcquisition(): JSX.Element {
           </Default.Row>
         </ContainerSite>
       </Banner>
-      <BlockContactUs>
+      <BlockHowWeWork>
         <ContainerSite>
           <Default.Row>
-            <div>
-              <Default.Column>
-                <Default.TitleH3 color={Default.color.success}>
-                  Do you have <br />
-                  any questions?
-                </Default.TitleH3>
-                <Default.Space h="1.875rem" />
-                <Default.Row justifyContent="flex-start">
-                  <Default.Column>
-                    <IconMultilingual width={40} height={40} />
-                    <Default.Space h="0.9375rem" />
-                    <Default.Title2 color={Default.color.white}>
-                      Contact <br />
-                      our team
-                    </Default.Title2>
-                  </Default.Column>
-                  <Default.Space w="3.125rem" />
-                  <Default.Column>
-                    <IconLock />
-                    <Default.Space h="0.9375rem" />
-                    <Default.Title2 color={Default.color.white}>
-                      Privacy and <br />
-                      security
-                    </Default.Title2>
-                  </Default.Column>
-                </Default.Row>
-              </Default.Column>
-            </div>
-            <BlockContactUsForm id="topCandidatesForm">
-              <Default.Column justifyContent="space-between">
-                <FormRender
-                  ref={formRef}
-                  onSubmit={handleSubmit}
-                  onClick={() => formRef.current?.setErrors({})}
-                >
-                  <Default.Column>
-                    <ContentInput>
-                      <Input
-                        name="name"
-                        label={`${Language.fields.yourName} *`}
-                        typeSize="medium"
-                      />
-                    </ContentInput>
-                    <ContentInput>
-                      <Input
-                        name="email"
-                        label={`${Language.fields.yourEmail} *`}
-                        typeSize="medium"
-                      />
-                    </ContentInput>
-                    <ContentInput>
-                      <Input
-                        name="subject"
-                        label={`${Language.fields.subject} *`}
-                        typeSize="medium"
-                      />
-                    </ContentInput>
-                    <ContentInput>
-                      <Input
-                        name="message"
-                        label={`${Language.fields.yourMessage} *`}
-                        typeSize="medium"
-                        height={120}
-                        multiline
-                        maxRows={Infinity}
-                      />
-                    </ContentInput>
+            <ContentImageHowWork>
+              <ImageHowWork />
+              <OrnamentImageHowWork />
+            </ContentImageHowWork>
 
-                    <Default.Space h="0.9375rem" />
-                    <Default.Row alignItens="center">
-                      <ButtonSite bgColor={Default.color.spotlight}>
-                        Send message
-                      </ButtonSite>
-                    </Default.Row>
-                  </Default.Column>
-                </FormRender>
-              </Default.Column>
-            </BlockContactUsForm>
+            <Default.Column>
+              <Default.TitleH3 color={Default.color.success}>
+                How we work
+              </Default.TitleH3>
+              <Default.Space h="1.875rem" />
+              <Default.Subtitle color={Default.color.gray}>
+                We use technology, but our team consists of people searching for
+                people anywhere in the world to find the best solution for
+                candidates and clients. Our recruiters specialize in finding
+                professionals, executives, salespeople, multilingual candidates,
+                and candidates with a diverse professional background ranging
+                from senior to entry-level positions.
+              </Default.Subtitle>
+              <Default.Space h="4.6875rem" />
+              <Default.TitleH3 color={Default.color.success}>
+                A compelling team
+              </Default.TitleH3>
+              <Default.Space h="1.875rem" />
+              <Default.Subtitle color={Default.color.gray}>
+                Since 2013, Cross Border Talents has offered not only freelance
+                and contract opportunities, but also the chance to build a
+                diverse business, regardless of race, age, nationality or
+                gender. <br /> <br /> More than 200 professional colleagues in
+                37 different countries search for candidates with rare skills
+                and support the move to countries like Portugal, Spain, Greece,
+                Netherlands, Germany, Israel, USA, Brazil, etc.
+              </Default.Subtitle>
+            </Default.Column>
           </Default.Row>
+          <Default.Space h="8.125rem" />
         </ContainerSite>
-      </BlockContactUs>
-      <BlockCheckUnits>
-        <ContainerSite>
-          <Default.Title color={Default.color.blueOriginal} textAlignCenter>
-            Check our units
-          </Default.Title>
-          <Default.Space h="3.75rem" />
-          <Default.Row>
-            <CheckUnitItem>
-              <Default.Row alignItens="center">
-                <CheckUnitItemImage
-                  style={{ background: `url(${ImageLisboa}) center no-repeat` }}
-                />
-                <Default.Space w="3.125rem" className="hiddenMobile" />
-                <Default.Space h="1.875rem" className="visibleMobile" />
-                <Default.Column>
-                  <Default.Row alignItens="center">
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      fontSize={17}
-                      color={Default.color.success}
-                    />
-                    <Default.Space w="0.5rem" />
-                    <Default.Title2 color={Default.color.blueOriginal}>
-                      CBT Lisbon
-                    </Default.Title2>
-                  </Default.Row>
-                  <Default.Space h="1.25rem" />
-                  <Default.Text color={Default.color.gray}>
-                    Cais da Rocha Conde D&apos;Óbidos. <br />
-                    Edifício LACS. 1350-352 Lisboa - Portugal
-                  </Default.Text>
-                  <Link to="/">
-                    <Default.Text color={Default.color.gray}>
-                      info@cbtalents.com
-                    </Default.Text>
-                  </Link>
-                </Default.Column>
-              </Default.Row>
-            </CheckUnitItem>
-
-            <CheckUnitItem>
-              <Default.Row alignItens="center">
-                <CheckUnitItemImage
-                  style={{ background: `url(${ImagePorto}) center no-repeat` }}
-                />
-                <Default.Space w="3.125rem" className="hiddenMobile" />
-                <Default.Space h="1.875rem" className="visibleMobile" />
-                <Default.Column>
-                  <Default.Row alignItens="center">
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      fontSize={17}
-                      color={Default.color.success}
-                    />
-                    <Default.Space w="0.5rem" className="hiddenMobile" />
-                    <Default.Space h="0.5rem" className="visibleMobile" />
-                    <Default.Title2 color={Default.color.blueOriginal}>
-                      CBT Porto
-                    </Default.Title2>
-                  </Default.Row>
-                  <Default.Space h="1.25rem" />
-                  <Default.Text color={Default.color.gray}>
-                    Av. da Boavista, 1588 - 6.º andar <br />
-                    Sala Bach. 4100-115 Porto
-                  </Default.Text>
-                  <Link to="/">
-                    <Default.Text color={Default.color.gray}>
-                      info@cbtalents.com
-                    </Default.Text>
-                  </Link>
-                </Default.Column>
-              </Default.Row>
-            </CheckUnitItem>
-          </Default.Row>
-          <Default.Space h="3.125rem" />
-          <Default.Row>
-            <CheckUnitItem>
-              <Default.Row alignItens="center">
-                <CheckUnitItemImage
-                  style={{ background: `url(${ImageSP}) center no-repeat` }}
-                />
-                <Default.Space w="3.125rem" className="hiddenMobile" />
-                <Default.Space h="1.875rem" className="visibleMobile" />
-                <Default.Column>
-                  <Default.Row alignItens="center">
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      fontSize={17}
-                      color={Default.color.success}
-                    />
-                    <Default.Space w="0.5rem" />
-                    <Default.Title2 color={Default.color.blueOriginal}>
-                      CBT São Paulo
-                    </Default.Title2>
-                  </Default.Row>
-                  <Default.Space h="1.25rem" />
-                  <Default.Text color={Default.color.gray}>
-                    Alameda Santos, 415 - 10º andar <br />
-                    Paraíso, São Paulo - SP, 01419-913
-                  </Default.Text>
-                  <Link to="/">
-                    <Default.Text color={Default.color.gray}>
-                      info@cbtalents.com
-                    </Default.Text>
-                  </Link>
-                </Default.Column>
-              </Default.Row>
-            </CheckUnitItem>
-
-            <CheckUnitItem>
-              <Default.Row alignItens="center">
-                <CheckUnitItemImage
-                  style={{ background: `url(${ImageBerlin}) center no-repeat` }}
-                />
-                <Default.Space w="3.125rem" className="hiddenMobile" />
-                <Default.Space h="1.875rem" className="visibleMobile" />
-                <Default.Column>
-                  <Default.Row alignItens="center">
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      fontSize={17}
-                      color={Default.color.success}
-                    />
-                    <Default.Space w="0.5rem" />
-                    <Default.Title2 color={Default.color.blueOriginal}>
-                      CBT Berlin
-                    </Default.Title2>
-                  </Default.Row>
-                  <Default.Space h="1.25rem" />
-                  <Default.Text color={Default.color.gray}>
-                    Potsdamer Platz 2, 5th floor <br />
-                    10785 Berlin, Germany
-                  </Default.Text>
-                  <Link to="/">
-                    <Default.Text color={Default.color.gray}>
-                      info@cbtalents.com
-                    </Default.Text>
-                  </Link>
-                </Default.Column>
-              </Default.Row>
-            </CheckUnitItem>
-          </Default.Row>
-          <Default.Space h="3.125rem" />
-          <Default.Row>
-            <CheckUnitItem>
-              <Default.Row alignItens="center">
-                <CheckUnitItemImage
-                  style={{ background: `url(${ImageLondon}) center no-repeat` }}
-                />
-                <Default.Space w="3.125rem" className="hiddenMobile" />
-                <Default.Space h="1.875rem" className="visibleMobile" />
-                <Default.Column>
-                  <Default.Row alignItens="center">
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      fontSize={17}
-                      color={Default.color.success}
-                    />
-                    <Default.Space w="0.5rem" />
-                    <Default.Title2 color={Default.color.blueOriginal}>
-                      CBT London
-                    </Default.Title2>
-                  </Default.Row>
-                  <Default.Space h="1.25rem" />
-                  <Default.Text color={Default.color.gray}>
-                    Fenchurch Street Station New London <br />
-                    House, 6 London Street <br />
-                    London EC3R 7LP
-                  </Default.Text>
-                  <Link to="/">
-                    <Default.Text color={Default.color.gray}>
-                      info@cbtalents.com
-                    </Default.Text>
-                  </Link>
-                </Default.Column>
-              </Default.Row>
-            </CheckUnitItem>
-
-            <CheckUnitItem>
-              <Default.Row alignItens="center">
-                <CheckUnitItemImage
-                  style={{ background: `url(${ImageEvora}) center no-repeat` }}
-                />
-                <Default.Space w="3.125rem" className="hiddenMobile" />
-                <Default.Space h="1.875rem" className="visibleMobile" />
-                <Default.Column>
-                  <Default.Row alignItens="center">
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      fontSize={17}
-                      color={Default.color.success}
-                    />
-                    <Default.Space w="0.5rem" />
-                    <Default.Title2 color={Default.color.blueOriginal}>
-                      CBT Évora
-                    </Default.Title2>
-                  </Default.Row>
-                  <Default.Space h="1.25rem" />
-                  <Default.Text color={Default.color.gray}>
-                    Parque Industrial e Tecnológico de <br />
-                    Évora, Rua Circular Norte <br />
-                    7005-841 Évora, Portugal
-                  </Default.Text>
-                  <Link to="/">
-                    <Default.Text color={Default.color.gray}>
-                      info@cbtalents.com
-                    </Default.Text>
-                  </Link>
-                </Default.Column>
-              </Default.Row>
-            </CheckUnitItem>
-          </Default.Row>
-        </ContainerSite>
-      </BlockCheckUnits>
+      </BlockHowWeWork>
     </ContentSite>
   );
 }
