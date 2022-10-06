@@ -20,6 +20,10 @@ export const Banner = styled.div`
 export const Title = styled(Default.Title)`
   color: ${Default.color.white};
   margin-bottom: 1.25rem;
+  ${Mobile(`
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  `)}
 `;
 export const ContentTitle = styled.div`
   padding: 4.6875rem;
@@ -45,6 +49,14 @@ export const ContentImageHowWork = styled.div`
   min-width: 38.125rem;
   display: block;
   margin-right: 4.6875rem;
+
+  ${Mobile(`
+    min-width: 100%;
+    margin-right: 0;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.875rem;
+  `)}
 `;
 
 export const ImageHowWork = styled.div`
@@ -55,6 +67,12 @@ export const ImageHowWork = styled.div`
   top: 0;
   left: 0;
   border: 1px solid;
+
+  ${Mobile(`
+    position: relative;
+    width: 17.5rem;
+    height: 18.75rem;
+  `)}
 `;
 
 export const OrnamentImageHowWork = styled.div`
@@ -66,12 +84,23 @@ export const OrnamentImageHowWork = styled.div`
   left: 3.75rem;
   background: ${Default.color.blueOriginal};
   opacity: 0.5;
+
+  ${Mobile(`
+        display: none;
+  `)}
 `;
 
 export const ContentIcon = styled.div`
   display: flex;
   height: 100%;
   margin-right: 1.875rem;
+
+  ${Mobile(`
+    width: 100%;
+    justify-content: center;
+    margin-right: 0;
+    margin-bottom: 1.875rem;
+  `)};
 `;
 
 export const ContentCard = styled.div`
@@ -79,4 +108,8 @@ export const ContentCard = styled.div`
   background: ${Default.color.white};
   box-shadow: 0px 0px 30px #0000000d;
   padding: 3.125rem;
+  ${Mobile(`
+    flex-direction: column;
+    padding: 1.875rem;
+  `)}
 `;
