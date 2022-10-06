@@ -23,7 +23,6 @@ export const Title = styled(Default.Title)`
 `;
 export const ContentTitle = styled.div`
   padding: 4.6875rem;
-  margin-left: -4.6875rem;
   flex-direction: column;
   background: ${Default.color.blueOriginal};
   opacity: 0.85;
@@ -38,7 +37,7 @@ export const ContentTitle = styled.div`
 `;
 
 export const BlockHowWeWork = styled(Default.BlockContent)`
-  background: ${Default.color.white};
+  background: ${Default.color.grayBackground};
 `;
 
 export const ContentImageHowWork = styled.div`
@@ -67,4 +66,17 @@ export const OrnamentImageHowWork = styled.div`
   left: 3.75rem;
   background: ${Default.color.blueOriginal};
   opacity: 0.5;
+`;
+
+export const ContentIcon = styled.div`
+  display: flex;
+  height: 100%;
+  margin-right: 1.875rem;
+`;
+
+export const ContentCard = styled.div`
+  border-radius: 1.25rem;
+  background: ${Default.color.white};
+  box-shadow: 0px 0px 30px #0000000d;
+  padding: 3.125rem;
 `;
