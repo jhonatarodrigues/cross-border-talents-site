@@ -1,10 +1,19 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 
+import { Link, useNavigate } from 'react-router-dom';
 import Default from '../../default';
 
 import ContentSite from '../../components/ContentSite';
 import ContainerSite from '../../components/ContainerSite';
 import IconDocument from '../../assets/svg/document';
+import ButtonSite from '../../components/buttonSite';
+import { htmlURIDecode } from '../../util/format';
+import Modal from '../../components/modal';
+
+import { GetCountries, ICountrie } from '../../hooks/admin/useCountry';
+import { GetJobsPage, IJobs } from '../../hooks/admin/useJobs';
 
 import {
   Banner,
@@ -16,9 +25,49 @@ import {
   ContentImageHowWork,
   ContentIcon,
   ContentCard,
+  NewJobBLock,
+  NewJobItem,
+  NewJobItemContentIcon,
+  NewJobItemContentIconText,
+  BoxTag,
 } from './style';
 
 export default function TalentAcquisition(): JSX.Element {
+  const [jobs, setJobs] = useState<IJobs[]>([]);
+  const [country, setCountry] = useState<ICountrie[]>([]);
+  const navigate = useNavigate();
+
+  const getCountries = useCallback(async () => {
+    const { countries } = await GetCountries();
+    if (countries) {
+      setCountry(countries);
+    } else {
+      Modal({ keyType: 'getCountries', icon: 'error' });
+    }
+  }, []);
+
+  const getJobs = useCallback(async (search?: string) => {
+    try {
+      const response = await GetJobsPage({
+        search,
+        itensPerPage: 3,
+        page: 1,
+      });
+
+      setJobs(response.jobsSearch.jobs);
+    } catch {
+      Modal({ keyType: 'getJobs', icon: 'error' });
+    }
+  }, []);
+
+  useEffect(() => {
+    getCountries();
+  }, [getCountries]);
+
+  useEffect(() => {
+    getJobs();
+  }, [getJobs]);
+
   return (
     <ContentSite>
       <Banner>
@@ -117,8 +166,90 @@ export default function TalentAcquisition(): JSX.Element {
               </Default.Subtitle>
             </Default.Column>
           </ContentCard>
+          <Default.Space h="1.25rem" />
+          <Default.Row alignItens="center" justifyContent="center">
+            <Link to="/contact">
+              <ButtonSite bgColor={Default.color.spotlight}>
+                Contact Us
+              </ButtonSite>
+            </Link>
+          </Default.Row>
         </ContainerSite>
       </BlockHowWeWork>
+
+      <NewJobBLock>
+        <ContainerSite>
+          <Default.TitleH3 color={Default.color.blue} textAlignCenter>
+            The best opportunity
+          </Default.TitleH3>
+          <Default.Space h="2.5rem" />
+
+          <Default.Row alignItens="stretch">
+            {jobs.map(job => {
+              let countryDesc = '';
+
+              if (country.length > 0) {
+                countryDesc =
+                  country.find(
+                    (countryItem: ICountrie) =>
+                      countryItem.countryShortCode === job.country,
+                  )?.countryName || '';
+              }
+
+              return (
+                <NewJobItem
+                  onClick={() => {
+                    navigate('/jobs/internal', {
+                      state: {
+                        item: job,
+                        countryDesc,
+                      },
+                    });
+                  }}
+                >
+                  <BoxTag>Job Opportunity</BoxTag>
+                  <Default.Title2 color={Default.color.blue}>
+                    {job.jobTitle}
+                  </Default.Title2>
+                  <Default.Space h="0.625rem" />
+                  <NewJobItemContentIcon>
+                    <Default.Row alignItens="center">
+                      <FontAwesomeIcon
+                        icon={faLocationDot}
+                        color={Default.color.success}
+                        fontSize={20}
+                      />
+                      <NewJobItemContentIconText>
+                        {countryDesc}
+                      </NewJobItemContentIconText>
+                    </Default.Row>
+                  </NewJobItemContentIcon>
+                  <Default.Space h="0.625rem" />
+                  <Default.Subtitle
+                    color={Default.color.gray}
+                    className="textEditor"
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        job.description.length > 50
+                          ? `${htmlURIDecode(job.description).slice(0, 50)}...`
+                          : htmlURIDecode(job.description),
+                    }}
+                    style={{ flexDirection: 'column' }}
+                  />
+                </NewJobItem>
+              );
+            })}
+          </Default.Row>
+          <Default.Space h="2.5rem" />
+          <Default.Row justifyContent="center">
+            <Link to="/jobs">
+              <ButtonSite bgColor={Default.color.spotlight}>
+                Join our incredible team
+              </ButtonSite>
+            </Link>
+          </Default.Row>
+        </ContainerSite>
+      </NewJobBLock>
     </ContentSite>
   );
 }

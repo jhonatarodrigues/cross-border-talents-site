@@ -113,3 +113,55 @@ export const ContentCard = styled.div`
     padding: 1.875rem;
   `)}
 `;
+export const NewJobBLock = styled(Default.BlockContent)`
+  background: ${Default.color.white};
+  background-size: cover;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const NewJobItem = styled.div`
+  background: ${Default.color.white};
+  padding: 2.5rem;
+  flex-direction: column;
+  border-radius: 1.25rem;
+  margin: 0 0.625rem;
+  width: 100%;
+  position: relative;
+  cursor: pointer;
+  &:first-child {
+    margin-left: 0;
+  }
+  &:last-child {
+    margin-right: 0;
+  }
+  ${Mobile(`
+    margin: 0;
+    margin-bottom: 1.875rem;
+    align-items: center;
+    &:last-child {
+        margin-bottom: 0;
+    }
+  `)}
+`;
+export const NewJobItemContentIcon = styled.div`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+export const NewJobItemContentIconText = styled.p`
+  font-size: 0.75rem;
+  color: ${Default.color.gray};
+  padding-left: 0.625rem;
+`;
+export const BoxTag = styled.div`
+  position: absolute;
+  border-top-left-radius: 0.3125rem;
+  border-bottom-right-radius: 0.3125rem;
+  top: -1px;
+  left: -1px;
+  background: ${Default.color.blueBase};
+  padding: 0.5rem 1rem;
+  font-size: 0.625rem;
+  color: ${Default.color.white};
+`;
