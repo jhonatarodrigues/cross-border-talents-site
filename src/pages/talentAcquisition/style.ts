@@ -1,16 +1,16 @@
 import styled from 'styled-components';
-import { Form } from '@unform/web';
 import { Mobile } from '../../styles/responsiveVariables';
 
-import BannerContact from '../../assets/images/contact/bannerContact.jpg';
 import Default from '../../default';
+import BannerTalent from '../../assets/images/talentAcquision/bannerTalentAcquision.png';
+import ImageWork from '../../assets/images/talentAcquision/howWork.jpg';
 
 export const Banner = styled.div`
   height: 37.0625rem;
   width: 100%;
   align-items: center;
   flex-direction: row;
-  background: url(${BannerContact}) top center no-repeat;
+  background: url(${BannerTalent}) top center no-repeat;
   background-size: cover;
   max-height: 41rem;
   ${Mobile(`
@@ -66,7 +66,9 @@ export const ImageHowWork = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  border: 1px solid;
+  background: url(${ImageWork}) center center no-repeat;
+  background-size: cover;
+  z-index: 1;
 
   ${Mobile(`
     position: relative;

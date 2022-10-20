@@ -166,8 +166,6 @@ export default function Candidates(): JSX.Element {
     }
   }, [recruiterTeamLeader]);
 
-  console.log('candidate', candidates);
-
   const rows: GridRowsProp = candidates.map((candidate: ICandidate) => {
     let countrie = '';
     const countrieFilter = countries.filter(
@@ -344,22 +342,24 @@ export default function Candidates(): JSX.Element {
 
     return (
       <>
-        <InvisibleButton
-          title="Deletar"
-          onClick={() => {
-            Modal({
-              keyType: 'removeCandidate',
-              icon: 'info',
-              cancelButtonText: 'No',
-              confirmButtonText: 'Yes',
-              onClick: () => {
-                handleDeleteCandidate(e.row.allRow.id);
-              },
-            });
-          }}
-        >
-          <FontAwesomeIcon icon={faClose} color={Default.color.red} />
-        </InvisibleButton>
+        {auth && auth.user && auth.user.accessLevel < 3 && (
+          <InvisibleButton
+            title="Deletar"
+            onClick={() => {
+              Modal({
+                keyType: 'removeCandidate',
+                icon: 'info',
+                cancelButtonText: 'No',
+                confirmButtonText: 'Yes',
+                onClick: () => {
+                  handleDeleteCandidate(e.row.allRow.id);
+                },
+              });
+            }}
+          >
+            <FontAwesomeIcon icon={faClose} color={Default.color.red} />
+          </InvisibleButton>
+        )}
         <InvisibleButton
           title="Update"
           onClick={() => {

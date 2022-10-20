@@ -1,10 +1,12 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
-
 import { Link, useNavigate } from 'react-router-dom';
-import Default from '../../default';
 
+import PaperIcon from '../../assets/svg/paperPlus';
+import MultUser from '../../assets/svg/multUser';
+
+import Default from '../../default';
 import ContentSite from '../../components/ContentSite';
 import ContainerSite from '../../components/ContainerSite';
 import IconDocument from '../../assets/svg/document';
@@ -126,7 +128,7 @@ export default function TalentAcquisition(): JSX.Element {
           <Default.Space h="8.125rem" />
           <ContentCard>
             <ContentIcon>
-              <IconDocument />
+              <MultUser />
             </ContentIcon>
             <Default.Column>
               <Default.Title2 color={Default.color.blueOriginal}>
@@ -147,7 +149,7 @@ export default function TalentAcquisition(): JSX.Element {
 
           <ContentCard>
             <ContentIcon>
-              <IconDocument />
+              <PaperIcon />
             </ContentIcon>
             <Default.Column>
               <Default.Title2 color={Default.color.blueOriginal}>
