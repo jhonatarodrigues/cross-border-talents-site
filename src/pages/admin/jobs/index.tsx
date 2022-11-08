@@ -47,6 +47,7 @@ export default function Jobs(): JSX.Element {
       requirements: item.requirements,
       benefits: item.benefits,
       userRecruiter: item?.userRecruiter || '',
+      userTeamLeader: item?.userTeamLeader || '',
     };
   });
 

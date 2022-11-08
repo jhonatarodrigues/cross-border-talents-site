@@ -19,6 +19,9 @@ export interface IJobs {
   userRecruiter?: {
     id: string;
   };
+  userTeamLeader?: {
+    id: string;
+  };
   interestSkills: {
     id: string;
     name: string;
@@ -50,6 +53,7 @@ export interface IJobsSend {
   requirements: string;
   benefits: string;
   recruiter: string;
+  teamLeader: string;
 }
 
 interface IJobsUpdate extends IJobsSend {
@@ -79,7 +83,8 @@ export function UpdateJobs(data: IJobsUpdate): Promise<IJobs> {
               date: "${Moment(data.date).format('YYYY-MM-DD HH:mm')}"
               requirements: "${data.requirements}",
               benefits: "${data.benefits}",
-              recruiter: "${data.recruiter}"
+              recruiter: "${data.recruiter}",
+              teamLeader: "${data.teamLeader}"
           ){
               id
               idInterestSkills
@@ -112,7 +117,8 @@ export function AddJobs(data: IJobsSend): Promise<IJobs> {
             date: "${Moment(data.date).format('YYYY-MM-DD HH:mm')}"
             requirements: "${data.requirements}",
             benefits: "${data.benefits}",
-            recruiter: "${data.recruiter}"
+            recruiter: "${data.recruiter}",
+            teamLeader: "${data.teamLeader}"
         ){
             id
             idInterestSkills
@@ -148,6 +154,9 @@ export function GetJobs(): Promise<IResponseJobs> {
             requirements
             benefits
             userRecruiter{
+                id
+            }
+            userTeamLeader{
                 id
             }
             interestSkills{

@@ -10,7 +10,7 @@ import { SubmitHandler, FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import { htmlURIDecode } from '../../../util/format';
+import { GetTeamLeaders } from '../../../hooks/admin/useTeamLeader';
 import { GetRecruiters } from '../../../hooks/admin/useRecruiters';
 import Modal from '../../../components/modal';
 import Editor from '../../../components/editor';
@@ -50,6 +50,10 @@ export default function JobsRegister(): JSX.Element {
   const [optionsRecruiter, setOptionsRecruiter] = useState<IOptionsDropdown[]>(
     [] as IOptionsDropdown[],
   );
+
+  const [optionsTeamLeader, setOptionsTeamLeader] = useState<
+    IOptionsDropdown[]
+  >([] as IOptionsDropdown[]);
   const location = useLocation();
   //   const params = (location.state as IJobsRegister) || null;
 
@@ -64,6 +68,25 @@ export default function JobsRegister(): JSX.Element {
     }
     return null;
   }, [location]);
+
+  const getTeamLeaders = useCallback(async () => {
+    const { teamLeaders } = await GetTeamLeaders(true);
+    if (teamLeaders) {
+      const options: IOptionsDropdown[] = teamLeaders.map(teamLeader => {
+        return {
+          value: teamLeader.id,
+          label: `${teamLeader.user.name} ${teamLeader.user.lastName}`,
+        };
+      });
+      setOptionsTeamLeader(options);
+    } else {
+      Modal({ keyType: 'getTeamLeaders', icon: 'error' });
+    }
+  }, []);
+
+  useEffect(() => {
+    getTeamLeaders();
+  }, [getTeamLeaders]);
 
   const getRecruiters = useCallback(async () => {
     const { recruiters } = await GetRecruiters(true);
@@ -236,6 +259,18 @@ export default function JobsRegister(): JSX.Element {
                 params?.jobs.userRecruiter &&
                 params?.jobs.userRecruiter.id
                   ? params?.jobs.userRecruiter.id
+                  : ''
+              }
+            />
+            <InputDropDown
+              name="teamLeader"
+              label="Team Leader"
+              options={[{ label: 'Select', value: '' }, ...optionsTeamLeader]}
+              value={
+                params?.jobs &&
+                params?.jobs.userTeamLeader &&
+                params?.jobs.userTeamLeader.id
+                  ? params?.jobs.userTeamLeader.id
                   : ''
               }
             />
