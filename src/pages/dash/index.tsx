@@ -340,7 +340,7 @@ export default function Dash(): JSX.Element {
                   <Default.Space h="2.5rem" />
                   <Link
                     to={{
-                      pathname: '/jobs',
+                      pathname: '/talent-acquisition',
                     }}
                   >
                     <ButtonSite>Join our team</ButtonSite>

@@ -236,22 +236,16 @@ export default function FooterSite(): JSX.Element {
                 © Cross Border Talents - All rights reserved.
               </CopyrightText>
 
-              <Row>
-                <div className="visibleMobile">
+              <div className="visibleMobile">
+                <Row>
                   <Default.Space h="0.1875rem" />
                   <CopyrightText>Privacy Policy</CopyrightText>
                   <CopyrightText paddingLeft="1.875rem">
                     Our Teams
                   </CopyrightText>
                   <Default.Space h="0.3125rem" />
-                </div>
-                <div>
-                  <div className="hiddenMobile">
-                    <CopyrightText>Privacy Policy</CopyrightText>
-                    <CopyrightText paddingLeft="1.875rem">
-                      Our Teams
-                    </CopyrightText>
-                  </div>
+                </Row>
+                <Row>
                   <CopyrightText paddingLeft="5.625rem">
                     Made with
                   </CopyrightText>{' '}
@@ -261,8 +255,24 @@ export default function FooterSite(): JSX.Element {
                   <CopyrightText paddingLeft="0.3125rem">
                     by MINARELLO
                   </CopyrightText>
+                </Row>
+              </div>
+
+              <div className="hiddenMobile">
+                <div>
+                  <CopyrightText>Privacy Policy</CopyrightText>
+                  <CopyrightText paddingLeft="1.875rem">
+                    Our Teams
+                  </CopyrightText>
                 </div>
-              </Row>
+                <CopyrightText paddingLeft="5.625rem">Made with</CopyrightText>{' '}
+                <CopyrightText paddingLeft="0.3125rem" marginMobile>
+                  <FontAwesomeIcon icon={faHeart} color="#C7927F" />
+                </CopyrightText>
+                <CopyrightText paddingLeft="0.3125rem">
+                  by MINARELLO
+                </CopyrightText>
+              </div>
             </ContentCopyright>
           </Row>
         </Footer>
