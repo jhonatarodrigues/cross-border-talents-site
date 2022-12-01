@@ -342,7 +342,7 @@ export default function Candidates(): JSX.Element {
 
     return (
       <>
-        {auth && auth.user && auth.user.accessLevel < 3 && (
+        {auth && auth.user && auth.user.accessLevel === 1 && (
           <InvisibleButton
             title="Deletar"
             onClick={() => {

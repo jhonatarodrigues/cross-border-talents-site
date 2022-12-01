@@ -413,15 +413,15 @@ export default function CandidatesRegister(): JSX.Element {
   }, [auth, params]);
 
   useEffect(() => {
-    if (recruiterInitial) {
+    if (recruiterInitial && !params?.candidate.id) {
       formRef.current?.setFieldValue('recruiter', recruiterInitial);
     }
-  }, [recruiterInitial]);
+  }, [recruiterInitial, params]);
   useEffect(() => {
-    if (recruiterTeamLeader) {
+    if (recruiterTeamLeader && !params?.candidate.id) {
       formRef.current?.setFieldValue('teamLeader', recruiterTeamLeader);
     }
-  }, [recruiterTeamLeader]);
+  }, [recruiterTeamLeader, params]);
 
   return (
     <ContentPage
@@ -538,6 +538,7 @@ export default function CandidatesRegister(): JSX.Element {
                   ? params?.candidate.userTeamLeader.id
                   : ''
               }
+              disabled={auth.user.accessLevel >= 1}
             />
             <InputDropDown
               name="recruiter"
@@ -548,6 +549,7 @@ export default function CandidatesRegister(): JSX.Element {
                   ? params?.candidate.userRecruiter.id
                   : ''
               }
+              disabled={auth.user.accessLevel >= 1}
             />
             {uploadCv && uploadCv !== 'undefined' ? (
               <ContentFile
