@@ -62,7 +62,7 @@ export default function FooterSite(): JSX.Element {
                 <Link to="/talent-pool">
                   <ItemNav>Talent Pool</ItemNav>
                 </Link>
-                <a href="https://blog-cbtalents-com.cloud3.cloubox.com.br/">
+                <a href="https://blog.cbtalents.com/">
                   <ItemNav>Blog</ItemNav>
                 </a>
               </Nav>
