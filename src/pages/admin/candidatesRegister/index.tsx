@@ -538,7 +538,7 @@ export default function CandidatesRegister(): JSX.Element {
                   ? params?.candidate.userTeamLeader.id
                   : ''
               }
-              disabled={auth.user.accessLevel >= 1}
+              disabled={auth.user.accessLevel > 1}
             />
             <InputDropDown
               name="recruiter"
@@ -549,7 +549,7 @@ export default function CandidatesRegister(): JSX.Element {
                   ? params?.candidate.userRecruiter.id
                   : ''
               }
-              disabled={auth.user.accessLevel >= 1}
+              disabled={auth.user.accessLevel > 1}
             />
             {uploadCv && uploadCv !== 'undefined' ? (
               <ContentFile
